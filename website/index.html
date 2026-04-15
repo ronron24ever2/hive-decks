@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hive Autonomy — One operations centre. Multiple machines. No hardware changes.</title>
+<meta name="description" content="Hive Autonomy runs Volvo wheel loaders remotely from a single operations centre in Kristiansand, Norway. Retrofit-free. Operator-supervised. Deployed with Veidekke, Yara, the Norwegian Ministry of Transport and Feiring Bruk." />
+<meta property="og:title" content="Hive Autonomy — Remote operations for heavy machinery" />
+<meta property="og:description" content="One operations centre. Multiple machines. No hardware changes." />
+<meta property="og:image" content="presentation-assets/volvo/slide1-quarry-hero.jpg" />
+<meta property="og:type" content="website" />
+
+<!--
+================================================================================
+HIVE AUTONOMY — WEBSITE PROTOTYPE v12
+Stealth alternative to hiveautonomy.no. Built for Ronny (UK / Vinci) and
+Tatiana (Modex / US). Target aesthetic: editorial-industrial, dark, cinematic,
+credibility-dense. Deliberately NOT generic SaaS.
+
+ASSETS REFERENCED (relative paths — all files exist under /output/):
+  presentation-assets/volvo/feiring-quarry.mp4        (hero primary loop)
+  presentation-assets/volvo/presis-vikafjellet.mp4    (Ministry of Transport feature)
+  presentation-assets/volvo/yara-bulk.mp4             (Yara proof card)
+  presentation-assets/volvo/veidekke-tunnel.mp4       (Veidekke proof card)
+  presentation-assets/volvo/feiring-poster.jpg        (poster fallback)
+  presentation-assets/volvo/slide1-quarry-hero.jpg    (og:image + poster)
+  presentation-assets/volvo/slide12-sensors-labeled.jpg (Hive model section)
+  presentation-assets/volvo/slide4-tunnel.jpg         (safety section)
+  presentation-assets/volvo/slide6-volvo-profile.jpg  (verticals split)
+  presentation-assets/volvo/slide15-confined.jpg      (scaling section)
+  presentation-assets/volvo/multi-vehicle-fleet.jpg   (fleet visual)
+  presentation-assets/volvo/hq-kontoret.jpg           (contact / HQ section)
+  presentation-assets/volvo/hive-logo.png             (nav logo)
+  presentation-assets/hive-operator-chair.jpg        (ops centre visual)
+  presentation-assets/hive-joystick.jpg              (ops centre visual)
+
+MISSING / PLACEHOLDER — Ronny needs to provide:
+  - Photograph: Mo i Rana HQ exterior (current hq-kontoret.jpg is interior)
+  - Photograph: Kristiansand operations centre, operators at stations
+  - Team headshots: Ronny, Fredrik, Dmitri, Tatiana, Christoffer (monogram cards used as fallback)
+  - Ministry of Transport / Statens Vegvesen logo (text label used for now)
+  - Presis Veidrift logo (text label used for now)
+  - Risa logo (text label used for now)
+  - Vinci, Heidelberg, DHL and similar outbound-target logos if we ever want to
+    show "in conversation with" strip — deliberately omitted from v12.
+
+COPY FLAGS (NEEDS RONNY INPUT):
+  - NEEDS RONNY INPUT: Exact machine count for Presis Veidrift / Statens Vegvesen
+    Vikafjellet deployment (currently written as "wheel loader, single-site pilot")
+  - NEEDS RONNY INPUT: Confirmed # of sites live across all deployments
+  - NEEDS RONNY INPUT: Any published payback-period number we're allowed to cite
+    externally (currently written as directional language only)
+  - NEEDS RONNY INPUT: Dmitri's last name and Christoffer's full title wording
+
+MESSAGING BRIEF from Johnny Mac: not present at build time. Copy here is drawn
+directly from research/2026-04-09-competitor-customer-messaging.md and the
+Apr 9 Ronny/Tatiana sync notes. If the brief lands later, copy should be
+reconciled against it before Ronny sends the link to Vinci.
+================================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ink:#F4F1EA;              /* warm off-white (not sterile #fff) */
+  --ink-70:rgba(244,241,234,0.72);
+  --ink-50:rgba(244,241,234,0.52);
+  --ink-30:rgba(244,241,234,0.30);
+  --ink-15:rgba(244,241,234,0.15);
+  --rule:rgba(244,241,234,0.14);
+  --bg:#07101C;                /* deeper than #0B1A2C — more cinematic */
+  --bg-raised:#0B1A2C;
+  --bg-card:#0E2338;
+  --navy:#1B3A5C;
+  --cyan:#5BA7E6;
+  --amber:#E8B84D;             /* warmer than #E8D44D — used once in hero */
+  --signal:#7FE0C4;            /* single cool accent, never mixed with amber */
+  --serif:'Fraunces', Georgia, serif;
+  --sans:'IBM Plex Sans', system-ui, sans-serif;
+  --mono:'JetBrains Mono', ui-monospace, monospace;
+  --ease:cubic-bezier(.2,.6,.2,1);
+  --maxw:1440px;
+  --gutter:clamp(20px, 4vw, 72px);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--ink);
+  font-size:16px;
+  line-height:1.55;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+  /* subtle film-grain texture via SVG noise */
+  background-image:
+    radial-gradient(1200px 600px at 15% 0%, rgba(91,167,230,0.10), transparent 70%),
+    radial-gradient(900px 500px at 90% 40%, rgba(232,184,77,0.04), transparent 70%);
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  pointer-events:none;
+  z-index:100;
+  opacity:.06;
+  mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+img,video{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+/* ——— typographic system ——— */
+.h-display{
+  font-family:var(--serif);
+  font-weight:400;
+  font-variation-settings:"opsz" 144, "SOFT" 30;
+  letter-spacing:-0.025em;
+  line-height:0.96;
+}
+.h-serif{font-family:var(--serif);font-weight:400;letter-spacing:-0.015em;line-height:1.08}
+.h-serif-i{font-family:var(--serif);font-style:italic;font-weight:400}
+.eyebrow{
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--ink-50);
+  font-weight:500;
+}
+.kicker{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--cyan);
+  font-weight:500;
+}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* ——— nav ——— */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  padding:20px var(--gutter);
+  display:flex;align-items:center;justify-content:space-between;
+  backdrop-filter:blur(14px) saturate(140%);
+  background:linear-gradient(to bottom, rgba(7,16,28,0.78), rgba(7,16,28,0.35));
+  border-bottom:1px solid transparent;
+  transition:border-color .4s var(--ease), background .4s var(--ease);
+}
+.nav.scrolled{border-bottom-color:var(--rule);background:rgba(7,16,28,0.92)}
+.nav-logo{
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--serif);font-size:20px;font-weight:500;
+  letter-spacing:-0.01em;
+}
+.nav-logo .mark{
+  width:28px;height:28px;
+  background:var(--cyan);
+  clip-path:polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  display:inline-block;
+}
+.nav-links{display:flex;gap:36px;align-items:center}
+.nav-links a{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--ink-70);
+  transition:color .3s var(--ease);
+  position:relative;
+}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a::after{
+  content:"";position:absolute;left:0;bottom:-6px;height:1px;width:0;
+  background:var(--cyan);transition:width .4s var(--ease);
+}
+.nav-links a:hover::after{width:100%}
+.nav-cta{
+  padding:10px 18px;
+  border:1px solid var(--ink-30);
+  font-family:var(--mono);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;
+  transition:all .3s var(--ease);
+}
+.nav-cta:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+@media (max-width:880px){
+  .nav-links{display:none}
+}
+
+/* ——— HERO ——— */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;align-items:flex-end;
+  overflow:hidden;
+  padding:120px var(--gutter) 80px;
+}
+.hero-video-wrap{
+  position:absolute;inset:0;z-index:0;
+  overflow:hidden;
+}
+.hero-video-wrap video{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  filter:contrast(1.05) saturate(0.85) brightness(0.7);
+}
+.hero-video-wrap::after{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(180deg, rgba(7,16,28,0.55) 0%, rgba(7,16,28,0.1) 30%, rgba(7,16,28,0.4) 65%, rgba(7,16,28,0.95) 100%),
+    linear-gradient(90deg, rgba(7,16,28,0.75) 0%, rgba(7,16,28,0.2) 50%, rgba(7,16,28,0.45) 100%);
+}
+.hero-inner{
+  position:relative;z-index:2;
+  max-width:var(--maxw);width:100%;margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:48px;
+}
+.hero-topline{
+  display:flex;align-items:center;gap:18px;
+  margin-bottom:24px;
+}
+.hero-topline .dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--signal);
+  box-shadow:0 0 0 0 rgba(127,224,196,0.7);
+  animation:pulse 2.4s ease-out infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(127,224,196,0.7)}
+  70%{box-shadow:0 0 0 12px rgba(127,224,196,0)}
+  100%{box-shadow:0 0 0 0 rgba(127,224,196,0)}
+}
+.hero h1{
+  font-family:var(--serif);
+  font-weight:300;
+  font-variation-settings:"opsz" 144, "SOFT" 50;
+  font-size:clamp(44px, 7.2vw, 118px);
+  line-height:0.94;
+  letter-spacing:-0.035em;
+  max-width:14ch;
+  margin-bottom:36px;
+}
+.hero h1 em{
+  font-style:italic;
+  font-weight:400;
+  color:var(--amber);
+}
+.hero-sub{
+  font-size:clamp(16px, 1.3vw, 20px);
+  line-height:1.55;
+  max-width:58ch;
+  color:var(--ink-70);
+  margin-bottom:44px;
+}
+.hero-sub strong{color:var(--ink);font-weight:500}
+.hero-ctas{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:56px}
+.btn{
+  display:inline-flex;align-items:center;gap:12px;
+  padding:16px 26px;
+  font-family:var(--mono);font-size:12px;letter-spacing:0.16em;text-transform:uppercase;
+  border:1px solid var(--ink);
+  background:var(--ink);color:var(--bg);
+  transition:all .35s var(--ease);
+}
+.btn:hover{background:transparent;color:var(--ink);letter-spacing:0.22em}
+.btn .arr{transition:transform .35s var(--ease)}
+.btn:hover .arr{transform:translateX(4px)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--ink-30)}
+.btn-ghost:hover{background:transparent;color:var(--ink);border-color:var(--ink)}
+
+.hero-strip{
+  border-top:1px solid var(--rule);
+  padding-top:28px;
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:32px;
+  max-width:980px;
+}
+.hero-strip .cell .v{
+  font-family:var(--serif);
+  font-size:clamp(26px, 2.4vw, 36px);
+  font-weight:400;
+  letter-spacing:-0.02em;
+  line-height:1;
+  margin-bottom:6px;
+}
+.hero-strip .cell .l{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.16em;
+  text-transform:uppercase;color:var(--ink-50);
+}
+@media (max-width:780px){
+  .hero-strip{grid-template-columns:repeat(2,1fr)}
+  .hero h1{font-size:14vw}
+}
+
+/* section scaffold */
+section{position:relative;padding:clamp(90px,12vh,160px) var(--gutter)}
+.container{max-width:var(--maxw);margin:0 auto;position:relative}
+.section-head{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:40px;
+  align-items:start;
+  margin-bottom:clamp(50px, 8vh, 88px);
+}
+.section-num{
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--cyan);
+  letter-spacing:0.14em;
+  padding-top:10px;
+  white-space:nowrap;
+}
+.section-title h2{
+  font-family:var(--serif);
+  font-weight:300;
+  font-variation-settings:"opsz" 144;
+  font-size:clamp(34px, 4.6vw, 68px);
+  line-height:1.02;
+  letter-spacing:-0.028em;
+  max-width:22ch;
+  margin-bottom:20px;
+}
+.section-title h2 em{font-style:italic;color:var(--cyan);font-weight:400}
+.section-title .lede{
+  font-size:clamp(17px, 1.35vw, 21px);
+  line-height:1.55;
+  color:var(--ink-70);
+  max-width:60ch;
+}
+@media (max-width:780px){
+  .section-head{grid-template-columns:1fr;gap:18px}
+}
+
+/* ——— PROBLEM section ——— */
+.problem{
+  background:linear-gradient(180deg, var(--bg) 0%, #050B14 100%);
+}
+.problem-grid{
+  display:grid;
+  grid-template-columns:1.1fr 0.9fr;
+  gap:72px;
+  align-items:start;
+}
+.problem-quotes{
+  display:flex;flex-direction:column;gap:44px;
+}
+.pull{
+  padding-left:28px;
+  border-left:1px solid var(--cyan);
+  position:relative;
+}
+.pull::before{
+  content:"“";
+  position:absolute;left:-2px;top:-36px;
+  font-family:var(--serif);font-style:italic;font-size:120px;
+  color:var(--cyan);opacity:0.25;line-height:1;
+}
+.pull p{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:300;
+  font-size:clamp(19px, 1.7vw, 26px);
+  line-height:1.4;
+  color:var(--ink);
+  margin-bottom:16px;
+}
+.pull cite{
+  font-style:normal;
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--ink-50);
+}
+.cost-of-delay{
+  background:var(--bg-card);
+  border:1px solid var(--rule);
+  padding:clamp(32px, 4vw, 48px);
+  position:relative;
+}
+.cost-of-delay::before{
+  content:"";
+  position:absolute;top:-1px;left:-1px;width:48px;height:48px;
+  border-top:2px solid var(--amber);border-left:2px solid var(--amber);
+}
+.cost-of-delay::after{
+  content:"";
+  position:absolute;bottom:-1px;right:-1px;width:48px;height:48px;
+  border-bottom:2px solid var(--amber);border-right:2px solid var(--amber);
+}
+.cost-of-delay .eyebrow{color:var(--amber);margin-bottom:18px}
+.cost-of-delay h3{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(24px, 2.3vw, 34px);line-height:1.15;
+  letter-spacing:-0.015em;margin-bottom:24px;
+}
+.cost-of-delay .stat-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:24px;
+  padding-top:24px;border-top:1px solid var(--rule);
+  margin-top:24px;
+}
+.cost-of-delay .stat .v{
+  font-family:var(--serif);
+  font-size:clamp(34px, 3.4vw, 52px);
+  font-weight:300;
+  line-height:1;
+  color:var(--amber);
+  letter-spacing:-0.02em;
+  margin-bottom:8px;
+}
+.cost-of-delay .stat .l{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--ink-50);line-height:1.4;
+}
+@media (max-width:900px){
+  .problem-grid{grid-template-columns:1fr;gap:48px}
+}
+
+/* ——— MODEL section (3 differentiation cards) ——— */
+.model{padding-top:0}
+.model-media{
+  position:relative;
+  margin:0 calc(-1 * var(--gutter));
+  height:clamp(320px, 55vh, 560px);
+  overflow:hidden;
+  margin-bottom:clamp(60px, 9vh, 110px);
+}
+.model-media img{
+  width:100%;height:100%;object-fit:cover;
+  filter:contrast(1.08) brightness(0.75);
+}
+.model-media::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(7,16,28,0.4), transparent 30%, transparent 60%, rgba(7,16,28,1));
+}
+.model-media .caption{
+  position:absolute;bottom:clamp(30px, 5vh, 60px);left:var(--gutter);right:var(--gutter);
+  max-width:var(--maxw);margin:0 auto;
+  z-index:2;
+}
+.model-media .caption .line{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(28px, 3.2vw, 48px);
+  line-height:1.05;letter-spacing:-0.02em;
+  max-width:20ch;
+}
+.model-media .caption .line em{font-style:italic;color:var(--amber)}
+
+.three-cards{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:24px;
+}
+.card{
+  background:var(--bg-raised);
+  border:1px solid var(--rule);
+  padding:clamp(30px,3.2vw,46px);
+  position:relative;
+  transition:border-color .45s var(--ease), transform .45s var(--ease);
+}
+.card:hover{border-color:var(--cyan);transform:translateY(-3px)}
+.card .card-num{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.14em;
+  color:var(--cyan);margin-bottom:24px;display:block;
+}
+.card h3{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(22px, 2vw, 30px);
+  line-height:1.1;letter-spacing:-0.015em;
+  margin-bottom:18px;
+  color:var(--ink);
+  min-height:2.4em;
+}
+.card p{
+  font-size:15px;line-height:1.6;color:var(--ink-70);
+  margin-bottom:20px;
+}
+.card .vs{
+  padding-top:18px;border-top:1px solid var(--rule);
+  font-family:var(--mono);font-size:11px;letter-spacing:0.08em;
+  color:var(--ink-50);line-height:1.55;
+}
+.card .vs b{color:var(--amber);font-weight:600}
+@media (max-width:900px){
+  .three-cards{grid-template-columns:1fr}
+}
+
+/* ——— PROOF / customer grid ——— */
+.proof{
+  background:linear-gradient(180deg, #050B14 0%, var(--bg) 100%);
+}
+.proof-feature{
+  display:grid;
+  grid-template-columns:1.4fr 1fr;
+  gap:0;
+  margin-bottom:40px;
+  border:1px solid var(--rule);
+  background:var(--bg-card);
+  position:relative;
+  overflow:hidden;
+}
+.proof-feature::before{
+  content:"FEATURED";
+  position:absolute;top:24px;right:24px;z-index:3;
+  font-family:var(--mono);font-size:10px;letter-spacing:0.18em;
+  padding:6px 12px;
+  border:1px solid var(--amber);color:var(--amber);
+  background:rgba(7,16,28,0.55);backdrop-filter:blur(6px);
+}
+.proof-feature .media{
+  position:relative;
+  min-height:440px;
+  overflow:hidden;
+}
+.proof-feature .media video{
+  position:absolute;inset:0;
+  width:100%;height:100%;object-fit:cover;
+  filter:contrast(1.08) saturate(0.85) brightness(0.85);
+}
+.proof-feature .media::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg, transparent 60%, rgba(14,35,56,1));
+}
+.proof-feature .body-pad{
+  padding:clamp(36px,4vw,60px);
+  display:flex;flex-direction:column;justify-content:center;
+}
+.proof-feature .tag{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--signal);margin-bottom:20px;
+}
+.proof-feature h3{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(28px,3vw,44px);line-height:1.05;
+  letter-spacing:-0.02em;margin-bottom:12px;
+}
+.proof-feature .subclient{
+  font-family:var(--mono);font-size:12px;letter-spacing:0.12em;
+  color:var(--ink-50);text-transform:uppercase;margin-bottom:22px;
+}
+.proof-feature .desc{
+  color:var(--ink-70);font-size:16px;line-height:1.6;margin-bottom:28px;max-width:44ch;
+}
+.proof-feature .stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+  padding-top:24px;border-top:1px solid var(--rule);
+}
+.proof-feature .stats .v{
+  font-family:var(--serif);font-size:clamp(22px,2vw,30px);
+  font-weight:400;letter-spacing:-0.01em;line-height:1;color:var(--ink);margin-bottom:6px;
+}
+.proof-feature .stats .l{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.12em;
+  color:var(--ink-50);text-transform:uppercase;line-height:1.4;
+}
+@media (max-width:900px){
+  .proof-feature{grid-template-columns:1fr}
+  .proof-feature .media{min-height:260px}
+}
+
+.proof-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+.proof-card{
+  position:relative;
+  aspect-ratio:3/4;
+  overflow:hidden;
+  border:1px solid var(--rule);
+  background:var(--bg-card);
+  transition:border-color .45s var(--ease);
+}
+.proof-card:hover{border-color:var(--cyan)}
+.proof-card .media{position:absolute;inset:0}
+.proof-card .media video,
+.proof-card .media img{
+  width:100%;height:100%;object-fit:cover;
+  filter:contrast(1.06) saturate(0.85) brightness(0.7);
+  transition:transform 1.4s var(--ease);
+}
+.proof-card:hover .media video,
+.proof-card:hover .media img{transform:scale(1.04)}
+.proof-card::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg, rgba(7,16,28,0.1) 0%, rgba(7,16,28,0.2) 40%, rgba(7,16,28,0.95) 100%);
+}
+.proof-card .content{
+  position:absolute;inset:auto 0 0 0;
+  padding:26px;z-index:2;
+}
+.proof-card .tag{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.14em;
+  color:var(--signal);text-transform:uppercase;display:block;margin-bottom:10px;
+}
+.proof-card h4{
+  font-family:var(--serif);font-weight:400;
+  font-size:22px;line-height:1.1;letter-spacing:-0.015em;
+  margin-bottom:6px;
+}
+.proof-card .sub{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.1em;
+  color:var(--ink-50);text-transform:uppercase;margin-bottom:14px;
+}
+.proof-card .line{
+  font-size:13px;line-height:1.5;color:var(--ink-70);
+}
+@media (max-width:1100px){.proof-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.proof-grid{grid-template-columns:1fr}}
+
+/* ——— VERTICALS split ——— */
+.verticals{background:var(--bg)}
+.verticals-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2px;
+  background:var(--rule);
+  border:1px solid var(--rule);
+}
+.vcol{
+  background:var(--bg-raised);
+  padding:clamp(36px,4vw,60px);
+  position:relative;
+  overflow:hidden;
+}
+.vcol .v-num{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.14em;
+  color:var(--cyan);margin-bottom:22px;display:block;
+}
+.vcol .v-owner{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.14em;
+  color:var(--ink-50);text-transform:uppercase;margin-bottom:10px;
+}
+.vcol h3{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(28px,2.8vw,42px);line-height:1.05;
+  letter-spacing:-0.02em;margin-bottom:22px;
+}
+.vcol h3 em{font-style:italic;color:var(--cyan)}
+.vcol p{color:var(--ink-70);margin-bottom:28px;font-size:16px;line-height:1.6;max-width:44ch}
+.vcol ul{list-style:none;padding-top:24px;border-top:1px solid var(--rule)}
+.vcol li{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:14px 0;border-bottom:1px solid var(--rule);
+  font-size:14px;
+}
+.vcol li:last-child{border-bottom:none}
+.vcol li .what{color:var(--ink)}
+.vcol li .who{font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:var(--ink-50);text-transform:uppercase}
+@media (max-width:880px){
+  .verticals-grid{grid-template-columns:1fr}
+}
+
+/* ——— SAFETY ——— */
+.safety{
+  position:relative;overflow:hidden;
+}
+.safety-bg{
+  position:absolute;inset:0;z-index:0;
+}
+.safety-bg img{width:100%;height:100%;object-fit:cover;filter:contrast(1.08) brightness(0.38) saturate(0.6)}
+.safety-bg::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg, var(--bg) 0%, rgba(7,16,28,0.55) 60%, rgba(7,16,28,0.25) 100%);
+}
+.safety .container{z-index:2}
+.safety-inner{
+  max-width:720px;position:relative;z-index:2;
+}
+.safety h2{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(38px, 5vw, 82px);line-height:0.98;letter-spacing:-0.03em;
+  margin-bottom:32px;
+}
+.safety h2 em{font-style:italic;color:var(--amber);font-weight:400}
+.safety p{font-size:18px;line-height:1.6;color:var(--ink-70);margin-bottom:40px;max-width:56ch}
+.safety-kpis{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  border-top:1px solid var(--rule);padding-top:32px;max-width:640px;
+}
+.safety-kpis .k{font-family:var(--mono);font-size:11px;letter-spacing:0.14em;color:var(--ink-50);text-transform:uppercase;margin-bottom:8px}
+.safety-kpis .v{font-family:var(--serif);font-size:clamp(22px,2vw,30px);font-weight:400;color:var(--ink);letter-spacing:-0.01em}
+
+/* ——— SCALING / stepper ——— */
+.scaling{background:linear-gradient(180deg, var(--bg) 0%, #050B14 100%)}
+.stepper{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+  position:relative;
+}
+.stepper::before{
+  content:"";
+  position:absolute;left:10%;right:10%;top:40px;height:1px;
+  background:linear-gradient(90deg, var(--cyan), var(--ink-15));
+}
+.step{
+  padding:0 24px;
+  position:relative;
+}
+.step .node{
+  width:18px;height:18px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--cyan);
+  margin:32px 0 28px;
+  position:relative;z-index:1;
+  box-shadow:0 0 0 6px var(--bg);
+}
+.step:nth-child(1) .node{background:var(--cyan)}
+.step .step-n{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.14em;
+  color:var(--ink-50);text-transform:uppercase;margin-bottom:14px;
+}
+.step h4{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(22px, 1.9vw, 28px);line-height:1.1;
+  letter-spacing:-0.015em;margin-bottom:12px;
+}
+.step p{color:var(--ink-70);font-size:14px;line-height:1.6;max-width:30ch}
+.scaling-note{
+  margin-top:60px;
+  padding:28px 36px;
+  border-left:2px solid var(--cyan);
+  background:rgba(91,167,230,0.05);
+}
+.scaling-note .eyebrow{color:var(--cyan);margin-bottom:12px}
+.scaling-note p{font-family:var(--serif);font-style:italic;font-size:clamp(17px,1.4vw,22px);line-height:1.5;color:var(--ink);max-width:70ch}
+@media (max-width:800px){
+  .stepper{grid-template-columns:1fr;gap:32px}
+  .stepper::before{display:none}
+}
+
+/* ——— TEAM ——— */
+.team-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:16px;
+}
+.tcard{
+  background:var(--bg-raised);
+  border:1px solid var(--rule);
+  padding:30px 26px;
+  aspect-ratio:3/4;
+  display:flex;flex-direction:column;justify-content:space-between;
+  transition:all .4s var(--ease);
+  position:relative;overflow:hidden;
+}
+.tcard:hover{border-color:var(--cyan);transform:translateY(-3px)}
+.tcard .mono{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:68px;
+  line-height:1;
+  letter-spacing:-0.04em;
+  color:var(--cyan);
+}
+.tcard .name{
+  font-family:var(--serif);font-weight:400;
+  font-size:19px;line-height:1.15;letter-spacing:-0.01em;
+  margin-bottom:4px;
+}
+.tcard .role{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--ink-50);line-height:1.4;
+}
+@media (max-width:1100px){.team-grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:700px){.team-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ——— CTA ——— */
+.cta-section{
+  position:relative;
+  padding:clamp(100px,14vh,180px) var(--gutter);
+  overflow:hidden;
+  background:var(--bg-raised);
+  border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+}
+.cta-section::before{
+  content:"HIVE";
+  position:absolute;
+  bottom:-0.28em;left:-0.05em;
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(200px, 30vw, 480px);
+  line-height:0.8;letter-spacing:-0.05em;
+  color:var(--ink-15);
+  pointer-events:none;
+  white-space:nowrap;
+  mix-blend-mode:screen;
+}
+.cta-inner{
+  max-width:var(--maxw);margin:0 auto;
+  position:relative;z-index:2;
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:80px;align-items:center;
+}
+.cta-inner h2{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(42px,5.2vw,88px);line-height:0.98;letter-spacing:-0.03em;
+  margin-bottom:28px;max-width:14ch;
+}
+.cta-inner h2 em{font-style:italic;color:var(--amber)}
+.cta-inner .lede{font-size:18px;line-height:1.55;color:var(--ink-70);max-width:50ch;margin-bottom:44px}
+.cta-card{
+  background:var(--bg);
+  border:1px solid var(--rule);
+  padding:40px;
+}
+.cta-card .eyebrow{margin-bottom:16px;color:var(--cyan)}
+.cta-card .who{
+  font-family:var(--serif);font-size:26px;font-weight:400;line-height:1.15;
+  margin-bottom:6px;letter-spacing:-0.01em;
+}
+.cta-card .title{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.12em;
+  color:var(--ink-50);text-transform:uppercase;margin-bottom:28px;
+}
+.cta-card .contact{display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
+.cta-card .contact a{
+  font-size:14px;color:var(--ink);
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--mono);
+  transition:color .3s var(--ease);
+}
+.cta-card .contact a:hover{color:var(--cyan)}
+.cta-card .contact .lbl{color:var(--ink-50);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;min-width:56px}
+.cta-card hr{border:0;border-top:1px solid var(--rule);margin:24px 0}
+.cta-card .locations{
+  display:grid;grid-template-columns:1fr 1fr;gap:18px;
+}
+.cta-card .locations .loc .lbl{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.14em;
+  color:var(--ink-50);text-transform:uppercase;margin-bottom:6px;display:block;
+}
+.cta-card .locations .loc .city{
+  font-family:var(--serif);font-size:17px;line-height:1.2;
+}
+@media (max-width:900px){
+  .cta-inner{grid-template-columns:1fr;gap:40px}
+}
+
+/* ——— FOOTER ——— */
+footer{
+  padding:50px var(--gutter) 40px;
+  background:#050B14;
+}
+.footer-inner{
+  max-width:var(--maxw);margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;
+}
+footer .logo-l{
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--serif);font-size:18px;font-weight:500;
+}
+footer .logo-l .mark{
+  width:22px;height:22px;background:var(--cyan);
+  clip-path:polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+footer .meta{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.12em;
+  color:var(--ink-50);text-transform:uppercase;
+}
+footer .meta a{color:var(--ink-70);margin-left:24px;transition:color .3s var(--ease)}
+footer .meta a:hover{color:var(--cyan)}
+
+/* reveal animation */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 1s var(--ease), transform 1s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal-d1{transition-delay:.08s}
+.reveal-d2{transition-delay:.18s}
+.reveal-d3{transition-delay:.28s}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ———————————————————————— NAV ———————————————————————— -->
+<nav class="nav" id="nav">
+  <a href="#top" class="nav-logo"><span class="mark"></span>Hive<span style="color:var(--ink-70);font-weight:400">Autonomy</span></a>
+  <div class="nav-links">
+    <a href="#model">The Model</a>
+    <a href="#proof">Deployments</a>
+    <a href="#verticals">Markets</a>
+    <a href="#safety">Safety</a>
+    <a href="#team">Team</a>
+  </div>
+  <a href="#contact" class="nav-cta">Talk to an expert →</a>
+</nav>
+
+<!-- ———————————————————————— HERO ———————————————————————— -->
+<header class="hero" id="top">
+  <div class="hero-video-wrap">
+    <video autoplay muted loop playsinline preload="metadata"
+           poster="presentation-assets/volvo/feiring-poster.jpg">
+      <source src="presentation-assets/volvo/feiring-quarry.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-topline">
+        <span class="dot"></span>
+        <span class="eyebrow">Live now — Kristiansand Operations Centre</span>
+      </div>
+      <h1 class="reveal in">
+        One&nbsp;operations centre.<br>
+        Multiple&nbsp;machines.<br>
+        <em>No hardware changes.</em>
+      </h1>
+      <p class="hero-sub reveal in reveal-d1">
+        Hive runs your Volvo wheel loaders remotely from a single operations centre in Norway.
+        <strong>Retrofit-free. Operator-supervised. Deployed today</strong> with Veidekke, Yara,
+        the Norwegian Ministry of Transport and Feiring Bruk.
+      </p>
+      <div class="hero-ctas reveal in reveal-d2">
+        <a href="#contact" class="btn">Talk to an expert <span class="arr">→</span></a>
+        <a href="#proof" class="btn btn-ghost">See it in production <span class="arr">↓</span></a>
+      </div>
+    </div>
+    <div class="hero-strip reveal in reveal-d3">
+      <div class="cell"><div class="v num">24/7</div><div class="l">Supervised from Kristiansand</div></div>
+      <div class="cell"><div class="v num">L60 – L350</div><div class="l">Volvo wheel loaders, 2018 +</div></div>
+      <div class="cell"><div class="v num">0</div><div class="l">Hardware changes to your fleet</div></div>
+      <div class="cell"><div class="v num">1 : N</div><div class="l">Operators supervise multiple machines</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ———————————————————————— 01 PROBLEM ———————————————————————— -->
+<section class="problem" id="problem">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">01 / 10 &nbsp;&nbsp;THE PROBLEM</div>
+      <div class="section-title">
+        <h2 class="reveal">Skilled operators are getting harder to find.<br>Machines are <em>standing still.</em></h2>
+        <p class="lede reveal reveal-d1">
+          Every quarry, aggregates yard and industrial site we talk to says the same thing.
+          The operational constraint is no longer the equipment. It is the people who can run it —
+          and the hours those people are allowed to spend in a cab.
+        </p>
+      </div>
+    </div>
+
+    <div class="problem-grid">
+      <div class="problem-quotes">
+        <blockquote class="pull reveal">
+          <p>We experience a labor shortage of skilled operators. We needed a solution that can retrofit our existing heavy mobile equipment, rather than replace it — and deliver a clear payback in installation and operating costs.</p>
+          <cite>— Heidelberg Materials, public procurement criteria for autonomous haulage</cite>
+        </blockquote>
+        <blockquote class="pull reveal reveal-d1">
+          <p>We wanted a single, user-friendly interface that makes the work of our skilled operators easier — not more complex. And we needed to keep employees out of potentially hazardous situations.</p>
+          <cite>— Heidelberg Materials, same source</cite>
+        </blockquote>
+      </div>
+
+      <aside class="cost-of-delay reveal reveal-d2">
+        <div class="eyebrow">Cost of delay</div>
+        <h3>Every shift a machine stands still is a shift you cannot bill, cannot quote against, and cannot recover.</h3>
+        <p style="font-size:15px;color:var(--ink-70);line-height:1.6">
+          The question every operations director we meet is already asking: <em>what does it cost us to wait another year</em> — on the machines you already own, with no capital purchase required?
+        </p>
+        <div class="stat-row">
+          <div class="stat">
+            <div class="v">2×</div>
+            <div class="l">Additional shifts<br>per machine, per day</div>
+          </div>
+          <div class="stat">
+            <div class="v">Months</div>
+            <div class="l">Target payback<br>on retrofit-free model</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ———————————————————————— 02 THE MODEL ———————————————————————— -->
+<section class="model" id="model">
+  <div class="model-media reveal">
+    <img src="presentation-assets/volvo/slide12-sensors-labeled.jpg" alt="Volvo wheel loader equipped with Hive supervision stack">
+    <div class="caption">
+      <div class="line">The autonomy lives in the <em>operations centre</em>,<br>not on the machine.</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">02 / 10 &nbsp;&nbsp;THE MODEL</div>
+      <div class="section-title">
+        <h2 class="reveal">Three things the rest of the market <em>cannot</em> offer together.</h2>
+        <p class="lede reveal reveal-d1">
+          Autonomy vendors either bolt hardware onto your machines, lock you into a single OEM, or build for US-only fleets.
+          Hive is the only operator running a remote operations centre model with <em>zero</em> physical changes to your existing Volvo equipment.
+        </p>
+      </div>
+    </div>
+
+    <div class="three-cards">
+      <article class="card reveal">
+        <span class="card-num">01 · RETROFIT-FREE</span>
+        <h3>Your Volvo. Unchanged. Still under OEM warranty.</h3>
+        <p>Hive uses the sensors, the CAN bus and the telemetry your L-series already has. No rack bolted to the roof. No electronics in the engine bay. The machine you bought is the machine you keep.</p>
+        <div class="vs">vs. <b>Gravis / bolt-on racks:</b> hardware on every machine, every time.</div>
+      </article>
+
+      <article class="card reveal reveal-d1">
+        <span class="card-num">02 · OEM-AGNOSTIC PLATFORM</span>
+        <h3>Built around a fleet you already own.</h3>
+        <p>Volvo L60 through L350 (2018+) is supported today. The operations model — not the hardware — is the product. When we extend to additional platforms, your operators do not learn a new tool.</p>
+        <div class="vs">vs. <b>Cat Command / Komatsu FrontRunner:</b> only inside the OEM's own catalogue.</div>
+      </article>
+
+      <article class="card reveal reveal-d2">
+        <span class="card-num">03 · ONE CENTRE, MANY SITES</span>
+        <h3>Supervised from Kristiansand, Norway.</h3>
+        <p>One trained operator supervises several machines at once from a single European operations centre. Your people stay on the site doing what they do best. The keyboard-and-joystick hours move to a facility built for them.</p>
+        <div class="vs">vs. <b>Teleo / Bedrock:</b> US-centric, still scaling their European presence.</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ———————————————————————— 03 PROOF ———————————————————————— -->
+<section class="proof" id="proof">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">03 / 10 &nbsp;&nbsp;IN PRODUCTION</div>
+      <div class="section-title">
+        <h2 class="reveal">Deployed today. With customers <em>you know.</em></h2>
+        <p class="lede reveal reveal-d1">
+          We do not quote "global leaders" or "Fortune 500." We quote specific names, specific sites, specific operational outcomes.
+          Here is what is running right now.
+        </p>
+      </div>
+    </div>
+
+    <!-- Ministry of Transport — FEATURED -->
+    <article class="proof-feature reveal">
+      <div class="media">
+        <video autoplay muted loop playsinline preload="metadata" poster="presentation-assets/volvo/slide15-confined.jpg">
+          <source src="presentation-assets/volvo/presis-vikafjellet.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="body-pad">
+        <div class="tag">Norwegian Ministry of Transport</div>
+        <h3>Snow clearing on a mountain pass. Operator in Kristiansand.</h3>
+        <div class="subclient">Presis Veidrift · Statens Vegvesen · Vikafjellet, RV13</div>
+        <p class="desc">
+          Remote wheel-loader snow clearing on one of Norway's most exposed mountain routes — an active avalanche zone where the state does not want operators on site. Supervised live from our Kristiansand operations centre, in production with Presis Veidrift under the Statens Vegvesen contract.
+        </p>
+        <div class="stats">
+          <div><div class="v">Ministry-level</div><div class="l">Regulatory approval</div></div>
+          <div><div class="v">Avalanche zone</div><div class="l">Hazardous site classification</div></div>
+          <div><div class="v">Live production</div><div class="l">Not a pilot</div></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Four supporting cards -->
+    <div class="proof-grid">
+
+      <article class="proof-card reveal">
+        <div class="media">
+          <video autoplay muted loop playsinline preload="metadata" poster="presentation-assets/volvo/slide1-quarry-hero.jpg">
+            <source src="presentation-assets/volvo/yara-bulk.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="content">
+          <span class="tag">Industrial · Bulk handling</span>
+          <h4>Yara</h4>
+          <div class="sub">Porsgrunn, Norway</div>
+          <p class="line">Wheel-loader feeding industrial bulk flows at one of Europe's largest mineral fertiliser plants.</p>
+        </div>
+      </article>
+
+      <article class="proof-card reveal reveal-d1">
+        <div class="media">
+          <video autoplay muted loop playsinline preload="metadata" poster="presentation-assets/volvo/slide4-tunnel.jpg">
+            <source src="presentation-assets/volvo/veidekke-tunnel.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="content">
+          <span class="tag">Infrastructure · Tunnel</span>
+          <h4>Veidekke</h4>
+          <div class="sub">Telia 5G tunnel project</div>
+          <p class="line">Remote loader operation inside a live Nordic tunnel build — operators out of the confined space.</p>
+        </div>
+      </article>
+
+      <article class="proof-card reveal reveal-d2">
+        <div class="media">
+          <video autoplay muted loop playsinline preload="metadata" poster="presentation-assets/volvo/feiring-poster.jpg">
+            <source src="presentation-assets/volvo/feiring-quarry.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="content">
+          <span class="tag">Aggregates · Quarry</span>
+          <h4>Feiring Bruk</h4>
+          <div class="sub">Nordic aggregates producer</div>
+          <p class="line">L-series wheel loader running in an active production quarry. Retrofit-free, Volvo remains under warranty.</p>
+        </div>
+      </article>
+
+      <article class="proof-card reveal reveal-d3">
+        <div class="media">
+          <img src="presentation-assets/volvo/multi-vehicle-fleet.jpg" alt="Multi-vehicle site, Risa">
+        </div>
+        <div class="content">
+          <span class="tag">Construction · Civil works</span>
+          <h4>Risa</h4>
+          <div class="sub">Norwegian civil engineering</div>
+          <p class="line">Fleet operator partnership — wheel-loader supervision extending across mixed-site operations.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ———————————————————————— 04 VERTICALS ———————————————————————— -->
+<section class="verticals" id="verticals">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">04 / 10 &nbsp;&nbsp;TWO MARKETS, ONE MODEL</div>
+      <div class="section-title">
+        <h2 class="reveal">Two entry points. <em>One platform.</em></h2>
+        <p class="lede reveal reveal-d1">
+          Hive enters through two doors. The same operations centre, the same supervision model, the same retrofit-free hardware position — serving two customer categories with different procurement logic.
+        </p>
+      </div>
+    </div>
+
+    <div class="verticals-grid">
+      <div class="vcol reveal">
+        <span class="v-num">A · HEAVY MACHINERY</span>
+        <div class="v-owner">Ronny Liverød · VP Heavy Machinery</div>
+        <h3>Quarry, aggregates <em>&amp; infrastructure</em></h3>
+        <p>Wheel loaders on active production sites. Customers measure themselves in cost per tonne, LTIF, and how fast a new shift can be unlocked without hiring. Margin pressure sits firmly inside this segment — and so does procurement readiness.</p>
+        <ul>
+          <li><span class="what">Aggregates producers</span><span class="who">Feiring · Risa</span></li>
+          <li><span class="what">Civil &amp; infrastructure</span><span class="who">Veidekke</span></li>
+          <li><span class="what">Winter road operations</span><span class="who">Presis · Statens Vegvesen</span></li>
+          <li><span class="what">Quarry &amp; cement</span><span class="who">Heidelberg-type ICP</span></li>
+        </ul>
+      </div>
+
+      <div class="vcol reveal reveal-d1">
+        <span class="v-num">B · INTRALOGISTICS</span>
+        <div class="v-owner">Tatiana Kalinina · VP Intralogistics</div>
+        <h3>Factory-adjacent <em>&amp; industrial bulk</em></h3>
+        <p>The segment where wheel loaders live inside a production process — feeding hoppers, handling bulk raw material, operating inside facilities with strict safety and uptime requirements. A premium segment, not commodity warehouse AMR territory.</p>
+        <ul>
+          <li><span class="what">Mineral fertiliser &amp; chemicals</span><span class="who">Yara</span></li>
+          <li><span class="what">Metals &amp; alloys</span><span class="who">Elkem-type ICP</span></li>
+          <li><span class="what">Aluminium &amp; coatings</span><span class="who">Hydro · paint producers</span></li>
+          <li><span class="what">Oil &amp; gas terminal handling</span><span class="who">Upstream ICP</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ———————————————————————— 05 SAFETY ———————————————————————— -->
+<section class="safety" id="safety">
+  <div class="safety-bg">
+    <img src="presentation-assets/volvo/slide4-tunnel.jpg" alt="Operator out of confined tunnel space">
+  </div>
+  <div class="container">
+    <div class="safety-inner">
+      <div class="section-num" style="margin-bottom:28px">05 / 10 &nbsp;&nbsp;SAFETY</div>
+      <h2 class="reveal">Operators out of <em>hazardous zones.</em></h2>
+      <p class="reveal reveal-d1">
+        Our customers' boards care about LTIF, not features. Hive removes people from the cabs that matter — avalanche zones, confined tunnels, dusty bulk yards, heat-exposed industrial floors — and puts them in a facility built for operator welfare. This is not a secondary benefit. It is the primary boardroom argument in every conversation we have with Skanska, NCC, CRH and Veidekke safety leadership.
+      </p>
+      <div class="safety-kpis reveal reveal-d2">
+        <div><div class="k">Zone of exposure</div><div class="v">Eliminated</div></div>
+        <div><div class="k">Board-level metric</div><div class="v">LTIF ↓</div></div>
+        <div><div class="k">Operator retention</div><div class="v">Argued ↑</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ———————————————————————— 06 SCALING ———————————————————————— -->
+<section class="scaling" id="scaling">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">06 / 10 &nbsp;&nbsp;FROM PILOT TO FLEET</div>
+      <div class="section-title">
+        <h2 class="reveal">A <em>path</em>, not a leap.</h2>
+        <p class="lede reveal reveal-d1">
+          We deliberately do not ask customers to commit a fleet on day one. One machine, one site, one supervised shift — a production pilot built to return a payback number their CFO can sign.
+        </p>
+      </div>
+    </div>
+
+    <div class="stepper">
+      <div class="step reveal">
+        <div class="node"></div>
+        <div class="step-n">Step 01 · Pilot</div>
+        <h4>One machine. One site. One shift pattern.</h4>
+        <p>A production deployment, not a demo. Your Volvo, your operators, your KPIs. We share the payback math.</p>
+      </div>
+      <div class="step reveal reveal-d1">
+        <div class="node"></div>
+        <div class="step-n">Step 02 · Site</div>
+        <h4>Full site. Mixed shifts. Ops centre live.</h4>
+        <p>We scale the pilot across a site's wheel-loader fleet. Your KPIs become production targets. We commit to them.</p>
+      </div>
+      <div class="step reveal reveal-d2">
+        <div class="node"></div>
+        <div class="step-n">Step 03 · Fleet</div>
+        <h4>Multi-site. Multi-country. One centre.</h4>
+        <p>The same model Heidelberg is running: 1 quarry proven, 100+ machines rolled out. No re-engineering required.</p>
+      </div>
+    </div>
+
+    <div class="scaling-note reveal reveal-d2">
+      <div class="eyebrow">Why this shape</div>
+      <p>Heidelberg Materials moved from a single Texas quarry to a 100+ autonomous truck rollout across 12 sites globally. The pattern is not accidental — it is how industrial buyers de-risk autonomy. Hive is designed around this curve, not against it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ———————————————————————— 07 TEAM ———————————————————————— -->
+<section id="team">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">07 / 10 &nbsp;&nbsp;WHO BUILDS HIVE</div>
+      <div class="section-title">
+        <h2 class="reveal">Nordic engineering. <em>Commercial discipline.</em></h2>
+        <p class="lede reveal reveal-d1">
+          A founding team with operational experience in both the operations centre and the quarry. Contact any of us directly — we run this commercially, not through layers.
+        </p>
+      </div>
+    </div>
+
+    <div class="team-grid">
+      <div class="tcard reveal">
+        <div class="mono">CJ</div>
+        <div>
+          <div class="name">Christoffer Jørgenvåg</div>
+          <div class="role">Co-founder · CEO</div>
+        </div>
+      </div>
+      <div class="tcard reveal reveal-d1">
+        <div class="mono">FB</div>
+        <div>
+          <div class="name">Fredrik Bringager</div>
+          <div class="role">Co-founder · CCO</div>
+        </div>
+      </div>
+      <div class="tcard reveal reveal-d2">
+        <div class="mono">DM</div>
+        <div>
+          <div class="name">Dmitri</div>
+          <div class="role">Chief Technology Officer</div>
+        </div>
+      </div>
+      <div class="tcard reveal reveal-d3">
+        <div class="mono">RL</div>
+        <div>
+          <div class="name">Ronny Azimi Liverød</div>
+          <div class="role">VP Heavy Machinery</div>
+        </div>
+      </div>
+      <div class="tcard reveal reveal-d3">
+        <div class="mono">TK</div>
+        <div>
+          <div class="name">Tatiana Kalinina</div>
+          <div class="role">VP Intralogistics</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ———————————————————————— 08 CTA ———————————————————————— -->
+<section class="cta-section" id="contact">
+  <div class="cta-inner">
+    <div>
+      <div class="section-num" style="margin-bottom:24px">08 / 10 &nbsp;&nbsp;NEXT STEP</div>
+      <h2 class="reveal">Talk to an <em>expert.</em></h2>
+      <p class="lede reveal reveal-d1">
+        Not a form. Not a queue. If you operate Volvo L60 – L350 wheel loaders and you are trying to unlock a shift without hiring, the fastest conversation you will have this quarter is a direct one.
+      </p>
+      <a href="mailto:ronny.liverod@hiveautonomy.no" class="btn reveal reveal-d2">ronny.liverod@hiveautonomy.no <span class="arr">→</span></a>
+    </div>
+
+    <aside class="cta-card reveal reveal-d2">
+      <div class="eyebrow">Direct contact</div>
+      <div class="who">Ronny Azimi Liverød</div>
+      <div class="title">VP Heavy Machinery · Hive Autonomy</div>
+      <div class="contact">
+        <a href="mailto:ronny.liverod@hiveautonomy.no"><span class="lbl">Email</span><span>ronny.liverod@hiveautonomy.no</span></a>
+        <a href="tel:+4748132299"><span class="lbl">Phone</span><span>+47 481 32 299</span></a>
+      </div>
+      <hr>
+      <div class="locations">
+        <div class="loc">
+          <span class="lbl">Headquarters</span>
+          <span class="city">Mo i&nbsp;Rana</span>
+        </div>
+        <div class="loc">
+          <span class="lbl">Operations centre</span>
+          <span class="city">Kristiansand</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ———————————————————————— FOOTER ———————————————————————— -->
+<footer>
+  <div class="footer-inner">
+    <a href="#top" class="logo-l"><span class="mark"></span>Hive Autonomy AS</a>
+    <div class="meta">
+      <span>© 2026 Hive Autonomy AS</span>
+      <a href="https://hiveautonomy.no">hiveautonomy.no</a>
+      <a href="https://www.linkedin.com/company/hive-autonomy/">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ——— smooth-scroll nav shadow ———
+const nav = document.getElementById('nav');
+const onScroll = () => { nav.classList.toggle('scrolled', window.scrollY > 40); };
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+// ——— reveal on intersect ———
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+}, {threshold:0.15, rootMargin:"0px 0px -60px 0px"});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// ——— smooth anchor scroll (respects reduced motion) ———
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (ev) => {
+    const id = a.getAttribute('href');
+    if (id.length > 1) {
+      const el = document.querySelector(id);
+      if (el) {
+        ev.preventDefault();
+        el.scrollIntoView({behavior: 'smooth', block: 'start'});
+      }
+    }
+  });
+});
+
+// ——— video autoplay guard (Safari low-power mode) ———
+document.querySelectorAll('video').forEach(v => {
+  const tryPlay = () => v.play().catch(() => {});
+  v.addEventListener('canplay', tryPlay, {once:true});
+  document.addEventListener('touchstart', tryPlay, {once:true, passive:true});
+});
+</script>
+
+</body>
+</html>
