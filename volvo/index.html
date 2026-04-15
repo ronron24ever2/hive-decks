@@ -1145,7 +1145,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
       <div class="video-grid">
         <div class="video-card">
           <div class="video-slot" style="--poster-url: url('presentation-assets/exxon/yara-detail-24.jpg'); background-image: url('presentation-assets/exxon/yara-detail-24.jpg');">
-            <video autoplay loop muted playsinline preload="metadata" poster="presentation-assets/exxon/yara-detail-24.jpg">
+            <video loop muted playsinline preload="none" poster="presentation-assets/exxon/yara-detail-24.jpg">
               <source src="presentation-assets/volvo/yara-bulk.mp4" type="video/mp4">
             </video>
           </div>
@@ -1155,7 +1155,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
         </div>
         <div class="video-card">
           <div class="video-slot" style="--poster-url: url('presentation-assets/exxon/presis-22.jpg'); background-image: url('presentation-assets/exxon/presis-22.jpg');">
-            <video autoplay loop muted playsinline preload="metadata" poster="presentation-assets/exxon/presis-22.jpg">
+            <video loop muted playsinline preload="none" poster="presentation-assets/exxon/presis-22.jpg">
               <source src="presentation-assets/volvo/presis-vikafjellet.mp4" type="video/mp4">
             </video>
           </div>
@@ -1165,7 +1165,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
         </div>
         <div class="video-card">
           <div class="video-slot" style="--poster-url: url('presentation-assets/volvo/feiring-poster.jpg'); background-image: url('presentation-assets/volvo/feiring-poster.jpg');">
-            <video autoplay loop muted playsinline preload="metadata" poster="presentation-assets/volvo/feiring-poster.jpg">
+            <video loop muted playsinline preload="none" poster="presentation-assets/volvo/feiring-poster.jpg">
               <source src="presentation-assets/volvo/feiring-quarry.mp4" type="video/mp4">
             </video>
           </div>
@@ -1175,7 +1175,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
         </div>
         <div class="video-card">
           <div class="video-slot" style="--poster-url: url('presentation-assets/exxon/tunnel-ops-21.jpg'); background-image: url('presentation-assets/exxon/tunnel-ops-21.jpg');">
-            <video autoplay loop muted playsinline preload="metadata" poster="presentation-assets/exxon/tunnel-ops-21.jpg">
+            <video loop muted playsinline preload="none" poster="presentation-assets/exxon/tunnel-ops-21.jpg">
               <source src="presentation-assets/volvo/veidekke-tunnel.mp4" type="video/mp4">
             </video>
           </div>
@@ -1581,6 +1581,16 @@ function show(i) {
   progressFill.style.width = ((index + 1) / total * 100) + '%';
   const theme = slides[index].dataset.theme;
   document.body.classList.toggle('nav-dark', theme === 'dark');
+  // Lazy-load videos: only play videos in the active slide, pause all others
+  slides.forEach((s, n) => {
+    s.querySelectorAll('video').forEach(v => {
+      if (n === index) {
+        if (v.paused) { v.load(); v.play().catch(() => {}); }
+      } else {
+        if (!v.paused) v.pause();
+      }
+    });
+  });
 }
 show(0);
 setTimeout(() => { const b = document.getElementById('confBanner'); if (b) b.classList.add('fade'); }, 5000);
