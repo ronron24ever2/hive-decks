@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hive Autonomy — Volvo CE Strategic Partnership v2</title>
+<title>Hive Autonomy — Volvo CE Strategic Partnership v4</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -155,17 +155,22 @@ h2.headline {
   position: absolute;
   top: clamp(24px, 3vh, 40px);
   left: clamp(30px, 4vw, 60px);
-  height: clamp(26px, 2.6vh, 36px);
+  height: clamp(42px, 4.4vh, 58px);
   z-index: 5;
-  opacity: 0.95;
+  opacity: 1;
 }
-.logo.dark-filter {
-  filter: brightness(0) saturate(100%) invert(15%) sepia(29%) saturate(1400%) hue-rotate(180deg);
+/* On dark slides, invert the logo so navy becomes white */
+.slide.dark .logo,
+.slide.hero-photo.dark .logo,
+.slide[data-theme="dark"] .logo {
+  filter: brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0,0,0,0.4));
 }
+/* On light slides, use the logo as-is (navy on transparent) — dark-filter class is legacy */
+.logo.dark-filter { filter: none; }
 .top-tag {
   position: absolute;
   top: clamp(24px, 3vh, 40px);
-  right: clamp(30px, 4vw, 60px);
+  right: clamp(120px, 13vw, 200px);
   z-index: 5;
   font-size: 11px;
   letter-spacing: 0.18em;
@@ -173,6 +178,24 @@ h2.headline {
   color: rgba(255,255,255,0.7);
   font-weight: 500;
 }
+.confidential-banner {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 19;
+  padding: 8px 0;
+  background: rgba(11,26,44,0.82);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: center;
+  transition: opacity 600ms ease 2000ms;
+  pointer-events: none;
+}
+.confidential-banner.fade { opacity: 0; }
+.confidential-banner strong { color: var(--yellow); font-weight: 800; margin-right: 10px; }
 .top-tag.dark { color: rgba(27,58,92,0.55); }
 
 /* Logo rows */
@@ -659,11 +682,14 @@ body.nav-dark .progress { background: rgba(255,255,255,0.08); }
   margin-top: clamp(18px, 2.2vh, 26px);
 }
 .comp-card {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(11,26,44,0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.20);
   border-left: 3px solid var(--yellow);
   padding: clamp(14px, 1.6vh, 18px) clamp(16px, 1.4vw, 22px);
   border-radius: 4px 8px 8px 4px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
   opacity: 0;
   transform: translateX(-14px);
   transition: opacity 600ms var(--ease), transform 600ms var(--ease);
@@ -770,11 +796,10 @@ body.nav-dark .progress { background: rgba(255,255,255,0.08); }
   aspect-ratio: 4/3;
   background-size: cover;
   background-position: center;
-  border-radius: 10px;
-  border: 1px solid var(--line);
+  border-radius: 12px;
   overflow: hidden;
   position: relative;
-  background-color: #0b1a2c;
+  box-shadow: 0 6px 28px rgba(11,26,44,0.18), 0 2px 8px rgba(11,26,44,0.08);
 }
 .video-slot video {
   position: absolute;
@@ -921,27 +946,48 @@ body.nav-dark .progress { background: rgba(255,255,255,0.08); }
   display: block;
 }
 
-/* v2 — @media print — video fallback for PDF export */
+/* v3 — Print CSS (fixed by design agent) — paginates cleanly at 1920x1080 */
+@page { size: 1920px 1080px; margin: 0; }
 @media print {
-  html, body { background: #fff !important; overflow: visible !important; height: auto !important; }
-  .deck, .slide { position: relative !important; height: 100vh !important; page-break-after: always; opacity: 1 !important; inset: auto !important; }
-  .slide { display: flex !important; }
-  .nav, .progress, .zone, .version-flag { display: none !important; }
+  html, body { width: 1920px; height: auto; overflow: visible !important; background: #fff !important; }
+  .deck { width: 1920px !important; height: auto !important; position: static !important; overflow: visible !important; }
+  .slide {
+    position: relative !important;
+    inset: auto !important;
+    width: 1920px !important;
+    height: 1080px !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    display: flex !important;
+    overflow: hidden !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  .slide:last-child { page-break-after: auto !important; }
+  /* v4: slide 1 uses clean hero image — no overrides needed */
+  .nav, .progress, .zone, .version-flag, .confidential-banner { display: none !important; }
   video { display: none !important; }
   .video-slot {
     background-image: var(--poster-url);
     background-size: cover;
     background-position: center;
   }
+  .slide * { animation: none !important; transition: none !important; }
   .slide .eyebrow, .slide h1.title, .slide h2.headline, .slide .subhead,
   .slide .body, .slide .logo-row, .slide .proof-item, .slide .deploy-image,
   .slide .deploy-item, .slide .bridge-card, .slide .callout-strip,
   .slide .footnote, .slide .stat, .slide .exxon-callout, .slide .pillar,
-  .slide .comp-card, .slide .site-tile, .slide .video-card {
+  .slide .comp-card, .slide .site-tile, .slide .video-card,
+  .slide .pillar-header, .slide .econ-assumptions, .slide .econ-row,
+  .slide .econ-footnote, .slide .fleet-table, .slide .next-steps li,
+  .slide .contact-block {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
   }
+  .slide.hero-photo .bg { animation: none !important; }
 }
 
 .zone { position: fixed; top: 0; bottom: 0; width: 30%; z-index: 10; cursor: pointer; }
@@ -965,13 +1011,15 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
 </head>
 <body>
 
+<div class="confidential-banner" id="confBanner"><strong>Confidential</strong>Prepared for Volvo CE · Press F for fullscreen · ← → to navigate</div>
+
 <div class="deck" id="deck">
 
   <!-- ============ SLIDE 1 — HERO ============ -->
   <section class="slide hero-photo dark active" data-theme="dark">
-    <div class="bg" style="background-image: url('presentation-assets/exxon/yara-detail-24.jpg'); background-size: cover; background-position: center;"></div>
-    <div class="overlay" style="background: linear-gradient(to right, rgba(11,26,44,0.92) 0%, rgba(11,26,44,0.78) 30%, rgba(11,26,44,0.42) 65%, rgba(11,26,44,0.08) 100%);"></div>
-    <img src="presentation-assets/exxon/logo-white.png" alt="Hive Autonomy" class="logo">
+    <div class="bg" style="background-image: url('presentation-assets/volvo/slide1-quarry-hero.jpg'); background-size: cover; background-position: center 55%;"></div>
+    <div class="overlay" style="background: linear-gradient(to right, rgba(11,26,44,0.94) 0%, rgba(11,26,44,0.82) 38%, rgba(11,26,44,0.45) 75%, rgba(11,26,44,0.12) 100%);"></div>
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo">
     <div class="top-tag">For Volvo CE · Strategic Autonomy Partnership</div>
     <div class="slide-inner">
       <div class="eyebrow">Hive × Volvo CE</div>
@@ -983,8 +1031,8 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
   <!-- ============ SLIDE 2 — OTHERS ARE PULLING AHEAD ============ -->
   <section class="slide hero-photo dark" data-theme="dark">
     <div class="bg" style="background-image: url('presentation-assets/volvo/volvo-hx.webp'); background-position: center; background-size: cover;"></div>
-    <div class="overlay" style="background: linear-gradient(to right, rgba(11,26,44,0.96) 0%, rgba(11,26,44,0.88) 38%, rgba(11,26,44,0.55) 80%, rgba(11,26,44,0.20) 100%);"></div>
-    <img src="presentation-assets/exxon/logo-white.png" alt="Hive Autonomy" class="logo">
+    <div class="overlay" style="background: linear-gradient(135deg, rgba(11,26,44,0.92) 0%, rgba(11,26,44,0.82) 50%, rgba(11,26,44,0.72) 100%);"></div>
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo">
     <div class="slide-inner">
       <div class="eyebrow">Why This Conversation — Now</div>
       <h2 class="headline">Others are pulling ahead.</h2>
@@ -1020,7 +1068,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
 
   <!-- ============ SLIDE 3 — THE EUROPEAN SQUEEZE ============ -->
   <section class="slide" data-theme="light">
-    <img src="presentation-assets/exxon/logo-white.png" alt="Hive Autonomy" class="logo dark-filter">
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo dark-filter">
     <div class="slide-inner">
       <div class="eyebrow">The European Squeeze</div>
       <h2 class="headline">Europe isn't short on operators. It's short on margin.</h2>
@@ -1052,30 +1100,36 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
 
   <!-- ============ SLIDE 4 — WHAT MAKES HIVE UNIQUE ============ -->
   <section class="slide hero-photo dark" data-theme="dark">
-    <div class="bg" style="background-image: url('presentation-assets/exxon/ops-centre-08.jpg'); background-position: center;"></div>
-    <div class="overlay" style="background: linear-gradient(to right, rgba(11,26,44,0.96) 0%, rgba(11,26,44,0.88) 42%, rgba(11,26,44,0.55) 80%, rgba(11,26,44,0.25) 100%);"></div>
-    <img src="presentation-assets/exxon/logo-white.png" alt="Hive Autonomy" class="logo">
-    <div class="slide-inner">
+    <div class="bg" style="background-image: url('presentation-assets/volvo/slide4-tunnel.jpg'); background-position: center; background-size: cover;"></div>
+    <div class="overlay" style="background: linear-gradient(to bottom, rgba(11,26,44,0.90) 0%, rgba(11,26,44,0.82) 45%, rgba(11,26,44,0.88) 100%);"></div>
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo">
+    <div class="slide-inner" style="max-width: 1500px; margin: 0 auto;">
       <div class="eyebrow">What Makes Hive Different</div>
-      <h2 class="headline">Three things no one else in the space combines.</h2>
-      <div class="bridge-grid" style="margin-top: clamp(28px, 3.2vh, 40px);">
-        <div class="bridge-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18);">
-          <div class="step-num" style="color: var(--yellow);">01</div>
-          <div class="step-label" style="color: rgba(255,255,255,0.85);">Human-in-the-loop by design</div>
-          <h3 style="color: #fff; font-size: clamp(18px, 1.4vw, 22px);">Operators in the ops center — not stripped out of the system.</h3>
-          <p style="color: rgba(255,255,255,0.85); font-size: clamp(14px, 1.05vw, 17px); line-height: 1.55;">Hive comes from an industrial operator background. Our customers cannot afford downtime. When autonomy hesitates, a trained remote operator takes over instantly from the Kristiansand ops center. Supervised autonomy is not a fallback — it is the product.</p>
+      <h2 class="headline">Four things no one else in the space combines.</h2>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(14px, 1.4vw, 22px); margin-top: clamp(24px, 3vh, 34px);">
+        <div class="bridge-card" style="background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.18); padding: clamp(18px, 2vh, 24px);">
+          <div class="step-num" style="color: var(--yellow); font-size: clamp(36px, 3.4vw, 48px);">01</div>
+          <div class="step-label" style="color: rgba(255,255,255,0.85); margin-bottom: 10px;">Fully packaged service</div>
+          <h3 style="color: #fff; font-size: clamp(15px, 1.15vw, 18px); margin-bottom: 8px;">Ops center, trained operators, 24/7 coverage — as one service.</h3>
+          <p style="color: rgba(255,255,255,0.82); font-size: clamp(12px, 0.9vw, 14px); line-height: 1.5;">Hive is not software you install. It is a packaged service — operations center in Kristiansand, trained remote operators, redundant connectivity, 24/7 coverage. Nothing Volvo has to replicate internally.</p>
         </div>
-        <div class="bridge-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18);">
-          <div class="step-num" style="color: var(--yellow);">02</div>
-          <div class="step-label" style="color: rgba(255,255,255,0.85);">Multi-OEM operations center</div>
-          <h3 style="color: #fff; font-size: clamp(18px, 1.4vw, 22px);">One platform across the customer's entire fleet.</h3>
-          <p style="color: rgba(255,255,255,0.85); font-size: clamp(14px, 1.05vw, 17px); line-height: 1.55;">A single customer can run Volvo wheel loaders, forklifts and haulers from the same Hive ops center. Volvo becomes part of a fleet operating system — not a siloed autonomy stack. The dealer conversation gets easier over time, not harder.</p>
+        <div class="bridge-card" style="background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.18); padding: clamp(18px, 2vh, 24px);">
+          <div class="step-num" style="color: var(--yellow); font-size: clamp(36px, 3.4vw, 48px);">02</div>
+          <div class="step-label" style="color: rgba(255,255,255,0.85); margin-bottom: 10px;">Human-in-the-loop by design</div>
+          <h3 style="color: #fff; font-size: clamp(15px, 1.15vw, 18px); margin-bottom: 8px;">Operators in the ops center — not stripped out of the system.</h3>
+          <p style="color: rgba(255,255,255,0.82); font-size: clamp(12px, 0.9vw, 14px); line-height: 1.5;">Industrial operator heritage. When autonomy hesitates, a trained remote operator takes over instantly. Supervised autonomy is not a fallback — it is the product. Customers never see an unplanned stop.</p>
         </div>
-        <div class="bridge-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18);">
-          <div class="step-num" style="color: var(--yellow);">03</div>
-          <div class="step-label" style="color: rgba(255,255,255,0.85);">Retrofit, not replacement</div>
-          <h3 style="color: #fff; font-size: clamp(18px, 1.4vw, 22px);">Runs on the machines your customers already own.</h3>
-          <p style="color: rgba(255,255,255,0.85); font-size: clamp(14px, 1.05vw, 17px); line-height: 1.55;">Volvo L60–L350 wheel loaders (MY 2018+) are the supported platform today — phased to the full Volvo CE portfolio. No factory modification required. A dealer-installed retrofit kit turns existing fleets into supervised-autonomy fleets in days.</p>
+        <div class="bridge-card" style="background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.18); padding: clamp(18px, 2vh, 24px);">
+          <div class="step-num" style="color: var(--yellow); font-size: clamp(36px, 3.4vw, 48px);">03</div>
+          <div class="step-label" style="color: rgba(255,255,255,0.85); margin-bottom: 10px;">Multi-OEM ops center</div>
+          <h3 style="color: #fff; font-size: clamp(15px, 1.15vw, 18px); margin-bottom: 8px;">One platform across the customer's entire fleet.</h3>
+          <p style="color: rgba(255,255,255,0.82); font-size: clamp(12px, 0.9vw, 14px); line-height: 1.5;">A single customer can run Volvo wheel loaders, forklifts and haulers from the same ops center. Volvo becomes part of a fleet operating system — not a siloed autonomy stack.</p>
+        </div>
+        <div class="bridge-card" style="background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.18); padding: clamp(18px, 2vh, 24px);">
+          <div class="step-num" style="color: var(--yellow); font-size: clamp(36px, 3.4vw, 48px);">04</div>
+          <div class="step-label" style="color: rgba(255,255,255,0.85); margin-bottom: 10px;">Retrofit, not replacement</div>
+          <h3 style="color: #fff; font-size: clamp(15px, 1.15vw, 18px); margin-bottom: 8px;">Runs on machines your customers already own.</h3>
+          <p style="color: rgba(255,255,255,0.82); font-size: clamp(12px, 0.9vw, 14px); line-height: 1.5;">Volvo L60–L350 wheel loaders (MY 2018+) supported today — phasing to full Volvo CE portfolio. Dealer-installed kit. Fleet goes from standard to supervised autonomy in days, not quarters.</p>
         </div>
       </div>
     </div>
@@ -1083,7 +1137,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
 
   <!-- ============ SLIDE 5 — PROVEN IN FIELD (4 LIVE STORIES) ============ -->
   <section class="slide" data-theme="light">
-    <img src="presentation-assets/exxon/logo-white.png" alt="Hive Autonomy" class="logo dark-filter">
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo dark-filter">
     <div class="slide-inner" style="max-width: 1360px;">
       <div class="eyebrow">Proven In The Field — Not A Concept</div>
       <h2 class="headline">Hive and Volvo machines are already moving the world together.</h2>
@@ -1134,62 +1188,30 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
     </div>
   </section>
 
-  <!-- ============ SLIDE 6 — SITE COLLAGE ============ -->
-  <section class="slide" data-theme="light">
-    <img src="presentation-assets/exxon/logo-white.png" alt="Hive Autonomy" class="logo dark-filter">
-    <div class="slide-inner">
-      <div class="eyebrow">Where Hive Is Deployed Or In Active Dialogue</div>
-      <h2 class="headline">This is not a startup looking for its first customer.</h2>
-      <p class="subhead">Live deployments on the left. Active enterprise dialogues across European aggregates, construction, intralogistics and energy on the right. All running on — or targeting — Volvo wheel loaders.</p>
-      <div class="site-grid">
-        <div class="site-tile" style="--i:0; background-image: url('presentation-assets/exxon/yara-detail-24.jpg');"><div class="site-label">Yara · Herøya · Live</div></div>
-        <div class="site-tile" style="--i:1; background-image: url('presentation-assets/exxon/presis-22.jpg');"><div class="site-label">Presis Veidrift · Live</div></div>
-        <div class="site-tile" style="--i:2; background-image: url('presentation-assets/exxon/tunnel-ops-21.jpg');"><div class="site-label">Veidekke · Telia 5G · Live</div></div>
-        <div class="site-tile" style="--i:3; background-image: url('presentation-assets/exxon/quarry-ops-19.jpg');"><div class="site-label">Feiring Bruk · Active</div></div>
-        <div class="site-tile" style="--i:4; background-image: url('presentation-assets/exxon/quarry-ops-19.jpg'); background-position: right center;"><div class="site-label">Vinci / Eurovia · Active</div></div>
-        <div class="site-tile" style="--i:5; background-image: url('presentation-assets/exxon/hero-01.jpg');"><div class="site-label">NCC · Active</div></div>
-        <div class="site-tile" style="--i:6; background-image: url('presentation-assets/exxon/hero-01.jpg'); background-position: left center;"><div class="site-label">Peab · Active</div></div>
-        <div class="site-tile" style="--i:7; background-image: url('presentation-assets/exxon/miljo-15-snowplow2.jpg');"><div class="site-label">Skanska · Active</div></div>
-        <div class="site-tile" style="--i:8; background-image: url('presentation-assets/exxon/forklift-6-ops.jpg');"><div class="site-label">ExxonMobil · Active</div></div>
-        <div class="site-tile" style="--i:9; background-image: url('presentation-assets/exxon/forklift-6-ops.jpg'); background-position: right center;"><div class="site-label">Rentalgroup · Active</div></div>
-        <div class="site-tile" style="--i:10; background-image: url('presentation-assets/volvo/moss-havn.jpg');">
-          <div class="logo-chip"><img src="presentation-assets/volvo/moss-havn-logo.jpg" alt="Moss Havn"></div>
-          <div class="site-label">Moss Havn · Active</div>
-        </div>
-        <div class="site-tile" style="--i:11; background-image: url('presentation-assets/volvo/gc-rieber.jpg');">
-          <div class="logo-chip"><img src="presentation-assets/volvo/gc-rieber-logo.png" alt="GC Rieber"></div>
-          <div class="site-label">GC Rieber · Active</div>
-        </div>
-        <div class="site-tile" style="--i:12; background-image: url('presentation-assets/exxon/retrofit-14.jpg');"><div class="site-label">Aker Solutions · Dialogue</div></div>
-        <div class="site-tile" style="--i:13; background-image: url('presentation-assets/exxon/ops-centre-08.jpg');"><div class="site-label">Statens Vegvesen · Contract</div></div>
-        <div class="site-tile placeholder" style="--i:14;">+ Nordic<br>quarry operators</div>
-        <div class="site-tile placeholder" style="--i:15;">+ Additional<br>pipeline</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SLIDE 7 — COMMERCIAL MODEL OVERVIEW ============ -->
-  <section class="slide" data-theme="light">
-    <img src="presentation-assets/exxon/logo-white.png" alt="Hive Autonomy" class="logo dark-filter">
+  <!-- ============ SLIDE 6 — COMMERCIAL MODEL OVERVIEW ============ -->
+  <section class="slide hero-photo dark" data-theme="dark">
+    <div class="bg" style="background-image: url('presentation-assets/volvo/slide6-volvo-profile.jpg'); background-position: center; background-size: cover;"></div>
+    <div class="overlay" style="background: linear-gradient(to right, rgba(11,26,44,0.94) 0%, rgba(11,26,44,0.88) 55%, rgba(11,26,44,0.82) 100%);"></div>
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo">
     <div class="slide-inner">
       <div class="eyebrow">The Commercial Model</div>
       <h2 class="headline">Three pillars. One structure that plugs into how Volvo already operates.</h2>
-      <p class="subhead">A preferred partnership built on recurring revenue, shared data, and joint market expansion — running through the dealer network you already have.</p>
+      <p class="subhead" style="color: rgba(255,255,255,0.88);">A preferred partnership built on recurring revenue, shared data, and joint market expansion — running through the dealer network you already have.</p>
       <div class="pillar-grid">
-        <div class="pillar">
-          <div class="pillar-eyebrow">Pillar 01</div>
-          <h3>Shared recurring revenue</h3>
-          <p>20% of every Hive autonomy subscription on any Volvo-sold machine — not just new sales. Paid continuously. A new recurring revenue line for Volvo CE on new machines, and for dealers on retrofit of the existing installed base.</p>
+        <div class="pillar" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(12px); border-top-color: var(--yellow);">
+          <div class="pillar-eyebrow" style="color: var(--yellow);">Pillar 01</div>
+          <h3 style="color: #fff;">Shared recurring revenue</h3>
+          <p style="color: rgba(255,255,255,0.82);">20% of every Hive autonomy subscription on any Volvo-sold machine — not just new sales. Paid continuously. A new recurring revenue line for Volvo CE on new machines, and for dealers on retrofit of the existing installed base.</p>
         </div>
-        <div class="pillar">
-          <div class="pillar-eyebrow">Pillar 02</div>
-          <h3>Operational data sharing</h3>
-          <p>Raw operational telemetry from every Hive-equipped Volvo-sold machine — to Volvo R&amp;D, product development, and service optimization. Unmatched real-world fleet visibility, governed by clear data agreements.</p>
+        <div class="pillar" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(12px); border-top-color: var(--yellow);">
+          <div class="pillar-eyebrow" style="color: var(--yellow);">Pillar 02</div>
+          <h3 style="color: #fff;">Operational data sharing</h3>
+          <p style="color: rgba(255,255,255,0.82);">Raw operational telemetry from every Hive-equipped Volvo-sold machine — to Volvo R&amp;D, product development, and service optimization. Unmatched real-world fleet visibility, governed by clear data agreements.</p>
         </div>
-        <div class="pillar">
-          <div class="pillar-eyebrow">Pillar 03</div>
-          <h3>Increased market share</h3>
-          <p>Autonomy becomes the reason customers choose Volvo over Cat, Komatsu, or a Chinese software provider. Sovereign autonomy, deployed through the local dealership, with Hive doing the commercial work alongside your team.</p>
+        <div class="pillar" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(12px); border-top-color: var(--yellow);">
+          <div class="pillar-eyebrow" style="color: var(--yellow);">Pillar 03</div>
+          <h3 style="color: #fff;">Increased market share</h3>
+          <p style="color: rgba(255,255,255,0.82);">Autonomy becomes the reason customers choose Volvo over Cat, Komatsu, or any mid-segment alternative. Sovereign autonomy, deployed through the local dealership, with Hive doing the commercial work alongside your team.</p>
         </div>
       </div>
       <div class="callout-strip"><strong>Two revenue streams, one partnership.</strong> Volvo CE captures margin on new-machine sales with autonomy factored in. Dealers capture margin on retrofit across the installed base. Both compound over time.</div>
@@ -1198,7 +1220,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
 
   <!-- ============ SLIDE 8 — PILLAR 1 DETAIL: ECONOMICS ============ -->
   <section class="slide" data-theme="light">
-    <img src="presentation-assets/exxon/logo-white.png" alt="Hive Autonomy" class="logo dark-filter">
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo dark-filter">
     <div class="slide-inner">
       <div class="pillar-header">
         <span class="pillar-dot"></span>
@@ -1241,7 +1263,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
 
   <!-- ============ SLIDE 9 — PILLAR 2 DETAIL: DATA SHARING ============ -->
   <section class="slide" data-theme="light">
-    <img src="presentation-assets/exxon/logo-white.png" alt="Hive Autonomy" class="logo dark-filter">
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo dark-filter">
     <div class="slide-inner">
       <div class="pillar-header">
         <span class="pillar-dot inactive"></span>
@@ -1249,37 +1271,37 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
         <span class="pillar-dot inactive"></span>
         <span>Pillar 02 of 03 · Operational Data Sharing</span>
       </div>
-      <h2 class="headline">A shared strategic asset, governed by clear agreements.</h2>
-      <p class="subhead">Every Hive-equipped Volvo-sold machine generates operational telemetry that neither Hive nor Volvo could collect alone at this scale. Structured, governed sharing turns that into compounding value for both parties.</p>
+      <h2 class="headline">Data CareTrack cannot give you — from your own machines.</h2>
+      <p class="subhead">CareTrack tells you where a machine is and how many hours it has run. Hive tells you what the machine actually does, at a sub-cycle level, during live autonomous work — structurally absent from the data Volvo collects today.</p>
       <div class="bridge-grid" style="margin-top: clamp(24px, 2.8vh, 34px);">
         <div class="bridge-card">
           <div class="step-num">01</div>
-          <div class="step-label">Governed &amp; Secure</div>
-          <h3>Clear data framework</h3>
-          <p>Customer-specific data rights governed by agreements between the customer, Volvo, and Hive. Cross-customer insights anonymized and shared to benefit both parties. No ambiguity on ownership or usage.</p>
+          <div class="step-label">Hydraulic Load Profiles</div>
+          <h3>What the machine does without a human on the joystick.</h3>
+          <p>Pressure and actuation data across every sub-cycle phase — V-turn, load, carry, dump — captured during autonomous operation on Volvo L-series machines at commercial sites. Feeds next-gen pump/valve sizing and auto-bucket-fill calibration for new generation wheel loaders.</p>
         </div>
         <div class="bridge-card">
           <div class="step-num">02</div>
-          <div class="step-label">Volvo Product Insights</div>
-          <h3>Real-world telemetry to Volvo R&amp;D</h3>
-          <p>Volvo receives aggregated operational intelligence: utilization patterns, failure modes, component wear profiles, performance benchmarks across conditions. Direct input into product development, service strategy, and warranty engineering.</p>
+          <div class="step-label">Autonomous Intervention Log</div>
+          <h3>Every real-world edge case, at scale.</h3>
+          <p>When and why the AI defers to a human operator — intervention type, duration, machine state, site context. A year of live commercial data Volvo Autonomous Solutions cannot generate internally. Directly informs your own autonomy stack roadmap.</p>
         </div>
         <div class="bridge-card">
           <div class="step-num">03</div>
-          <div class="step-label">AI Improvement Loop</div>
-          <h3>Compounding performance gains</h3>
-          <p>Hive uses anonymized operational data to improve autonomy models. Every deployment makes the next one more capable, faster to commission, and more reliable — with the benefits flowing back to Volvo's installed base.</p>
+          <div class="step-label">Per-Cycle Energy Breakdown</div>
+          <h3>Sub-task energy granularity — not hourly averages.</h3>
+          <p>Energy consumption per actuation (traction, lift, tilt, steering) per cycle, per site type. The feedstock for honest L120 Electric ROI modeling and battery sizing on the next-generation electric L-series lineup.</p>
         </div>
       </div>
-      <div class="footnote"><strong>Not annotated training data. Not redistributable.</strong> What Volvo receives is clean, governed operational insight into how its machines actually perform in the field — at a fidelity only Hive can provide.</div>
+      <div class="footnote"><strong>Governed, not redistributable. Volvo receives data from Volvo-branded machines operated by Hive</strong> — a clear framework that preserves customer trust, regulatory compliance, and Hive's multi-OEM commercial model.</div>
     </div>
   </section>
 
   <!-- ============ SLIDE 10 — PILLAR 3 DETAIL: MARKET SHARE ============ -->
   <section class="slide hero-photo dark" data-theme="dark">
-    <div class="bg" style="background-image: url('presentation-assets/exxon/quarry-ops-19.jpg'); background-position: center;"></div>
-    <div class="overlay" style="background: linear-gradient(115deg, rgba(11,26,44,0.96) 0%, rgba(11,26,44,0.85) 42%, rgba(11,26,44,0.55) 82%, rgba(11,26,44,0.22) 100%);"></div>
-    <img src="presentation-assets/exxon/logo-white.png" alt="Hive Autonomy" class="logo">
+    <div class="bg" style="background-image: url('presentation-assets/volvo/slide15-confined.jpg'); background-position: left center; background-size: cover;"></div>
+    <div class="overlay" style="background: linear-gradient(to right, rgba(11,26,44,0.92) 0%, rgba(11,26,44,0.84) 48%, rgba(11,26,44,0.88) 100%);"></div>
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo">
     <div class="slide-inner">
       <div class="pillar-header">
         <span class="pillar-dot inactive dark"></span>
@@ -1288,25 +1310,25 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
         <span style="color: var(--yellow);">Pillar 03 of 03 · Increased Market Share</span>
       </div>
       <h2 class="headline">Autonomy becomes the reason customers choose Volvo.</h2>
-      <p class="subhead">The competitive question in European heavy machinery is shifting. Spec and price alone no longer differentiate Volvo from the mid-segment Chinese entrants. Sovereign, supervised autonomy does.</p>
+      <p class="subhead">The competitive question in European heavy machinery is shifting. Machine spec and price alone no longer differentiate Volvo from the market. Supervised autonomy, delivered by a trusted European partner, does.</p>
       <div class="bridge-grid" style="margin-top: clamp(24px, 2.8vh, 34px);">
         <div class="bridge-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18);">
           <div class="step-num" style="color: var(--yellow);">01</div>
-          <div class="step-label" style="color: rgba(255,255,255,0.85);">Sovereign Autonomy</div>
-          <h3 style="color: #fff;">European software · European operators · European data.</h3>
-          <p style="color: rgba(255,255,255,0.85);">Chinese autonomy software vendors are already targeting European fleets with retrofit offers. For many of Volvo's customers — especially in regulated sectors — Chinese-origin autonomy software is a non-starter. Hive is the sovereign alternative. Norwegian-built, GDPR-native, operated from Kristiansand.</p>
+          <div class="step-label" style="color: rgba(255,255,255,0.85);">A closing argument in the dealer's pocket</div>
+          <h3 style="color: #fff;">Something the spec sheet alone cannot deliver.</h3>
+          <p style="color: rgba(255,255,255,0.85);">When a contractor is comparing a Volvo L220 against any mid-segment alternative, the Volvo dealer can put supervised autonomy on the table — available now, installed by their local dealer, backed by a Volvo-branded service contract. That is a differentiator competitors cannot match on spec alone.</p>
         </div>
         <div class="bridge-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18);">
           <div class="step-num" style="color: var(--yellow);">02</div>
-          <div class="step-label" style="color: rgba(255,255,255,0.85);">Dealer Pull-Through</div>
-          <h3 style="color: #fff;">Autonomy as a closing argument — in the dealer's pocket.</h3>
-          <p style="color: rgba(255,255,255,0.85);">When a contractor is deciding between a Volvo L220 and a mid-segment Chinese alternative, the Volvo dealer can put supervised autonomy on the table — as a Volvo-branded service, delivered by their local dealer, available immediately. That is a differentiator the Chinese offer cannot match.</p>
+          <div class="step-label" style="color: rgba(255,255,255,0.85);">Trusted European delivery</div>
+          <h3 style="color: #fff;">Norwegian-built, GDPR-native, operated from Kristiansand.</h3>
+          <p style="color: rgba(255,255,255,0.85);">For regulated customers across the Nordics and EU, where the autonomy vendor is headquartered and where operational data lives is part of the procurement conversation. Hive is European through and through — software, operators, data residency. That aligns Volvo with the safest commercial footing for its installed base.</p>
         </div>
         <div class="bridge-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18);">
           <div class="step-num" style="color: var(--yellow);">03</div>
-          <div class="step-label" style="color: rgba(255,255,255,0.85);">Joint Commercial Motion</div>
+          <div class="step-label" style="color: rgba(255,255,255,0.85);">Joint commercial motion</div>
           <h3 style="color: #fff;">Hive does the selling work with Volvo, not to Volvo.</h3>
-          <p style="color: rgba(255,255,255,0.85);">Hive account executives join Volvo dealer sales calls on qualified autonomy opportunities. Joint discovery, joint demos, joint proposals. The customer sees one team — Volvo on the metal, Hive on the intelligence.</p>
+          <p style="color: rgba(255,255,255,0.85);">Hive account executives join Volvo dealer sales calls on qualified autonomy opportunities. Joint discovery, joint demos, joint proposals. The customer sees one team — Volvo on the metal, Hive on the intelligence. Revenue compounds, deal cycles shorten, dealer confidence grows.</p>
         </div>
       </div>
     </div>
@@ -1314,7 +1336,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
 
   <!-- ============ SLIDE 11 — WHAT VOLVO CUSTOMERS GET ============ -->
   <section class="slide" data-theme="light">
-    <img src="presentation-assets/exxon/logo-white.png" alt="Hive Autonomy" class="logo dark-filter">
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo dark-filter">
     <div class="slide-inner">
       <div class="eyebrow">What Volvo Customers Get</div>
       <h2 class="headline">A Volvo machine that runs itself — supported by the dealer they already trust.</h2>
@@ -1335,41 +1357,43 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
   </section>
 
   <!-- ============ SLIDE 12 — OPERATIONAL SCALING ============ -->
-  <section class="slide" data-theme="light">
-    <img src="presentation-assets/exxon/logo-white.png" alt="Hive Autonomy" class="logo dark-filter">
+  <section class="slide hero-photo dark" data-theme="dark">
+    <div class="bg" style="background-image: url('presentation-assets/volvo/slide12-sensors-labeled.jpg'); background-position: center right; background-size: cover;"></div>
+    <div class="overlay" style="background: linear-gradient(to right, rgba(11,26,44,0.94) 0%, rgba(11,26,44,0.88) 45%, rgba(11,26,44,0.72) 80%, rgba(11,26,44,0.55) 100%);"></div>
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo">
     <div class="slide-inner">
       <div class="eyebrow">How We Scale — Operationally</div>
       <h2 class="headline">Hive trains the trainers. Volvo unlocks the distribution.</h2>
-      <p class="subhead">A partnership is only worth as much as the motion around it. Here is how Hive equips Volvo's existing sales, service and dealer organization to sell, install and support supervised autonomy at scale — and how Hive reciprocates with engineering and account support when Volvo opens a door.</p>
+      <p class="subhead" style="color: rgba(255,255,255,0.88);">A partnership is only worth as much as the motion around it. Here is how Hive equips Volvo's existing sales, service and dealer organization to sell, install and support supervised autonomy at scale — and how Hive reciprocates with engineering and account support when Volvo opens a door.</p>
       <div class="bridge-grid">
-        <div class="bridge-card">
-          <div class="step-num">01</div>
-          <div class="step-label">Train Volvo Sales</div>
-          <h3>Position autonomy in the customer dialogue.</h3>
-          <p>Joint training for Volvo account managers: how to qualify autonomy opportunities, how to run an ICP-aligned discovery, how to hand off to Hive at the right moment. Joint call templates, objection handling, and shared CRM visibility.</p>
+        <div class="bridge-card" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border-color: rgba(255,255,255,0.18);">
+          <div class="step-num" style="color: var(--yellow);">01</div>
+          <div class="step-label" style="color: rgba(255,255,255,0.85);">Train Volvo Sales</div>
+          <h3 style="color: #fff;">Position autonomy in the customer dialogue.</h3>
+          <p style="color: rgba(255,255,255,0.82);">Joint training for Volvo account managers: how to qualify autonomy opportunities, how to run an ICP-aligned discovery, how to hand off to Hive at the right moment. Joint call templates, objection handling, and shared CRM visibility.</p>
         </div>
-        <div class="bridge-card">
-          <div class="step-num">02</div>
-          <div class="step-label">Train Volvo Service</div>
-          <h3>Install and maintain retrofit kits.</h3>
-          <p>Hive certifies dealer technicians to install the retrofit kit, run calibration, and perform first-line service. Level 2 support stays with Hive. The dealer keeps the customer relationship and the service revenue.</p>
+        <div class="bridge-card" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border-color: rgba(255,255,255,0.18);">
+          <div class="step-num" style="color: var(--yellow);">02</div>
+          <div class="step-label" style="color: rgba(255,255,255,0.85);">Train Volvo Service</div>
+          <h3 style="color: #fff;">Install and maintain retrofit kits.</h3>
+          <p style="color: rgba(255,255,255,0.82);">Hive certifies dealer technicians to install the retrofit kit, run calibration, and perform first-line service. Level 2 support stays with Hive. The dealer keeps the customer relationship and the service revenue.</p>
         </div>
-        <div class="bridge-card">
-          <div class="step-num">03</div>
-          <div class="step-label">Hive Joins Your Calls</div>
-          <h3>Reciprocity — not a one-way enablement.</h3>
-          <p>When a Volvo account manager opens a door on a qualified autonomy opportunity, Hive brings engineers, demo capacity, and account support to the table. This is a two-way commercial motion, not a dealer program Hive throws over the wall.</p>
+        <div class="bridge-card" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border-color: rgba(255,255,255,0.18);">
+          <div class="step-num" style="color: var(--yellow);">03</div>
+          <div class="step-label" style="color: rgba(255,255,255,0.85);">Hive Joins Your Calls</div>
+          <h3 style="color: #fff;">Reciprocity — not a one-way enablement.</h3>
+          <p style="color: rgba(255,255,255,0.82);">When a Volvo account manager opens a door on a qualified autonomy opportunity, Hive brings engineers, demo capacity, and account support to the table. This is a two-way commercial motion, not a dealer program Hive throws over the wall.</p>
         </div>
       </div>
-      <div class="footnote"><strong>Zero new headcount for Volvo. Real capacity from Hive on demand.</strong> The partnership runs on Volvo's existing commercial and service footprint — and on Hive's technical bench when you need it.</div>
+      <div class="footnote" style="background: rgba(255,255,255,0.06); border-left-color: var(--yellow); color: rgba(255,255,255,0.88);"><strong style="color: #fff;">Zero new headcount for Volvo. Real capacity from Hive on demand.</strong> The partnership runs on Volvo's existing commercial and service footprint — and on Hive's technical bench when you need it.</div>
     </div>
   </section>
 
   <!-- ============ SLIDE 13 — RETROFIT PHASES ============ -->
   <section class="slide hero-photo dark" data-theme="dark">
-    <div class="bg" style="background-image: url('presentation-assets/exxon/hero-01.jpg'); background-position: center;"></div>
+    <div class="bg" style="background-image: url('presentation-assets/exxon/retrofit-14.jpg'); background-position: center;"></div>
     <div class="overlay" style="background: linear-gradient(115deg, rgba(11,26,44,0.96) 0%, rgba(11,26,44,0.85) 45%, rgba(11,26,44,0.55) 80%, rgba(11,26,44,0.25) 100%);"></div>
-    <img src="presentation-assets/exxon/logo-white.png" alt="Hive Autonomy" class="logo">
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo">
     <div class="slide-inner">
       <div class="eyebrow">Retrofit Path — From Pilot To Production</div>
       <h2 class="headline">Three phases. One clear trajectory toward factory-installed autonomy.</h2>
@@ -1398,7 +1422,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
 
   <!-- ============ SLIDE 14 — GO-TO-MARKET PARTNERSHIP ============ -->
   <section class="slide" data-theme="light">
-    <img src="presentation-assets/exxon/logo-white.png" alt="Hive Autonomy" class="logo dark-filter">
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo dark-filter">
     <div class="slide-inner">
       <div class="eyebrow">Go-To-Market Partnership</div>
       <h2 class="headline">Volvo Autonomy, Powered by Hive.</h2>
@@ -1429,33 +1453,35 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
   </section>
 
   <!-- ============ SLIDE 15 — PROOF PHASE (COMMERCIAL VALIDATION) ============ -->
-  <section class="slide" data-theme="light">
-    <img src="presentation-assets/exxon/logo-white.png" alt="Hive Autonomy" class="logo dark-filter">
+  <section class="slide hero-photo dark" data-theme="dark">
+    <div class="bg" style="background-image: url('presentation-assets/volvo/slide15-confined.jpg'); background-position: center 40%; background-size: cover;"></div>
+    <div class="overlay" style="background: linear-gradient(to bottom, rgba(11,26,44,0.90) 0%, rgba(11,26,44,0.82) 40%, rgba(11,26,44,0.92) 100%);"></div>
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo">
     <div class="slide-inner">
       <div class="eyebrow">Proof Phase — Commercial Validation</div>
       <h2 class="headline">The technology is proven. This phase validates the commercial motion.</h2>
-      <p class="subhead">Hive's autonomy stack has run in live customer production for 18+ months. The proof phase is not about technical validation — it is about making the joint commercial motion visible, repeatable, and ready to scale through the Volvo dealer network.</p>
+      <p class="subhead" style="color: rgba(255,255,255,0.88);">Hive's autonomy stack has run in live customer production for 18+ months. The proof phase is not about technical validation — it is about making the joint commercial motion visible, repeatable, and ready to scale through the Volvo dealer network.</p>
       <div class="bridge-grid">
-        <div class="bridge-card">
-          <div class="step-num">01</div>
-          <div class="step-label">Phase 1 · Eskilstuna Showcase</div>
-          <h3>Deploy in Eskilstuna — make it visible to your customers.</h3>
-          <p>A Hive-equipped Volvo reference machine runs at the Eskilstuna customer center. Innovation-forward customers visiting Eskilstuna see supervised autonomy in a Volvo environment, hosted by Volvo people. This is the commercial showcase — not a lab test.</p>
+        <div class="bridge-card" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border-color: rgba(255,255,255,0.18);">
+          <div class="step-num" style="color: var(--yellow);">01</div>
+          <div class="step-label" style="color: rgba(255,255,255,0.85);">Phase 1 · Eskilstuna Showcase</div>
+          <h3 style="color: #fff;">Deploy in Eskilstuna — make it visible to your customers.</h3>
+          <p style="color: rgba(255,255,255,0.82);">A Hive-equipped Volvo reference machine runs at the Eskilstuna customer center. Innovation-forward customers visiting Eskilstuna see supervised autonomy in a Volvo environment, hosted by Volvo people. This is the commercial showcase — not a lab test.</p>
         </div>
-        <div class="bridge-card">
-          <div class="step-num">02</div>
-          <div class="step-label">Phase 2 · Joint Pilots</div>
-          <h3>2–3 joint pilot customers in Nordics.</h3>
-          <p>Picked from Volvo's own customer base in Norway and Sweden, through dealers Volvo and Hive both know well. Joint KPIs per site: utilization, operator reduction, cost per productive hour. Customer sees one team.</p>
+        <div class="bridge-card" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border-color: rgba(255,255,255,0.18);">
+          <div class="step-num" style="color: var(--yellow);">02</div>
+          <div class="step-label" style="color: rgba(255,255,255,0.85);">Phase 2 · Joint Pilots</div>
+          <h3 style="color: #fff;">2–3 joint pilot customers in Nordics.</h3>
+          <p style="color: rgba(255,255,255,0.82);">Picked from Volvo's own customer base in Norway and Sweden, through dealers Volvo and Hive both know well. Joint KPIs per site: utilization, operator reduction, cost per productive hour. Customer sees one team.</p>
         </div>
-        <div class="bridge-card">
-          <div class="step-num">03</div>
-          <div class="step-label">Phase 3 · Joint Review &amp; Term Sheet</div>
-          <h3>From verified performance to signed commercial framework.</h3>
-          <p>Measure joint pilot results. Draft commercial term sheet based on what actually worked. Present a joint case study and go/no-go recommendation to Volvo CE leadership for broad rollout.</p>
+        <div class="bridge-card" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border-color: rgba(255,255,255,0.18);">
+          <div class="step-num" style="color: var(--yellow);">03</div>
+          <div class="step-label" style="color: rgba(255,255,255,0.85);">Phase 3 · Joint Review &amp; Term Sheet</div>
+          <h3 style="color: #fff;">From verified performance to signed commercial framework.</h3>
+          <p style="color: rgba(255,255,255,0.82);">Measure joint pilot results. Draft commercial term sheet based on what actually worked. Present a joint case study and go/no-go recommendation to Volvo CE leadership for broad rollout.</p>
         </div>
       </div>
-      <div class="footnote"><strong>Eskilstuna is the commercial showcase, not a technical bake-off.</strong> By the time we get to pilot customers, Volvo sales teams have already seen the machine running on their own ground.</div>
+      <div class="footnote" style="background: rgba(255,255,255,0.06); border-left-color: var(--yellow); color: rgba(255,255,255,0.88);"><strong style="color: #fff;">Eskilstuna is the commercial showcase, not a technical bake-off.</strong> By the time we get to pilot customers, Volvo sales teams have already seen the machine running on their own ground.</div>
     </div>
   </section>
 
@@ -1463,25 +1489,25 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
   <section class="slide hero-photo dark" data-theme="dark">
     <div class="bg" style="background-image: url('presentation-assets/exxon/ops-centre-08.jpg'); background-position: center;"></div>
     <div class="overlay" style="background: linear-gradient(115deg, rgba(11,26,44,0.96) 0%, rgba(11,26,44,0.85) 45%, rgba(11,26,44,0.55) 85%, rgba(11,26,44,0.20) 100%);"></div>
-    <img src="presentation-assets/exxon/logo-white.png" alt="Hive Autonomy" class="logo">
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo">
     <div class="slide-inner">
       <div class="eyebrow">Why This Partnership Wins</div>
       <h2 class="headline">Three parties. One aligned outcome.</h2>
-      <div class="bridge-grid" style="margin-top: clamp(26px, 3.2vh, 38px);">
-        <div class="bridge-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.16);">
-          <div class="step-num" style="color: var(--yellow);">For Volvo</div>
-          <h3 style="color: #fff;">Close the autonomy gap without pouring money into a risky in-house build.</h3>
-          <p style="color: rgba(255,255,255,0.82);">New recurring revenue line from day one. A differentiator vs Cat, Komatsu, and Chinese software providers. Accelerated learning via real operational data. A credible autonomy story told in Volvo's voice — at market speed, not at build speed.</p>
+      <div class="bridge-grid" style="margin-top: clamp(26px, 3.2vh, 38px); align-items: stretch;">
+        <div class="bridge-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.16); display: flex; flex-direction: column;">
+          <div class="step-label" style="color: var(--yellow); font-size: clamp(12px, 0.95vw, 14px); letter-spacing: 0.18em; text-transform: uppercase; font-weight: 800; margin-bottom: 14px;">For Volvo</div>
+          <h3 style="color: #fff; font-size: clamp(17px, 1.3vw, 21px); line-height: 1.3; margin-bottom: 12px; min-height: 2.6em;">Close the autonomy gap without pouring money into a risky in-house build.</h3>
+          <p style="color: rgba(255,255,255,0.82); font-size: clamp(13px, 0.95vw, 15px); line-height: 1.55;">New recurring revenue line from day one. A differentiator vs Cat, Komatsu, and Chinese software providers. Accelerated learning via real operational data. A credible autonomy story told in Volvo's voice — at market speed, not at build speed.</p>
         </div>
-        <div class="bridge-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.16);">
-          <div class="step-num" style="color: var(--yellow);">For Customers</div>
-          <h3 style="color: #fff;">Faster access to proven autonomy — from the OEM they already trust.</h3>
-          <p style="color: rgba(255,255,255,0.82);">Supervised autonomy on machines they already buy, installed and supported by dealers they already work with. No new vendor risk. An OpEx model that pays back on their own cost structure, not on a generic industry benchmark.</p>
+        <div class="bridge-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.16); display: flex; flex-direction: column;">
+          <div class="step-label" style="color: var(--yellow); font-size: clamp(12px, 0.95vw, 14px); letter-spacing: 0.18em; text-transform: uppercase; font-weight: 800; margin-bottom: 14px;">For Customers</div>
+          <h3 style="color: #fff; font-size: clamp(17px, 1.3vw, 21px); line-height: 1.3; margin-bottom: 12px; min-height: 2.6em;">Faster access to proven autonomy — from the OEM they already trust.</h3>
+          <p style="color: rgba(255,255,255,0.82); font-size: clamp(13px, 0.95vw, 15px); line-height: 1.55;">Supervised autonomy on machines they already buy, installed and supported by dealers they already work with. No new vendor risk. An OpEx model that pays back on their own cost structure, not on a generic industry benchmark.</p>
         </div>
-        <div class="bridge-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.16);">
-          <div class="step-num" style="color: var(--yellow);">For Hive</div>
-          <h3 style="color: #fff;">Scale delivery through a global dealer and service footprint.</h3>
-          <p style="color: rgba(255,255,255,0.82);">Access to Volvo's installed base, commercial motion, and service footprint. Focus on what Hive does best — autonomy engineering and 24/7 operations — while distribution runs on infrastructure Volvo already owns and invests in.</p>
+        <div class="bridge-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.16); display: flex; flex-direction: column;">
+          <div class="step-label" style="color: var(--yellow); font-size: clamp(12px, 0.95vw, 14px); letter-spacing: 0.18em; text-transform: uppercase; font-weight: 800; margin-bottom: 14px;">For Hive</div>
+          <h3 style="color: #fff; font-size: clamp(17px, 1.3vw, 21px); line-height: 1.3; margin-bottom: 12px; min-height: 2.6em;">Scale delivery through a global dealer and service footprint.</h3>
+          <p style="color: rgba(255,255,255,0.82); font-size: clamp(13px, 0.95vw, 15px); line-height: 1.55;">Access to Volvo's installed base, commercial motion, and service footprint. Focus on what Hive does best — autonomy engineering and 24/7 operations — while distribution runs on infrastructure Volvo already owns and invests in.</p>
         </div>
       </div>
     </div>
@@ -1489,7 +1515,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
 
   <!-- ============ SLIDE 17 — NEXT STEPS ============ -->
   <section class="slide" data-theme="light">
-    <img src="presentation-assets/exxon/logo-white.png" alt="Hive Autonomy" class="logo dark-filter">
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo dark-filter">
     <div class="slide-inner">
       <div class="eyebrow">Proposed Next Steps</div>
       <h2 class="headline">From today's conversation to a signed term sheet in 90 days.</h2>
@@ -1507,7 +1533,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
           <div class="label">Hive Autonomy</div>
           <div class="person">
             <div class="name">Christoffer Jørgenvåg</div>
-            <div class="role">CEO</div>
+            <div class="role">Co-founder · CEO</div>
           </div>
           <div class="person">
             <div class="name">Fredrik Bringager</div>
@@ -1537,7 +1563,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
 <div class="progress"><div class="fill" id="progressFill"></div></div>
 <div class="zone left" id="zoneLeft"></div>
 <div class="zone right" id="zoneRight"></div>
-<div class="version-flag">Volvo CE Partnership · v2 draft · 2026-04-15</div>
+<div class="version-flag">Volvo CE Partnership · v4 draft · 2026-04-15</div>
 
 <script>
 const slides = document.querySelectorAll('.slide');
@@ -1557,6 +1583,7 @@ function show(i) {
   document.body.classList.toggle('nav-dark', theme === 'dark');
 }
 show(0);
+setTimeout(() => { const b = document.getElementById('confBanner'); if (b) b.classList.add('fade'); }, 5000);
 
 document.getElementById('next').addEventListener('click', () => show(index + 1));
 document.getElementById('prev').addEventListener('click', () => show(index - 1));
