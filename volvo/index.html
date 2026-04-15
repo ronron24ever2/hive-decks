@@ -631,6 +631,111 @@ body.nav-dark .progress { background: rgba(255,255,255,0.08); }
   transition: width 500ms var(--ease);
 }
 
+/* v5 — Slide 9 data comparison layout */
+.data-compare {
+  display: grid;
+  grid-template-columns: 0.85fr 1.45fr;
+  gap: clamp(28px, 3.2vw, 48px);
+  margin-top: clamp(20px, 2.4vh, 28px);
+  align-items: stretch;
+}
+.data-current {
+  padding: clamp(22px, 2.6vh, 30px) clamp(22px, 2vw, 28px);
+  background: var(--bg-soft);
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+}
+.data-current .dc-label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-40);
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.data-current .dc-source {
+  font-size: clamp(13px, 0.95vw, 15px);
+  color: var(--ink-60);
+  margin-bottom: clamp(14px, 1.6vh, 18px);
+  font-weight: 600;
+}
+.data-current ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+.data-current li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(13px, 0.95vw, 15px);
+  color: var(--ink-60);
+  line-height: 1.4;
+}
+.data-current li:last-child { border-bottom: none; }
+.data-current .dc-note {
+  margin-top: clamp(14px, 1.8vh, 20px);
+  padding-top: clamp(12px, 1.4vh, 16px);
+  border-top: 1px dashed var(--line);
+  font-size: 12px;
+  color: var(--ink-40);
+  font-style: italic;
+  line-height: 1.45;
+}
+.data-hive {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 1.6vh, 20px);
+}
+.data-hive .dh-label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 800;
+  margin-bottom: -4px;
+}
+.hive-feature {
+  background: #fff;
+  border-left: 4px solid var(--cyan);
+  padding: clamp(20px, 2.4vh, 26px) clamp(22px, 2vw, 30px);
+  border-radius: 2px 10px 10px 2px;
+  box-shadow: 0 6px 24px rgba(27,58,92,0.10);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  transform: translateX(14px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .hive-feature:nth-of-type(2) { opacity: 1; transform: translateX(0); transition-delay: 320ms; }
+.slide.active .hive-feature:nth-of-type(3) { opacity: 1; transform: translateX(0); transition-delay: 460ms; }
+.hive-feature .hf-num {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+.hive-feature .hf-title {
+  font-size: clamp(18px, 1.4vw, 22px);
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.018em;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.hive-feature .hf-body {
+  font-size: clamp(13px, 0.97vw, 15.5px);
+  color: var(--ink-60);
+  line-height: 1.55;
+}
+.hive-feature .hf-body strong { color: var(--navy); font-weight: 700; }
+
 /* Volvo-specific additions */
 .site-grid {
   display: grid;
@@ -1233,11 +1338,11 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
       <div class="econ-grid">
         <div class="econ-assumptions">
           <div class="eyebrow-small">Per machine · per year</div>
-          <div class="econ-row"><span class="label">Billing rate</span><span class="val">$60 / machine-hour</span></div>
+          <div class="econ-row"><span class="label">Billing rate (conservative)</span><span class="val">$30 / machine-hour</span></div>
           <div class="econ-row"><span class="label">Utilization</span><span class="val">12 hrs/day × 250 days</span></div>
-          <div class="econ-row"><span class="label">Annual revenue per machine</span><span class="val">$180,000</span></div>
-          <div class="econ-row highlight"><span class="label">Volvo share (20%)</span><span class="val">$36,000 / year</span></div>
-          <div class="econ-footnote">Conservative case: 8 hrs/day utilization → ~$24K/year Volvo share per machine. Assumptions illustrative — actual results vary by use case, machine type, and utilization profile.</div>
+          <div class="econ-row"><span class="label">Annual revenue per machine</span><span class="val">$90,000</span></div>
+          <div class="econ-row highlight"><span class="label">Volvo share (20%)</span><span class="val">$18,000 / year</span></div>
+          <div class="econ-footnote">Conservative estimate: $30/machine-hour — roughly half of typical Hive contract rates. Actual results vary by use case, machine type, and utilization profile. Hive validates exact pricing per pilot.</div>
         </div>
         <div>
           <div class="eyebrow-small" style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan); font-weight: 800; margin-bottom: 10px;">Scaled across fleet</div>
@@ -1250,10 +1355,10 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
               </tr>
             </thead>
             <tbody>
-              <tr><td>100 machines</td><td>$3.6M</td><td>$18M</td></tr>
-              <tr><td>1,000 machines</td><td>$36M</td><td>$180M</td></tr>
-              <tr><td>5,000 machines</td><td>$180M</td><td>$900M</td></tr>
-              <tr><td>10,000 machines</td><td>$360M</td><td>$1.8B</td></tr>
+              <tr><td>100 machines</td><td>$1.8M</td><td>$9M</td></tr>
+              <tr><td>1,000 machines</td><td>$18M</td><td>$90M</td></tr>
+              <tr><td>5,000 machines</td><td>$90M</td><td>$450M</td></tr>
+              <tr><td>10,000 machines</td><td>$180M</td><td>$900M</td></tr>
             </tbody>
           </table>
         </div>
@@ -1272,28 +1377,34 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
         <span>Pillar 02 of 03 · Operational Data Sharing</span>
       </div>
       <h2 class="headline">The training data needed to build the next generation of autonomy.</h2>
-      <p class="subhead">CareTrack tells you where a machine is and how many hours it has run. Hive captures what the machine sees, decides and does — every camera frame, every lidar return, every actuation, every operator takeover — synchronized at cycle level on real Volvo machines in commercial production. The exact format VLA-class autonomy models train on, not generic telemetry.</p>
-      <div class="bridge-grid" style="margin-top: clamp(22px, 2.6vh, 32px);">
-        <div class="bridge-card">
-          <div class="step-num">01</div>
-          <div class="step-label">Multimodal Sensor + Action Pairs</div>
-          <h3>Video, lidar, camera — paired with the AI's exact actions.</h3>
-          <p>Time-synchronized RGB camera streams, depth/lidar returns, and proprioceptive sensor data — alongside the AI's commanded actions (steer, lift, tilt, throttle, articulation) and every operator intervention. The feedstock for Vision-Language-Action models, foundation models for autonomy, and any next-generation perception or policy training pipeline. Nobody else has this at commercial scale on Volvo iron.</p>
+      <p class="subhead">Volvo already collects asset telemetry. Hive captures what the machine sees, decides and does — at task level, on real Volvo iron, in commercial production.</p>
+      <div class="data-compare">
+        <div class="data-current">
+          <div class="dc-label">Volvo collects today</div>
+          <div class="dc-source">via CareTrack</div>
+          <ul>
+            <li>Location, hours, fuel rate</li>
+            <li>Service codes &amp; idle time</li>
+            <li>Actuator-level signals</li>
+            <li>Aggregate utilization</li>
+          </ul>
+          <div class="dc-note">Asset-level data. Tells you what each part is doing — but not what the machine is trying to accomplish.</div>
         </div>
-        <div class="bridge-card">
-          <div class="step-num">02</div>
-          <div class="step-label">Hydraulic Load &amp; Cycle Physics</div>
-          <h3>What the machine actually does, sub-cycle by sub-cycle.</h3>
-          <p>Pressure and actuation profiles across every phase — V-turn, load, carry, dump — captured during live autonomous operation. Feeds next-gen pump/valve sizing, auto-bucket-fill calibration, and structural fatigue modeling. Directly absent from CareTrack today.</p>
-        </div>
-        <div class="bridge-card">
-          <div class="step-num">03</div>
-          <div class="step-label">Per-Cycle Energy Breakdown</div>
-          <h3>Sub-task energy granularity, not hourly averages.</h3>
-          <p>Energy consumption per actuation (traction, lift, tilt, steering) per cycle, per site type. The feedstock for honest L120 Electric ROI modeling and battery sizing across the next-generation electric L-series lineup.</p>
+        <div class="data-hive">
+          <div class="dh-label">What Hive uniquely adds</div>
+          <div class="hive-feature">
+            <div class="hf-num">01</div>
+            <div class="hf-title">Multimodal sensor + action stream</div>
+            <div class="hf-body">Time-synchronized <strong>camera, lidar, and depth</strong> data — paired with the AI's <strong>exact commanded actions</strong> and every operator takeover. The raw feedstock for Vision-Language-Action models and foundation models for autonomy. Nobody else has this on Volvo iron at commercial scale.</div>
+          </div>
+          <div class="hive-feature">
+            <div class="hf-num">02</div>
+            <div class="hf-title">Actuation tied to task context</div>
+            <div class="hf-body">Volvo has actuator-level signals. Hive ties them to <strong>what the machine is doing</strong> — V-turn, load, carry, dump, repositioning — labeled at cycle level by the autonomy stack. That turns raw signals into operational understanding your R&amp;D can train on.</div>
+          </div>
         </div>
       </div>
-      <div class="footnote"><strong>Governed, not redistributable. Volvo receives data from Volvo-branded machines operated by Hive</strong> — a clear framework that preserves customer trust, regulatory compliance, and Hive's multi-OEM commercial model. Multimodal training data on this scale is the single most strategic asset Volvo CE can secure to compete in the autonomy decade.</div>
+      <div class="footnote"><strong>Governed, not redistributable.</strong> Volvo receives data from Volvo-branded machines operated by Hive — a clear framework that preserves customer trust, regulatory compliance, and Hive's multi-OEM commercial model.</div>
     </div>
   </section>
 
