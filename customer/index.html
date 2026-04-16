@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hive Autonomy - Customer Introduction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1B3A5C;
+  --navy-deep: #0B1A2C;
+  --cyan: #4A90D9;
+  --yellow: #E8D44D;
+  --ink: #1a1a1a;
+  --ink-60: rgba(26,26,26,0.62);
+  --ink-40: rgba(26,26,26,0.40);
+  --bg: #FFFFFF;
+  --bg-soft: #F8F9FA;
+  --line: rgba(27,58,92,0.12);
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--navy-deep);
+  color: var(--ink);
+  overflow: hidden;
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01", "cv11";
+}
+
+.deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(40px, 5vh, 80px) clamp(40px, 6vw, 120px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 500ms var(--ease);
+  background: var(--bg);
+}
+.slide.active { opacity: 1; pointer-events: auto; z-index: 2; }
+
+.slide-inner {
+  max-width: 1200px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+.slide-inner.narrow { max-width: 820px; }
+
+.eyebrow {
+  font-size: clamp(11px, 0.9vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: clamp(16px, 1.8vh, 24px);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.slide.active .eyebrow { opacity: 1; transform: translateY(0); transition-delay: 80ms; }
+.slide.dark .eyebrow { color: var(--yellow); }
+
+h1.title {
+  font-size: clamp(42px, 5.8vw, 78px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--navy);
+  margin-bottom: clamp(22px, 2.5vh, 32px);
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active h1.title { opacity: 1; transform: translateY(0); transition-delay: 180ms; }
+.slide.dark h1.title { color: #fff; text-shadow: 0 2px 22px rgba(0,0,0,0.4); }
+
+h2.headline {
+  font-size: clamp(28px, 3.4vw, 44px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.028em;
+  color: var(--navy);
+  margin-bottom: clamp(20px, 2.2vh, 28px);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active h2.headline { opacity: 1; transform: translateY(0); transition-delay: 180ms; }
+.slide.dark h2.headline { color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,0.35); }
+
+.subhead {
+  font-size: clamp(17px, 1.4vw, 22px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ink-60);
+  max-width: 820px;
+  margin-bottom: clamp(22px, 2.6vh, 36px);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .subhead { opacity: 1; transform: translateY(0); transition-delay: 280ms; }
+.slide.dark .subhead { color: rgba(255,255,255,0.88); text-shadow: 0 1px 12px rgba(0,0,0,0.35); }
+
+.body {
+  font-size: clamp(16px, 1.15vw, 19px);
+  line-height: 1.62;
+  color: var(--ink);
+  max-width: 780px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .body { opacity: 1; transform: translateY(0); transition-delay: 300ms; }
+.slide.dark .body { color: rgba(255,255,255,0.92); }
+.body p + p { margin-top: 0.9em; }
+
+/* Hero photo treatment */
+.slide.hero-photo { background: var(--navy-deep); }
+.slide.hero-photo .bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  animation: kenburns 16s ease-in-out infinite alternate;
+}
+.slide.hero-photo.no-kenburns .bg { animation: none !important; }
+.slide.hero-photo .overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right,
+    rgba(11,26,44,0.94) 0%,
+    rgba(11,26,44,0.80) 25%,
+    rgba(11,26,44,0.50) 55%,
+    rgba(11,26,44,0.12) 88%,
+    transparent 100%);
+  z-index: 1;
+}
+@keyframes kenburns {
+  0% { transform: scale(1.0); }
+  100% { transform: scale(1.10); }
+}
+
+.logo {
+  position: absolute;
+  top: clamp(24px, 3vh, 40px);
+  left: clamp(30px, 4vw, 60px);
+  height: clamp(42px, 4.4vh, 58px);
+  z-index: 5;
+  opacity: 1;
+}
+.slide.dark .logo,
+.slide.hero-photo.dark .logo,
+.slide[data-theme="dark"] .logo {
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+}
+.logo.dark-filter { filter: none; }
+.top-tag {
+  position: absolute;
+  top: clamp(24px, 3vh, 40px);
+  right: clamp(120px, 13vw, 200px);
+  z-index: 5;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  font-weight: 500;
+}
+.confidential-banner {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 19;
+  padding: 8px 0;
+  background: rgba(11,26,44,0.82);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: center;
+  transition: opacity 600ms ease 2000ms;
+  pointer-events: none;
+}
+.confidential-banner.fade { opacity: 0; }
+.confidential-banner strong { color: var(--yellow); font-weight: 800; margin-right: 10px; }
+.top-tag.dark { color: rgba(27,58,92,0.55); }
+
+/* Proof list items */
+.proof-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2vh, 24px);
+  margin-top: clamp(16px, 2vh, 24px);
+}
+.proof-item {
+  border-left: 3px solid var(--cyan);
+  padding-left: clamp(16px, 1.5vw, 22px);
+  opacity: 0;
+  transform: translateX(-14px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .proof-item { opacity: 1; transform: translateX(0); }
+.slide.active .proof-item:nth-of-type(1) { transition-delay: 360ms; }
+.slide.active .proof-item:nth-of-type(2) { transition-delay: 460ms; }
+.slide.active .proof-item:nth-of-type(3) { transition-delay: 560ms; }
+.slide.active .proof-item:nth-of-type(4) { transition-delay: 660ms; }
+.slide.active .proof-item:nth-of-type(5) { transition-delay: 760ms; }
+.slide.active .proof-item:nth-of-type(6) { transition-delay: 860ms; }
+.slide.active .proof-item:nth-of-type(7) { transition-delay: 960ms; }
+.proof-item strong {
+  font-size: clamp(15px, 1.1vw, 18px);
+  color: var(--navy);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.proof-item span {
+  font-size: clamp(13px, 0.95vw, 15px);
+  color: var(--ink-60);
+  line-height: 1.5;
+}
+
+/* Proof grid (2x2 for problem slide) */
+.proof-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 2.4vw, 32px);
+  margin-top: clamp(20px, 2.4vh, 28px);
+}
+.proof-grid .proof-item {
+  background: var(--bg-soft);
+  border-left: 3px solid var(--cyan);
+  border-radius: 2px 10px 10px 2px;
+  padding: clamp(20px, 2.2vh, 28px) clamp(18px, 1.8vw, 26px);
+}
+
+/* Bridge cards */
+.bridge-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(18px, 1.8vw, 28px);
+  margin-top: clamp(24px, 3vh, 36px);
+}
+.bridge-card {
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: clamp(20px, 2.4vh, 30px);
+  position: relative;
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .bridge-card:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+.slide.active .bridge-card:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 440ms; }
+.slide.active .bridge-card:nth-of-type(3) { opacity: 1; transform: translateY(0); transition-delay: 560ms; }
+.slide.active .bridge-card:nth-of-type(4) { opacity: 1; transform: translateY(0); transition-delay: 680ms; }
+.bridge-card .step-num {
+  font-size: clamp(44px, 4.2vw, 60px);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--cyan);
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 6px;
+}
+.bridge-card .step-label {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+.bridge-card h3 {
+  font-size: clamp(16px, 1.2vw, 19px);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.3;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.bridge-card p {
+  font-size: clamp(13px, 0.95vw, 15px);
+  color: var(--ink-60);
+  line-height: 1.55;
+}
+
+.callout-strip {
+  margin-top: clamp(24px, 2.8vh, 34px);
+  padding: clamp(18px, 2.2vh, 26px) clamp(22px, 2.4vw, 32px);
+  background: var(--navy);
+  color: #fff;
+  border-radius: 8px;
+  font-size: clamp(16px, 1.2vw, 19px);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .callout-strip { opacity: 1; transform: translateY(0); transition-delay: 720ms; }
+.callout-strip strong { color: var(--yellow); font-weight: 700; }
+
+.footnote {
+  margin-top: 14px;
+  padding: 14px 20px;
+  background: rgba(74,144,217,0.08);
+  border-left: 3px solid var(--cyan);
+  border-radius: 2px 6px 6px 2px;
+  font-size: clamp(14px, 1.05vw, 17px);
+  color: var(--navy);
+  font-weight: 500;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.footnote strong { color: var(--navy); font-weight: 800; }
+.slide.active .footnote { opacity: 1; transform: translateY(0); transition-delay: 840ms; }
+
+/* Closing grid */
+.close-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(40px, 5vw, 72px);
+  align-items: center;
+}
+.contact-block {
+  background: var(--bg-soft);
+  border-left: 3px solid var(--cyan);
+  padding: clamp(22px, 2.6vh, 32px) clamp(24px, 2.4vw, 34px);
+  border-radius: 2px 8px 8px 2px;
+}
+.contact-block .label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.contact-block .person {
+  margin-bottom: 14px;
+}
+.contact-block .person:last-child { margin-bottom: 0; }
+.contact-block .name {
+  font-size: clamp(16px, 1.2vw, 19px);
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+}
+.contact-block .role {
+  font-size: clamp(13px, 0.95vw, 15px);
+  color: var(--ink-60);
+}
+.next-steps {
+  list-style: none;
+  margin-top: clamp(20px, 2.4vh, 28px);
+}
+.next-steps li {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: clamp(12px, 1.4vh, 16px) 0;
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(15px, 1.1vw, 18px);
+  color: var(--navy);
+  line-height: 1.4;
+}
+.next-steps li:last-child { border-bottom: none; }
+.next-steps .num {
+  font-size: clamp(14px, 1vw, 16px);
+  font-weight: 700;
+  color: var(--cyan);
+  font-variant-numeric: tabular-nums;
+  min-width: 28px;
+  flex-shrink: 0;
+}
+
+/* Two-column value lists */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(30px, 4vw, 56px);
+  margin-top: clamp(18px, 2.2vh, 28px);
+}
+.val-list { list-style: none; }
+.val-list li {
+  padding: clamp(12px, 1.4vh, 16px) 0;
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(14px, 1.05vw, 17px);
+  color: var(--navy);
+  line-height: 1.4;
+  font-weight: 500;
+}
+.val-list li:last-child { border-bottom: none; }
+.val-list li strong { color: var(--cyan); font-weight: 800; display: block; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 3px; }
+
+/* Dark slide val-list overrides */
+.slide.dark .val-list li { color: rgba(255,255,255,0.92); border-bottom-color: rgba(255,255,255,0.12); }
+.slide.dark .val-list li strong { color: var(--yellow); }
+
+/* Video story cards */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(14px, 1.4vw, 22px);
+  margin-top: clamp(20px, 2.4vh, 30px);
+}
+.video-card {
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .video-card:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 260ms; }
+.slide.active .video-card:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 360ms; }
+.slide.active .video-card:nth-of-type(3) { opacity: 1; transform: translateY(0); transition-delay: 460ms; }
+.slide.active .video-card:nth-of-type(4) { opacity: 1; transform: translateY(0); transition-delay: 560ms; }
+.video-slot {
+  aspect-ratio: 4/3;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 6px 28px rgba(11,26,44,0.18), 0 2px 8px rgba(11,26,44,0.08);
+}
+.video-slot video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.video-slot .expand-btn, .video-card .expand-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  background: rgba(11,26,44,0.72);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 15;
+  transition: all 200ms var(--ease);
+  line-height: 1;
+  pointer-events: auto;
+}
+.video-slot .expand-btn:hover {
+  background: rgba(74,144,217,0.85);
+  transform: scale(1.08);
+}
+.video-card .vc-eyebrow {
+  margin-top: 12px;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 800;
+}
+.video-card .vc-title {
+  font-size: clamp(15px, 1.15vw, 18px);
+  font-weight: 800;
+  color: var(--navy);
+  margin-top: 3px;
+  letter-spacing: -0.015em;
+}
+.video-card .vc-detail {
+  font-size: clamp(12px, 0.88vw, 14px);
+  color: var(--ink-60);
+  line-height: 1.5;
+  margin-top: 6px;
+}
+.video-card .vc-detail strong { color: var(--navy); font-weight: 700; }
+
+/* Video fullscreen overlay */
+.video-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0,0,0,0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+.video-overlay.visible { opacity: 1; }
+.video-overlay video {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 8px;
+  box-shadow: 0 12px 60px rgba(0,0,0,0.6);
+}
+.video-overlay .close-overlay {
+  position: absolute;
+  top: 28px;
+  right: 32px;
+  width: 44px;
+  height: 44px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+.video-overlay .close-overlay:hover {
+  background: rgba(255,255,255,0.25);
+  transform: scale(1.08);
+}
+
+/* Economics grid */
+.econ-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1.4fr;
+  gap: clamp(32px, 3.6vw, 52px);
+  margin-top: clamp(20px, 2.4vh, 30px);
+  align-items: start;
+}
+.econ-assumptions {
+  background: var(--bg-soft);
+  border-left: 3px solid var(--cyan);
+  padding: clamp(18px, 2.2vh, 26px) clamp(20px, 2vw, 28px);
+  border-radius: 2px 8px 8px 2px;
+}
+.econ-assumptions .eyebrow-small {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.econ-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(13px, 0.95vw, 15px);
+}
+.econ-row:last-child { border-bottom: none; }
+.econ-row .label { color: var(--ink-60); }
+.econ-row .val { color: var(--navy); font-weight: 700; font-variant-numeric: tabular-nums; }
+.econ-row.highlight { background: rgba(74,144,217,0.08); margin: 8px -14px 0; padding: 12px 14px; border-radius: 6px; border: none; }
+.econ-row.highlight .val { color: var(--cyan); font-size: clamp(16px, 1.2vw, 19px); font-weight: 900; }
+
+.fleet-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.fleet-table th {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 800;
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--cyan);
+}
+.fleet-table th:nth-child(n+2) { text-align: right; }
+.fleet-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(14px, 1.05vw, 17px);
+  color: var(--navy);
+  font-variant-numeric: tabular-nums;
+}
+.fleet-table td:first-child { font-weight: 700; }
+.fleet-table td:nth-child(n+2) { text-align: right; font-weight: 600; }
+
+/* Discovery question cards */
+.discovery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(18px, 2vw, 28px);
+  margin-top: clamp(20px, 2.4vh, 28px);
+}
+.discovery-card {
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: clamp(22px, 2.6vh, 30px);
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .discovery-card:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+.slide.active .discovery-card:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 440ms; }
+.slide.active .discovery-card:nth-of-type(3) { opacity: 1; transform: translateY(0); transition-delay: 560ms; }
+.slide.active .discovery-card:nth-of-type(4) { opacity: 1; transform: translateY(0); transition-delay: 680ms; }
+.discovery-card .dc-num {
+  font-size: clamp(36px, 3.4vw, 48px);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--cyan);
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 4px;
+}
+.discovery-card .dc-label {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--cyan);
+}
+.discovery-card ol {
+  list-style: none;
+  counter-reset: dq;
+}
+.discovery-card ol li {
+  counter-increment: dq;
+  padding: 9px 0 9px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(13px, 0.95vw, 15px);
+  color: var(--ink-60);
+  line-height: 1.45;
+  display: flex;
+  gap: 10px;
+}
+.discovery-card ol li:last-child { border-bottom: none; }
+.discovery-card ol li::before {
+  content: counter(dq) ".";
+  color: var(--cyan);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+  min-width: 20px;
+}
+
+/* Navigation */
+.nav {
+  position: fixed;
+  top: clamp(22px, 2.6vh, 34px);
+  right: clamp(30px, 4vw, 60px);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  z-index: 20;
+}
+.nav button {
+  background: rgba(27,58,92,0.08);
+  border: 1px solid rgba(27,58,92,0.16);
+  color: var(--navy);
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 200ms var(--ease);
+  font-family: inherit;
+}
+.nav button:hover { background: var(--navy); color: #fff; transform: translateY(-1px); }
+.nav .counter {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy);
+  letter-spacing: 0.08em;
+  padding: 0 10px;
+  font-variant-numeric: tabular-nums;
+}
+body.nav-dark .nav button { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.25); color: #fff; }
+body.nav-dark .nav button:hover { background: #fff; color: var(--navy); }
+body.nav-dark .nav .counter { color: #fff; }
+
+.progress {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: rgba(27,58,92,0.08);
+  z-index: 20;
+}
+body.nav-dark .progress { background: rgba(255,255,255,0.08); }
+.progress .fill {
+  height: 100%;
+  background: var(--cyan);
+  width: 0%;
+  transition: width 500ms var(--ease);
+}
+
+/* Print CSS */
+@page { size: 1920px 1080px; margin: 0; }
+@media print {
+  html, body { width: 1920px; height: auto; overflow: visible !important; background: #fff !important; }
+  .deck { width: 1920px !important; height: auto !important; position: static !important; overflow: visible !important; }
+  .slide {
+    position: relative !important;
+    inset: auto !important;
+    width: 1920px !important;
+    height: 1080px !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    display: flex !important;
+    overflow: hidden !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  .slide:last-child { page-break-after: auto !important; }
+  .nav, .progress, .zone, .version-flag, .confidential-banner, .video-overlay { display: none !important; }
+  video { display: none !important; }
+  .video-slot {
+    background-image: var(--poster-url);
+    background-size: cover;
+    background-position: center;
+  }
+  .slide * { animation: none !important; transition: none !important; }
+  .slide .eyebrow, .slide h1.title, .slide h2.headline, .slide .subhead,
+  .slide .body, .slide .proof-item, .slide .bridge-card, .slide .callout-strip,
+  .slide .footnote, .slide .problem-card, .slide .video-card, .slide .discovery-card,
+  .slide .next-steps li, .slide .contact-block {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .slide.hero-photo .bg { animation: none !important; }
+}
+
+.zone { position: fixed; top: 0; bottom: 0; width: 30%; z-index: 10; cursor: pointer; pointer-events: auto; }
+.expand-btn { position: relative; z-index: 25; }
+.zone.left { left: 0; }
+.zone.right { right: 0; width: 70%; }
+
+.version-flag {
+  position: fixed;
+  bottom: 16px;
+  left: 22px;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(27,58,92,0.35);
+  font-weight: 600;
+  z-index: 21;
+  pointer-events: none;
+}
+body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
+</style>
+</head>
+<body>
+
+<div class="confidential-banner" id="confBanner"><strong>Confidential</strong>Press F for fullscreen. Use arrow keys to navigate.</div>
+
+<div class="deck" id="deck">
+
+  <!-- ============ SLIDE 1 — HERO (DARK) ============ -->
+  <section class="slide hero-photo dark active" data-theme="dark">
+    <div class="bg" style="background-image: url('presentation-assets/volvo/slide1-quarry-hero.jpg'); background-size: cover; background-position: center 55%;"></div>
+    <div class="overlay" style="background: linear-gradient(to right, rgba(11,26,44,0.94) 0%, rgba(11,26,44,0.82) 38%, rgba(11,26,44,0.45) 75%, rgba(11,26,44,0.12) 100%);"></div>
+    <img src="presentation-assets/volvo/hive-logo-white.png" alt="Hive Autonomy" class="logo">
+    <div class="top-tag">For [Customer] . Confidential</div>
+    <div class="slide-inner">
+      <div class="eyebrow">Hive Autonomy</div>
+      <h1 class="title">Your machines.<br>Running themselves.</h1>
+      <p class="subhead">Hive delivers supervised physical AI for heavy machinery. We retrofit your existing machines with cameras, lidar, and a control cabinet. The AI operates the machine. A trained human supervisor oversees every action from our operations center. 24/7. No new machines. No new infrastructure. Just production.</p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 2 — WHAT WE HEAR (LIGHT, 2x2 PROOF GRID) ============ -->
+  <section class="slide" data-theme="light">
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo dark-filter">
+    <div class="slide-inner">
+      <div class="eyebrow">What We Hear From Every Customer</div>
+      <h2 class="headline">Four pressures. One common pattern.</h2>
+      <p class="subhead">This is what we hear in every conversation with aggregates producers and contractors across the Nordics. Does it sound familiar?</p>
+      <div class="proof-grid">
+        <div class="proof-item">
+          <span class="year">Margin squeeze</span>
+          <strong>The math that used to work no longer does</strong>
+          <span>Thinner margins driven by energy costs, fewer contracts, and a construction market that is not booming. Less volume to sell, same fixed costs. You need lower cost per productive hour just to stay competitive.</span>
+        </div>
+        <div class="proof-item">
+          <span class="year">Operator pressure</span>
+          <strong>Repetitive, heavy, hard to fill</strong>
+          <span>12-hour shifts on the same task, day after day. The boring jobs have the highest turnover. You are overworking the people you have, and the ones you lose are the hardest to replace.</span>
+        </div>
+        <div class="proof-item">
+          <span class="year">Underutilized assets</span>
+          <strong>Machines sitting idle because the operator is not there</strong>
+          <span>Sites running on reduced hours because you cannot justify a full-time operator for the volume. A machine sitting idle is unproductive capital. Every hour it does not run is revenue left on the table.</span>
+        </div>
+        <div class="proof-item">
+          <span class="year">Everyone sees what is coming</span>
+          <strong>Physical AI is not a question of if. It is a question of when.</strong>
+          <span>You already know this technology is coming. The profitability case is clear. The real question is whether it actually works in your operation, on your site, with your machines. That is what Hive proves every day.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 3 — SENSOR IMAGE (DARK, NO KENBURNS) ============ -->
+  <section class="slide hero-photo dark no-kenburns" data-theme="dark">
+    <div class="bg" style="background-image: url('presentation-assets/volvo/slide12-sensors-labeled.jpg'); background-size: cover; background-position: center center;"></div>
+    <div class="overlay" style="background: linear-gradient(to top, rgba(11,26,44,0.85) 0%, rgba(11,26,44,0.3) 35%, rgba(11,26,44,0.1) 100%);"></div>
+    <img src="presentation-assets/volvo/hive-logo-white.png" alt="Hive Autonomy" class="logo">
+    <div class="slide-inner" style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+      <div class="eyebrow">Retrofit Kit</div>
+      <h2 class="headline">Installed in days. Not months.</h2>
+      <p class="subhead" style="color: rgba(255,255,255,0.88);">Cameras, lidar, and a control cabinet. Mounted on your existing Volvo L60 to L350 wheel loader. Connected to our operations center. The physical AI operates the machine while a trained supervisor oversees every action. Your machine is ready without leaving your site.</p>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 4 — PROVEN IN FIELD (LIGHT) ============ -->
+  <section class="slide" data-theme="light">
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo dark-filter">
+    <div class="slide-inner" style="max-width: 1360px;">
+      <div class="eyebrow">Proven In The Field. Not A Concept.</div>
+      <h2 class="headline">Four live operations. Real customers. Real production.</h2>
+      <p class="subhead">Running today. Not slideware, not a roadmap.</p>
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-slot" data-video-src="presentation-assets/volvo/yara-bulk.mp4" style="--poster-url: url('presentation-assets/exxon/yara-detail-24.jpg'); background-image: url('presentation-assets/exxon/yara-detail-24.jpg');">
+            <video loop muted playsinline preload="none" poster="presentation-assets/exxon/yara-detail-24.jpg">
+              <source src="presentation-assets/volvo/yara-bulk.mp4" type="video/mp4">
+            </video>
+            <button class="expand-btn" data-expand="local" title="Play full video">&#9654;</button>
+          </div>
+          <div class="vc-eyebrow">Feeding the world</div>
+          <div class="vc-title">Yara . Heroya</div>
+          <div class="vc-detail">Supervised physical AI wheel loaders moving fertilizer inside one of Europe's largest ammonia facilities. <strong>Hardware proven in extreme industrial environment for 18+ months.</strong></div>
+        </div>
+        <div class="video-card">
+          <div class="video-slot" data-video-src="presentation-assets/volvo/presis-vikafjellet.mp4" style="--poster-url: url('presentation-assets/exxon/presis-22.jpg'); background-image: url('presentation-assets/exxon/presis-22.jpg');">
+            <video loop muted playsinline preload="none" poster="presentation-assets/exxon/presis-22.jpg">
+              <source src="presentation-assets/volvo/presis-vikafjellet.mp4" type="video/mp4">
+            </video>
+            <button class="expand-btn" data-expand="local" title="Play full video">&#9654;</button>
+          </div>
+          <div class="vc-eyebrow">Keeping passes open</div>
+          <div class="vc-title">Presis Veidrift . Vikafjellet</div>
+          <div class="vc-detail">Remote snow clearing in avalanche zones under Norwegian Public Roads Administration contract. <strong>Why: operators removed from life-threatening hazard zones.</strong></div>
+        </div>
+        <div class="video-card">
+          <div class="video-slot" data-video-src="presentation-assets/volvo/feiring-quarry.mp4" style="--poster-url: url('presentation-assets/volvo/feiring-poster.jpg'); background-image: url('presentation-assets/volvo/feiring-poster.jpg');">
+            <video loop muted playsinline preload="none" poster="presentation-assets/volvo/feiring-poster.jpg">
+              <source src="presentation-assets/volvo/feiring-quarry.mp4" type="video/mp4">
+            </video>
+            <button class="expand-btn" data-expand="local" title="Play full video">&#9654;</button>
+          </div>
+          <div class="vc-eyebrow">Powering quarries</div>
+          <div class="vc-title">Hamar Pukk . Quarry</div>
+          <div class="vc-detail">Supervised physical AI wheel loader loading trucks in a live Nordic aggregate operation. <strong>Why: continuous production without operator shift gaps.</strong></div>
+        </div>
+        <div class="video-card">
+          <div class="video-slot" data-video-src="https://vimeo.com/1145592572?fl=tl&fe=ec" style="--poster-url: url('presentation-assets/exxon/tunnel-ops-21.jpg'); background-image: url('presentation-assets/exxon/tunnel-ops-21.jpg');">
+            <video loop muted playsinline preload="none" poster="presentation-assets/exxon/tunnel-ops-21.jpg">
+              <source src="presentation-assets/volvo/veidekke-tunnel.mp4" type="video/mp4">
+            </video>
+            <button class="expand-btn" data-expand="vimeo" data-vimeo-url="https://vimeo.com/1145592572?fl=tl&fe=ec" title="Watch full video on Vimeo">&#9654;</button>
+          </div>
+          <div class="vc-eyebrow">Building tunnels</div>
+          <div class="vc-title">Veidekke . Telia 5G</div>
+          <div class="vc-detail">Europe's first industrial 5G teleoperation trial, with Hive wheel loaders alongside Boston Dynamics robots. <strong>Why: multi-vendor interoperability in confined spaces.</strong></div>
+        </div>
+      </div>
+      <div class="footnote" style="margin-top: clamp(20px, 2.4vh, 28px);">Currently deployed on Volvo wheel loaders. The same physical AI platform extends to haulers, excavators, forklifts, and other industrial machines.</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 5 — WHAT YOU GET (DARK, HERO-PHOTO) ============ -->
+  <section class="slide hero-photo dark" data-theme="dark">
+    <div class="bg" style="background-image: url('presentation-assets/customer/miljo-7.jpg'); background-size: cover; background-position: center;"></div>
+    <div class="overlay" style="background: linear-gradient(to right, rgba(11,26,44,0.92) 0%, rgba(11,26,44,0.88) 40%, rgba(11,26,44,0.72) 70%, rgba(11,26,44,0.50) 100%);"></div>
+    <img src="presentation-assets/volvo/hive-logo-white.png" alt="Hive Autonomy" class="logo">
+    <div class="slide-inner">
+      <div class="eyebrow">What Changes On Your Site</div>
+      <h2 class="headline">A machine that runs itself, supported by an operations team you never have to hire.</h2>
+      <div class="two-col">
+        <ul class="val-list">
+          <li><strong>Outcome</strong>Supervised physical AI on equipment you already own. No new brand, no new hardware vendor, no new service contract.</li>
+          <li><strong>Operator Model</strong>The AI operates the machine. One Hive supervisor monitors the operation from our control center. Your staff focuses on higher-value tasks.</li>
+          <li><strong>Zero Capex</strong>Retrofit kit installed in days. Pure OpEx subscription from day one.</li>
+        </ul>
+        <ul class="val-list">
+          <li><strong>Extended Hours</strong>Run production outside normal shifts, weekends, holidays. Without hiring.</li>
+          <li><strong>Safety</strong>Remove people from hazard zones. Every action supervised. Human always in the loop.</li>
+          <li><strong>Visibility</strong>Real-time production data, utilization metrics, machine health monitoring.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 6 — THE JOURNEY (DARK) ============ -->
+  <section class="slide hero-photo dark" data-theme="dark">
+    <div class="bg" style="background-image: url('presentation-assets/customer/miljo-6.jpg'); background-position: center; background-size: cover;"></div>
+    <div class="overlay" style="background: linear-gradient(to right, rgba(11,26,44,0.94) 0%, rgba(11,26,44,0.88) 45%, rgba(11,26,44,0.70) 80%, rgba(11,26,44,0.42) 100%);"></div>
+    <img src="presentation-assets/volvo/hive-logo-white.png" alt="Hive Autonomy" class="logo">
+    <div class="slide-inner">
+      <div class="eyebrow">Your Path Forward</div>
+      <h2 class="headline">From pilot to your own physical AI operation.</h2>
+      <p class="subhead" style="color: rgba(255,255,255,0.88);">Three phases. You see it work before you commit.</p>
+      <div class="bridge-grid">
+        <div class="bridge-card" style="background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.18); padding: clamp(22px, 2.4vh, 30px);">
+          <div class="step-num" style="color: var(--yellow);">01</div>
+          <div class="step-label" style="color: rgba(255,255,255,0.85);">Phase 1 . Pilot</div>
+          <h3 style="color: #fff;">One machine. Real production. Zero risk.</h3>
+          <p style="color: rgba(255,255,255,0.82);">Hive brings a machine to your site. We define KPIs together upfront. We resolve connectivity, safety, third-party logistics. You watch it run. Verification period is free. You see it work before you pay.</p>
+        </div>
+        <div class="bridge-card" style="background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.18); padding: clamp(22px, 2.4vh, 30px);">
+          <div class="step-num" style="color: var(--yellow);">02</div>
+          <div class="step-label" style="color: rgba(255,255,255,0.85);">Phase 2 . Hive Operates</div>
+          <h3 style="color: #fff;">20% lower cost than your current operator.</h3>
+          <p style="color: rgba(255,255,255,0.82);">KPIs met. The physical AI continues running your machine. You are billed at 20% below your current operator cost per productive hour. In the background: Hive trains the AI model on your specific operation. The machine gets smarter over time.</p>
+        </div>
+        <div class="bridge-card" style="background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.18); padding: clamp(22px, 2.4vh, 30px);">
+          <div class="step-num" style="color: var(--yellow);">03</div>
+          <div class="step-label" style="color: rgba(255,255,255,0.85);">Phase 3 . Handback</div>
+          <h3 style="color: #fff;">Your operators. New roles. Your operation.</h3>
+          <p style="color: rgba(255,255,255,0.82);">When Hive reaches 5-7 machines per operator, we hand the operation back to you. Your existing operators are upskilled to supervisors. They monitor, handle exceptions, manage the fleet from a control room. A better, safer, more skilled role.</p>
+        </div>
+      </div>
+      <div class="footnote" style="margin-top: clamp(18px, 2vh, 24px); background: rgba(255,255,255,0.06); border-left-color: var(--yellow); color: rgba(255,255,255,0.88);"><strong style="color: #fff;">Even at full autonomy, there is always a human supervisor who can take over.</strong> That is the foundation of everything we build.</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 7 — THE ECONOMICS (LIGHT, NOK) ============ -->
+  <section class="slide" data-theme="light">
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo dark-filter">
+    <div class="slide-inner">
+      <div class="eyebrow">The Numbers</div>
+      <h2 class="headline">Simple economics. No hidden costs.</h2>
+      <p class="subhead">Pure OpEx. 20% below your current operator cost. Pilot verification period is free.</p>
+      <div class="econ-grid">
+        <div class="econ-assumptions">
+          <div class="eyebrow-small">Your operator today</div>
+          <div class="econ-row"><span class="label">Loaded cost per hour</span><span class="val">400-550 NOK/hr</span></div>
+          <div class="econ-row"><span class="label">Annual cost per operator</span><span class="val">650,000-1,000,000 NOK</span></div>
+          <div class="econ-row"><span class="label">Shifts you cannot fill</span><span class="val">Lost revenue</span></div>
+          <div class="econ-row highlight"><span class="label">Hive cost</span><span class="val">20% below your rate</span></div>
+        </div>
+        <div>
+          <div style="font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan); font-weight: 800; margin-bottom: 10px;">What changes</div>
+          <table class="fleet-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Before</th>
+                <th>With Hive</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Operating hours</td><td>Limited by shifts</td><td>24/7 capability</td></tr>
+              <tr><td>Cost per productive hour</td><td>Full operator rate</td><td>20% lower</td></tr>
+              <tr><td>Scale constraint</td><td>Hire more people</td><td>Add machines to the platform</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="footnote" style="margin-top: clamp(16px, 1.8vh, 22px);">All pricing validated per pilot. No commitment until you see verified KPI performance on your site. All amounts in NOK. UK pricing available on request.</div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 8 — START HERE (LIGHT HERO-PHOTO) ============ -->
+  <section class="slide hero-photo" data-theme="light">
+    <div class="bg" style="background-image: url('presentation-assets/customer/miljo-15.jpg'); background-size: cover; background-position: center 40%; animation: none !important;"></div>
+    <div class="overlay" style="background: linear-gradient(to bottom, rgba(248,249,250,0.97) 0%, rgba(248,249,250,0.92) 40%, rgba(248,249,250,0.75) 70%, rgba(248,249,250,0.45) 100%);"></div>
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo dark-filter">
+    <div class="slide-inner">
+      <div class="eyebrow">Getting Started</div>
+      <h2 class="headline">Start with one machine. See it work. Scale from there.</h2>
+      <p class="subhead">The first step is a conversation about your operation. No commitment, no contract. Just a real assessment of whether supervised physical AI fits your site.</p>
+      <div class="close-grid">
+        <div>
+          <ol class="next-steps">
+            <li><span class="num">01</span><span><strong>Book a 45-minute call</strong> We sit down together and discuss your sites, your machines, your challenges. 45 minutes. No commitment.</span></li>
+            <li><span class="num">02</span><span><strong>We visit your site</strong> Hive visits your site to assess the physical environment, connectivity, and operational flow. We evaluate whether supervised physical AI is a fit.</span></li>
+            <li><span class="num">03</span><span><strong>Pilot on your site</strong> Hive brings a machine. Free verification period. KPIs defined together. You see it work.</span></li>
+            <li><span class="num">04</span><span><strong>Production</strong> KPIs met, we continue. Your machine runs under supervised physical AI.</span></li>
+          </ol>
+        </div>
+        <div class="contact-block">
+          <div class="label">Hive Autonomy</div>
+          <div class="person">
+            <div class="name">Ronny Azimi Liver&oslash;d</div>
+            <div class="role">VP Heavy Machinery</div>
+          </div>
+          <div class="person">
+            <div class="role">ronny.liverod@hiveautonomy.no</div>
+          </div>
+          <div class="person">
+            <div class="role">+47 481 32 299</div>
+          </div>
+          <div class="person" style="margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line);">
+            <div class="role">Kristiansand . Oslo . London<br>hiveautonomy.no</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ APPENDIX — DISCOVERY QUESTIONS (LIGHT) ============ -->
+  <section class="slide" data-theme="light">
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo dark-filter">
+    <div class="slide-inner">
+      <div class="eyebrow">Appendix: Discovery Checklist</div>
+      <h2 class="headline">Questions to build the case.</h2>
+      <div class="discovery-grid">
+        <div class="discovery-card">
+          <div class="dc-num">01</div>
+          <div class="dc-label">The Operation</div>
+          <ol>
+            <li>What machines do you run? Which models, which years?</li>
+            <li>What is the primary task? (load-haul-dump, crusher feeding, stockpile management)</li>
+            <li>How many shifts are you running today? How many could you run?</li>
+            <li>What connectivity do you have on site? (4G/5G, WiFi)</li>
+            <li>Is there someone on site daily for machine inspection?</li>
+          </ol>
+        </div>
+        <div class="discovery-card">
+          <div class="dc-num">02</div>
+          <div class="dc-label">The Economics</div>
+          <ol>
+            <li>What does a fully loaded operator cost you per hour? Per year?</li>
+            <li>How many operators do you have on wheel loaders today?</li>
+            <li>What happens when you cannot fill a shift? (lost revenue, reduced output)</li>
+            <li>What is your current cost per tonne / per productive hour?</li>
+          </ol>
+        </div>
+        <div class="discovery-card">
+          <div class="dc-num">03</div>
+          <div class="dc-label">The Decision</div>
+          <ol>
+            <li>Who approves spend on operational technology? (Economic Buyer)</li>
+            <li>What is the internal process from "yes" to signed contract?</li>
+            <li>Who is the internal champion for this initiative?</li>
+            <li>Have you evaluated autonomy or remote operation before? What happened?</li>
+          </ol>
+        </div>
+        <div class="discovery-card">
+          <div class="dc-num">04</div>
+          <div class="dc-label">Pilot Setup</div>
+          <ol>
+            <li>When would you want to start a pilot? (Compelling Event / Timeline)</li>
+            <li>What does success look like after 90 days?</li>
+            <li>Are there site-specific safety requirements or third-party approvals needed?</li>
+            <li>What KPIs matter most to your management? (cost/tonne, utilization, safety)</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button id="prev" aria-label="Previous slide">&#8249;</button>
+  <span class="counter"><span id="current">1</span> / <span id="total">9</span></span>
+  <button id="next" aria-label="Next slide">&#8250;</button>
+  <button id="fs" aria-label="Fullscreen">&#10530;</button>
+</div>
+<div class="progress"><div class="fill" id="progressFill"></div></div>
+<!-- Zones removed: using document click position instead to avoid z-index conflicts with expand buttons -->
+<div class="version-flag">Hive Customer Intro . v2 . 2026-04-16</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+const currentEl = document.getElementById('current');
+const totalEl = document.getElementById('total');
+const progressFill = document.getElementById('progressFill');
+let index = 0;
+totalEl.textContent = total;
+
+function show(i) {
+  index = Math.max(0, Math.min(total - 1, i));
+  slides.forEach((s, n) => s.classList.toggle('active', n === index));
+  currentEl.textContent = index + 1;
+  progressFill.style.width = ((index + 1) / total * 100) + '%';
+  const theme = slides[index].dataset.theme;
+  document.body.classList.toggle('nav-dark', theme === 'dark');
+  // Lazy-load videos: only play videos in the active slide, pause all others
+  slides.forEach((s, n) => {
+    s.querySelectorAll('video').forEach(v => {
+      if (n === index) {
+        if (v.paused) { v.load(); v.play().catch(() => {}); }
+      } else {
+        if (!v.paused) v.pause();
+      }
+    });
+  });
+}
+show(0);
+setTimeout(() => { const b = document.getElementById('confBanner'); if (b) b.classList.add('fade'); }, 5000);
+
+document.getElementById('next').addEventListener('click', () => show(index + 1));
+document.getElementById('prev').addEventListener('click', () => show(index - 1));
+// Click navigation: use click position instead of zone overlays (avoids z-index conflicts with expand buttons)
+document.addEventListener('click', (e) => {
+  if (e.target.closest('.expand-btn') || e.target.closest('.video-overlay') || e.target.closest('.nav') || e.target.closest('a') || e.target.closest('button')) return;
+  const x = e.clientX / window.innerWidth;
+  if (x < 0.3) show(index - 1);
+  else show(index + 1);
+});
+document.getElementById('fs').addEventListener('click', toggleFS);
+
+function toggleFS() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { show(index + 1); e.preventDefault(); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { show(index - 1); e.preventDefault(); }
+  if (e.key === 'Home') { show(0); }
+  if (e.key === 'End') { show(total - 1); }
+  if (e.key === 'f' || e.key === 'F') { toggleFS(); }
+  if (e.key === 'Escape') { closeVideoOverlay(); }
+});
+
+let touchX = null;
+document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, {passive: true});
+document.addEventListener('touchend', e => {
+  if (touchX === null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (Math.abs(dx) > 60) show(index + (dx < 0 ? 1 : -1));
+  touchX = null;
+}, {passive: true});
+
+// Video expand/fullscreen overlay
+function openVideoOverlay(videoSrc) {
+  const overlay = document.createElement('div');
+  overlay.className = 'video-overlay';
+  overlay.innerHTML = '<button class="close-overlay">&times;</button><video src="' + videoSrc + '" controls autoplay style="max-width: 90vw; max-height: 85vh;"></video>';
+  document.body.appendChild(overlay);
+  requestAnimationFrame(() => overlay.classList.add('visible'));
+  overlay.querySelector('.close-overlay').addEventListener('click', (e) => { e.stopPropagation(); closeVideoOverlay(); });
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeVideoOverlay(); });
+}
+
+function closeVideoOverlay() {
+  const overlay = document.querySelector('.video-overlay');
+  if (!overlay) return;
+  overlay.classList.remove('visible');
+  const v = overlay.querySelector('video');
+  if (v) v.pause();
+  setTimeout(() => overlay.remove(), 300);
+}
+
+document.querySelectorAll('.expand-btn').forEach(btn => {
+  btn.addEventListener('pointerdown', (e) => {
+    expandClickBlocked = true;
+    setTimeout(() => { expandClickBlocked = false; }, 300);
+  }, true);
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    e.preventDefault();
+    expandClickBlocked = true;
+    setTimeout(() => { expandClickBlocked = false; }, 300);
+    if (btn.dataset.expand === 'vimeo') {
+      window.open(btn.dataset.vimeoUrl, '_blank');
+    } else {
+      const slot = btn.closest('.video-slot');
+      const video = slot ? slot.querySelector('video source') : null;
+      const src = video ? video.src : (slot ? slot.dataset.videoSrc : null);
+      if (src) openVideoOverlay(src);
+    }
+  }, true);
+});
+</script>
+</body>
+</html>
