@@ -159,13 +159,13 @@ h2.headline {
   z-index: 5;
   opacity: 1;
 }
-/* On dark slides, invert the logo so navy becomes white */
+/* On dark slides, use the white logo directly (hive-logo-white.png) */
 .slide.dark .logo,
 .slide.hero-photo.dark .logo,
 .slide[data-theme="dark"] .logo {
-  filter: brightness(0) invert(1) drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
 }
-/* On light slides, use the logo as-is (navy on transparent) — dark-filter class is legacy */
+/* On light slides, use the navy logo as-is */
 .logo.dark-filter { filter: none; }
 .top-tag {
   position: absolute;
@@ -1125,7 +1125,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
   <section class="slide hero-photo dark active" data-theme="dark">
     <div class="bg" style="background-image: url('presentation-assets/volvo/slide1-quarry-hero.jpg'); background-size: cover; background-position: center 55%;"></div>
     <div class="overlay" style="background: linear-gradient(to right, rgba(11,26,44,0.94) 0%, rgba(11,26,44,0.82) 38%, rgba(11,26,44,0.45) 75%, rgba(11,26,44,0.12) 100%);"></div>
-    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo">
+    <img src="presentation-assets/volvo/hive-logo-white.png" alt="Hive Autonomy" class="logo">
     <div class="top-tag">For Volvo CE · Strategic Partnership</div>
     <div class="slide-inner">
       <div class="eyebrow">Hive × Volvo CE</div>
@@ -1138,7 +1138,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
   <section class="slide hero-photo dark" data-theme="dark">
     <div class="bg" style="background-image: url('presentation-assets/volvo/volvo-hx.webp'); background-position: center; background-size: cover;"></div>
     <div class="overlay" style="background: linear-gradient(135deg, rgba(11,26,44,0.92) 0%, rgba(11,26,44,0.82) 50%, rgba(11,26,44,0.72) 100%);"></div>
-    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo">
+    <img src="presentation-assets/volvo/hive-logo-white.png" alt="Hive Autonomy" class="logo">
     <div class="slide-inner">
       <div class="eyebrow">Why This Conversation. Now.</div>
       <h2 class="headline">Others are pulling ahead.</h2>
@@ -1209,7 +1209,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
   <section class="slide hero-photo dark" data-theme="dark">
     <div class="bg" style="background-image: url('presentation-assets/volvo/slide4-tunnel.jpg'); background-position: center; background-size: cover;"></div>
     <div class="overlay" style="background: linear-gradient(to bottom, rgba(11,26,44,0.82) 0%, rgba(11,26,44,0.72) 45%, rgba(11,26,44,0.78) 100%);"></div>
-    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo">
+    <img src="presentation-assets/volvo/hive-logo-white.png" alt="Hive Autonomy" class="logo">
     <div class="slide-inner" style="max-width: 1500px; margin: 0 auto;">
       <div class="eyebrow">What Makes Hive Different</div>
       <h2 class="headline">The physical AI company for industrial machinery.</h2>
@@ -1300,7 +1300,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
   <section class="slide hero-photo dark" data-theme="dark">
     <div class="bg" style="background-image: url('presentation-assets/volvo/slide6-volvo-profile.jpg'); background-position: center; background-size: cover;"></div>
     <div class="overlay" style="background: linear-gradient(to right, rgba(11,26,44,0.94) 0%, rgba(11,26,44,0.88) 55%, rgba(11,26,44,0.82) 100%);"></div>
-    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo">
+    <img src="presentation-assets/volvo/hive-logo-white.png" alt="Hive Autonomy" class="logo">
     <div class="slide-inner">
       <div class="eyebrow">The Commercial Model</div>
       <h2 class="headline">Three pillars. One structure that plugs into how Volvo already operates.</h2>
@@ -1416,7 +1416,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
   <section class="slide hero-photo dark" data-theme="dark">
     <div class="bg" style="background-image: url('presentation-assets/volvo/slide15-confined.jpg'); background-position: left center; background-size: cover;"></div>
     <div class="overlay" style="background: linear-gradient(to right, rgba(11,26,44,0.92) 0%, rgba(11,26,44,0.84) 48%, rgba(11,26,44,0.88) 100%);"></div>
-    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo">
+    <img src="presentation-assets/volvo/hive-logo-white.png" alt="Hive Autonomy" class="logo">
     <div class="slide-inner">
       <div class="pillar-header">
         <span class="pillar-dot inactive dark"></span>
@@ -1491,7 +1491,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
   <section class="slide hero-photo dark" data-theme="dark">
     <div class="bg" style="background-image: url('presentation-assets/volvo/slide11-operator-chair.jpg'); background-position: center; background-size: cover;"></div>
     <div class="overlay" style="background: linear-gradient(to right, rgba(11,26,44,0.94) 0%, rgba(11,26,44,0.88) 45%, rgba(11,26,44,0.70) 80%, rgba(11,26,44,0.42) 100%);"></div>
-    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo">
+    <img src="presentation-assets/volvo/hive-logo-white.png" alt="Hive Autonomy" class="logo">
     <div class="slide-inner">
       <div class="eyebrow">How We Scale Operationally</div>
       <h2 class="headline">Hive trains the trainers. Volvo unlocks the distribution.</h2>
@@ -1524,7 +1524,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
   <section class="slide hero-photo dark" data-theme="dark">
     <div class="bg" style="background-image: url('presentation-assets/volvo/slide12-sensors-labeled.jpg'); background-position: center center; background-size: cover; animation: none !important;"></div>
     <div class="overlay" style="background: linear-gradient(to bottom, rgba(11,26,44,0.92) 0%, rgba(11,26,44,0.78) 38%, rgba(11,26,44,0.85) 100%);"></div>
-    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo">
+    <img src="presentation-assets/volvo/hive-logo-white.png" alt="Hive Autonomy" class="logo">
     <div class="slide-inner">
       <div class="eyebrow">Retrofit Path. From Pilot To Production.</div>
       <h2 class="headline">Three phases. One clear trajectory toward factory-installed physical AI.</h2>
@@ -1588,7 +1588,7 @@ body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
   <section class="slide hero-photo dark" data-theme="dark">
     <div class="bg" style="background-image: url('presentation-assets/volvo/slide15-harbor-volvo.jpg'); background-position: center 60%; background-size: cover;"></div>
     <div class="overlay" style="background: linear-gradient(115deg, rgba(11,26,44,0.95) 0%, rgba(11,26,44,0.85) 45%, rgba(11,26,44,0.62) 82%, rgba(11,26,44,0.32) 100%);"></div>
-    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo">
+    <img src="presentation-assets/volvo/hive-logo-white.png" alt="Hive Autonomy" class="logo">
     <div class="slide-inner">
       <div class="eyebrow">Why This Partnership Wins</div>
       <h2 class="headline">Three parties. One aligned outcome.</h2>
