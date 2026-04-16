@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hive Autonomy — Volvo CE Executive Summary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1B3A5C;
+  --navy-deep: #0B1A2C;
+  --cyan: #4A90D9;
+  --yellow: #E8D44D;
+  --ink: #1a1a1a;
+  --ink-60: rgba(26,26,26,0.62);
+  --ink-40: rgba(26,26,26,0.40);
+  --bg: #FFFFFF;
+  --bg-soft: #F8F9FA;
+  --line: rgba(27,58,92,0.12);
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--navy-deep);
+  color: var(--ink);
+  overflow: hidden;
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+.deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+.slide {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: clamp(40px, 5vh, 80px) clamp(40px, 6vw, 120px);
+  opacity: 0; pointer-events: none;
+  transition: opacity 500ms var(--ease);
+  background: var(--bg);
+}
+.slide.active { opacity: 1; pointer-events: auto; z-index: 2; }
+.slide-inner { max-width: 1200px; width: 100%; position: relative; z-index: 2; }
+.eyebrow {
+  font-size: clamp(11px, 0.9vw, 13px); font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan);
+  margin-bottom: clamp(16px, 1.8vh, 24px);
+  opacity: 0; transform: translateY(18px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.slide.active .eyebrow { opacity: 1; transform: translateY(0); transition-delay: 80ms; }
+.slide.dark .eyebrow { color: var(--yellow); }
+h1.title {
+  font-size: clamp(42px, 5.8vw, 78px); font-weight: 800;
+  line-height: 1.05; letter-spacing: -0.035em; color: var(--navy);
+  margin-bottom: clamp(22px, 2.5vh, 32px);
+  opacity: 0; transform: translateY(22px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active h1.title { opacity: 1; transform: translateY(0); transition-delay: 180ms; }
+.slide.dark h1.title { color: #fff; text-shadow: 0 2px 22px rgba(0,0,0,0.4); }
+h2.headline {
+  font-size: clamp(28px, 3.4vw, 44px); font-weight: 800;
+  line-height: 1.08; letter-spacing: -0.028em; color: var(--navy);
+  margin-bottom: clamp(20px, 2.2vh, 28px);
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active h2.headline { opacity: 1; transform: translateY(0); transition-delay: 180ms; }
+.slide.dark h2.headline { color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,0.35); }
+.subhead {
+  font-size: clamp(17px, 1.4vw, 22px); font-weight: 400;
+  line-height: 1.5; color: var(--ink-60); max-width: 820px;
+  margin-bottom: clamp(22px, 2.6vh, 36px);
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .subhead { opacity: 1; transform: translateY(0); transition-delay: 280ms; }
+.slide.dark .subhead { color: rgba(255,255,255,0.88); text-shadow: 0 1px 12px rgba(0,0,0,0.35); }
+.slide.hero-photo { background: var(--navy-deep); }
+.slide.hero-photo .bg {
+  position: absolute; inset: 0; background-size: cover; background-position: center; z-index: 0;
+  animation: kenburns 16s ease-in-out infinite alternate;
+}
+.slide.hero-photo .overlay { position: absolute; inset: 0; z-index: 1; }
+@keyframes kenburns { 0% { transform: scale(1.0); } 100% { transform: scale(1.10); } }
+.logo {
+  position: absolute; top: clamp(24px, 3vh, 40px); left: clamp(30px, 4vw, 60px);
+  height: clamp(42px, 4.4vh, 58px); z-index: 5;
+}
+.slide.dark .logo, .slide[data-theme="dark"] .logo { filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4)); }
+.logo.dark-filter { filter: none; }
+.top-tag {
+  position: absolute; top: clamp(24px, 3vh, 40px); right: clamp(120px, 13vw, 200px);
+  z-index: 5; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(255,255,255,0.7); font-weight: 500;
+}
+.bridge-card {
+  background: var(--bg-soft); border: 1px solid var(--line); border-radius: 12px;
+  padding: clamp(20px, 2.4vh, 30px); position: relative;
+  opacity: 0; transform: translateY(22px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .bridge-card:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+.slide.active .bridge-card:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 440ms; }
+.bridge-card .step-num { font-size: clamp(44px, 4.2vw, 60px); font-weight: 900; line-height: 1; color: var(--cyan); letter-spacing: -0.04em; margin-bottom: 6px; }
+.bridge-card .step-label { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--navy); margin-bottom: 12px; }
+.bridge-card h3 { font-size: clamp(16px, 1.2vw, 19px); font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 10px; }
+.bridge-card p { font-size: clamp(13px, 0.95vw, 15px); color: var(--ink-60); line-height: 1.55; }
+.footnote {
+  margin-top: 14px; padding: 14px 20px;
+  background: rgba(74,144,217,0.08); border-left: 3px solid var(--cyan);
+  border-radius: 2px 6px 6px 2px;
+  font-size: clamp(14px, 1.05vw, 17px); color: var(--navy); font-weight: 500; line-height: 1.5;
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.footnote strong { color: var(--navy); font-weight: 800; }
+.slide.active .footnote { opacity: 1; transform: translateY(0); transition-delay: 840ms; }
+.close-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(40px, 5vw, 72px); align-items: center; }
+.contact-block {
+  background: var(--bg-soft); border-left: 3px solid var(--cyan);
+  padding: clamp(22px, 2.6vh, 32px) clamp(24px, 2.4vw, 34px); border-radius: 2px 8px 8px 2px;
+}
+.contact-block .label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); font-weight: 700; margin-bottom: 14px; }
+.contact-block .person { margin-bottom: 14px; }
+.contact-block .person:last-child { margin-bottom: 0; }
+.contact-block .name { font-size: clamp(16px, 1.2vw, 19px); font-weight: 700; color: var(--navy); }
+.contact-block .role { font-size: clamp(13px, 0.95vw, 15px); color: var(--ink-60); }
+.next-steps { list-style: none; margin-top: clamp(20px, 2.4vh, 28px); }
+.next-steps li {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: clamp(12px, 1.4vh, 16px) 0; border-bottom: 1px solid var(--line);
+  font-size: clamp(15px, 1.1vw, 18px); color: var(--navy); line-height: 1.4;
+}
+.next-steps li:last-child { border-bottom: none; }
+.next-steps .num { font-size: clamp(14px, 1vw, 16px); font-weight: 700; color: var(--cyan); min-width: 28px; flex-shrink: 0; }
+.nav {
+  position: fixed; top: clamp(22px, 2.6vh, 34px); right: clamp(30px, 4vw, 60px);
+  display: flex; gap: 10px; align-items: center; z-index: 20;
+}
+.nav button {
+  background: rgba(27,58,92,0.08); border: 1px solid rgba(27,58,92,0.16);
+  color: var(--navy); width: 36px; height: 36px; border-radius: 50%;
+  cursor: pointer; font-size: 15px; display: flex; align-items: center; justify-content: center;
+  transition: all 200ms var(--ease); font-family: inherit;
+}
+.nav button:hover { background: var(--navy); color: #fff; }
+.nav .counter { font-size: 12px; font-weight: 600; color: var(--navy); letter-spacing: 0.08em; padding: 0 10px; }
+body.nav-dark .nav button { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.25); color: #fff; }
+body.nav-dark .nav button:hover { background: #fff; color: var(--navy); }
+body.nav-dark .nav .counter { color: #fff; }
+.progress { position: fixed; bottom: 0; left: 0; right: 0; height: 3px; background: rgba(27,58,92,0.08); z-index: 20; }
+body.nav-dark .progress { background: rgba(255,255,255,0.08); }
+.progress .fill { height: 100%; background: var(--cyan); width: 0%; transition: width 500ms var(--ease); }
+.zone { position: fixed; top: 0; bottom: 0; width: 30%; z-index: 10; cursor: pointer; }
+.zone.left { left: 0; }
+.zone.right { right: 0; width: 70%; }
+.version-flag {
+  position: fixed; bottom: 16px; left: 22px; font-size: 10px;
+  letter-spacing: 0.16em; text-transform: uppercase; color: rgba(27,58,92,0.35);
+  font-weight: 600; z-index: 21; pointer-events: none;
+}
+body.nav-dark .version-flag { color: rgba(255,255,255,0.5); }
+/* Hero differentiator chips */
+.diff-chips {
+  display: flex; gap: clamp(12px, 1.2vw, 18px); flex-wrap: wrap;
+  margin-top: clamp(20px, 2.4vh, 28px);
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .diff-chips { opacity: 1; transform: translateY(0); transition-delay: 480ms; }
+.diff-chip {
+  background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 8px; padding: 10px 18px;
+  font-size: clamp(12px, 0.9vw, 14px); font-weight: 600; color: rgba(255,255,255,0.9);
+  letter-spacing: 0.02em;
+}
+.diff-chip .chip-num { color: var(--yellow); font-weight: 800; margin-right: 8px; }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- ============ SLIDE 1 — HERO + PHYSICAL AI DEFINITION ============ -->
+  <section class="slide hero-photo dark active" data-theme="dark">
+    <div class="bg" style="background-image: url('presentation-assets/volvo/slide1-quarry-hero.jpg'); background-size: cover; background-position: center 55%;"></div>
+    <div class="overlay" style="background: linear-gradient(to right, rgba(11,26,44,0.94) 0%, rgba(11,26,44,0.82) 38%, rgba(11,26,44,0.45) 75%, rgba(11,26,44,0.12) 100%);"></div>
+    <img src="presentation-assets/volvo/hive-logo-white.png" alt="Hive Autonomy" class="logo">
+    <div class="top-tag">Executive Summary · For Volvo CE</div>
+    <div class="slide-inner">
+      <div class="eyebrow">Hive × Volvo CE</div>
+      <h1 class="title">Physical AI,<br>deployed through<br>your brand.</h1>
+      <p class="subhead">Hive is building a general-purpose AI model that learns to operate any industrial machine. A single intelligence layer trained across machine types, sites and conditions. Four live deployments on Volvo L-series wheel loaders today. Not a concept. Not a roadmap.</p>
+      <div class="diff-chips">
+        <div class="diff-chip"><span class="chip-num">01</span>One model, every machine</div>
+        <div class="diff-chip"><span class="chip-num">02</span>Fully packaged service</div>
+        <div class="diff-chip"><span class="chip-num">03</span>Human-in-the-loop</div>
+        <div class="diff-chip"><span class="chip-num">04</span>Retrofit, not replacement</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 2 — MARKET SHARE (from v5 slide 9) ============ -->
+  <section class="slide hero-photo dark" data-theme="dark">
+    <div class="bg" style="background-image: url('presentation-assets/volvo/slide15-confined.jpg'); background-position: left center; background-size: cover;"></div>
+    <div class="overlay" style="background: linear-gradient(to right, rgba(11,26,44,0.92) 0%, rgba(11,26,44,0.84) 48%, rgba(11,26,44,0.88) 100%);"></div>
+    <img src="presentation-assets/volvo/hive-logo-white.png" alt="Hive Autonomy" class="logo">
+    <div class="slide-inner">
+      <div class="eyebrow">The Business Case</div>
+      <h2 class="headline">Physical AI becomes the reason customers choose Volvo.</h2>
+      <p class="subhead">Two ways this partnership grows your market. One makes you sell more machines. The other opens a market you have never had access to.</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 2.2vw, 32px); margin-top: clamp(24px, 2.8vh, 34px);">
+        <div class="bridge-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18); padding: clamp(22px, 2.4vh, 30px);">
+          <div class="step-num" style="color: var(--yellow);">01</div>
+          <div class="step-label" style="color: rgba(255,255,255,0.85);">Sell more machines</div>
+          <h3 style="color: #fff; font-size: clamp(17px, 1.3vw, 21px);">Physical AI makes Volvo the profitable choice.</h3>
+          <p style="color: rgba(255,255,255,0.85);">The Volvo dealer puts supervised physical AI on the table. A differentiator no competitor can match on spec alone. For electric machines (50-75% price premium), physical AI increases utilization and compresses operating cost, making the economics of electric work. Two strategic priorities at once.</p>
+        </div>
+        <div class="bridge-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18); padding: clamp(22px, 2.4vh, 30px);">
+          <div class="step-num" style="color: var(--yellow);">02</div>
+          <div class="step-label" style="color: rgba(255,255,255,0.85);">Enter the labor market</div>
+          <h3 style="color: #fff; font-size: clamp(17px, 1.3vw, 21px);">A new revenue stream 2-3x larger than machine sales.</h3>
+          <p style="color: rgba(255,255,255,0.85);">Volvo CE generates ~$8.5B per year selling machines. The operator labor market for those same machines is $17-25B per year. Through Hive, Volvo takes a direct share of that cashflow. Yearly recurring revenue that compounds as the installed base grows.</p>
+        </div>
+      </div>
+      <div style="display: flex; align-items: flex-end; gap: clamp(24px, 3vw, 40px); margin-top: clamp(22px, 2.6vh, 30px); padding: 0 clamp(40px, 6vw, 80px);">
+        <div style="text-align: center; flex: 1;">
+          <div style="background: linear-gradient(to top, rgba(255,255,255,0.12), rgba(255,255,255,0.06)); border: 1px solid rgba(255,255,255,0.18); border-radius: 6px; height: 80px; display: flex; align-items: center; justify-content: center;">
+            <span style="color: rgba(255,255,255,0.9); font-size: clamp(20px, 1.8vw, 28px); font-weight: 800;">$8.5B</span>
+          </div>
+          <span style="color: rgba(255,255,255,0.6); font-size: clamp(10px, 0.8vw, 12px); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 8px; display: block;">Volvo CE revenue today</span>
+        </div>
+        <div style="text-align: center; flex: 1;">
+          <div style="background: linear-gradient(to top, rgba(0,188,212,0.18), rgba(0,188,212,0.06)); border: 1px solid rgba(0,188,212,0.35); border-radius: 6px; height: 160px; display: flex; align-items: center; justify-content: center;">
+            <span style="color: var(--cyan); font-size: clamp(20px, 1.8vw, 28px); font-weight: 800;">$17-25B</span>
+          </div>
+          <span style="color: rgba(255,255,255,0.6); font-size: clamp(10px, 0.8vw, 12px); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 8px; display: block;">Operator labor market<br>(Volvo machine fleet)</span>
+        </div>
+        <div style="text-align: center; flex: 0.6;">
+          <div style="color: var(--yellow); font-size: clamp(11px, 0.9vw, 13px); font-weight: 700; line-height: 1.4; padding: 10px 0;">Hive gives Volvo<br>direct access to<br>this market</div>
+          <div style="font-size: 28px; color: var(--yellow);">&#8594;</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 3 — NEXT STEPS ============ -->
+  <section class="slide" data-theme="light">
+    <img src="presentation-assets/volvo/hive-logo.png" alt="Hive Autonomy" class="logo dark-filter">
+    <div class="slide-inner">
+      <div class="eyebrow">Proposed Next Steps</div>
+      <h2 class="headline">To get this partnership up and running from Q3, we need a signed term sheet before end of May.</h2>
+      <p class="subhead">Volvo has signalled they want this operational from Q3 2026. Here is the shortest path to make that happen.</p>
+      <div class="close-grid">
+        <div>
+          <ol class="next-steps">
+            <li><span class="num">01</span><span><strong>Executive alignment session</strong> 60 minutes, Hive founders and Volvo CE leadership. Confirm appetite for a preferred partnership and agree on scope.</span></li>
+            <li><span class="num">02</span><span><strong>Term sheet</strong> Agree commercial terms for the partnership. Target: signed before end of May.</span></li>
+            <li><span class="num">03</span><span><strong>Eskilstuna showcase</strong> Deploy a Hive physical AI kit on a Volvo reference machine. Make the capability visible to Volvo customers visiting Eskilstuna.</span></li>
+            <li><span class="num">04</span><span><strong>Joint pilot selection</strong> Pick 2-3 customers from Volvo's own base in the Nordics. Test the joint sales structure. Define joint KPIs.</span></li>
+          </ol>
+        </div>
+        <div class="contact-block">
+          <div class="label">Hive Autonomy</div>
+          <div class="person">
+            <div class="name">Christoffer Jorgenvag</div>
+            <div class="role">Co-founder. CEO</div>
+          </div>
+          <div class="person">
+            <div class="name">Fredrik Bringager</div>
+            <div class="role">Co-founder. CCO</div>
+          </div>
+          <div class="person">
+            <div class="name">Ronny Azimi Liverod</div>
+            <div class="role">VP Heavy Machinery</div>
+          </div>
+          <div class="person" style="margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line);">
+            <div class="role">Kristiansand. Oslo. London<br>hiveautonomy.no</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+  <button id="prev" aria-label="Previous slide">&#8249;</button>
+  <span class="counter"><span id="current">1</span> / <span id="total">3</span></span>
+  <button id="next" aria-label="Next slide">&#8250;</button>
+  <button id="fs" aria-label="Fullscreen">&#10530;</button>
+</div>
+<div class="progress"><div class="fill" id="progressFill"></div></div>
+<div class="zone left" id="zoneLeft"></div>
+<div class="zone right" id="zoneRight"></div>
+<div class="version-flag">Volvo CE Executive Summary. v2. 2026-04-16</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+const currentEl = document.getElementById('current');
+const totalEl = document.getElementById('total');
+const progressFill = document.getElementById('progressFill');
+let index = 0;
+totalEl.textContent = total;
+
+function show(i) {
+  index = Math.max(0, Math.min(total - 1, i));
+  slides.forEach((s, n) => s.classList.toggle('active', n === index));
+  currentEl.textContent = index + 1;
+  progressFill.style.width = ((index + 1) / total * 100) + '%';
+  const theme = slides[index].dataset.theme;
+  document.body.classList.toggle('nav-dark', theme === 'dark');
+}
+
+document.getElementById('prev').addEventListener('click', () => show(index - 1));
+document.getElementById('next').addEventListener('click', () => show(index + 1));
+document.getElementById('zoneLeft').addEventListener('click', () => show(index - 1));
+document.getElementById('zoneRight').addEventListener('click', () => show(index + 1));
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(index + 1); }
+  if (e.key === 'ArrowLeft') show(index - 1);
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+document.getElementById('fs').addEventListener('click', () => {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+  else document.exitFullscreen();
+});
+show(0);
+</script>
+</body>
+</html>
