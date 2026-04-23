@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hive Autonomy — Vision</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:       oklch(30% 0.06 245);
+  --navy-deep:  oklch(15% 0.04 245);
+  --navy-mid:   oklch(22% 0.05 245);
+  --cyan:       oklch(68% 0.12 245);
+  --cyan-soft:  oklch(78% 0.08 245);
+  --yellow:     oklch(86% 0.16 95);
+  --yellow-soft: oklch(92% 0.08 95);
+  --paper:      oklch(98% 0.004 245);
+  --paper-soft: oklch(96% 0.005 245);
+  --ink:        oklch(18% 0.01 245);
+  --ink-80:     oklch(18% 0.01 245 / 0.82);
+  --ink-60:     oklch(18% 0.01 245 / 0.62);
+  --ink-40:     oklch(18% 0.01 245 / 0.40);
+  --line:       oklch(30% 0.06 245 / 0.14);
+  --line-strong: oklch(30% 0.06 245 / 0.28);
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --serif: 'Fraunces', 'Times New Roman', Georgia, serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: var(--sans);
+  background: var(--navy-deep);
+  color: var(--ink);
+  overflow: hidden;
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01", "cv11", "tnum";
+}
+
+.deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(40px, 5vh, 72px) clamp(40px, 6vw, 112px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 600ms var(--ease);
+  background: var(--paper);
+  overflow: hidden;
+}
+.slide.active { opacity: 1; pointer-events: auto; z-index: 2; }
+.slide.dark { background: var(--navy-deep); color: #fff; }
+
+.slide-inner {
+  max-width: 1280px;
+  width: 100%;
+  position: relative;
+  z-index: 3;
+}
+.slide-inner.narrow { max-width: 880px; }
+.slide-inner.wide { max-width: 1440px; }
+
+.logo {
+  position: absolute;
+  top: clamp(24px, 3vh, 36px);
+  left: clamp(32px, 4vw, 56px);
+  height: clamp(34px, 3.8vh, 46px);
+  z-index: 10;
+  opacity: 0.92;
+}
+
+.slide-counter {
+  position: absolute;
+  bottom: clamp(22px, 2.6vh, 32px);
+  right: clamp(32px, 4vw, 56px);
+  z-index: 10;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--ink-40);
+}
+.slide.dark .slide-counter, .slide.photo-bg.dark .slide-counter { color: rgba(255,255,255,0.4); }
+
+.confidential {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 19;
+  padding: 7px 0;
+  background: oklch(15% 0.04 245 / 0.88);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  transition: opacity 500ms ease 2500ms;
+  pointer-events: none;
+}
+.confidential.fade { opacity: 0; }
+.confidential strong { color: var(--yellow); font-weight: 700; margin-right: 12px; }
+
+.nav-hint {
+  position: fixed;
+  bottom: clamp(22px, 2.6vh, 32px);
+  left: clamp(32px, 4vw, 56px);
+  z-index: 10;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--ink-40);
+  transition: opacity 400ms ease;
+}
+.slide.dark .nav-hint, .slide.photo-bg.dark .nav-hint { color: rgba(255,255,255,0.3); }
+.nav-hint.hide { opacity: 0; }
+
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: var(--cyan);
+  z-index: 20;
+  transition: width 400ms var(--ease);
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: clamp(20px, 2.4vh, 32px);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--cyan);
+}
+.slide.active .eyebrow { opacity: 1; transform: translateY(0); transition-delay: 80ms; }
+.slide.dark .eyebrow, .slide.photo-bg.dark .eyebrow { color: var(--yellow); }
+.slide.dark .eyebrow::before, .slide.photo-bg.dark .eyebrow::before { background: var(--yellow); }
+
+h1.display, .hero-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+}
+
+h1.display {
+  font-size: clamp(44px, 6vw, 88px);
+  color: var(--navy);
+  margin-bottom: clamp(22px, 2.6vh, 32px);
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out);
+}
+.slide.active h1.display { opacity: 1; transform: translateY(0); transition-delay: 180ms; }
+.slide.dark h1.display, .slide.photo-bg.dark h1.display { color: #fff; }
+
+h2.headline {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4vw, 54px);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 60;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  margin-bottom: clamp(20px, 2.4vh, 28px);
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 800ms var(--ease-out), transform 800ms var(--ease-out);
+}
+.slide.active h2.headline { opacity: 1; transform: translateY(0); transition-delay: 180ms; }
+.slide.dark h2.headline, .slide.photo-bg.dark h2.headline { color: #fff; }
+
+.subhead {
+  font-size: clamp(17px, 1.3vw, 22px);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--ink-60);
+  max-width: 780px;
+  margin-bottom: clamp(28px, 3vh, 40px);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .subhead { opacity: 1; transform: translateY(0); transition-delay: 280ms; }
+.slide.dark .subhead, .slide.photo-bg.dark .subhead { color: rgba(255,255,255,0.82); }
+
+.body {
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.58;
+  color: var(--ink-80);
+  max-width: 720px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .body { opacity: 1; transform: translateY(0); transition-delay: 340ms; }
+.slide.dark .body, .slide.photo-bg.dark .body { color: rgba(255,255,255,0.88); }
+.body p + p { margin-top: 0.95em; }
+
+.meta-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-40);
+}
+.slide.dark .meta-label, .slide.photo-bg.dark .meta-label { color: rgba(255,255,255,0.45); }
+
+.slide.photo-bg .bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  opacity: 1;
+}
+.slide.photo-bg.dark .bg { opacity: 0.9; filter: saturate(0.85); }
+.slide.photo-bg .bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    oklch(15% 0.04 245 / 0.78) 0%,
+    oklch(15% 0.04 245 / 0.86) 40%,
+    oklch(15% 0.04 245 / 0.94) 100%);
+}
+
+.slide.photo-bg.side-right .bg {
+  left: 52%;
+  clip-path: polygon(6% 0, 100% 0, 100% 100%, 0 100%);
+  opacity: 1; filter: none;
+}
+.slide.photo-bg.side-right .bg::after { display: none; }
+.slide.photo-bg.side-right { background: var(--paper); justify-content: flex-start; }
+.slide.photo-bg.side-right .slide-inner {
+  max-width: 560px;
+  margin-left: 0;
+  padding-left: clamp(20px, 1.5vw, 32px);
+}
+
+.slide.photo-bg.side-left .bg {
+  right: 52%;
+  clip-path: polygon(0 0, 94% 0, 100% 100%, 0 100%);
+  opacity: 1; filter: none;
+}
+.slide.photo-bg.side-left .bg::after { display: none; }
+.slide.photo-bg.side-left { background: var(--paper); justify-content: flex-end; }
+.slide.photo-bg.side-left .slide-inner {
+  max-width: 560px;
+  margin-right: 0;
+}
+
+.slide.pattern-dots::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: radial-gradient(circle, oklch(30% 0.06 245 / 0.10) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+.slide.pattern-grid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(oklch(30% 0.06 245 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(30% 0.06 245 / 0.05) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+.slide.pattern-diffusion::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 40% 30% at 20% 30%, oklch(68% 0.12 245 / 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 30% 40% at 80% 70%, oklch(86% 0.16 95 / 0.06) 0%, transparent 60%),
+    radial-gradient(circle at 50% 100%, oklch(30% 0.06 245 / 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.slide.vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(ellipse at center, transparent 40%, oklch(15% 0.04 245 / 0.42) 100%);
+  pointer-events: none;
+}
+
+.slide.hero { background: var(--navy-deep); }
+.slide.hero .bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  opacity: 0.62;
+  filter: saturate(0.9);
+}
+.slide.hero .overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg,
+    oklch(15% 0.04 245 / 0.92) 0%,
+    oklch(15% 0.04 245 / 0.70) 35%,
+    oklch(15% 0.04 245 / 0.32) 70%,
+    oklch(15% 0.04 245 / 0.14) 100%);
+  z-index: 1;
+}
+
+.hero-mark {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out);
+}
+.slide.active .hero-mark { opacity: 1; transform: translateY(0); transition-delay: 100ms; }
+
+.hero-title {
+  font-size: clamp(48px, 6.8vw, 104px);
+  color: #fff;
+  max-width: 1100px;
+  margin-bottom: 48px;
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 1100ms var(--ease-out), transform 1100ms var(--ease-out);
+}
+.slide.active .hero-title { opacity: 1; transform: translateY(0); transition-delay: 220ms; }
+.hero-title em {
+  font-style: italic;
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+  color: var(--yellow-soft);
+}
+
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(20px, 2vw, 32px); margin-top: clamp(24px, 3vh, 36px); }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(18px, 1.8vw, 28px); margin-top: clamp(24px, 3vh, 36px); }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px, 1.4vw, 22px); margin-top: clamp(24px, 3vh, 36px); }
+
+.card {
+  padding: clamp(22px, 2.2vw, 32px);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: 2px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.photo-bg.dark .card {
+  background: oklch(15% 0.04 245 / 0.55);
+  border-color: oklch(100% 0 0 / 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.slide.photo-bg.dark .card .card-title { color: #fff; }
+.slide.photo-bg.dark .card .card-body { color: rgba(255,255,255,0.78); }
+.slide.photo-bg.dark .card .card-num { color: var(--yellow); }
+
+.slide.active .card { opacity: 1; transform: translateY(0); }
+.slide.active .card:nth-child(1) { transition-delay: 340ms; }
+.slide.active .card:nth-child(2) { transition-delay: 420ms; }
+.slide.active .card:nth-child(3) { transition-delay: 500ms; }
+.slide.active .card:nth-child(4) { transition-delay: 580ms; }
+.slide.active .card:nth-child(5) { transition-delay: 660ms; }
+.slide.active .card:nth-child(6) { transition-delay: 740ms; }
+
+.card-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--cyan);
+  margin-bottom: 12px;
+}
+.card-title {
+  font-family: var(--serif);
+  font-size: clamp(20px, 1.8vw, 26px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.card-body {
+  font-size: clamp(13px, 1vw, 15px);
+  line-height: 1.5;
+  color: var(--ink-60);
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: clamp(20px, 2.4vh, 32px);
+}
+.vid-cell {
+  background: var(--navy-deep);
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+}
+.vid-cell video, .vid-cell .poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  position: absolute; inset: 0;
+}
+.vid-cell::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 40%, oklch(15% 0.04 245 / 0.94) 100%);
+  z-index: 1;
+}
+.vid-cell .meta {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: clamp(18px, 1.6vw, 24px);
+  z-index: 2;
+  color: #fff;
+}
+.vid-cell .tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 6px;
+}
+.vid-cell .name {
+  font-family: var(--serif);
+  font-size: clamp(17px, 1.3vw, 21px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.vid-cell .why {
+  font-size: 11px;
+  line-height: 1.4;
+  color: rgba(255,255,255,0.75);
+}
+
+.evolution {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 2vw, 28px);
+  margin-top: clamp(24px, 3vh, 36px);
+}
+.gen {
+  padding: clamp(24px, 2.4vw, 36px);
+  border: 1px solid var(--line);
+  background: var(--paper-soft);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 800ms var(--ease-out), transform 800ms var(--ease-out);
+}
+.slide.active .gen { opacity: 1; transform: translateY(0); }
+.slide.active .gen:nth-child(1) { transition-delay: 280ms; }
+.slide.active .gen:nth-child(2) { transition-delay: 380ms; }
+.slide.active .gen:nth-child(3) { transition-delay: 480ms; }
+.gen.frontier { background: oklch(86% 0.16 95 / 0.12); border-color: var(--yellow); }
+.gen-num { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.18em; color: var(--ink-40); margin-bottom: 14px; }
+.gen.frontier .gen-num { color: oklch(50% 0.14 95); }
+.gen-era { font-family: var(--mono); font-size: 11px; font-weight: 500; letter-spacing: 0.1em; color: var(--ink-60); margin-bottom: 6px; }
+.gen-name {
+  font-family: var(--serif);
+  font-size: clamp(24px, 2.2vw, 34px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+.gen.frontier .gen-name { color: oklch(35% 0.14 95); font-weight: 600; }
+.gen-abbr {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  padding: 3px 8px;
+  background: var(--navy);
+  color: #fff;
+  border-radius: 2px;
+  margin-bottom: 12px;
+}
+.gen.frontier .gen-abbr { background: oklch(50% 0.14 95); color: #fff; }
+.gen-body { font-size: clamp(13px, 1vw, 15px); line-height: 1.5; color: var(--ink-80); }
+
+.cat-punch {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 400;
+  font-style: italic;
+  font-variation-settings: "opsz" 144, "SOFT" 80;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  margin-bottom: 16px;
+  max-width: 900px;
+}
+.cat-punch strong {
+  font-style: normal;
+  font-weight: 600;
+  color: oklch(35% 0.14 95);
+  background: oklch(86% 0.16 95 / 0.25);
+  padding: 0 8px;
+  border-radius: 2px;
+}
+
+.flywheel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 4vw, 72px);
+  align-items: center;
+  margin-top: clamp(24px, 3vh, 40px);
+}
+.flywheel-viz {
+  position: relative;
+  aspect-ratio: 1;
+  max-width: 460px;
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out);
+}
+.slide.active .flywheel-viz { opacity: 1; transform: scale(1); transition-delay: 320ms; }
+.flywheel-svg { width: 100%; height: 100%; }
+.flywheel-node { fill: var(--paper); stroke: var(--navy); stroke-width: 1.5; }
+.flywheel-node.accent { stroke: var(--cyan); stroke-width: 2; }
+.flywheel-text {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  fill: var(--navy);
+  text-anchor: middle;
+  text-transform: uppercase;
+}
+.flywheel-arrow { fill: none; stroke: var(--cyan); stroke-width: 1.5; marker-end: url(#arrowhead); }
+.flywheel-copy .step {
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+}
+.flywheel-copy .step:last-child { border-bottom: 1px solid var(--line); }
+.flywheel-copy .step-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--cyan);
+  min-width: 30px;
+}
+.flywheel-copy .step-text {
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.45;
+  color: var(--ink-80);
+}
+.flywheel-copy .step-text strong { color: var(--navy); font-weight: 600; }
+
+.spec-table {
+  margin-top: clamp(24px, 3vh, 40px);
+  border: 1px solid var(--line);
+  background: var(--paper-soft);
+}
+.spec-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  border-bottom: 1px solid var(--line);
+  padding: clamp(16px, 1.6vh, 22px) clamp(20px, 2vw, 32px);
+  gap: clamp(20px, 2vw, 40px);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.slide.active .spec-row { opacity: 1; transform: translateY(0); }
+.slide.active .spec-row:nth-child(1) { transition-delay: 240ms; }
+.slide.active .spec-row:nth-child(2) { transition-delay: 300ms; }
+.slide.active .spec-row:nth-child(3) { transition-delay: 360ms; }
+.slide.active .spec-row:nth-child(4) { transition-delay: 420ms; }
+.slide.active .spec-row:nth-child(5) { transition-delay: 480ms; }
+.spec-row:last-child { border-bottom: none; }
+.spec-k {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  padding-top: 2px;
+}
+.spec-v { font-size: clamp(14px, 1.05vw, 16px); line-height: 1.5; color: var(--ink-80); }
+.spec-v strong { color: var(--navy); font-weight: 600; }
+
+.odin {
+  margin-top: clamp(24px, 3vh, 40px);
+  padding: clamp(32px, 3vw, 56px);
+  background: var(--paper-soft);
+  border: 1px solid var(--line);
+  position: relative;
+}
+.odin-frame {
+  display: grid;
+  grid-template-columns: 200px 1fr 180px;
+  gap: clamp(20px, 2vw, 36px);
+  align-items: center;
+}
+.odin-input, .odin-output { display: flex; flex-direction: column; gap: 12px; }
+.odin-io-item {
+  padding: 14px 16px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+}
+.odin-io-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-40);
+  margin-bottom: 4px;
+}
+.odin-io-text {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--ink);
+}
+.odin-io-text em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--navy);
+}
+.odin-models {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px, 1.6vw, 24px);
+  position: relative;
+}
+.odin-models::before {
+  content: '';
+  position: absolute;
+  left: calc(50% - 1px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 20%;
+  background: var(--cyan);
+  z-index: 0;
+}
+.odin-model {
+  padding: clamp(20px, 2vw, 32px);
+  background: var(--navy);
+  color: #fff;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+.odin-model.muninn { background: var(--navy-deep); }
+.odin-model-mark {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--yellow);
+  margin-bottom: 8px;
+}
+.odin-model-name {
+  font-family: var(--serif);
+  font-size: clamp(26px, 2.4vw, 38px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.odin-model-role {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 14px;
+}
+.odin-model-components {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.5;
+}
+.odin-footnote {
+  margin-top: clamp(24px, 2.4vh, 32px);
+  padding-top: clamp(16px, 1.6vh, 22px);
+  border-top: 1px solid var(--line);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(13px, 1vw, 15px);
+  line-height: 1.5;
+  color: var(--ink-60);
+  max-width: 780px;
+}
+
+.dive {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 4vw, 64px);
+  margin-top: clamp(24px, 3vh, 40px);
+  align-items: center;
+}
+.dive-visual {
+  aspect-ratio: 1;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+.dive-visual.huginn { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); }
+.dive-visual.muninn { background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 100%); }
+.dive-visual .backdrop {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.22;
+  mix-blend-mode: luminosity;
+}
+.dive-visual-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 2.4vw, 40px);
+  color: #fff;
+  text-align: center;
+  z-index: 1;
+}
+.dive-mark {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: var(--yellow);
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+.dive-name {
+  font-family: var(--serif);
+  font-size: clamp(44px, 5vw, 76px);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 80;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  margin-bottom: 14px;
+}
+.dive-role {
+  font-family: var(--sans);
+  font-size: clamp(15px, 1.2vw, 18px);
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 22px;
+  max-width: 360px;
+}
+.dive-tokens {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.dive-token {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 6px 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  border-radius: 2px;
+}
+.dive-copy h3 {
+  font-family: var(--serif);
+  font-size: clamp(24px, 2vw, 32px);
+  font-weight: 500;
+  letter-spacing: -0.018em;
+  color: var(--navy);
+  margin-bottom: 14px;
+  line-height: 1.1;
+}
+.dive-copy p {
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.6;
+  color: var(--ink-80);
+  margin-bottom: 0.9em;
+}
+.dive-copy p strong { color: var(--navy); font-weight: 600; }
+.dive-copy .tech-note {
+  margin-top: 1.4em;
+  padding: 14px 18px;
+  background: var(--paper-soft);
+  border-left: 2px solid var(--cyan);
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--ink-60);
+  letter-spacing: 0.02em;
+}
+
+.slide.video-full { background: var(--navy-deep); padding: 0; }
+.slide.video-full video, .slide.video-full .poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.slide.video-full .poster { z-index: 0; }
+.slide.video-full video { z-index: 1; }
+.slide.video-full .overlay-bottom {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: clamp(40px, 5vh, 72px) clamp(40px, 6vw, 112px);
+  background: linear-gradient(180deg, transparent 0%, oklch(15% 0.04 245 / 0.88) 60%, oklch(15% 0.04 245 / 0.96) 100%);
+  z-index: 3;
+  color: #fff;
+}
+.slide.video-full .logo, .slide.video-full .slide-counter { z-index: 10; }
+.slide.video-full .video-caption .meta-label { color: var(--yellow); margin-bottom: 10px; }
+.slide.video-full .video-caption h3 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: 12px;
+  max-width: 900px;
+}
+.slide.video-full .video-caption p {
+  font-size: clamp(14px, 1.1vw, 17px);
+  line-height: 1.5;
+  color: rgba(255,255,255,0.85);
+  max-width: 720px;
+}
+
+.section-break { text-align: center; }
+.section-break .eyebrow { justify-content: center; }
+.section-break .eyebrow::before,
+.section-break .eyebrow::after {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--yellow);
+}
+.section-break .eyebrow::after { margin-left: 14px; }
+.section-break .title {
+  font-family: var(--serif);
+  font-size: clamp(54px, 7vw, 108px);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 80;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+.section-break .title em { font-style: italic; font-weight: 400; color: var(--yellow-soft); }
+.section-break .title-sub {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(20px, 1.8vw, 28px);
+  color: rgba(255,255,255,0.72);
+  margin-top: 20px;
+  font-weight: 300;
+}
+
+.close-slide { text-align: left; }
+.close-title {
+  font-family: var(--serif);
+  font-size: clamp(56px, 7vw, 104px);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: #fff;
+  max-width: 1100px;
+  margin-bottom: clamp(40px, 4.8vh, 64px);
+}
+.close-title em { font-style: italic; color: var(--yellow-soft); font-weight: 400; }
+.close-contact {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 28px 60px;
+  align-items: baseline;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  max-width: 800px;
+}
+.close-contact .k {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+.close-contact .v { font-size: 15px; font-weight: 500; color: #fff; }
+.close-contact .v a { color: var(--yellow-soft); text-decoration: none; }
+
+.big-statement {
+  font-family: var(--serif);
+  font-size: clamp(40px, 5.5vw, 84px);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 80;
+  line-height: 1.0;
+  letter-spacing: -0.028em;
+  color: var(--navy);
+  max-width: 1100px;
+}
+.big-statement em { font-style: italic; font-weight: 400; color: oklch(35% 0.14 95); }
+.slide.dark .big-statement, .slide.photo-bg.dark .big-statement { color: #fff; }
+
+.pipeline {
+  margin-top: clamp(24px, 3vh, 40px);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: clamp(20px, 2vw, 36px);
+  align-items: stretch;
+}
+.pipe-node {
+  padding: clamp(22px, 2.2vw, 32px);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.pipe-node.input { background: var(--paper-soft); }
+.pipe-node.center { background: var(--navy); color: #fff; border-color: var(--navy); text-align: center; }
+.pipe-node.output { background: var(--navy-deep); color: #fff; border-color: var(--navy-deep); }
+.pipe-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cyan);
+  font-size: 28px;
+  font-weight: 200;
+}
+.pipe-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  color: var(--cyan);
+}
+.pipe-node.center .pipe-label, .pipe-node.output .pipe-label { color: var(--yellow); }
+.pipe-title {
+  font-family: var(--serif);
+  font-size: clamp(20px, 1.8vw, 28px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+.pipe-node.center .pipe-title, .pipe-node.output .pipe-title { color: #fff; }
+.pipe-desc {
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--ink-60);
+  letter-spacing: 0.04em;
+}
+.pipe-node.center .pipe-desc, .pipe-node.output .pipe-desc { color: rgba(255,255,255,0.72); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="confidential"><strong>Confidential</strong> · Hive Autonomy · Product Vision</div>
+<div class="progress-bar" id="progress"></div>
+
+<div class="deck" id="deck">
+
+  <section class="slide hero dark active" data-slide="1">
+    <div class="bg" style="background-image: url('presentation-assets/hero.jpg');"></div>
+    <div class="overlay"></div>
+    <img src="presentation-assets/hive-logo-white.png" class="logo" alt="Hive">
+    <div class="slide-inner">
+      <div class="hero-mark">Hive Autonomy · Product Vision</div>
+      <h1 class="hero-title">Building a world with <em>unlimited access</em> to skilled industrial labor.</h1>
+    </div>
+    <div class="slide-counter">01 / 22</div>
+    <div class="nav-hint" id="nav-hint">F fullscreen · ← → navigate</div>
+  </section>
+
+  <section class="slide photo-bg side-right" data-slide="2">
+    <div class="bg" style="background-image: url('presentation-assets/operator-chair.jpg');"></div>
+    <img src="presentation-assets/hive-logo.png" class="logo" alt="Hive">
+    <div class="slide-inner">
+      <div class="eyebrow">What it is</div>
+      <h2 class="headline">A physical AI worker.</h2>
+      <div class="body">
+        <p>A real, physical agent powered by AI — deployed in the real world.</p>
+        <p><strong>Sees</strong> through cameras, lidar, and sensors.</p>
+        <p><strong>Understands</strong> goals and instructions in natural language.</p>
+        <p><strong>Acts</strong> through direct machine control — driving, lifting, navigating, adapting.</p>
+      </div>
+    </div>
+    <div class="slide-counter">02 / 22</div>
+  </section>
+
+  <section class="slide dark photo-bg vignette" data-slide="3">
+    <div class="bg" style="background-image: url('presentation-assets/fleet.jpg');"></div>
+    <img src="presentation-assets/hive-logo-white.png" class="logo" alt="Hive">
+    <div class="slide-inner">
+      <div class="eyebrow">The premise</div>
+      <div class="big-statement">The brain is the model.<br><em>The body is the machine.</em></div>
+      <div class="subhead" style="margin-top: 40px; color: rgba(255,255,255,0.82);">Not a robot we ship. Not a retrofit on a machine. A single intelligence layer that <em>operates</em> the machine — whatever shape that machine takes.</div>
+    </div>
+    <div class="slide-counter">03 / 22</div>
+  </section>
+
+  <section class="slide pattern-grid" data-slide="4">
+    <img src="presentation-assets/hive-logo.png" class="logo" alt="Hive">
+    <div class="slide-inner wide">
+      <div class="eyebrow">The category shift</div>
+      <div class="cat-punch">Everyone else automates a task.<br><strong>Hive runs a model.</strong></div>
+      <div class="subhead" style="max-width: 880px;">Industrial autonomy has had two generations in fifty years. The third is a categorical shift — one model, every machine, every task.</div>
+      <div class="evolution">
+        <div class="gen">
+          <div class="gen-num">Generation 01</div>
+          <div class="gen-era">1960s →</div>
+          <div class="gen-abbr">Task automation</div>
+          <div class="gen-name">Fixed programs</div>
+          <div class="gen-body">Conveyors, AGVs, scripted hydraulic cycles. One route, one job. Change the layout, re-engineer the system.</div>
+        </div>
+        <div class="gen">
+          <div class="gen-num">Generation 02</div>
+          <div class="gen-era">2010s →</div>
+          <div class="gen-abbr">Scripted autonomy</div>
+          <div class="gen-name">SLAM &amp; rules</div>
+          <div class="gen-body">Mine haulers, AMRs, SLAM-based navigation. One task-specific script per operation. New task = new engineering cycle.</div>
+        </div>
+        <div class="gen frontier">
+          <div class="gen-num">Generation 03 · Frontier</div>
+          <div class="gen-era">2024 →</div>
+          <div class="gen-abbr">Physical AI</div>
+          <div class="gen-name">One model, every machine</div>
+          <div class="gen-body">VLA foundation models. Vision in, language in, action out. Same intelligence across machines and tasks.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-counter">04 / 22</div>
+  </section>
+
+  <section class="slide" data-slide="5">
+    <img src="presentation-assets/hive-logo.png" class="logo" alt="Hive">
+    <div class="slide-inner wide">
+      <div class="eyebrow">Where we are · today</div>
+      <h2 class="headline">Supervised physical AI, live in industrial operations.</h2>
+      <div class="subhead">Every live deployment is also a data source — every decision the operator reviews becomes training data for the next generation of the model.</div>
+      <div class="video-grid">
+        <div class="vid-cell">
+          <img class="poster" src="presentation-assets/yara-still.jpg" alt="">
+          <video loop muted playsinline preload="none" poster="presentation-assets/yara-still.jpg">
+            <source src="presentation-assets/yara.mp4" type="video/mp4">
+          </video>
+          <div class="meta">
+            <div class="tag">Bulk handling</div>
+            <div class="name">Yara · Herøya</div>
+            <div class="why">Fertilizer loading, 18+ months in live industrial environment.</div>
+          </div>
+        </div>
+        <div class="vid-cell">
+          <img class="poster" src="presentation-assets/presis-still.jpg" alt="">
+          <video loop muted playsinline preload="none" poster="presentation-assets/presis-still.jpg">
+            <source src="presentation-assets/presis.mp4" type="video/mp4">
+          </video>
+          <div class="meta">
+            <div class="tag">Hazard ops</div>
+            <div class="name">Presis · Vikafjellet</div>
+            <div class="why">Remote snow clearing in avalanche zones. Operator never on mountain.</div>
+          </div>
+        </div>
+        <div class="vid-cell">
+          <img class="poster" src="presentation-assets/hamar-pukk-still.jpg" alt="">
+          <video loop muted playsinline preload="none" poster="presentation-assets/hamar-pukk-still.jpg">
+            <source src="presentation-assets/hamar-pukk.mp4" type="video/mp4">
+          </video>
+          <div class="meta">
+            <div class="tag">Quarry load-out</div>
+            <div class="name">Hamar Pukk · Nordic</div>
+            <div class="why">Autonomous wheel loader feeding aggregate trucks continuously.</div>
+          </div>
+        </div>
+        <div class="vid-cell">
+          <img class="poster" src="presentation-assets/veidekke-still.jpg" alt="">
+          <video loop muted playsinline preload="none" poster="presentation-assets/veidekke-still.jpg">
+            <source src="presentation-assets/veidekke.mp4" type="video/mp4">
+          </video>
+          <div class="meta">
+            <div class="tag">5G teleoperation</div>
+            <div class="name">Veidekke · Telia</div>
+            <div class="why">Europe's first industrial 5G pilot, alongside Boston Dynamics.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-counter">05 / 22</div>
+  </section>
+
+  <section class="slide photo-bg dark vignette" data-slide="6">
+    <div class="bg" style="background-image: url('presentation-assets/confined.jpg');"></div>
+    <img src="presentation-assets/hive-logo-white.png" class="logo" alt="Hive">
+    <div class="slide-inner">
+      <div class="eyebrow">The operating model</div>
+      <h2 class="headline">Humans in the loop.<br>Machines at the edge.</h2>
+      <div class="subhead">One operations center. Trained remote operators. Every machine on Hive's platform has a human supervising — and every supervision is a labeled training signal.</div>
+      <div class="body" style="max-width: 820px;">
+        <p>When the model is confident, it runs. When it hesitates, the operator takes over. When the operator acts, the model learns.</p>
+        <p>There is no version of physical AI where the human disappears on day one. Our bet is that the human disappears <em>slowly, by design</em> — one task, one confidence threshold, one deployment at a time.</p>
+      </div>
+    </div>
+    <div class="slide-counter">06 / 22</div>
+  </section>
+
+  <section class="slide pattern-grid" data-slide="7">
+    <img src="presentation-assets/hive-logo.png" class="logo" alt="Hive">
+    <div class="slide-inner">
+      <div class="eyebrow">Why this is hard</div>
+      <h2 class="headline">The sim-to-real gap closed in 2024.</h2>
+      <div class="subhead">Physical AI was a research agenda for twenty years. Three things changed in rapid succession.</div>
+      <div class="spec-table">
+        <div class="spec-row">
+          <div class="spec-k">01 · Architecture</div>
+          <div class="spec-v"><strong>Transformers learned to act.</strong> Vision-Language-Action (VLA) models — RT-2, OpenVLA, π0 — proved that the same architecture that writes text can also control a robot body. Language becomes the interface to action.</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-k">02 · Data</div>
+          <div class="spec-v"><strong>Pretraining transfers to robots.</strong> Vision and language models pretrained on web-scale data give robotic policies a world-model they could never learn from robot data alone. You no longer train from zero.</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-k">03 · Policy</div>
+          <div class="spec-v"><strong>Diffusion models took over action generation.</strong> Diffusion policies (Chi et al., Toyota Research, 2023) produce smooth, multi-modal action trajectories — a step change over behavior cloning.</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-k">04 · Hardware</div>
+          <div class="spec-v"><strong>Edge compute caught up.</strong> Sensors and inference hardware dropped ~10× in cost since 2020. A full perception + control stack runs on a machine-mounted compute cabinet.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-counter">07 / 22</div>
+  </section>
+
+  <section class="slide pattern-dots" data-slide="8">
+    <img src="presentation-assets/hive-logo.png" class="logo" alt="Hive">
+    <div class="slide-inner wide">
+      <div class="eyebrow">The model class</div>
+      <h2 class="headline">VLA: Vision · Language · Action.</h2>
+      <div class="subhead">A single neural network that takes what the machine sees, what the operator said, and what the machine is doing — and produces the next action.</div>
+      <div class="pipeline">
+        <div class="pipe-node input">
+          <div class="pipe-label">Input</div>
+          <div class="pipe-title">Vision</div>
+          <div class="pipe-desc">Camera streams<br>Lidar point clouds<br>Depth maps</div>
+        </div>
+        <div class="pipe-arrow">+</div>
+        <div class="pipe-node input">
+          <div class="pipe-label">Input</div>
+          <div class="pipe-title">Language</div>
+          <div class="pipe-desc"><em>"Pick the pallet and move it to the loading bay."</em></div>
+        </div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-node output">
+          <div class="pipe-label">Output</div>
+          <div class="pipe-title">Action</div>
+          <div class="pipe-desc">Continuous control tokens<br>Drive · lift · steer<br>End-effector poses</div>
+        </div>
+      </div>
+      <div class="body" style="margin-top: clamp(24px, 2.6vh, 36px); max-width: 900px;">
+        <p>The first VLAs — RT-2 (Google DeepMind, 2023), OpenVLA (Stanford, 2024), π0 (Physical Intelligence, 2024) — showed the paradigm works on robot arms. <strong>Hive is adapting the paradigm to industrial machinery.</strong> Same class of model. Bigger bodies.</p>
+      </div>
+    </div>
+    <div class="slide-counter">08 / 22</div>
+  </section>
+
+  <section class="slide photo-bg side-right" data-slide="9">
+    <div class="bg" style="background-image: url('presentation-assets/sensors.jpg');"></div>
+    <img src="presentation-assets/hive-logo.png" class="logo" alt="Hive">
+    <div class="slide-inner">
+      <div class="eyebrow">What the model sees</div>
+      <h2 class="headline">Four modalities, one shared embedding space.</h2>
+      <div class="body">
+        <p><strong>Vision.</strong> Multi-camera RGB. Front, side, rear, and task-focused. Stereo for depth.</p>
+        <p><strong>Lidar.</strong> 3D point clouds for spatial awareness in dust, fog, darkness.</p>
+        <p><strong>Proprioception.</strong> Joint positions, hydraulic pressures, wheel velocity, load sensors — the machine's sense of its own body.</p>
+        <p><strong>Language.</strong> Natural-language task goals from the operator. No command DSL. No scripting language.</p>
+      </div>
+    </div>
+    <div class="slide-counter">09 / 22</div>
+  </section>
+
+  <section class="slide pattern-diffusion" data-slide="10">
+    <img src="presentation-assets/hive-logo.png" class="logo" alt="Hive">
+    <div class="slide-inner">
+      <div class="eyebrow">Action generation</div>
+      <h2 class="headline">Continuous control is a diffusion problem.</h2>
+      <div class="subhead">Robot arms, wheel loaders, and forklifts don't take discrete actions. They operate on continuous, multi-modal trajectories.</div>
+      <div class="body" style="max-width: 880px;">
+        <p><strong>Why diffusion:</strong> behavior cloning collapses to the mean when multiple actions are valid. Diffusion policies sample from the full action distribution — preserving that <em>sometimes you swing left, sometimes right</em> is the correct behavior.</p>
+        <p><strong>What it looks like in production:</strong> Muninn iteratively denoises an action trajectory conditioned on the current state and Huginn's understanding. The same family of models that generates images — now generating machine motion.</p>
+      </div>
+      <div class="spec-table">
+        <div class="spec-row">
+          <div class="spec-k">Trajectory</div>
+          <div class="spec-v">Horizons of ~16–64 timesteps ahead (1-3 seconds) — the machine plans its next few moves, executes, re-plans.</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-k">Multi-modal</div>
+          <div class="spec-v">Captures the fact that two skilled operators will execute the same task with different-but-valid trajectories. The model keeps that nuance.</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-k">Smoothness</div>
+          <div class="spec-v">Diffusion-generated control is continuous and physically plausible — no jittery "policy oscillation" that behavior cloning suffers from.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-counter">10 / 22</div>
+  </section>
+
+  <section class="slide pattern-grid" data-slide="11">
+    <img src="presentation-assets/hive-logo.png" class="logo" alt="Hive">
+    <div class="slide-inner wide">
+      <div class="eyebrow">Embodiment transfer</div>
+      <h2 class="headline">A robot arm shares geometry with an excavator.</h2>
+      <div class="subhead">Physical AI generalizes across bodies when the underlying control primitives transfer. Degrees of freedom are the unit of transfer.</div>
+      <div class="spec-table">
+        <div class="spec-row">
+          <div class="spec-k">Robot arm</div>
+          <div class="spec-v"><strong>6 DOF</strong> · Shoulder, elbow, wrist, yaw, pitch, roll. The canonical manipulation platform. Cheap, fast, reproducible — ideal for data collection.</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-k">Excavator</div>
+          <div class="spec-v"><strong>6 DOF</strong> · Swing, boom, stick, bucket, plus two base tracks. Geometric twin of the robot arm. The control problem is the same control problem.</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-k">Wheel loader</div>
+          <div class="spec-v"><strong>5 DOF</strong> · Drive, steering, boom, bucket tilt, articulation. Slightly simpler than an excavator. Easier policy transfer.</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-k">Forklift</div>
+          <div class="spec-v"><strong>5 DOF</strong> · Drive, steering, mast lift, tilt, fork spacing. Intralogistics body. Shares control primitives with wheel loaders.</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-k">Terminal tractor</div>
+          <div class="spec-v"><strong>3 DOF</strong> · Drive, steering, hitch. The "easy" body — navigation-heavy, minimal manipulation.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-counter">11 / 22</div>
+  </section>
+
+  <section class="slide pattern-dots" data-slide="12">
+    <img src="presentation-assets/hive-logo.png" class="logo" alt="Hive">
+    <div class="slide-inner wide">
+      <div class="eyebrow">The data engine</div>
+      <h2 class="headline">Deployment is data.<br>Data is the next model.</h2>
+      <div class="flywheel">
+        <div class="flywheel-viz">
+          <svg class="flywheel-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                <path d="M0,0 L10,5 L0,10 L3,5 Z" fill="oklch(68% 0.12 245)"/>
+              </marker>
+            </defs>
+            <circle cx="200" cy="60" r="44" class="flywheel-node accent"/>
+            <text x="200" y="58" class="flywheel-text">Deploy</text>
+            <text x="200" y="72" class="flywheel-text">machines</text>
+            <circle cx="340" cy="200" r="44" class="flywheel-node accent"/>
+            <text x="340" y="196" class="flywheel-text">Supervise</text>
+            <text x="340" y="210" class="flywheel-text">+ label</text>
+            <circle cx="200" cy="340" r="44" class="flywheel-node accent"/>
+            <text x="200" y="338" class="flywheel-text">Train</text>
+            <text x="200" y="352" class="flywheel-text">ODIN</text>
+            <circle cx="60" cy="200" r="44" class="flywheel-node accent"/>
+            <text x="60" y="196" class="flywheel-text">Better</text>
+            <text x="60" y="210" class="flywheel-text">policy</text>
+            <path d="M 240 80 Q 310 110 325 160" class="flywheel-arrow"/>
+            <path d="M 325 240 Q 310 290 240 320" class="flywheel-arrow"/>
+            <path d="M 160 320 Q 90 290 75 240" class="flywheel-arrow"/>
+            <path d="M 75 160 Q 90 110 160 80" class="flywheel-arrow"/>
+          </svg>
+        </div>
+        <div class="flywheel-copy">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-text"><strong>Machines deployed</strong> under supervised physical AI, running live in real industrial environments.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-text"><strong>Every operator intervention is a labeled trajectory.</strong> When the operator takes over, the system captures state, goal, and the correct action — free-of-charge training data.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-text"><strong>ODIN retrains</strong> on the growing corpus. Each training run expands the distribution of tasks, environments, and machines the model handles.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">04</div>
+            <div class="step-text"><strong>The policy improves.</strong> Confidence thresholds rise. Operator interventions drop. Operator-to-machine ratio scales. More deployments follow. Loop.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-counter">12 / 22</div>
+  </section>
+
+  <section class="slide photo-bg dark section-break vignette" data-slide="13">
+    <div class="bg" style="background-image: url('presentation-assets/tunnel-bg.jpg'); opacity: 0.55;"></div>
+    <img src="presentation-assets/hive-logo-white.png" class="logo" alt="Hive">
+    <div class="slide-inner">
+      <div class="eyebrow">Part Two</div>
+      <div class="title"><em>ODIN.</em></div>
+      <div class="title-sub">The foundation model for industrial physical AI.</div>
+    </div>
+    <div class="slide-counter">13 / 22</div>
+  </section>
+
+  <section class="slide pattern-dots" data-slide="14">
+    <img src="presentation-assets/hive-logo.png" class="logo" alt="Hive">
+    <div class="slide-inner wide">
+      <div class="eyebrow">ODIN · overview</div>
+      <h2 class="headline">One model. Every industrial machine.</h2>
+      <div class="subhead">ODIN is trained on real-world industrial operations. Generalizes across machine types. Deployed machine-by-machine as capability matures.</div>
+      <div class="pipeline">
+        <div class="pipe-node input">
+          <div class="pipe-label">Input</div>
+          <div class="pipe-title">Industry datasets</div>
+          <div class="pipe-desc">Forklifts · Wheel loaders<br>Reach stackers · Excavators<br>Haulers · Terminal tractors</div>
+        </div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-node center">
+          <div class="pipe-label">Foundation model</div>
+          <div class="pipe-title" style="font-size: clamp(36px, 3.6vw, 54px);">ODIN</div>
+          <div class="pipe-desc">Hive foundation model<br>for industrial physical AI</div>
+        </div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-node output">
+          <div class="pipe-label">Output</div>
+          <div class="pipe-title">Autonomous machines</div>
+          <div class="pipe-desc">One model, every machine<br>Light tasks · heavy tasks<br>Cross-task generalization</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-counter">14 / 22</div>
+  </section>
+
+  <section class="slide pattern-diffusion" data-slide="15">
+    <img src="presentation-assets/hive-logo.png" class="logo" alt="Hive">
+    <div class="slide-inner wide">
+      <div class="eyebrow">Huginn · perception + understanding</div>
+      <div class="dive">
+        <div class="dive-visual huginn">
+          <div class="backdrop" style="background-image: url('presentation-assets/forklift-a.jpg');"></div>
+          <div class="dive-visual-content">
+            <div class="dive-mark">Huginn · thought</div>
+            <div class="dive-name">Huginn</div>
+            <div class="dive-role">Sees the world. Understands the goal.</div>
+            <div class="dive-tokens">
+              <span class="dive-token">Vision</span>
+              <span class="dive-token">Language</span>
+              <span class="dive-token">Fusion</span>
+            </div>
+          </div>
+        </div>
+        <div class="dive-copy">
+          <h3>From raw pixels to a grounded goal.</h3>
+          <p><strong>Huginn is the sensory and reasoning half of ODIN.</strong> It takes multi-camera images, lidar, proprioception, and the operator's natural-language instruction — and produces a single grounded representation of <em>what needs to happen next</em>.</p>
+          <p>Built on a vision-language backbone pretrained on web-scale image-text data. Fine-tuned on industrial imagery: construction sites, quarries, warehouses, terminals.</p>
+          <div class="tech-note">Pretrained on web-scale VLM data → fine-tuned on industrial operations → distilled for edge inference. The same kind of model that describes an image can now describe <em>a task in progress</em>.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-counter">15 / 22</div>
+  </section>
+
+  <section class="slide pattern-diffusion" data-slide="16">
+    <img src="presentation-assets/hive-logo.png" class="logo" alt="Hive">
+    <div class="slide-inner wide">
+      <div class="eyebrow">Muninn · action + memory</div>
+      <div class="dive">
+        <div class="dive-copy">
+          <h3>From grounded goal to machine control.</h3>
+          <p><strong>Muninn is the motor half of ODIN.</strong> It takes Huginn's representation of the task, plus the current machine state, and generates the next few seconds of continuous control — via diffusion.</p>
+          <p>Memory lives here too: short-term operational context (what the operator said twenty seconds ago, what just happened on the site) conditions every trajectory the policy samples.</p>
+          <div class="tech-note">Diffusion policy architecture. Samples continuous action trajectories conditioned on Huginn's embedding. Multi-modal by construction — preserves that many trajectories are valid for the same goal.</div>
+        </div>
+        <div class="dive-visual muninn">
+          <div class="backdrop" style="background-image: url('presentation-assets/forklift-b.jpg');"></div>
+          <div class="dive-visual-content">
+            <div class="dive-mark">Muninn · memory</div>
+            <div class="dive-name">Muninn</div>
+            <div class="dive-role">Acts. Remembers. Samples smooth trajectories.</div>
+            <div class="dive-tokens">
+              <span class="dive-token">Policy</span>
+              <span class="dive-token">Diffusion</span>
+              <span class="dive-token">Execution</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-counter">16 / 22</div>
+  </section>
+
+  <section class="slide pattern-diffusion" data-slide="17">
+    <img src="presentation-assets/hive-logo.png" class="logo" alt="Hive">
+    <div class="slide-inner wide">
+      <div class="eyebrow">ODIN · composition</div>
+      <h2 class="headline">Two models. One worker.</h2>
+      <div class="odin">
+        <div class="odin-frame">
+          <div class="odin-input">
+            <div class="odin-io-item">
+              <div class="odin-io-label">Text input</div>
+              <div class="odin-io-text"><em>"Please pick the pallet and move it to the loading bay."</em></div>
+            </div>
+            <div class="odin-io-item">
+              <div class="odin-io-label">Machine state</div>
+              <div class="odin-io-text">Camera feeds · lidar · joint positions · velocity</div>
+            </div>
+          </div>
+          <div class="odin-models">
+            <div class="odin-model huginn">
+              <div class="odin-model-mark">Huginn · thought</div>
+              <div class="odin-model-name">Perception &amp; Understanding</div>
+              <div class="odin-model-role">Sees and understands</div>
+              <div class="odin-model-components">Vision + Language<br>+ Fusion</div>
+            </div>
+            <div class="odin-model muninn">
+              <div class="odin-model-mark">Muninn · memory</div>
+              <div class="odin-model-name">Action &amp; Memory</div>
+              <div class="odin-model-role">Acts and remembers</div>
+              <div class="odin-model-components">Policy + Diffusion<br>+ Execution</div>
+            </div>
+          </div>
+          <div class="odin-output">
+            <div class="odin-io-item" style="background: var(--navy); color: #fff; border-color: var(--navy);">
+              <div class="odin-io-label" style="color: var(--yellow);">Machine control</div>
+              <div class="odin-io-text" style="color: rgba(255,255,255,0.9);">Continuous trajectories — drive, lift, navigate, adapt.</div>
+            </div>
+          </div>
+        </div>
+        <div class="odin-footnote">
+          Named after Odin's two ravens in Norse mythology — <strong>Huginn</strong> (thought) and <strong>Muninn</strong> (memory) — who fly across the world each day and return with what must be remembered. Hive is a Norwegian company.
+        </div>
+      </div>
+    </div>
+    <div class="slide-counter">17 / 22</div>
+  </section>
+
+  <section class="slide video-full" data-slide="18">
+    <img class="poster" src="presentation-assets/robotarm-still.jpg" alt="">
+    <video loop muted playsinline preload="none" poster="presentation-assets/robotarm-still.jpg">
+      <source src="presentation-assets/robotarm-rig.mp4" type="video/mp4">
+    </video>
+    <img src="presentation-assets/hive-logo-white.png" class="logo" alt="Hive">
+    <div class="overlay-bottom">
+      <div class="video-caption">
+        <div class="meta-label">The lab · Kristiansand · 2024</div>
+        <h3>We started with a robot arm.</h3>
+        <p>Six degrees of freedom, hundreds of pick-and-place trajectories a day, operator-mounted teleop. Every trajectory — what the operator did, what the cameras saw, what the joints measured — was labeled training data for the first ODIN checkpoint.</p>
+      </div>
+    </div>
+    <div class="slide-counter">18 / 22</div>
+  </section>
+
+  <section class="slide video-full" data-slide="19">
+    <img class="poster" src="presentation-assets/vla-pallet-still.jpg" alt="">
+    <video loop muted playsinline preload="none" poster="presentation-assets/vla-pallet-still.jpg">
+      <source src="presentation-assets/vla-pallet.mp4" type="video/mp4">
+    </video>
+    <img src="presentation-assets/hive-logo-white.png" class="logo" alt="Hive">
+    <div class="overlay-bottom">
+      <div class="video-caption">
+        <div class="meta-label">In production · 2026</div>
+        <h3>Same model class. Industrial body.</h3>
+        <p>Toyota forklift running under ODIN in VLA mode. Camera in. Natural-language goal in. Machine control out. No per-task script. The transfer from robot arm to industrial machine is the thesis that made Hive possible.</p>
+      </div>
+    </div>
+    <div class="slide-counter">19 / 22</div>
+  </section>
+
+  <section class="slide pattern-grid" data-slide="20">
+    <img src="presentation-assets/hive-logo.png" class="logo" alt="Hive">
+    <div class="slide-inner wide">
+      <div class="eyebrow">Generalization</div>
+      <h2 class="headline">The model generalizes. The verticals open in sequence.</h2>
+      <div class="subhead">Once a foundation model handles one class of industrial body, the marginal cost of adding the next class collapses. Every vertical below is a body — not a new model.</div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-num">Vertical 01 · Live</div>
+          <div class="card-title">Heavy Machinery</div>
+          <div class="card-body">Wheel loaders, excavators, haulers. Quarries, construction, fertilizer facilities, road maintenance.</div>
+        </div>
+        <div class="card">
+          <div class="card-num">Vertical 02 · Live pilots</div>
+          <div class="card-title">Intralogistics</div>
+          <div class="card-body">Forklifts, reach stackers, terminal tractors. Warehouses, ports, distribution centers.</div>
+        </div>
+        <div class="card">
+          <div class="card-num">Vertical 03 · Horizon</div>
+          <div class="card-title">Clean industry</div>
+          <div class="card-body">Food processing, pharma, nuclear decommissioning — environments where human presence is risky or prohibited.</div>
+        </div>
+        <div class="card">
+          <div class="card-num">Vertical 04 · Horizon</div>
+          <div class="card-title">Defense &amp; dual-use</div>
+          <div class="card-body">Autonomous logistics in contested environments. Machines that operate where operators shouldn't be.</div>
+        </div>
+        <div class="card">
+          <div class="card-num">Vertical 05 · Horizon</div>
+          <div class="card-title">Humanoid robotics</div>
+          <div class="card-body">When the body catches up to the brain. The same model class, a different mechanical substrate.</div>
+        </div>
+        <div class="card">
+          <div class="card-num">Vertical 06 · +</div>
+          <div class="card-title">Wherever operator cost dominates TCO</div>
+          <div class="card-body">Physical AI becomes viable wherever the hourly cost of a human operator exceeds the amortized cost of supervised autonomy.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-counter">20 / 22</div>
+  </section>
+
+  <section class="slide photo-bg dark vignette" data-slide="21">
+    <div class="bg" style="background-image: url('presentation-assets/harbor.jpg');"></div>
+    <img src="presentation-assets/hive-logo-white.png" class="logo" alt="Hive">
+    <div class="slide-inner">
+      <div class="eyebrow">The horizon</div>
+      <h2 class="headline" style="max-width: 1100px;">Fully autonomous industrial operations.<br><span style="opacity: 0.72; font-style: italic;">Supervised from one operations center.</span></h2>
+      <div class="body" style="color: rgba(255,255,255,0.88); max-width: 860px; margin-top: 1.2em;">
+        <p>Today, one operator supervises two to three machines.</p>
+        <p>As ODIN improves — each deployment feeding the next model — that ratio scales: one operator to four, to six, to dozens of machines across sites.</p>
+        <p style="font-family: var(--serif); font-style: italic; color: var(--yellow-soft); margin-top: 1.5em; font-size: 1.2em; line-height: 1.4;">Unlimited access to skilled industrial labor. Decoupled from the human hour.</p>
+      </div>
+    </div>
+    <div class="slide-counter">21 / 22</div>
+  </section>
+
+  <section class="slide photo-bg dark close-slide" data-slide="22">
+    <div class="bg" style="background-image: url('presentation-assets/fleet-lineup.jpg'); opacity: 0.55;"></div>
+    <img src="presentation-assets/hive-logo-white.png" class="logo" alt="Hive">
+    <div class="slide-inner">
+      <div class="eyebrow">The decade of physical AI</div>
+      <div class="close-title">This is <em>only the start.</em></div>
+      <div class="close-contact">
+        <span class="k">Company</span>
+        <span class="v">Hive Autonomy AS · Kristiansand, Norway</span>
+        <span class="k">Web</span>
+        <span class="v"><a href="https://hiveautonomy.no">hiveautonomy.no</a></span>
+      </div>
+    </div>
+    <div class="slide-counter">22 / 22</div>
+  </section>
+
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const progress = document.getElementById('progress');
+const navHint = document.getElementById('nav-hint');
+const confidential = document.querySelector('.confidential');
+let current = 0;
+
+function go(i) {
+  if (i < 0 || i >= slides.length) return;
+  slides[current].classList.remove('active');
+  current = i;
+  slides[current].classList.add('active');
+  progress.style.width = ((current + 1) / slides.length * 100) + '%';
+  slides.forEach((s, n) => {
+    s.querySelectorAll('video').forEach(v => {
+      if (n === current) {
+        if (v.paused) { v.load(); v.play().catch(() => {}); }
+      } else if (!v.paused) {
+        v.pause();
+      }
+    });
+  });
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(current + 1); }
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(current - 1); }
+  else if (e.key === 'Home') { e.preventDefault(); go(0); }
+  else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
+  else if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+
+document.addEventListener('click', (e) => {
+  if (e.target.closest('a')) return;
+  const x = e.clientX / window.innerWidth;
+  if (x < 0.35) go(current - 1);
+  else if (x > 0.65) go(current + 1);
+});
+
+setTimeout(() => confidential.classList.add('fade'), 2500);
+setTimeout(() => navHint && navHint.classList.add('hide'), 5000);
+progress.style.width = (1 / slides.length * 100) + '%';
+
+// Kickstart the hero video
+slides[0].querySelectorAll('video').forEach(v => { v.load(); v.play().catch(() => {}); });
+</script>
+
+</body>
+</html>
