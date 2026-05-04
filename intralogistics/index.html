@@ -243,6 +243,7 @@ h2.headline .cyan { color: var(--cyan); }
 .slide.active .stat:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 440ms; }
 .slide.active .stat:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 560ms; }
 .slide.active .stat:nth-of-type(3) { opacity: 1; transform: translateY(0); transition-delay: 680ms; }
+.slide.active .stat:nth-of-type(4) { opacity: 1; transform: translateY(0); transition-delay: 800ms; }
 .stat .num {
   font-size: clamp(40px, 4.4vw, 68px);
   font-weight: 800;
@@ -1552,6 +1553,298 @@ body.static .slide:not(.active) { display: none !important; }
   video { display: none !important; }
   .slide * { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; }
 }
+
+/* ===== Hero slide Ken Burns effect ===== */
+@keyframes kenburns {
+  0%   { transform: scale(1.00) translate(0%, 0%); }
+  50%  { transform: scale(1.10) translate(-2.5%, -1.5%); }
+  100% { transform: scale(1.00) translate(0%, 0%); }
+}
+.hero-bg-animate {
+  animation: kenburns 18s ease-in-out infinite;
+  transform-origin: center center;
+}
+
+/* ============================================================
+   NARRATIVE ARC — Acts 1–4 (positioning slides)
+   ============================================================ */
+
+/* Act 1 — Demand strip */
+.demand-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 2vw, 36px);
+  margin-top: clamp(28px, 3.4vh, 44px);
+}
+.demand-card {
+  border-left: 2px solid rgba(74,144,217,0.55);
+  padding-left: clamp(18px, 1.6vw, 24px);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .demand-card:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 440ms; }
+.slide.active .demand-card:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 580ms; }
+.slide.active .demand-card:nth-of-type(3) { opacity: 1; transform: translateY(0); transition-delay: 720ms; }
+.demand-card .dc-stat {
+  font-size: clamp(40px, 4.2vw, 64px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.demand-card .dc-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.demand-card p {
+  color: rgba(255,255,255,0.74);
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.55;
+}
+.demand-card .dc-source {
+  margin-top: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.42);
+  font-weight: 500;
+}
+.demand-card .dc-substat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(13px, 0.95vw, 15px);
+  letter-spacing: 0.04em;
+  color: var(--cyan);
+  font-weight: 600;
+  margin: -4px 0 14px 0;
+}
+
+/* Act 2 — Constraint columns */
+.constraint-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 2.2vw, 36px);
+  margin-top: clamp(28px, 3.4vh, 44px);
+}
+.constraint-col {
+  position: relative;
+  padding: clamp(22px, 2.6vh, 30px) 0 0;
+  border-top: 2px solid var(--yellow);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .constraint-col:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 420ms; }
+.slide.active .constraint-col:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 580ms; }
+.slide.active .constraint-col:nth-of-type(3) { opacity: 1; transform: translateY(0); transition-delay: 740ms; }
+.constraint-col .cc-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.constraint-col .cc-stat {
+  font-size: clamp(34px, 3.4vw, 50px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  margin-bottom: 14px;
+  font-variant-numeric: tabular-nums;
+}
+.constraint-col p {
+  color: rgba(255,255,255,0.74);
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.55;
+}
+.constraint-closer {
+  margin-top: clamp(28px, 3.2vh, 42px);
+  padding-top: clamp(20px, 2.4vh, 28px);
+  border-top: 1px solid rgba(255,255,255,0.12);
+  font-size: clamp(17px, 1.35vw, 22px);
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.45;
+  max-width: 1100px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 800ms var(--ease) 880ms, transform 800ms var(--ease) 880ms;
+}
+.slide.active .constraint-closer { opacity: 1; transform: translateY(0); }
+.constraint-closer .accent { color: var(--yellow); }
+
+/* Act 3 — The gap (split with canyon) */
+.gap-split {
+  display: grid;
+  grid-template-columns: 1fr clamp(80px, 9vw, 140px) 1fr;
+  gap: clamp(16px, 2vw, 32px);
+  align-items: stretch;
+  margin-top: clamp(26px, 3vh, 40px);
+}
+.gap-col {
+  padding: clamp(22px, 2.6vh, 32px);
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.04);
+  border-radius: 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 800ms var(--ease), transform 800ms var(--ease);
+}
+.slide.active .gap-col.left  { opacity: 1; transform: translateY(0); transition-delay: 360ms; }
+.slide.active .gap-col.right { opacity: 1; transform: translateY(0); transition-delay: 760ms; }
+.gap-col .gc-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.gap-col.left  .gc-eyebrow { color: rgba(232,212,77,0.85); }
+.gap-col.right .gc-eyebrow { color: var(--cyan); }
+.gap-col h3 {
+  font-size: clamp(18px, 1.55vw, 24px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.25;
+  margin-bottom: 18px;
+  letter-spacing: -0.015em;
+}
+.gap-col ul { list-style: none; padding: 0; margin: 0 0 18px 0; }
+.gap-col li {
+  font-size: clamp(13px, 0.95vw, 15px);
+  color: rgba(255,255,255,0.78);
+  line-height: 1.55;
+  padding: 6px 0 6px 22px;
+  position: relative;
+}
+.gap-col li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 14px;
+  width: 12px; height: 1px;
+  background: rgba(255,255,255,0.45);
+}
+.gap-col .gc-caption {
+  font-style: italic;
+  color: rgba(255,255,255,0.6);
+  font-size: clamp(13px, 0.95vw, 15px);
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.gap-canyon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scaleY(0.7);
+  transform-origin: center;
+  transition: opacity 1000ms var(--ease) 540ms, transform 1000ms var(--ease) 540ms;
+}
+.slide.active .gap-canyon { opacity: 1; transform: scaleY(1); }
+.gap-canyon::before {
+  content: "";
+  position: absolute;
+  top: 8%; bottom: 8%;
+  left: 50%;
+  width: clamp(40px, 4vw, 70px);
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center,
+    rgba(232,212,77,0.55) 0%,
+    rgba(232,212,77,0.18) 50%,
+    transparent 80%);
+  filter: blur(12px);
+}
+.gap-canyon .canyon-line {
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(232,212,77,0.55) 25%,
+    var(--yellow) 50%,
+    rgba(232,212,77,0.55) 75%,
+    transparent 100%);
+  position: relative;
+  z-index: 1;
+}
+.gap-canyon .canyon-label {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  background: var(--navy-black);
+  padding: 8px 12px;
+  border: 1px solid rgba(232,212,77,0.6);
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(10px, 0.85vw, 12px);
+  letter-spacing: 0.28em;
+  font-weight: 700;
+  color: var(--yellow);
+  text-shadow: 0 0 14px rgba(232,212,77,0.5);
+  z-index: 2;
+}
+.gap-footer {
+  margin-top: clamp(22px, 2.6vh, 32px);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(11px, 0.85vw, 13px);
+  letter-spacing: 0.16em;
+  color: rgba(255,255,255,0.6);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 800ms var(--ease) 1000ms, transform 800ms var(--ease) 1000ms;
+}
+.slide.active .gap-footer { opacity: 1; transform: translateY(0); }
+.gap-footer .accent { color: var(--yellow); font-style: italic; }
+
+/* Act 4 — Bridge band on top of the existing bridge-grid-4 */
+.bridge-band {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 1.4vw, 22px);
+  margin: clamp(18px, 2.2vh, 28px) 0 clamp(8px, 1vh, 14px);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 700ms var(--ease) 360ms, transform 700ms var(--ease) 360ms;
+}
+.slide.active .bridge-band { opacity: 1; transform: translateY(0); }
+.bridge-band .bb-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--cyan);
+  white-space: nowrap;
+}
+.bridge-band .bb-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right,
+    rgba(74,144,217,0.7) 0%,
+    rgba(74,144,217,0.4) 50%,
+    rgba(74,144,217,0.7) 100%);
+}
+.bridge-band .bb-anchor {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 14px rgba(74,144,217,0.7);
+}
 </style>
 </head>
 <body>
@@ -1560,8 +1853,10 @@ body.static .slide:not(.active) { display: none !important; }
 
 <!-- ==== SLIDE 1: HERO ============================================= -->
 <section class="slide hero-photo dark active" data-theme="dark">
-  <div class="bg" style="background-image: url('presentation-assets/forklift-5.jpg');"></div>
-  <div class="overlay" style="background: linear-gradient(to right, rgba(4,9,15,0.85) 0%, rgba(4,9,15,0.62) 40%, rgba(4,9,15,0.15) 85%, transparent 100%);"></div>
+  <video class="bg" autoplay loop muted playsinline preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+    <source src="presentation-assets/1080xBoston Dynamics_slowed.mp4" type="video/mp4">
+  </video>
+  <div class="overlay" style="background: linear-gradient(to right, rgba(4,9,15,0.65) 0%, rgba(4,9,15,0.35) 45%, rgba(4,9,15,0.15) 75%, rgba(4,9,15,0.05) 100%); z-index: 1;"></div>
   <div class="chrome-top">
     <div class="chrome-left">
       <img src="presentation-assets/hive-logo-white.png" alt="Hive" class="logo">
@@ -1576,49 +1871,148 @@ body.static .slide:not(.active) { display: none !important; }
   </div>
   <div class="slide-inner" style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
     <div class="eyebrow">Supervised physical AI</div>
-    <h1 class="title">Your floor.<br><span class="accent">Operated from ours.</span></h1>
-    <p class="subhead" style="max-width: 760px;">Hive runs industrial machinery under supervised physical AI from our operations center in Kristiansand. Proven on Volvo wheel loaders across Norway. Extending to counterbalance forklifts, reach stackers and terminal tractors in 2026.</p>
+    <h1 class="title" style="font-size: clamp(26px, 3.2vw, 46px);">The Hive bridge to autonomous intralogistics <span class="accent">that works end-to-end today.</span></h1>
+    <p class="subhead" style="max-width: 760px;">Hive turns your mixed operational fleet to <span style="color: var(--yellow);">AI-first autonomous machines</span>, derisked by supervision. Proven on <span style="color: var(--yellow);">heavy duty Industrial operations</span> and in <span style="color: var(--yellow);">harsh environments across the Nordics</span> — and now in Europe and in the US.</p>
   </div>
+  <div style="position: absolute; bottom: 12px; left: 16px; color: rgba(255,255,255,0.75); font-size: 9px; z-index: 3; letter-spacing: 0.02em;">* Hive application at Veidekke, Espa</div>
 </section>
 
-<!-- ==== SLIDE 2: PROBLEM ========================================== -->
-<section class="slide" data-theme="light">
+<!-- ==== SLIDE 2: ACT 1 — EVERYBODY WANTS TO AUTOMATE ============== -->
+<section class="slide hero-photo dark" data-theme="dark">
+  <div class="bg" style="background-image: url('presentation-assets/forklift-10.jpg'); background-position: center 50%; filter: saturate(0.45) brightness(0.55);"></div>
+  <div class="overlay" style="background: linear-gradient(to right, rgba(4,9,15,0.92) 0%, rgba(4,9,15,0.78) 55%, rgba(4,9,15,0.55) 100%);"></div>
   <div class="chrome-top">
     <div class="chrome-left">
-      <img src="presentation-assets/hive-logo.png" alt="Hive" class="logo">
+      <img src="presentation-assets/hive-logo-white.png" alt="Hive" class="logo">
       <div class="sep"></div>
-      <span class="tag">The problem</span>
+      <span class="tag">Act I · A clear market trajectory</span>
     </div>
-    <div class="chrome-right" style="color: var(--cyan);">
-      <span class="tag" style="color: var(--cyan);">02 / 11</span>
+    <div class="chrome-right">
+      <span class="tag">02 / 14</span>
     </div>
-    <div class="accent-line" style="background: linear-gradient(to right, rgba(74,144,217,0) 0%, rgba(74,144,217,0.35) 50%, rgba(74,144,217,0) 100%);"></div>
+    <div class="accent-line"></div>
   </div>
   <div class="slide-inner wide">
-    <div class="eyebrow">The bottleneck</div>
-    <h2 class="headline">The operator is the constraint. <span class="accent">Not the iron.</span></h2>
-    <p class="subhead">Forklifts and terminal tractors work around the clock. The operators do not. Shift coverage, sickness, turnover and training shape the cost base more than the machine itself.</p>
-    <div class="stat-row">
-      <div class="stat">
-        <div class="num">~70%</div>
-        <div class="unit">of machine TCO</div>
-        <div class="label">Loaded operator cost on a 2-shift forklift in Northern Europe. Driver wages, shift premiums, sickness cover and onboarding combined.</div>
+    <div class="eyebrow">A clear market trajectory</div>
+    <h2 class="headline">Everybody wants to <span class="accent">automate.</span></h2>
+    <p class="subhead">Warehouses, ports, terminals, yards. The destination is no longer in dispute — every operator at scale has an active automation initiative on the agenda.</p>
+    <div class="demand-strip">
+      <div class="demand-card">
+        <div class="dc-stat">25%</div>
+        <div class="dc-label">Warehouses with automation</div>
+        <p>A quarter of warehouses globally have implemented some form of automation. <span style="color: var(--yellow);">Only 10% use advanced automation</span> technologies — most have started, almost none have arrived.</p>
+        <div class="dc-source">Source: Meteor Space, 2024</div>
       </div>
-      <div class="stat">
-        <div class="num">5×</div>
-        <div class="unit">Injury rate</div>
-        <div class="label">Forklift operator injuries run several times higher than the average warehouse role. Industry data from EU-OSHA and national statistics.</div>
+      <div class="demand-card">
+        <div class="dc-stat">$18B</div>
+        <div class="dc-label">Projected global spend by 2027</div>
+        <p>Global capex earmarked <span style="color: var(--yellow);">for AGVs and AMRs</span> by 2027. The money has been allocated across logistics, manufacturing and material-handling operators worldwide — the destination is not the question.</p>
+        <div class="dc-source">Source: PR Newswire</div>
       </div>
-      <div class="stat">
-        <div class="num">30–50%</div>
-        <div class="unit">Annual turnover</div>
-        <div class="label">Operator turnover in EU logistics. Every rotation means re-hiring, re-training and productivity gap during onboarding.</div>
+      <div class="demand-card">
+        <div class="dc-stat">2.4M</div>
+        <div class="dc-label">Units installed base by 2027</div>
+        <p>Projected <span style="color: var(--yellow);">global installed base</span> of AGV and AMR robots by 2027. The iron is being deployed at scale — the question is whether it actually replaces labour or just sits beside it.</p>
+        <div class="dc-source">Source: PR Newswire</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==== SLIDE 3: WHAT HIVE IS (4-card over hero) =================== -->
+<!-- ==== SLIDE 3: ACT 2 — MANUAL LABOUR IS CONSTRAINED ============= -->
+<section class="slide hero-photo dark" data-theme="dark">
+  <div class="bg" style="background-image: url('presentation-assets/forklift-2.jpg'); background-position: center 55%; filter: saturate(0.35) brightness(0.45);"></div>
+  <div class="overlay" style="background: linear-gradient(to bottom, rgba(4,9,15,0.92) 0%, rgba(4,9,15,0.85) 50%, rgba(4,9,15,0.92) 100%);"></div>
+  <div class="chrome-top">
+    <div class="chrome-left">
+      <img src="presentation-assets/hive-logo-white.png" alt="Hive" class="logo">
+      <div class="sep"></div>
+      <span class="tag">Act II · The forcing function</span>
+    </div>
+    <div class="chrome-right">
+      <span class="tag">03 / 14</span>
+    </div>
+    <div class="accent-line"></div>
+  </div>
+  <div class="slide-inner wide">
+    <div class="eyebrow">The forcing function</div>
+    <h2 class="headline">Manual labour is <span class="accent">constrained.</span></h2>
+    <p class="subhead">Automation is no longer optional because the alternative — hiring more operators — is not viable. Three constraints, all structural, all getting worse.</p>
+    <div class="constraint-row">
+      <div class="constraint-col">
+        <div class="cc-eyebrow">Supply</div>
+        <div class="cc-stat">30–50%</div>
+        <p>Annual operator turnover in EU logistics. Workforce shrinking, aging out faster than replaced. Every rotation re-opens a productivity gap.</p>
+      </div>
+      <div class="constraint-col">
+        <div class="cc-eyebrow">Cost</div>
+        <div class="cc-stat">~70%</div>
+        <p>Of a 2-shift forklift's loaded TCO is the operator. Wages up 4–7% per year. Shift premiums, sickness cover and onboarding outpace machine cost.</p>
+      </div>
+      <div class="constraint-col">
+        <div class="cc-eyebrow">Reliability</div>
+        <div class="cc-stat">5×</div>
+        <p>Forklift-operator injury rate vs. average warehouse role. Shifts go uncovered. Safety incidents block throughput. Iron sits idle 34% of the time.</p>
+      </div>
+    </div>
+    <div class="constraint-closer">The labour you can hire isn't enough. <span class="accent">The labour you can't hire is the bottleneck.</span></div>
+  </div>
+</section>
+
+<!-- ==== SLIDE 4: ACT 3 — THE GAP =================================== -->
+<section class="slide hero-photo dark" data-theme="dark">
+  <div class="bg" style="background-image: url('presentation-assets/forklift-11.jpg'); background-position: center 50%; filter: saturate(0.25) brightness(0.4);"></div>
+  <div class="overlay" style="background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(4,9,15,0.75) 0%, rgba(4,9,15,0.95) 100%);"></div>
+  <div class="chrome-top">
+    <div class="chrome-left">
+      <img src="presentation-assets/hive-logo-white.png" alt="Hive" class="logo">
+      <div class="sep"></div>
+      <span class="tag">Act III · The honest problem</span>
+    </div>
+    <div class="chrome-right">
+      <span class="tag">04 / 14</span>
+    </div>
+    <div class="accent-line"></div>
+  </div>
+  <div class="slide-inner wide">
+    <div class="eyebrow">The honest problem</div>
+    <h2 class="headline">AMRs were supposed to replace labour. <span class="accent">They can't. Yet.</span></h2>
+    <p class="subhead">Every operator who ran a pilot has met the same wall. The gap between what AMRs can do today and what they would need to do to viably replace human labour is large — and most operators blamed the robot.</p>
+    <div class="gap-split">
+      <div class="gap-col left">
+        <div class="gc-eyebrow">What AMRs do today</div>
+        <h3>Conveyor belts on wheels.</h3>
+        <ul>
+          <li>Fixed routes, pre-mapped environments</li>
+          <li>One task, one machine, one workflow</li>
+          <li>Structured floors only — no edge cases</li>
+          <li>Stops on exception, waits for a human</li>
+          <li>Per-task integration, per-vendor stack</li>
+        </ul>
+        <div class="gc-caption">Useful in narrow lanes. Not a labour replacement.</div>
+      </div>
+      <div class="gap-canyon">
+        <div class="canyon-line"></div>
+        <div class="canyon-label">THE GAP</div>
+      </div>
+      <div class="gap-col right">
+        <div class="gc-eyebrow">What replacing labour requires</div>
+        <h3>What humans actually do.</h3>
+        <ul>
+          <li>Mixed tasks across the day, no script</li>
+          <li>Floor and yard, indoor and outdoor</li>
+          <li>Dynamic, messy, unstructured environments</li>
+          <li>Judgment under exception, no human nearby</li>
+          <li>Cross-equipment, cross-site generalization</li>
+        </ul>
+        <div class="gc-caption">The job an operator does on day one.</div>
+      </div>
+    </div>
+    <div class="gap-footer">Every operator who ran a pilot has met this gap. <span class="accent">Most blamed the robot.</span></div>
+  </div>
+</section>
+
+<!-- ==== SLIDE 5: ACT 4 — HIVE BRIDGES THE GAP ===================== -->
 <section class="slide hero-photo dark" data-theme="dark">
   <div class="bg" style="background-image: url('presentation-assets/forklift-7.jpg'); background-position: center 58%;"></div>
   <div class="overlay" style="background: linear-gradient(to bottom, rgba(4,9,15,0.82) 0%, rgba(4,9,15,0.78) 50%, rgba(4,9,15,0.84) 100%);"></div>
@@ -1626,64 +2020,115 @@ body.static .slide:not(.active) { display: none !important; }
     <div class="chrome-left">
       <img src="presentation-assets/hive-logo-white.png" alt="Hive" class="logo">
       <div class="sep"></div>
-      <span class="tag">What Hive is</span>
+      <span class="tag">Act IV · Where Hive comes in</span>
     </div>
     <div class="chrome-right">
-      <span class="tag">03 / 11</span>
+      <span class="tag">05 / 14</span>
     </div>
     <div class="accent-line"></div>
   </div>
   <div class="slide-inner wide" style="max-width: 1500px;">
-    <div class="eyebrow">Built for industrial floors</div>
-    <h2 class="headline">Supervised physical AI. <span class="accent">Not automation. Not teleop.</span></h2>
-    <p class="subhead" style="max-width: 960px;">Hive is a packaged service. A general physical AI model that operates machines under human supervision, delivered from an operations center with trained remote operators on standby. You keep your fleet. We bring the intelligence.</p>
+    <div class="eyebrow">Where Hive comes in</div>
+    <h2 class="headline">Hive closes the gap with a <span style="color: var(--cyan);">physical AI model</span> — not a fleet of single-purpose robots.</h2>
+    <div class="bridge-band">
+      <span class="bb-anchor"></span>
+      <span class="bb-tag">Today's AMRs</span>
+      <span class="bb-line"></span>
+      <span class="bb-tag" style="color: var(--yellow);">→ The Hive bridge ←</span>
+      <span class="bb-line"></span>
+      <span class="bb-tag">Labour replacement</span>
+      <span class="bb-anchor"></span>
+    </div>
+    <p class="subhead" style="max-width: 1100px;">A general-purpose AI model trained across machine types, sites and conditions — running on the iron you already own, supervised by humans until the model owns the edge cases. Four pillars carry the bridge.</p>
     <div class="bridge-grid-4">
       <div class="bridge-card">
         <div class="step-num">01</div>
         <div class="step-label">One model, every machine</div>
-        <h3>A generic physical AI across the full fleet.</h3>
-        <p>Not a separate integration per machine type. One intelligence layer generalizing across forklifts, reach stackers, wheel loaders and terminal tractors.</p>
+        <h3>A single AI model across the whole fleet.</h3>
+        <p>Not a separate integration per machine type. Hive trains one model that generalizes across wheel loaders, haulers, excavators and forklifts. New tasks and new iron without starting from scratch.</p>
       </div>
       <div class="bridge-card">
         <div class="step-num">02</div>
         <div class="step-label">Fully packaged service</div>
-        <h3>Ops center, trained operators, 24/7 cover.</h3>
-        <p>Operations center in Kristiansand. Redundant connectivity. Trained remote operators in the loop. Nothing for you to build, hire or maintain.</p>
+        <h3>Ops center, trained operators, 24/7 coverage.</h3>
+        <p>Hive is not software you install. It is a packaged service. Operations center in Kristiansand, trained remote operators, redundant connectivity, 24/7 coverage. Nothing you replicate internally — unless you'd like your operators to step into supervision.</p>
       </div>
       <div class="bridge-card">
         <div class="step-num">03</div>
         <div class="step-label">Human-in-the-loop by design</div>
-        <h3>Supervision is the product. Not the fallback.</h3>
-        <p>When the AI hesitates, a trained operator takes over instantly. Your floor never sees an unplanned stop. Your safety team never sees an unsupervised move.</p>
+        <h3>Supervision is the product, not the fallback.</h3>
+        <p>When the AI hesitates, a trained remote operator takes over instantly. The edge cases that stop every other AMR are absorbed by the supervisor — and become the next training set.</p>
       </div>
       <div class="bridge-card">
         <div class="step-num">04</div>
         <div class="step-label">Retrofit, not replacement</div>
         <h3>Runs on machines you already own.</h3>
-        <p>Sensors, lidar and a control cabinet mounted on your existing machine. Installed in days. No new iron. No fleet swap. No multi-year forklift refresh cycle.</p>
+        <p>Sensors, lidar and a control cabinet mounted on your existing fleet. Installed in days. From standard to supervised physical AI without new iron or a multi-year refresh cycle.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==== SLIDE 4: VLA / PHYSICAL AI ================================ -->
-<section class="slide vla" data-theme="dark">
+<!-- ==== SLIDE 6: BEST OF BOTH WORLDS ============================== -->
+<section class="slide hero-photo dark" data-theme="dark">
+  <div class="bg" style="background-image: url('presentation-assets/forklift-12.jpg'); background-position: center 40%; filter: saturate(0.55);"></div>
+  <div class="overlay" style="background: linear-gradient(to bottom, rgba(4,9,15,0.92) 0%, rgba(4,9,15,0.80) 40%, rgba(4,9,15,0.86) 100%);"></div>
   <div class="chrome-top">
     <div class="chrome-left">
       <img src="presentation-assets/hive-logo-white.png" alt="Hive" class="logo">
       <div class="sep"></div>
-      <span class="tag">VLA · Physical AI</span>
+      <span class="tag">What you get</span>
     </div>
     <div class="chrome-right">
-      <span class="pulse"></span>
-      <span>04 / 11</span>
+      <span class="tag">06 / 14</span>
     </div>
     <div class="accent-line"></div>
   </div>
+  <div class="slide-inner wide" style="padding-top: clamp(100px, 16vh, 180px)">
+    <div class="eyebrow">What you get</div>
+    <h2 class="headline" style="font-size: clamp(22px, 2.6vw, 38px);">The Best of Both Worlds. <span style="color: #fff; font-weight: 400;">The cost saving, predictability and independence from Labour that <span class="accent">Autonomy brings.</span> The efficiency and throughput that <span class="accent">Humans bring.</span></span></h2>
+    <div class="bridge-grid-3" style="margin-top: clamp(24px, 3vh, 38px);">
+      <div class="phase-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.14); backdrop-filter: blur(8px); display: flex; flex-direction: column;">
+        <div class="p-num" style="color: var(--cyan);">01</div>
+        <h3 style="color: #fff;">Throughput</h3>
+        <ul style="color: rgba(255,255,255,0.78); font-size: clamp(12px, 0.9vw, 14px); line-height: 1.55; margin-top: 8px; padding-left: 18px;">
+          <li>Safety of AMRs at <span style="color: var(--yellow);">2X</span> speed of end-to-end workflow completion.</li>
+          <li><span style="color: var(--yellow);">Up to 100%</span> redeployed labour hours per shift</li>
+        </ul>
+      </div>
+      <div class="phase-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.14); backdrop-filter: blur(8px);">
+        <div class="p-num" style="color: var(--cyan);">02</div>
+        <h3 style="color: #fff;">Repeatable Reliability</h3>
+        <p style="color: rgba(255,255,255,0.78); font-size: clamp(12px, 0.9vw, 14px); line-height: 1.55; margin-top: 8px;">Trust that your workflow will repeat again and again <strong style="color: var(--yellow);">uninterrupted</strong> and <strong style="color: var(--yellow);">without damage</strong> despite real world operational environments — the uneven floors, the wooden pallets, narrow passages. Shifts from <strong style="color: var(--yellow);">indoor to outdoor</strong>.</p>
+        <ul style="color: rgba(255,255,255,0.78); font-size: clamp(12px, 0.9vw, 14px); line-height: 1.55; margin-top: 12px; padding-left: 18px;">
+          <li>Marked Asset Utilisation Improvement of <span style="color: var(--yellow);">up to 50%</span> reduction in vehicle number depending on workflow type</li>
+        </ul>
+      </div>
+      <div class="phase-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.14); backdrop-filter: blur(8px);">
+        <div class="p-num" style="color: var(--cyan);">03</div>
+        <h3 style="color: #fff;">Safety as a Guarantee</h3>
+        <p style="color: rgba(255,255,255,0.78); font-size: clamp(12px, 0.9vw, 14px); line-height: 1.55; margin-top: 8px;">Count on operational safety that removes your operators from tough environments, removes <strong style="color: var(--yellow);">collision risk</strong> caused by human factor and/or higher number of vehicles needed to achieve an equal throughput (AMRs). Minimised <strong style="color: var(--yellow);">rack and pallet damage</strong> as a result.</p>
+        <ul style="color: rgba(255,255,255,0.78); font-size: clamp(12px, 0.9vw, 14px); line-height: 1.55; margin-top: 12px; padding-left: 18px;">
+          <li>Incident rate reduced <span style="color: var(--yellow);">by 90–100%</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==== SLIDE 7: VLA / PHYSICAL AI ================================ -->
+<section class="slide vla dark" data-theme="dark">
+  <div class="chrome-top">
+    <div class="chrome-left"></div>
+    <div class="chrome-right">
+      <span class="pulse"></span>
+      <span>07 / 14</span>
+    </div>
+  </div>
   <div class="vla-split">
     <div class="vla-left">
-      <div class="eyebrow">Three generations of warehouse autonomy</div>
-      <h2 class="headline">Everyone else automates a task. <span class="accent">Hive runs a model.</span></h2>
+      <div class="eyebrow" style="color: var(--yellow);">Why this works differently</div>
+      <h2 class="headline" style="font-size: clamp(24px, 2.8vw, 42px); margin-bottom: clamp(14px, 1.6vh, 20px);"><span style="color: #6BBFFF;">Everyone else automates a task.</span> <span class="accent">Hive runs a model.</span></h2>
       <p class="subhead" style="color: rgba(255,255,255,0.78); max-width: 560px;">The leap from AGV to AMR took fifty years. The leap to VLA took two. One model learning from every shift, generalizing from pallet picking to truck loading to snow clearing. No new script per task.</p>
       <div class="vla-evo">
         <div class="vla-step">
@@ -1734,7 +2179,7 @@ body.static .slide:not(.active) { display: none !important; }
   </div>
 </section>
 
-<!-- ==== SLIDE 5: PROOF ============================================ -->
+<!-- ==== SLIDE 6: PROOF ============================================ -->
 <section class="slide" data-theme="light">
   <div class="chrome-top">
     <div class="chrome-left">
@@ -1743,14 +2188,14 @@ body.static .slide:not(.active) { display: none !important; }
       <span class="tag">Live operations</span>
     </div>
     <div class="chrome-right" style="color: var(--cyan);">
-      <span class="tag" style="color: var(--cyan);">05 / 11</span>
+      <span class="tag" style="color: var(--cyan);">08 / 14</span>
     </div>
     <div class="accent-line" style="background: linear-gradient(to right, rgba(74,144,217,0) 0%, rgba(74,144,217,0.35) 50%, rgba(74,144,217,0) 100%);"></div>
   </div>
   <div class="slide-inner" style="max-width: 1480px;">
-    <div class="eyebrow">Proof · not slideware</div>
+    <div class="eyebrow">Proof from the field</div>
     <h2 class="headline">Four live operations. Real customers. Real production.</h2>
-    <p class="subhead">Deployed today on Volvo wheel loaders. Same supervised physical AI platform carrying over to forklifts and terminal tractors in 2026.</p>
+    <p class="subhead">Operational on Volvo wheel loaders and Toyota Counterbalanced forklifts today. Hive do the hard task in the sector — <span style="color: var(--cyan); font-weight: 700;">Loading, Unloading at Height</span> made reliable. <span style="color: var(--cyan); font-weight: 700;">Indoor</span> and <span style="color: var(--cyan); font-weight: 700;">Outdoor</span>.</p>
     <div class="video-grid">
       <div class="video-card">
         <div class="video-slot" data-video-src="presentation-assets/yara-bulk.mp4" style="background-image: url('presentation-assets/yara-bulk-still.jpg');">
@@ -1775,26 +2220,26 @@ body.static .slide:not(.active) { display: none !important; }
         <div class="vc-detail">Remote snow clearing in avalanche zones under Norwegian Public Roads Administration contract.<span class="why">Why: operators removed from life-threatening hazard zones.</span></div>
       </div>
       <div class="video-card">
-        <div class="video-slot" data-video-src="presentation-assets/feiring-quarry.mp4" style="background-image: url('presentation-assets/feiring-quarry-still.jpg');">
-          <video loop muted playsinline preload="none" poster="presentation-assets/feiring-quarry-still.jpg">
-            <source src="presentation-assets/feiring-quarry.mp4" type="video/mp4">
+        <div class="video-slot" data-video-src="presentation-assets/optimera-small.mp4" style="background-image: url('presentation-assets/feiring-quarry-still.jpg');">
+          <video loop muted playsinline preload="none">
+            <source src="presentation-assets/optimera-small.mp4" type="video/mp4">
           </video>
           <button class="expand-btn" title="Play full video">&#9654;</button>
         </div>
-        <div class="vc-eyebrow">Powering quarries</div>
-        <div class="vc-title">Hamar Pukk · Quarry</div>
-        <div class="vc-detail">Supervised physical AI wheel loader loading trucks in a live Nordic aggregate operation.<span class="why">Why: continuous production without operator shift gaps.</span></div>
+        <div class="vc-eyebrow">Indoor-Outdoor carry &amp; stack</div>
+        <div class="vc-title">St Gobain · Warehouse to Yard</div>
+        <div class="vc-detail">Supervised physical AI Counterbalanced carrying wooden pallets between Yard and Warehouse to stack 5 high.<span class="why">Why: continuous production without operator shift gaps.</span></div>
       </div>
       <div class="video-card">
-        <div class="video-slot" data-video-src="presentation-assets/veidekke-tunnel.mp4" style="background-image: url('presentation-assets/veidekke-tunnel-still.jpg');">
-          <video loop muted playsinline preload="none" poster="presentation-assets/veidekke-tunnel-still.jpg">
-            <source src="presentation-assets/veidekke-tunnel.mp4" type="video/mp4">
+        <div class="video-slot" data-video-src="presentation-assets/stena-small.mp4" style="background-image: url('presentation-assets/veidekke-tunnel-still.jpg');">
+          <video loop muted playsinline preload="none">
+            <source src="presentation-assets/stena-small.mp4" type="video/mp4">
           </video>
           <button class="expand-btn" title="Play full video">&#9654;</button>
         </div>
-        <div class="vc-eyebrow">Building tunnels</div>
-        <div class="vc-title">Veidekke · Telia 5G</div>
-        <div class="vc-detail">Europe's first industrial 5G teleoperation trial with Hive wheel loaders alongside Boston Dynamics robots.<span class="why">Why: multi-vendor interoperability in confined spaces.</span></div>
+        <div class="vc-eyebrow">Complex recycling infrastructure</div>
+        <div class="vc-title">Stena Recycling</div>
+        <div class="vc-detail">Proofpoint for operating in a brownfield complex environment with storage at height as well as indoor/outdoor operation with narrow aisles.<span class="why">Why: multi-vendor interoperability in confined spaces.</span></div>
       </div>
     </div>
   </div>
@@ -1810,7 +2255,7 @@ body.static .slide:not(.active) { display: none !important; }
     </div>
     <div class="chrome-right">
       <span class="pulse"></span>
-      <span>06 / 11</span>
+      <span>09 / 14</span>
     </div>
     <div class="accent-line"></div>
   </div>
@@ -1850,7 +2295,7 @@ body.static .slide:not(.active) { display: none !important; }
     </div>
     <div class="chrome-right">
       <span class="pulse"></span>
-      <span>07 / 11</span>
+      <span>10 / 14</span>
     </div>
     <div class="accent-line"></div>
   </div>
@@ -1882,7 +2327,7 @@ body.static .slide:not(.active) { display: none !important; }
       <span class="tag">The retrofit kit</span>
     </div>
     <div class="chrome-right">
-      <span class="tag">08 / 11</span>
+      <span class="tag">11 / 14</span>
     </div>
     <div class="accent-line"></div>
   </div>
@@ -1907,103 +2352,33 @@ body.static .slide:not(.active) { display: none !important; }
       </div>
       <div class="bridge-card" style="background: rgba(255,255,255,0.08);">
         <div class="step-label">Platform</div>
-        <h3 style="font-size: clamp(16px, 1.3vw, 20px);">Volvo L60–L350 today.</h3>
+        <h3 style="font-size: clamp(16px, 1.3vw, 20px);">Platform agnostic</h3>
         <p>Counterbalance forklifts, reach stackers and terminal tractors rolling into the platform through 2026.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ==== SLIDE 8: ECONOMICS ======================================== -->
-<section class="slide" data-theme="light">
-  <div class="chrome-top">
-    <div class="chrome-left">
-      <img src="presentation-assets/hive-logo.png" alt="Hive" class="logo">
-      <div class="sep"></div>
-      <span class="tag">Cost pathway</span>
-    </div>
-    <div class="chrome-right" style="color: var(--cyan);">
-      <span class="tag" style="color: var(--cyan);">09 / 11</span>
-    </div>
-    <div class="accent-line" style="background: linear-gradient(to right, rgba(74,144,217,0) 0%, rgba(74,144,217,0.35) 50%, rgba(74,144,217,0) 100%);"></div>
-  </div>
-  <div class="slide-inner wide">
-    <div class="eyebrow">The numbers come from your site</div>
-    <h2 class="headline">Cost pathway. <span class="cyan">Validated per pilot.</span></h2>
-    <p class="subhead">We do not sell a savings number. We sell a pathway. Operators supervise more machines over time. Your finance team sets the savings curve on your own cost base.</p>
-    <div class="econ-grid">
-      <div class="econ-assumptions">
-        <div class="title">Assumptions · per site</div>
-        <ul>
-          <li><span class="lbl">Operator loaded cost (EU, 2-shift)</span><span class="val">~ EUR 90–120K / yr</span></li>
-          <li><span class="lbl">Forklift asset cost (amortized + service)</span><span class="val">~ EUR 12–20K / yr</span></li>
-          <li><span class="lbl">Ratio today</span><span class="val">1 : 1</span></li>
-          <li><span class="lbl">Ratio after 6-month pilot</span><span class="val">1 : 2–3</span></li>
-          <li><span class="lbl">Ratio at scale (same shift)</span><span class="val">1 : 4–6</span></li>
-          <li><span class="lbl">Unplanned downtime target</span><span class="val">&lt; 1 %</span></li>
-        </ul>
-      </div>
-      <div class="econ-table">
-        <div class="title">Operator-to-machine ratio · scaling</div>
-        <table>
-          <thead>
-            <tr><th>Phase</th><th>Timeline</th><th>Operator : Machines</th><th>Labor capture</th></tr>
-          </thead>
-          <tbody>
-            <tr><td class="phase">Pilot</td><td>Month 0–6</td><td>1 : 2</td><td class="highlight">~50 %</td></tr>
-            <tr><td class="phase">Expand</td><td>Month 6–18</td><td>1 : 3</td><td class="highlight">~66 %</td></tr>
-            <tr><td class="phase">Scale</td><td>Month 18+</td><td>1 : 5</td><td class="highlight">~80 %</td></tr>
-            <tr><td class="phase">Multi-site</td><td>Year 2+</td><td>1 : 6+</td><td class="highlight">~83 %</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="econ-footnote"><strong>Labor capture</strong> = share of operator hours covered by Hive supervision vs. human on machine. Final savings depend on shift pattern, wage base and utilization. Set jointly during the pilot. Hive never commits a fixed MNOK figure before site data.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ==== SLIDE 10: HOW TO ENGAGE =================================== -->
+<!-- ==== SLIDE 9: RETROFIT KIT (from slides-for-rework, slide 1) === -->
 <section class="slide hero-photo dark" data-theme="dark">
-  <div class="bg" style="background-image: url('presentation-assets/forklift-12.jpg'); background-position: center 40%; filter: saturate(0.55);"></div>
-  <div class="overlay" style="background: linear-gradient(to bottom, rgba(4,9,15,0.92) 0%, rgba(4,9,15,0.80) 40%, rgba(4,9,15,0.86) 100%);"></div>
+  <div class="bg" style="background-image: url('presentation-assets/slide12-sensors-labeled.jpg'); background-size: cover; background-position: center center;"></div>
+  <div class="overlay" style="background: linear-gradient(to top, rgba(11,26,44,0.85) 0%, rgba(11,26,44,0.3) 35%, rgba(11,26,44,0.1) 100%);"></div>
   <div class="chrome-top">
     <div class="chrome-left">
       <img src="presentation-assets/hive-logo-white.png" alt="Hive" class="logo">
       <div class="sep"></div>
-      <span class="tag">How to engage</span>
-    </div>
-    <div class="chrome-right">
-      <span class="tag">10 / 11</span>
+      <span class="tag">Retrofit Kit</span>
     </div>
     <div class="accent-line"></div>
   </div>
-  <div class="slide-inner wide">
-    <div class="eyebrow">Three steps. Low commitment early. Clear exit.</div>
-    <h2 class="headline">Demo. Deploy. <span class="accent">Bridge partnership.</span></h2>
-    <div class="bridge-grid-3">
-      <div class="phase-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.14); backdrop-filter: blur(8px);">
-        <div class="p-num" style="color: var(--cyan);">01 · Demo</div>
-        <h3 style="color: #fff;">See it run on your floor.</h3>
-        <p style="color: rgba(255,255,255,0.78);">Hive brings a kitted machine and an operations station to your site. Runs a target cycle for one shift. You see the handover between AI and remote operator in person. No commitment.</p>
-        <div class="commit" style="color: #fff; border-top-color: rgba(255,255,255,0.15);">Commit: two days on site</div>
-      </div>
-      <div class="phase-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.14); backdrop-filter: blur(8px);">
-        <div class="p-num" style="color: var(--yellow);">02 · Deploy</div>
-        <h3 style="color: #fff;">Supervised pilot on your process.</h3>
-        <p style="color: rgba(255,255,255,0.78);">Six months. Two to four machines. Retrofit kit installed. Operators trained from our ops center. Weekly review. KPI set jointly with your team before kickoff.</p>
-        <div class="commit" style="color: #fff; border-top-color: rgba(255,255,255,0.15);">Commit: rental model · exit at 60 days</div>
-      </div>
-      <div class="phase-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.14); backdrop-filter: blur(8px);">
-        <div class="p-num" style="color: #fff;">03 · Bridge</div>
-        <h3 style="color: #fff;">Commercial term sheet.</h3>
-        <p style="color: rgba(255,255,255,0.78);">Bridge Partnership: Hive absorbs the training cost, you commit to scaling volume. Per-machine service fee kicks in post-validation. Roadmap to multi-site and additional machine classes.</p>
-        <div class="commit" style="color: var(--yellow); border-top-color: rgba(255,255,255,0.15);">Commit: signed term sheet · Q3 2026</div>
-      </div>
-    </div>
+  <div class="slide-inner" style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+    <div class="eyebrow">Retrofit Kit</div>
+    <h2 class="headline">Installed in days. Not months.</h2>
+    <p class="subhead" style="color: rgba(255,255,255,0.88);">Cameras, lidar, and a control cabinet. Mounted on your existing Volvo L60 to L350 wheel loader. Connected to our operations center. The physical AI operates the machine while a trained supervisor oversees every action. Your operators move into higher value tasks. Your machine is ready without leaving your site.</p>
   </div>
 </section>
 
-<!-- ==== SLIDE 11: CLOSE =========================================== -->
+<!-- ==== SLIDE 13: CLOSE =========================================== -->
 <section class="slide hero-photo dark" data-theme="dark">
   <div class="bg contain-fleet" style="background-image: url('presentation-assets/fleet-lineup.jpg'); background-size: 115% auto; background-position: center 52%; filter: saturate(0.4) brightness(0.7);"></div>
   <div class="overlay" style="background: linear-gradient(135deg, rgba(4,9,15,0.92) 0%, rgba(4,9,15,0.82) 45%, rgba(4,9,15,0.72) 100%);"></div>
@@ -2015,19 +2390,18 @@ body.static .slide:not(.active) { display: none !important; }
     </div>
     <div class="chrome-right">
       <span class="pulse"></span>
-      <span>11 / 11</span>
     </div>
     <div class="accent-line"></div>
   </div>
   <div class="slide-inner wide">
-    <div class="eyebrow">Next step</div>
-    <h2 class="headline">Your floor. Thirty days. <span class="accent">Start here.</span></h2>
+    <div class="eyebrow">First step</div>
+    <h2 class="headline">Your Floor &amp; Yard. Thirty days. <span class="accent">Start here.</span></h2>
     <div class="close-grid">
       <div class="close-steps">
-        <div class="close-step" style="border-top-color: rgba(255,255,255,0.18);"><div class="s-num" style="color: var(--cyan);">01</div><div><h3 style="color: #fff;">Site call with Hive operations.</h3><p style="color: rgba(255,255,255,0.72);">Thirty-minute walk-through of your floor, shift pattern and target machine class. No deck required.</p></div></div>
-        <div class="close-step" style="border-top-color: rgba(255,255,255,0.18);"><div class="s-num" style="color: var(--cyan);">02</div><div><h3 style="color: #fff;">On-site demo.</h3><p style="color: rgba(255,255,255,0.72);">Hive brings the machine and the operator station. One shift on your floor. Your safety team in the room.</p></div></div>
-        <div class="close-step" style="border-top-color: rgba(255,255,255,0.18);"><div class="s-num" style="color: var(--cyan);">03</div><div><h3 style="color: #fff;">Pilot scoping.</h3><p style="color: rgba(255,255,255,0.72);">Two to four machines. Six months. Rental model. Exit at 60 days if pilot KPIs are not met.</p></div></div>
-        <div class="close-step" style="border-top-color: rgba(255,255,255,0.18); border-bottom-color: rgba(255,255,255,0.18);"><div class="s-num" style="color: var(--cyan);">04</div><div><h3 style="color: #fff;">Bridge Partnership term sheet.</h3><p style="color: rgba(255,255,255,0.72);">Commercial framework before production scale-up. Target signature: Q3 2026.</p></div></div>
+        <div class="close-step" style="border-top-color: rgba(255,255,255,0.18);"><div class="s-num" style="color: var(--cyan);">01</div><div><h3 style="color: #fff;">Site call with Hive operations.</h3><p style="color: rgba(255,255,255,0.72);">Sixty-minute walk-through of your floor, shift pattern and target machine class. No deck required.</p></div></div>
+        <div class="close-step" style="border-top-color: rgba(255,255,255,0.18);"><div class="s-num" style="color: var(--cyan);">02</div><div><h3 style="color: #fff;">Pilot framework.</h3><p style="color: rgba(255,255,255,0.72);">See Hive proving your workflows in operation for 3 weeks on one machine. No strings attached.</p></div></div>
+        <div class="close-step" style="border-top-color: rgba(255,255,255,0.18);"><div class="s-num" style="color: var(--cyan);">03</div><div><h3 style="color: #fff;">Bridge Partnership term sheet.</h3><p style="color: rgba(255,255,255,0.72);">Streamlined commercial framework to extend term and add machines under Hive operational model.</p></div></div>
+        <div class="close-step" style="border-top-color: rgba(255,255,255,0.18); border-bottom-color: rgba(255,255,255,0.18);"><div class="s-num" style="color: var(--cyan);">04</div><div><h3 style="color: #fff;">Scaled Robotic Partnership.</h3><p style="color: rgba(255,255,255,0.72);">Extend the machine types operating under Hive to your full Logistics workforce.</p></div></div>
       </div>
       <div class="contact-card" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); backdrop-filter: blur(10px);">
         <div class="c-eyebrow">Your Hive contact</div>
@@ -2038,8 +2412,54 @@ body.static .slide:not(.active) { display: none !important; }
         <div class="c-urgent">Q3 2026 pilots book now. May term sheet keeps your site in the queue.</div>
       </div>
     </div>
+    <div class="eyebrow" style="margin-top: clamp(28px, 3.2vh, 40px); margin-bottom: 0;">Towards your double-digit savings from the go</div>
   </div>
 </section>
+
+<!-- ==== SLIDE 13: OMNI CHANNEL ROBOTIC LABOUR (from exxon-v2, slide 6) === -->
+<section id="labour-slide" class="slide hero-photo dark" data-theme="dark">
+  <div class="bg" style="background-image: url('presentation-assets/forklift-12.jpg'); background-position: center 40%; filter: saturate(0.3) brightness(0.5);"></div>
+  <div class="overlay" style="background: linear-gradient(to bottom, rgba(4,9,15,0.95) 0%, rgba(4,9,15,0.88) 50%, rgba(4,9,15,0.92) 100%);"></div>
+  <div class="chrome-top">
+    <div class="chrome-left">
+      <img src="presentation-assets/hive-logo-white.png" alt="Hive" class="logo">
+      <div class="sep"></div>
+      <span class="tag">Next Step — Your Full Fleet</span>
+    </div>
+    <div class="accent-line"></div>
+  </div>
+  <div class="slide-inner wide" style="padding-top: clamp(100px, 16vh, 180px);">
+    <div class="eyebrow">Next Step — Your Full Fleet</div>
+    <h2 class="headline" style="margin-bottom: clamp(24px, 3.5vh, 40px);">Omni channel Robotic Labour <span style="color: var(--cyan);">with Hive</span></h2>
+    <div class="bridge-grid-3" style="margin-top: clamp(24px, 3vh, 38px);">
+      <div class="phase-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.14); backdrop-filter: blur(8px);">
+        <div style="width: 100%; height: clamp(140px, 18vh, 210px); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; overflow: hidden; border-radius: 8px;">
+          <img src="presentation-assets/BW_Forklift.png" alt="Counterbalanced forklift" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+        </div>
+        <div class="p-num" style="color: var(--cyan);">01</div>
+        <h3 style="color: #fff;">Counterbalanced Forklift</h3>
+        <p style="color: rgba(255,255,255,0.78); font-size: clamp(12px, 0.9vw, 14px); line-height: 1.55; margin-top: 8px;">Full autonomy on counterbalance fleets — loading, unloading, and trailer operations in real industrial yards.</p>
+      </div>
+      <div class="phase-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.14); backdrop-filter: blur(8px);">
+        <div style="width: 100%; height: clamp(140px, 18vh, 210px); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; overflow: hidden; border-radius: 8px;">
+          <img src="presentation-assets/ReachTruck.png" alt="Reach truck" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+        </div>
+        <div class="p-num" style="color: var(--cyan);">02</div>
+        <h3 style="color: #fff;">Reach Truck</h3>
+        <p style="color: rgba(255,255,255,0.78); font-size: clamp(12px, 0.9vw, 14px); line-height: 1.55; margin-top: 8px;">High-bay racking and narrow-aisle operations — autonomous put-away and retrieval at height.</p>
+      </div>
+      <div class="phase-card" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.14); backdrop-filter: blur(8px);">
+        <div style="width: 100%; height: clamp(140px, 18vh, 210px); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; overflow: hidden; border-radius: 8px;">
+          <img src="presentation-assets/humanoid.jpeg" alt="Humanoid robot" style="max-height: 100%; max-width: 100%; object-fit: cover;">
+        </div>
+        <div class="p-num" style="color: var(--cyan);">03</div>
+        <h3 style="color: #fff;">Humanoid</h3>
+        <p style="color: rgba(255,255,255,0.78); font-size: clamp(12px, 0.9vw, 14px); line-height: 1.55; margin-top: 8px;">Next-generation labour augmentation — designed for tasks requiring dexterity in unstructured environments.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 </div>
 
