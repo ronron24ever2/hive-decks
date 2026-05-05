@@ -1,0 +1,2203 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operatøropplæring fjernstyrt L120H · Yara Porsgrunn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="yara-training-assets/yara-hero.jpg" fetchpriority="high">
+<meta name="description" content="Operatøropplæring for fjernstyrt Volvo L120H på Yara Porsgrunn. Fase 1, klasseromsmodul. Internt opplæringsmateriell.">
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root {
+  --navy:        oklch(30% 0.06 245);
+  --navy-deep:   oklch(15% 0.04 245);
+  --navy-mid:    oklch(22% 0.05 245);
+  --cyan:        oklch(68% 0.12 245);
+  --cyan-soft:   oklch(78% 0.08 245);
+  --yellow:      oklch(86% 0.16 95);
+  --yellow-soft: oklch(92% 0.08 95);
+  --paper:       oklch(98% 0.004 245);
+  --paper-soft:  oklch(96% 0.005 245);
+  --ink:         oklch(18% 0.01 245);
+  --ink-80:      oklch(18% 0.01 245 / 0.82);
+  --ink-60:      oklch(18% 0.01 245 / 0.62);
+  --ink-40:      oklch(18% 0.01 245 / 0.40);
+  --line:        oklch(30% 0.06 245 / 0.14);
+  --line-strong: oklch(30% 0.06 245 / 0.28);
+  --danger:      oklch(58% 0.20 28);
+  --danger-soft: oklch(95% 0.04 28);
+  --ok:          oklch(60% 0.16 145);
+  --ease:        cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --serif:       'Fraunces', 'Times New Roman', Georgia, serif;
+  --sans:        'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono:        'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: var(--sans);
+  background: var(--navy-deep);
+  color: var(--ink);
+  overflow: hidden;
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01", "cv11", "tnum", "kern";
+}
+
+::selection { background: var(--yellow); color: var(--navy-deep); }
+
+/* === DELIGHT: hero live indicator (subtle) === */
+.live-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--yellow);
+  margin-right: 12px;
+  vertical-align: middle;
+  position: relative;
+  box-shadow: 0 0 8px var(--yellow);
+}
+.live-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--yellow);
+  opacity: 0;
+  animation: live-pulse 2.6s var(--ease-out) infinite;
+}
+@keyframes live-pulse {
+  0%   { opacity: 0.7; transform: scale(0.8); }
+  70%  { opacity: 0; transform: scale(2.2); }
+  100% { opacity: 0; transform: scale(2.2); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .live-dot::after { animation: none; }
+}
+
+/* === DELIGHT: phase-done checkmark scale === */
+.slide.active .phase.done .phase-dot {
+  animation: phase-pop 700ms var(--ease-out) 700ms both;
+}
+@keyframes phase-pop {
+  0%   { transform: scale(0.6); }
+  60%  { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .slide.active .phase.done .phase-dot { animation: none; }
+}
+
+.deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(40px, 5vh, 72px) clamp(40px, 6vw, 112px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 600ms var(--ease);
+  background: var(--paper);
+  overflow: hidden;
+}
+.slide.active { opacity: 1; pointer-events: auto; z-index: 2; }
+.slide.dark { background: var(--navy-deep); color: #fff; }
+
+.slide-inner {
+  max-width: 1280px;
+  width: 100%;
+  position: relative;
+  z-index: 3;
+}
+.slide-inner.narrow { max-width: 900px; }
+.slide-inner.wide { max-width: 1500px; }
+
+.logo {
+  position: absolute;
+  top: clamp(24px, 3vh, 36px);
+  left: clamp(32px, 4vw, 56px);
+  height: clamp(34px, 3.8vh, 46px);
+  z-index: 10;
+  opacity: 0.92;
+}
+
+.slide-counter {
+  position: absolute;
+  bottom: clamp(22px, 2.6vh, 32px);
+  right: clamp(32px, 4vw, 56px);
+  z-index: 10;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--ink-40);
+}
+.slide.dark .slide-counter, .slide.photo-bg.dark .slide-counter { color: rgba(255,255,255,0.4); }
+
+.banner {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 19;
+  padding: 7px 0;
+  background: oklch(15% 0.04 245 / 0.88);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  transition: opacity 500ms ease 2500ms;
+  pointer-events: none;
+}
+.banner.fade { opacity: 0; }
+.banner strong { color: var(--yellow); font-weight: 700; margin-right: 12px; }
+
+.nav-hint {
+  position: fixed;
+  bottom: clamp(22px, 2.6vh, 32px);
+  left: clamp(32px, 4vw, 56px);
+  z-index: 10;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--ink-40);
+  transition: opacity 400ms ease;
+}
+.slide.dark .nav-hint, .slide.photo-bg.dark .nav-hint { color: rgba(255,255,255,0.3); }
+.nav-hint.hide { opacity: 0; }
+
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: var(--cyan);
+  z-index: 20;
+  transition: width 400ms var(--ease);
+}
+
+/* === TEXT ELEMENTS === */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: clamp(20px, 2.4vh, 32px);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--cyan);
+}
+.slide.active .eyebrow { opacity: 1; transform: translateY(0); transition-delay: 80ms; }
+.slide.dark .eyebrow, .slide.photo-bg.dark .eyebrow { color: var(--yellow); }
+.slide.dark .eyebrow::before, .slide.photo-bg.dark .eyebrow::before { background: var(--yellow); }
+
+h1.display {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+  font-size: clamp(44px, 6vw, 88px);
+  color: var(--navy);
+  margin-bottom: clamp(22px, 2.6vh, 32px);
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out);
+}
+.slide.active h1.display { opacity: 1; transform: translateY(0); transition-delay: 180ms; }
+.slide.dark h1.display, .slide.photo-bg.dark h1.display { color: #fff; }
+
+h2.headline {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4vw, 54px);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144, "SOFT" 60;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  margin-bottom: clamp(20px, 2.4vh, 28px);
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 800ms var(--ease-out), transform 800ms var(--ease-out);
+}
+.slide.active h2.headline { opacity: 1; transform: translateY(0); transition-delay: 180ms; }
+.slide.dark h2.headline, .slide.photo-bg.dark h2.headline { color: #fff; }
+
+.subhead {
+  font-size: clamp(17px, 1.3vw, 22px);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--ink-60);
+  max-width: 780px;
+  margin-bottom: clamp(28px, 3vh, 40px);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .subhead { opacity: 1; transform: translateY(0); transition-delay: 280ms; }
+.slide.dark .subhead, .slide.photo-bg.dark .subhead { color: rgba(255,255,255,0.82); }
+
+.body {
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.58;
+  color: var(--ink-80);
+  max-width: 720px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .body { opacity: 1; transform: translateY(0); transition-delay: 340ms; }
+.slide.dark .body, .slide.photo-bg.dark .body { color: rgba(255,255,255,0.88); }
+.body p + p { margin-top: 0.95em; }
+
+.meta-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-40);
+}
+.slide.dark .meta-label, .slide.photo-bg.dark .meta-label { color: rgba(255,255,255,0.45); }
+
+/* === PHOTO BG === */
+.slide.photo-bg .bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+.slide.photo-bg.dark .bg { opacity: 0.9; filter: saturate(0.85); }
+.slide.photo-bg .bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg,
+    oklch(15% 0.04 245 / 0.78) 0%,
+    oklch(15% 0.04 245 / 0.86) 40%,
+    oklch(15% 0.04 245 / 0.94) 100%);
+}
+.slide.photo-bg.side-right .bg {
+  left: 52%;
+  clip-path: polygon(6% 0, 100% 0, 100% 100%, 0 100%);
+  opacity: 1; filter: none;
+}
+.slide.photo-bg.side-right .bg::after { display: none; }
+.slide.photo-bg.side-right { background: var(--paper); justify-content: flex-start; }
+.slide.photo-bg.side-right .slide-inner {
+  max-width: 560px;
+  margin-left: 0;
+  padding-left: clamp(20px, 1.5vw, 32px);
+}
+
+/* === HERO === */
+.slide.hero { background: var(--navy-deep); }
+.slide.hero .bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  opacity: 0.62;
+  filter: saturate(0.9);
+}
+.slide.hero .overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg,
+    oklch(15% 0.04 245 / 0.92) 0%,
+    oklch(15% 0.04 245 / 0.70) 35%,
+    oklch(15% 0.04 245 / 0.32) 70%,
+    oklch(15% 0.04 245 / 0.14) 100%);
+  z-index: 1;
+}
+.hero-mark {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out);
+  display: inline-flex;
+  align-items: center;
+}
+.slide.active .hero-mark { opacity: 1; transform: translateY(0); transition-delay: 100ms; }
+.hero-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  font-size: clamp(48px, 6.8vw, 104px);
+  color: #fff;
+  max-width: 1100px;
+  margin-bottom: 48px;
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 1100ms var(--ease-out), transform 1100ms var(--ease-out);
+}
+.hero-title .accent {
+  color: var(--yellow-soft);
+  font-style: italic;
+  font-variation-settings: "opsz" 144, "SOFT" 60;
+}
+.hero-sub {
+  font-family: var(--sans);
+  font-size: clamp(15px, 1.1vw, 18px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.78);
+  max-width: 580px;
+  margin-top: -28px;
+  margin-bottom: 56px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 900ms var(--ease) 320ms, transform 900ms var(--ease) 320ms;
+}
+.slide.active .hero-sub { opacity: 1; transform: translateY(0); }
+.slide.active .hero-title { opacity: 1; transform: translateY(0); transition-delay: 220ms; }
+.hero-meta {
+  display: flex;
+  gap: clamp(20px, 3vw, 48px);
+  margin-top: clamp(36px, 4vh, 56px);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 800ms var(--ease) 380ms, transform 800ms var(--ease) 380ms;
+}
+.slide.active .hero-meta { opacity: 1; transform: translateY(0); }
+.hero-meta-item {
+  border-left: 1px solid rgba(255,255,255,0.25);
+  padding-left: clamp(16px, 1.5vw, 24px);
+}
+.hero-meta-k {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--yellow);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.hero-meta-v { color: #fff; font-size: 14px; font-weight: 500; }
+
+/* === GRIDS === */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(20px, 2vw, 32px); margin-top: clamp(24px, 3vh, 36px); }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(18px, 1.8vw, 28px); margin-top: clamp(24px, 3vh, 36px); }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(16px, 1.4vw, 22px); margin-top: clamp(24px, 3vh, 36px); }
+.grid-7-6 { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(28px, 3vw, 56px); margin-top: clamp(24px, 3vh, 36px); align-items: center; }
+
+.card {
+  padding: clamp(22px, 2.2vw, 32px);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: 2px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .card { opacity: 1; transform: translateY(0); }
+.slide.active .card:nth-child(1) { transition-delay: 340ms; }
+.slide.active .card:nth-child(2) { transition-delay: 420ms; }
+.slide.active .card:nth-child(3) { transition-delay: 500ms; }
+.slide.active .card:nth-child(4) { transition-delay: 580ms; }
+.slide.active .card:nth-child(5) { transition-delay: 660ms; }
+.slide.active .card:nth-child(6) { transition-delay: 740ms; }
+.card-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--cyan);
+  margin-bottom: 12px;
+}
+.card-title {
+  font-family: var(--serif);
+  font-size: clamp(20px, 1.8vw, 28px);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+.card-body {
+  font-size: clamp(13px, 1vw, 15px);
+  line-height: 1.55;
+  color: var(--ink-80);
+}
+
+/* === PATTERNS === */
+.slide.pattern-grid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(oklch(30% 0.06 245 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(30% 0.06 245 / 0.05) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+.slide.pattern-dots::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: radial-gradient(circle, oklch(30% 0.06 245 / 0.10) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+/* === LEARNING OBJECTIVES === */
+.objectives {
+  list-style: none;
+  margin-top: clamp(20px, 2.5vh, 32px);
+  display: grid;
+  gap: clamp(12px, 1.4vh, 18px);
+}
+.objective {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 18px;
+  padding: clamp(16px, 1.6vh, 22px) 0;
+  border-top: 1px solid var(--line);
+  align-items: baseline;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.objective:last-child { border-bottom: 1px solid var(--line); }
+.slide.active .objective { opacity: 1; transform: translateY(0); }
+.slide.active .objective:nth-child(1) { transition-delay: 280ms; }
+.slide.active .objective:nth-child(2) { transition-delay: 340ms; }
+.slide.active .objective:nth-child(3) { transition-delay: 400ms; }
+.slide.active .objective:nth-child(4) { transition-delay: 460ms; }
+.slide.active .objective:nth-child(5) { transition-delay: 520ms; }
+.slide.active .objective:nth-child(6) { transition-delay: 580ms; }
+.slide.active .objective:nth-child(7) { transition-delay: 640ms; }
+.obj-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--cyan);
+}
+.obj-text {
+  font-size: clamp(15px, 1.15vw, 19px);
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+/* === REGULATIONS PILLAR === */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 2.4vw, 40px);
+  margin-top: clamp(32px, 3.6vh, 52px);
+}
+.pillar {
+  padding: clamp(32px, 3vw, 44px) clamp(28px, 2.6vw, 36px);
+  border-top: 3px solid var(--navy);
+  background: var(--paper-soft);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 800ms var(--ease-out), transform 800ms var(--ease-out);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: clamp(220px, 28vh, 280px);
+}
+.pillar.accent-cyan { border-top-color: var(--cyan); }
+.pillar.accent-yellow { border-top-color: var(--yellow); }
+.slide.active .pillar { opacity: 1; transform: translateY(0); }
+.slide.active .pillar:nth-child(1) { transition-delay: 280ms; }
+.slide.active .pillar:nth-child(2) { transition-delay: 380ms; }
+.slide.active .pillar:nth-child(3) { transition-delay: 480ms; }
+.pillar-mark {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: 18px;
+}
+.pillar-title {
+  font-family: var(--serif);
+  font-size: clamp(24px, 2.2vw, 32px);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  margin-bottom: 20px;
+}
+.pillar-body {
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.6;
+  color: var(--ink-80);
+}
+.pillar-body strong { color: var(--navy); font-weight: 600; }
+
+/* === SYSTEM PARTS === */
+.system-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: clamp(8px, 1vw, 16px);
+  align-items: center;
+  margin-top: clamp(24px, 3vh, 40px);
+}
+.system-node {
+  padding: clamp(24px, 2.4vw, 32px) clamp(20px, 2vw, 28px);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease), box-shadow 300ms var(--ease);
+  position: relative;
+}
+.system-node::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  width: 40px;
+  height: 2px;
+  background: var(--cyan);
+  transform: translateX(-50%);
+  opacity: 0.6;
+}
+.system-node:nth-child(3)::before { background: var(--yellow); }
+.system-node:nth-child(5)::before { background: var(--navy); }
+.slide.active .system-node:nth-child(1) { transition-delay: 280ms; }
+.slide.active .system-node:nth-child(3) { transition-delay: 420ms; }
+.slide.active .system-node:nth-child(5) { transition-delay: 560ms; }
+.slide.active .system-node { opacity: 1; transform: translateY(0); }
+.system-arrow {
+  width: 32px;
+  height: 1px;
+  background: var(--cyan);
+  position: relative;
+  opacity: 0;
+  transition: opacity 600ms var(--ease) 700ms;
+}
+.system-arrow::after {
+  content: '';
+  position: absolute;
+  right: 0; top: -3px;
+  width: 6px; height: 6px;
+  border-top: 1px solid var(--cyan);
+  border-right: 1px solid var(--cyan);
+  transform: rotate(45deg);
+}
+.slide.active .system-arrow { opacity: 1; }
+.system-node-mark {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--cyan);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.system-node-name {
+  font-family: var(--serif);
+  font-size: clamp(20px, 1.8vw, 26px);
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.system-node-detail {
+  font-size: 12px;
+  color: var(--ink-60);
+  line-height: 1.4;
+}
+
+/* === SPLIT IMAGE + TEXT === */
+.split-img-text {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  gap: clamp(28px, 3vw, 56px);
+  align-items: center;
+}
+.split-text-img {
+  display: grid;
+  grid-template-columns: 6fr 5fr;
+  gap: clamp(28px, 3vw, 56px);
+  align-items: center;
+}
+.split-img {
+  aspect-ratio: 4/3;
+  background-size: cover;
+  background-position: center;
+  border-radius: 2px;
+  box-shadow: 0 24px 48px oklch(15% 0.04 245 / 0.10);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out);
+}
+.slide.active .split-img { opacity: 1; transform: scale(1); transition-delay: 200ms; }
+.split-img-wrap { position: relative; }
+.img-placeholder-tag {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--navy-deep);
+  background: var(--yellow);
+  padding: 6px 10px;
+  border-radius: 2px;
+  box-shadow: 0 4px 12px oklch(15% 0.04 245 / 0.18);
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 600ms var(--ease) 600ms, transform 600ms var(--ease) 600ms;
+}
+.slide.active .img-placeholder-tag { opacity: 1; transform: translateY(0); }
+
+.img-caption-tag {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 2;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #fff;
+  background: oklch(15% 0.04 245 / 0.78);
+  backdrop-filter: blur(8px);
+  padding: 6px 10px;
+  border-radius: 2px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 700ms var(--ease) 500ms, transform 700ms var(--ease) 500ms;
+}
+.slide.active .img-caption-tag { opacity: 1; transform: translateY(0); }
+
+.count-badge {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0 18px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: clamp(14px, 1.6vh, 22px);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 700ms var(--ease) 240ms, transform 700ms var(--ease) 240ms;
+}
+.slide.active .count-badge { opacity: 1; transform: translateY(0); }
+.count-badge-num {
+  font-family: var(--serif);
+  font-size: clamp(40px, 4.5vw, 64px);
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  line-height: 0.9;
+  color: var(--cyan);
+  letter-spacing: -0.03em;
+}
+.count-badge-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  line-height: 1.5;
+}
+
+.annotated-list {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  margin-top: clamp(16px, 2vh, 24px);
+}
+.annotated-list li {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 14px;
+  align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 500ms var(--ease), transform 500ms var(--ease);
+}
+.slide.active .annotated-list li { opacity: 1; transform: translateY(0); }
+.slide.active .annotated-list li:nth-child(1) { transition-delay: 360ms; }
+.slide.active .annotated-list li:nth-child(2) { transition-delay: 410ms; }
+.slide.active .annotated-list li:nth-child(3) { transition-delay: 460ms; }
+.slide.active .annotated-list li:nth-child(4) { transition-delay: 510ms; }
+.slide.active .annotated-list li:nth-child(5) { transition-delay: 560ms; }
+.slide.active .annotated-list li:nth-child(6) { transition-delay: 610ms; }
+.slide.active .annotated-list li:nth-child(7) { transition-delay: 660ms; }
+.annotated-list .num {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--cyan);
+  letter-spacing: 0.1em;
+}
+.annotated-list .label {
+  font-size: clamp(14px, 1vw, 16px);
+  color: var(--ink);
+  line-height: 1.45;
+}
+.annotated-list .label strong { color: var(--navy); font-weight: 600; }
+
+/* === PROCEDURE LIST === */
+.procedure {
+  list-style: none;
+  margin-top: clamp(20px, 2.5vh, 32px);
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+.procedure-group-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  padding: clamp(10px, 1vh, 14px) 0 clamp(8px, 0.8vh, 10px);
+  border-bottom: 1px solid var(--line-strong);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.procedure-group-label::before {
+  content: '';
+  width: 18px;
+  height: 1px;
+  background: var(--cyan);
+}
+.procedure li {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 18px;
+  padding: clamp(13px, 1.4vh, 18px) 0;
+  border-bottom: 1px solid var(--line);
+  align-items: baseline;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 500ms var(--ease), transform 500ms var(--ease);
+}
+.slide.active .procedure li:nth-child(1) { transition-delay: 240ms; }
+.slide.active .procedure li:nth-child(2) { transition-delay: 290ms; }
+.slide.active .procedure li:nth-child(3) { transition-delay: 340ms; }
+.slide.active .procedure li:nth-child(4) { transition-delay: 390ms; }
+.slide.active .procedure li:nth-child(5) { transition-delay: 440ms; }
+.slide.active .procedure li:nth-child(6) { transition-delay: 490ms; }
+.slide.active .procedure li:nth-child(7) { transition-delay: 540ms; }
+.slide.active .procedure li:nth-child(8) { transition-delay: 590ms; }
+.slide.active .procedure li { opacity: 1; transform: translateY(0); }
+.procedure .step-num {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 0.06em;
+}
+.procedure .step-text {
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.45;
+  color: var(--ink);
+}
+.procedure .step-text strong { color: var(--navy); font-weight: 600; }
+
+/* === VIDEO PLACEHOLDER / EMBEDDED VIDEO === */
+.video-slot {
+  margin-top: clamp(20px, 2.5vh, 32px);
+  position: relative;
+  aspect-ratio: 16/9;
+  background: var(--navy-deep);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 800ms var(--ease) 400ms, transform 800ms var(--ease) 400ms;
+}
+.slide.active .video-slot { opacity: 1; transform: translateY(0); }
+.video-slot video, .video-slot .poster {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  position: absolute; inset: 0;
+}
+.video-slot .play-mark {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  background: oklch(15% 0.04 245 / 0.88);
+  padding: 14px 22px;
+  border: 1px solid var(--yellow);
+  pointer-events: none;
+}
+.video-slot.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+}
+.video-slot.placeholder .label {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--yellow);
+  text-transform: uppercase;
+}
+.video-slot.placeholder .sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  max-width: 70%;
+  text-align: center;
+  line-height: 1.5;
+}
+.video-slot::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 50%, oklch(15% 0.04 245 / 0.65) 100%);
+  z-index: 1;
+}
+.video-slot .meta {
+  position: absolute;
+  left: clamp(16px, 1.6vw, 24px);
+  bottom: clamp(14px, 1.4vh, 20px);
+  z-index: 2;
+  color: #fff;
+}
+.video-slot .meta .mark {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--yellow);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.video-slot .meta .title {
+  font-family: var(--serif);
+  font-size: clamp(15px, 1.2vw, 18px);
+  font-weight: 500;
+}
+
+/* === FAULT TABLE === */
+.fault-table {
+  margin-top: clamp(20px, 2.5vh, 32px);
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+.fault-row {
+  display: grid;
+  grid-template-columns: 1.4fr 2fr 2.6fr 1.8fr;
+  border-bottom: 1px solid var(--line);
+  align-items: baseline;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 500ms var(--ease), transform 500ms var(--ease);
+}
+.slide.active .fault-row:nth-child(1) { transition-delay: 220ms; }
+.slide.active .fault-row:nth-child(2) { transition-delay: 280ms; }
+.slide.active .fault-row:nth-child(3) { transition-delay: 340ms; }
+.slide.active .fault-row:nth-child(4) { transition-delay: 400ms; }
+.slide.active .fault-row:nth-child(5) { transition-delay: 460ms; }
+.slide.active .fault-row:nth-child(6) { transition-delay: 520ms; }
+.slide.active .fault-row { opacity: 1; transform: translateY(0); }
+.fault-row.head {
+  background: var(--navy);
+  color: #fff;
+}
+.fault-row.head .fault-cell {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  padding: 14px 18px;
+}
+.fault-row:last-child { border-bottom: none; }
+.fault-cell {
+  padding: clamp(14px, 1.4vh, 18px) clamp(14px, 1.2vw, 20px);
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.45;
+  color: var(--ink-80);
+  border-right: 1px solid var(--line);
+}
+.fault-row.head .fault-cell { border-right: 1px solid oklch(100% 0 0 / 0.15); }
+.fault-cell:last-child { border-right: none; }
+.fault-cell.fault-name {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(15px, 1.05vw, 17px);
+  color: var(--navy);
+  border-left: 3px solid var(--cyan);
+  padding-left: clamp(11px, 1vw, 17px);
+}
+.fault-row.severity-high .fault-cell.fault-name { border-left-color: var(--danger); }
+.fault-row.severity-med  .fault-cell.fault-name { border-left-color: var(--yellow); }
+.fault-row.severity-low  .fault-cell.fault-name { border-left-color: var(--cyan); }
+.fault-row:hover:not(.head) { background: var(--paper-soft); }
+
+/* === TIMELINE / PHASES === */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 2vw, 28px);
+  margin-top: clamp(28px, 3.4vh, 44px);
+  position: relative;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 38px;
+  left: 5%;
+  right: 5%;
+  height: 1px;
+  background: var(--line-strong);
+  z-index: 0;
+}
+.phase {
+  position: relative;
+  padding-top: 64px;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 800ms var(--ease-out), transform 800ms var(--ease-out);
+}
+.slide.active .phase:nth-child(1) { transition-delay: 280ms; }
+.slide.active .phase:nth-child(2) { transition-delay: 420ms; }
+.slide.active .phase:nth-child(3) { transition-delay: 560ms; }
+.slide.active .phase { opacity: 1; transform: translateY(0); }
+.phase-dot {
+  position: absolute;
+  top: 28px;
+  left: calc(50% - 11px);
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--cyan);
+}
+.phase.done .phase-dot {
+  background: var(--cyan);
+  color: #fff;
+}
+.phase.current .phase-dot {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: var(--navy);
+}
+.phase-mark {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--ink-60);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.phase-name {
+  text-align: center;
+  font-family: var(--serif);
+  font-size: clamp(22px, 2vw, 30px);
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+.phase-body {
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.5;
+  color: var(--ink-80);
+  text-align: center;
+}
+
+/* === CONTACT BLOCK === */
+.contact {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: clamp(28px, 3vw, 56px);
+  row-gap: clamp(14px, 1.5vh, 22px);
+  margin-top: clamp(28px, 3.5vh, 48px);
+  max-width: 720px;
+}
+.contact .k {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--yellow);
+  text-transform: uppercase;
+  align-self: baseline;
+  padding-top: 4px;
+}
+.contact .v {
+  font-size: clamp(16px, 1.4vw, 22px);
+  color: #fff;
+  font-weight: 500;
+}
+.contact .v.big {
+  font-family: var(--mono);
+  font-size: clamp(28px, 3vw, 40px);
+  letter-spacing: -0.02em;
+}
+
+/* === CALLOUT === */
+.callout {
+  margin-top: clamp(20px, 2.5vh, 32px);
+  padding: clamp(18px, 2vw, 28px) clamp(20px, 2.4vw, 32px);
+  background: oklch(86% 0.16 95 / 0.16);
+  border-left: 3px solid var(--yellow);
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.5;
+  color: var(--navy);
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 700ms var(--ease) 500ms, transform 700ms var(--ease) 500ms;
+}
+.slide.active .callout { opacity: 1; transform: translateY(0); }
+.slide.dark .callout { color: #fff; background: oklch(86% 0.16 95 / 0.18); }
+
+/* === HMI MOCKUP === */
+.hmi-mockup {
+  display: grid;
+  grid-template-rows: 44px 1fr 56px;
+  border: 2px solid var(--navy);
+  background: var(--paper);
+  margin-top: clamp(20px, 2.5vh, 32px);
+  height: clamp(300px, 44vh, 420px);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 800ms var(--ease) 200ms, transform 800ms var(--ease) 200ms;
+  box-shadow: 0 18px 40px oklch(15% 0.04 245 / 0.08);
+}
+.hmi-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  background: oklch(60% 0.16 145 / 0.18);
+  border: 1px solid oklch(60% 0.16 145 / 0.5);
+  padding: 4px 10px;
+  border-radius: 2px;
+  margin-left: auto;
+}
+.hmi-status-pill::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ok);
+  box-shadow: 0 0 6px var(--ok);
+}
+.hmi-fake-grid {
+  background-image:
+    linear-gradient(oklch(30% 0.06 245 / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(30% 0.06 245 / 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.hmi-side-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px dashed var(--line);
+}
+.hmi-side-list li:last-child { border-bottom: none; }
+.hmi-side-list .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ok);
+  flex-shrink: 0;
+}
+.slide.active .hmi-mockup { opacity: 1; transform: translateY(0); }
+.hmi-zone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 clamp(14px, 1.5vw, 22px);
+}
+.hmi-zone-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.hmi-zone-detail {
+  font-size: 11px;
+  color: var(--ink-60);
+  margin-left: 14px;
+  font-style: italic;
+}
+.hmi-top { background: var(--navy); color: #fff; }
+.hmi-top .hmi-zone-label { color: var(--yellow); }
+.hmi-top .hmi-zone-detail { color: rgba(255,255,255,0.7); }
+.hmi-mid {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+}
+.hmi-main {
+  background: var(--paper-soft);
+  border-right: 1px solid var(--line);
+  padding: clamp(14px, 1.5vw, 22px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.hmi-main-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.18em;
+}
+.hmi-main-detail {
+  font-size: 11px;
+  color: var(--ink-60);
+  margin-top: 6px;
+  font-style: italic;
+  max-width: 80%;
+}
+.hmi-side {
+  background: var(--paper);
+  padding: clamp(14px, 1.5vw, 22px);
+}
+.hmi-side-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.18em;
+  margin-bottom: 8px;
+}
+.hmi-side-list {
+  list-style: none;
+  font-size: 11px;
+  color: var(--ink-80);
+  line-height: 1.7;
+}
+.hmi-bottom { background: var(--cyan); color: #fff; }
+.hmi-bottom .hmi-zone-label { color: #fff; }
+.hmi-bottom .hmi-zone-detail { color: rgba(255,255,255,0.85); }
+
+/* === E-STOP TWO-COLUMN === */
+.estop-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 3vw, 56px);
+  margin-top: clamp(20px, 2.4vh, 32px);
+  align-items: start;
+}
+.estop-col {
+  position: relative;
+}
+.estop-col-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line-strong);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.estop-col-label::before {
+  content: '';
+  width: 18px;
+  height: 1px;
+  background: var(--cyan);
+}
+@media (max-width: 980px) { .estop-grid { grid-template-columns: 1fr; } }
+
+/* === SAFETY LAYERS === */
+.layers {
+  list-style: none;
+  margin-top: clamp(20px, 2.5vh, 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.layer {
+  padding: clamp(13px, 1.4vh, 18px) clamp(16px, 1.6vw, 22px);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.slide.active .layer:nth-child(1) { transition-delay: 220ms; }
+.slide.active .layer:nth-child(2) { transition-delay: 280ms; }
+.slide.active .layer:nth-child(3) { transition-delay: 340ms; }
+.slide.active .layer:nth-child(4) { transition-delay: 400ms; }
+.slide.active .layer:nth-child(5) { transition-delay: 460ms; }
+.slide.active .layer { opacity: 1; transform: translateX(0); }
+.layer-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--cyan);
+}
+.layer-name {
+  font-family: var(--serif);
+  font-size: clamp(16px, 1.3vw, 19px);
+  font-weight: 500;
+  color: var(--navy);
+}
+.layer-name span {
+  display: block;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink-60);
+  margin-top: 4px;
+}
+.layer-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-40);
+  border: 1px solid var(--line-strong);
+  padding: 4px 10px;
+}
+.layer.physical .layer-tag { color: var(--ok); border-color: var(--ok); }
+.layer.digital .layer-tag { color: var(--cyan); border-color: var(--cyan); }
+.layer.manual .layer-tag { color: var(--danger); border-color: var(--danger); }
+
+/* === DOCUMENTATION GRID === */
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(16px, 1.6vw, 24px);
+  margin-top: clamp(20px, 2.5vh, 32px);
+}
+.doc-card {
+  padding: clamp(20px, 2vw, 28px);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--cyan);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.doc-card.support { border-left-color: var(--yellow); background: oklch(86% 0.16 95 / 0.06); }
+.slide.active .doc-card:nth-child(1) { transition-delay: 240ms; }
+.slide.active .doc-card:nth-child(2) { transition-delay: 320ms; }
+.slide.active .doc-card:nth-child(3) { transition-delay: 400ms; }
+.slide.active .doc-card:nth-child(4) { transition-delay: 480ms; }
+.slide.active .doc-card { opacity: 1; transform: translateY(0); }
+.doc-mark {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 10px;
+}
+.doc-card.support .doc-mark { color: oklch(50% 0.14 95); }
+.doc-title {
+  font-family: var(--serif);
+  font-size: clamp(18px, 1.5vw, 22px);
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.doc-body {
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.5;
+  color: var(--ink-80);
+}
+.doc-body strong { color: var(--navy); font-weight: 600; }
+
+/* === TWO COLUMN === */
+.two-col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(28px, 3vw, 48px);
+  margin-top: clamp(20px, 2.5vh, 32px);
+}
+.col {
+  padding: clamp(24px, 2.4vw, 36px);
+  background: var(--paper-soft);
+  border-top: 2px solid var(--navy);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.col.them { border-top-color: var(--ink-60); }
+.col.us { border-top-color: var(--cyan); }
+.slide.active .col:nth-child(1) { transition-delay: 280ms; }
+.slide.active .col:nth-child(2) { transition-delay: 380ms; }
+.slide.active .col { opacity: 1; transform: translateY(0); }
+.col-mark {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: 8px;
+}
+.col.us .col-mark { color: var(--cyan); }
+.col-title {
+  font-family: var(--serif);
+  font-size: clamp(20px, 1.7vw, 26px);
+  font-weight: 500;
+  color: var(--navy);
+  margin-bottom: 14px;
+}
+.col-body {
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.55;
+  color: var(--ink-80);
+}
+.col-body p + p { margin-top: 0.85em; }
+
+.proc-list {
+  list-style: none;
+  display: grid;
+  gap: 2px;
+}
+.proc-list li {
+  display: grid;
+  grid-template-columns: minmax(160px, max-content) 1fr;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: baseline;
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.45;
+}
+.proc-list li:last-child { border-bottom: none; }
+.proc-list li strong {
+  font-family: var(--sans);
+  font-weight: 600;
+  color: var(--navy);
+}
+.proc-list .proc-detail { color: var(--ink-60); font-size: 0.92em; }
+
+/* === CLOSE === */
+.slide.close-slide .slide-inner { max-width: 920px; }
+.close-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(54px, 6.4vw, 96px);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  color: #fff;
+  margin-bottom: clamp(28px, 3.4vh, 44px);
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1100ms var(--ease-out), transform 1100ms var(--ease-out);
+}
+.slide.active .close-title { opacity: 1; transform: translateY(0); transition-delay: 200ms; }
+.close-title em {
+  font-style: italic;
+  color: var(--yellow-soft);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 980px) {
+  .grid-3, .grid-4, .pillars, .timeline, .system-flow { grid-template-columns: 1fr; }
+  .system-arrow { display: none; }
+  .split-img-text, .split-text-img, .two-col, .doc-grid, .grid-7-6 { grid-template-columns: 1fr; }
+  .fault-row { grid-template-columns: 1fr; }
+  .fault-cell { border-right: none; border-bottom: 1px solid var(--line); }
+  .timeline::before { display: none; }
+}
+
+/* === A11Y: REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .slide { transition: opacity 200ms linear; }
+}
+
+/* === A11Y: FOCUS === */
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+.slide.dark :focus-visible, .slide.photo-bg.dark :focus-visible {
+  outline-color: var(--yellow);
+}
+video:focus-visible { outline-offset: 0; }
+
+/* === TBC INLINE STYLE === */
+.tbc {
+  font-family: var(--mono);
+  font-size: 0.82em;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: oklch(50% 0.14 95);
+  background: oklch(86% 0.16 95 / 0.18);
+  padding: 1px 6px;
+  border-radius: 2px;
+}
+.slide.dark .tbc, .slide.photo-bg.dark .tbc {
+  color: var(--yellow);
+  background: oklch(86% 0.16 95 / 0.18);
+}
+
+/* === PRINT (presenter handout fallback) === */
+@media print {
+  html, body { overflow: visible; height: auto; background: #fff; }
+  .deck { height: auto; }
+  .slide {
+    position: relative;
+    inset: auto;
+    page-break-after: always;
+    opacity: 1 !important;
+    transform: none !important;
+    height: auto;
+    min-height: 100vh;
+    pointer-events: auto;
+  }
+  .slide *,
+  .slide.active * { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .banner, .nav-hint, .progress-bar { display: none !important; }
+  .video-slot { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="banner" role="status" aria-live="off"><strong>Internt</strong> Operatøropplæring · Fjernstyrt L120H · Fase 1 · v2.0 · Mai 2026</div>
+<div class="progress-bar" id="progress" role="progressbar" aria-label="Slide-fremdrift" aria-valuemin="0" aria-valuemax="100" aria-valuenow="6"></div>
+<div class="nav-hint" id="nav-hint">Pil høyre · mellomrom · klikk høyre side · F for fullskjerm</div>
+
+<div class="deck" role="region" aria-label="Operatøropplæring fjernstyrt L120H, klasseromsmodul">
+
+<!-- ====================================================== -->
+<!-- SLIDE 1 — FORSIDEN -->
+<!-- ====================================================== -->
+<section class="slide hero dark active" data-slide="1">
+  <div class="bg" style="background-image: url('yara-training-assets/yara-hero.jpg');"></div>
+  <div class="overlay"></div>
+  <img src="yara-training-assets/hive-logo-white.png" class="logo" alt="Hive" decoding="async" fetchpriority="high">
+  <div class="slide-inner">
+    <div class="hero-mark"><span class="live-dot" aria-hidden="true"></span>Obligatorisk operatøropplæring · Fase 1</div>
+    <h1 class="hero-title">Fjernstyrt L120H<br><span class="accent">for Yara Porsgrunn.</span></h1>
+    <div class="hero-sub">Klasseroms-modulen som gir deg grunnlaget før du setter deg ved stasjonen. Vision, regelverk, system, prosedyrer.</div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-k">Fase</div>
+        <div class="hero-meta-v">1 av 3 · klasserom</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-k">Versjon</div>
+        <div class="hero-meta-v">2.0 · Mai 2026</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-k">Varighet</div>
+        <div class="hero-meta-v">90 minutter</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-counter">01 / 18</div>
+</section>
+
+<!-- ====================================================== -->
+<!-- SLIDE 2 — VISJONEN: HVORFOR DU SITTER HER -->
+<!-- ====================================================== -->
+<section class="slide photo-bg side-right" data-slide="2">
+  <div class="bg" style="background-image: url('yara-training-assets/operator-chair.jpg');"></div>
+  <img src="yara-training-assets/hive-logo.png" class="logo" alt="Hive" loading="lazy" decoding="async">
+  <div class="slide-inner">
+    <div class="eyebrow">Hvorfor du sitter her</div>
+    <h2 class="headline">Du blir værende.<br><span style="color: var(--ink-60); font-style: italic;">Maskinen flytter på seg.</span></h2>
+    <div class="body">
+      <p>Hovedgrunnen til at Yara har valgt fjernstyring er ikke å spare folk. Det er å flytte deg ut av miljøet, støv, gass, vibrasjon og dårlig sikt, og inn i stasjonen.</p>
+      <p>Du beholder rollen som maskinfører. Du gjør den fra et trygt sted, med mer informasjon enn du har inne i hytta.</p>
+    </div>
+  </div>
+  <div class="slide-counter">02 / 18</div>
+</section>
+
+<!-- ====================================================== -->
+<!-- SLIDE 3 — HVA DU SKAL KUNNE -->
+<!-- ====================================================== -->
+<section class="slide pattern-grid" data-slide="3">
+  <img src="yara-training-assets/hive-logo.png" class="logo" alt="Hive" loading="lazy" decoding="async">
+  <div class="slide-inner">
+    <div class="eyebrow">Læringsmål</div>
+    <h2 class="headline">Etter alle tre faser skal du kunne sju ting.</h2>
+    <ul class="objectives">
+      <li class="objective"><span class="obj-num">01</span><span class="obj-text">Forklare <strong>hvorfor</strong> Yara bruker fjernstyrt L120H, og hva som er forskjellig fra konvensjonell drift.</span></li>
+      <li class="objective"><span class="obj-num">02</span><span class="obj-text">Kjenne hvilke <strong>regelverk</strong> som gjelder for din drift.</span></li>
+      <li class="objective"><span class="obj-num">03</span><span class="obj-text">Gjennomføre sikker <strong>oppstart</strong> fra fjernstyrt operatør-stasjon.</span></li>
+      <li class="objective"><span class="obj-num">04</span><span class="obj-text">Resette <strong>E-stop og light barrier</strong> korrekt.</span></li>
+      <li class="objective"><span class="obj-num">05</span><span class="obj-text">Finne fram i <strong>HMI</strong> uten hjelp.</span></li>
+      <li class="objective"><span class="obj-num">06</span><span class="obj-text">Gjenkjenne de <strong>fem vanligste feil</strong> og handle på dem.</span></li>
+      <li class="objective"><span class="obj-num">07</span><span class="obj-text">Vite hvor du finner <strong>brukerhåndbok, Yara HMS og Hive support</strong>.</span></li>
+    </ul>
+  </div>
+  <div class="slide-counter">03 / 18</div>
+</section>
+
+<!-- ====================================================== -->
+<!-- SLIDE 4 — REGELVERK -->
+<!-- ====================================================== -->
+<section class="slide pattern-dots" data-slide="4">
+  <img src="yara-training-assets/hive-logo.png" class="logo" alt="Hive" loading="lazy" decoding="async">
+  <div class="slide-inner wide">
+    <div class="eyebrow">License to Operate</div>
+    <h2 class="headline">Tre regelverk styrer din drift.</h2>
+    <div class="subhead">Du har sertifikat på hjullaster. Det er ikke nok her. Fjernstyring krever sitt eget bevis.</div>
+    <div class="pillars">
+      <div class="pillar">
+        <div class="pillar-mark">01 · Lokalt</div>
+        <div class="pillar-title">Yara HMS</div>
+        <div class="pillar-body"><strong>SJA, LOTO, Stop &amp; Think,</strong> gass- og støvsoner, skift-overlevering. Yara HSE er din primære kontakt på alt som skjer på sone.</div>
+      </div>
+      <div class="pillar accent-cyan">
+        <div class="pillar-mark">02 · Rettslig</div>
+        <div class="pillar-title">Maskindirektivet</div>
+        <div class="pillar-body"><strong>2006/42/EC.</strong> ISO 13849 funksjonell sikkerhet · ISO 13850 nødstopp · EN 60204-1 elektrisk. Grunnlaget for at L120H får CE-merking for fjernstyrt drift.</div>
+      </div>
+      <div class="pillar accent-yellow">
+        <div class="pillar-mark">03 · Operativt</div>
+        <div class="pillar-title">Hive operatør-bevis</div>
+        <div class="pillar-body">Selv om du har sertifikat på hjullaster, må du gjennom dette programmet for å operere fjernstyrt utstyr på Hive-plattformen. Det er CE-krav.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-counter">04 / 18</div>
+</section>
+
+<!-- ====================================================== -->
+<!-- SLIDE 5 — SYSTEMET (1 av 3): MASKINEN OG SENSORENE -->
+<!-- ====================================================== -->
+<section class="slide" data-slide="5">
+  <img src="yara-training-assets/hive-logo.png" class="logo" alt="Hive" loading="lazy" decoding="async">
+  <div class="slide-inner wide">
+    <div class="eyebrow">Hvordan systemet fungerer · 1 av 3</div>
+    <h2 class="headline">Maskinen og sensorene.</h2>
+    <div class="subhead">L120H er den samme maskinen du kjenner. Vi har lagt til fem ting på toppen.</div>
+    <div class="split-img-text">
+      <div class="split-img-wrap">
+        <div class="split-img" style="background-image: url('yara-training-assets/sensors.jpg');"></div>
+        <div class="img-caption-tag">Volvo L120H · retrofit</div>
+      </div>
+      <div>
+        <div class="count-badge"><span class="count-badge-num">5</span><span class="count-badge-label">komponenter på toppen<br>av maskinen du kjenner</span></div>
+        <ul class="annotated-list">
+          <li><span class="num">01</span><span class="label"><strong>Lidar.</strong> Måler avstand 360° rundt hele maskinen.</span></li>
+          <li><span class="num">02</span><span class="label"><strong>Kameraer.</strong> Opp til sju, plassert for sikt og dokumentasjon.</span></li>
+          <li><span class="num">03</span><span class="label"><strong>Kontrollskap.</strong> Tar styringssignaler fra stasjon til maskin.</span></li>
+          <li><span class="num">04</span><span class="label"><strong>Sensorer.</strong> Hyd-trykk, motor-temp, drivstoff, posisjon.</span></li>
+          <li><span class="num">05</span><span class="label"><strong>Antenne.</strong> Sender og mottar signaler over 5G og Rajant.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-counter">05 / 18</div>
+</section>
+
+<!-- ====================================================== -->
+<!-- SLIDE 6 — SYSTEMET (2 av 3): NETTVERKET -->
+<!-- ====================================================== -->
+<section class="slide pattern-grid" data-slide="6">
+  <img src="yara-training-assets/hive-logo.png" class="logo" alt="Hive" loading="lazy" decoding="async">
+  <div class="slide-inner wide">
+    <div class="eyebrow">Hvordan systemet fungerer · 2 av 3</div>
+    <h2 class="headline">Nettverket binder alt sammen.</h2>
+    <div class="subhead">Hvis nettverket faller, stopper maskinen trygt. Det er ikke noe du må gjøre.</div>
+    <div class="system-flow">
+      <div class="system-node">
+        <div class="system-node-mark">Steg 01</div>
+        <div class="system-node-name">Maskin</div>
+        <div class="system-node-detail">Antenne på L120H sender og mottar styringssignaler.</div>
+      </div>
+      <div class="system-arrow"></div>
+      <div class="system-node">
+        <div class="system-node-mark">Steg 02</div>
+        <div class="system-node-name">Nettverket</div>
+        <div class="system-node-detail">Telenor 5G primær · Rajant mesh backup på Yara-tomta.</div>
+      </div>
+      <div class="system-arrow"></div>
+      <div class="system-node">
+        <div class="system-node-mark">Steg 03</div>
+        <div class="system-node-name">Operatør-stasjon</div>
+        <div class="system-node-detail">Du, foran skjermene, ved kontrollene.</div>
+      </div>
+    </div>
+    <div class="callout"><strong>Hvis primær faller:</strong> trafikken går automatisk over på backup. <strong>Hvis begge faller:</strong> maskinen stopper trygt, hydraulikk avlastes, motor i tomgang.</div>
+  </div>
+  <div class="slide-counter">06 / 18</div>
+</section>
+
+<!-- ====================================================== -->
+<!-- SLIDE 7 — SYSTEMET (3 av 3): OPERATØR-STASJONEN -->
+<!-- ====================================================== -->
+<section class="slide" data-slide="7">
+  <img src="yara-training-assets/hive-logo.png" class="logo" alt="Hive" loading="lazy" decoding="async">
+  <div class="slide-inner wide">
+    <div class="eyebrow">Hvordan systemet fungerer · 3 av 3</div>
+    <h2 class="headline">Operatør-stasjonen.<br><span style="color: var(--ink-60); font-style: italic;">Din arbeidsplass.</span></h2>
+    <div class="split-text-img">
+      <div>
+        <div class="count-badge"><span class="count-badge-num">7</span><span class="count-badge-label">komponenter ved<br>operatør-stasjonen</span></div>
+        <ul class="annotated-list">
+          <li><span class="num">01</span><span class="label"><strong>Operatør-stol.</strong> Justeres som i en hytte.</span></li>
+          <li><span class="num">02</span><span class="label"><strong>Hovedskjerm</strong> med HMI.</span></li>
+          <li><span class="num">03</span><span class="label"><strong>Kamera-skjermer.</strong> Tre standard, opp til sju ved behov.</span></li>
+          <li><span class="num">04</span><span class="label"><strong>Joysticks</strong> for boom og tilt.</span></li>
+          <li><span class="num">05</span><span class="label"><strong>Pedaler</strong> for gass og brems.</span></li>
+          <li><span class="num">06</span><span class="label"><strong>Hive Stop.</strong> Rød fysisk knapp på pulten.</span></li>
+          <li><span class="num">07</span><span class="label"><strong>Headset</strong> for samband med vakt.</span></li>
+        </ul>
+        <div class="callout">Hive Stop-knappen er den ene som alltid virker. Selv om skjermen fryser eller HMI henger.</div>
+      </div>
+      <div class="split-img-wrap">
+        <div class="split-img" style="background-image: url('yara-training-assets/operator-chair.jpg'); aspect-ratio: 3/2;"></div>
+        <div class="img-caption-tag">Hive ops-stasjon · referanse</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-counter">07 / 18</div>
+</section>
+
+<!-- ====================================================== -->
+<!-- SLIDE 8 — DOKUMENTASJON -->
+<!-- ====================================================== -->
+<section class="slide pattern-dots" data-slide="8">
+  <img src="yara-training-assets/hive-logo.png" class="logo" alt="Hive" loading="lazy" decoding="async">
+  <div class="slide-inner wide">
+    <div class="eyebrow">Dokumentasjon</div>
+    <h2 class="headline">Du trenger ikke huske alt.<br><span style="color: var(--ink-60); font-style: italic;">Du trenger å vite hvor det står skrevet.</span></h2>
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-mark">01 · Maskin</div>
+        <div class="doc-title">Brukerhåndbok WL1002</div>
+        <div class="doc-body">SharePoint &gt; <strong>Hive Operations</strong> &gt; WL1002 NO. Søkbar PDF.</div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-mark">02 · Lokalt</div>
+        <div class="doc-title">Yara HMS</div>
+        <div class="doc-body">Yara intranett. Inkluderer SJA-mal, LOTO, light barrier-prosedyre, gass- og støvsoner.</div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-mark">03 · Hurtig</div>
+        <div class="doc-title">Hurtigreferanse A4</div>
+        <div class="doc-body">Oppstart + topp-5 feil. Oppslagsmappe ved stasjonen. Ta med deg ut.</div>
+      </div>
+      <div class="doc-card support">
+        <div class="doc-mark">24/7 · Hive support</div>
+        <div class="doc-title">+47 38 13 46 00</div>
+        <div class="doc-body"><strong>support@hiveautonomy.no</strong> · alltid bemannet · ring uten å nøle.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-counter">08 / 18</div>
+</section>
+
+<!-- ====================================================== -->
+<!-- SLIDE 9 — EKSTERNE STOPP-SYSTEMER (LIGHT BARRIERS) -->
+<!-- ====================================================== -->
+<section class="slide" data-slide="9">
+  <img src="yara-training-assets/hive-logo.png" class="logo" alt="Hive" loading="lazy" decoding="async">
+  <div class="slide-inner wide">
+    <div class="eyebrow">Eksterne sikkerhetssystemer</div>
+    <h2 class="headline">Light barriers og 3rd party stops.</h2>
+    <div class="subhead">Yara har sine systemer. Vi har våre. Når deres utløses, stopper vår maskin trygt. Du gjør resten ved stasjonen.</div>
+    <div class="two-col">
+      <div class="col them">
+        <div class="col-mark">01 · Yara sitt</div>
+        <div class="col-title">Light barrier · sone-prosedyre</div>
+        <div class="col-body">
+          <p>Yara har egne light barriers, magnetiske sensorer og soner. Når de utløses, stopper vår maskin.</p>
+          <p>Yaras vakt rydder sonen. Du finner deres prosedyre på <strong>intranettet</strong>.</p>
+          <p>Vi underviser ikke Yaras egen prosedyre. Det er deres område, og du kjenner den best.</p>
+        </div>
+      </div>
+      <div class="col us">
+        <div class="col-mark">02 · Hive sitt</div>
+        <div class="col-title">Hva som skjer i HMI</div>
+        <div class="col-body">
+          <p>Når et 3rd party stop utløses, går maskinen i sikker stopp. Du ser i HMI <em>hvilket</em> system som har utløst stoppen.</p>
+          <p>Du venter på klarsignal fra Yara vakt. Når sonen er bekreftet trygg, resetter du fra HMI før drift gjenopptas.</p>
+          <p>All-grønt på sensor-bar er minimumskravet før du beveger maskinen igjen.</p>
+        </div>
+      </div>
+    </div>
+    <div class="callout"><strong>Hovedregel:</strong> Du går aldri ut og rydder selv. Du sitter ved stasjonen, bruker samband, venter på klarsignal.</div>
+  </div>
+  <div class="slide-counter">09 / 18</div>
+</section>
+
+<!-- ====================================================== -->
+<!-- SLIDE 10 — KJERNEPROSEDYRE 1: OPPSTART -->
+<!-- ====================================================== -->
+<section class="slide pattern-grid" data-slide="10">
+  <img src="yara-training-assets/hive-logo.png" class="logo" alt="Hive" loading="lazy" decoding="async">
+  <div class="slide-inner wide">
+    <div class="eyebrow">Kjerneprosedyre · 1 av 4</div>
+    <h2 class="headline">Oppstart, ende til ende.</h2>
+    <div class="subhead">Sju trinn. Hopp aldri over et.</div>
+    <div class="grid-7-6">
+      <div>
+        <div class="procedure-group-label">Forberedelse · trinn 1–3</div>
+        <ol class="procedure" style="margin-top: 0;">
+          <li><span class="step-num">01</span><span class="step-text"><strong>Pre-shift sjekk.</strong> Stasjon innlogget, alle skjermer aktive, headset koblet.</span></li>
+          <li><span class="step-num">02</span><span class="step-text"><strong>Bekreftelse fra Yara vakt</strong> på samband.</span></li>
+          <li><span class="step-num">03</span><span class="step-text"><strong>Light barrier</strong> aktiv og grønn.</span></li>
+        </ol>
+        <div class="procedure-group-label" style="margin-top: clamp(16px, 2vh, 24px);">Oppstart · trinn 4–7</div>
+        <ol class="procedure" style="margin-top: 0;">
+          <li><span class="step-num">04</span><span class="step-text"><strong>Internet cable</strong> koblet. <strong>Hive Mode-switch</strong> på rett innstilling.</span></li>
+          <li><span class="step-num">05</span><span class="step-text"><strong>Maskin parkert</strong> i geofence (utgangspunkt).</span></li>
+          <li><span class="step-num">06</span><span class="step-text"><strong>Start motor</strong> via HMI «Start».</span></li>
+          <li><span class="step-num">07</span><span class="step-text"><strong>Verifiser sensor-status.</strong> Alle grønne. Operatør-klarsignal fra vakt.</span></li>
+        </ol>
+      </div>
+      <div class="video-slot placeholder">
+        <div class="label">Video kommer i v2.1</div>
+        <div class="sub">Tutorial-video for oppstart spilles inn etter at tech er låst. Norsk og engelsk versjon.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-counter">10 / 18</div>
+</section>
+
+<!-- ====================================================== -->
+<!-- SLIDE 11 — KJERNEPROSEDYRE 2: E-STOP OG SAFETY RESET -->
+<!-- ====================================================== -->
+<section class="slide" data-slide="11">
+  <img src="yara-training-assets/hive-logo.png" class="logo" alt="Hive" loading="lazy" decoding="async">
+  <div class="slide-inner wide">
+    <div class="eyebrow">Kjerneprosedyre · 2 av 4</div>
+    <h2 class="headline">Emergency stop og safety reset.</h2>
+    <div class="subhead">Reset er ikke automatisk. Du verifiserer årsak før du resetter. Alltid.</div>
+    <div class="estop-grid">
+      <div class="estop-col">
+        <div class="estop-col-label">Hvor stoppen kan komme fra</div>
+        <ul class="layers" style="margin-top: 14px;">
+          <li class="layer manual">
+            <span class="layer-num">01</span>
+            <span class="layer-name">Hive Stop på pulten<span>Rød fysisk knapp · alltid tilgjengelig · går rett til maskin</span></span>
+            <span class="layer-tag">Manuell</span>
+          </li>
+          <li class="layer manual">
+            <span class="layer-num">02</span>
+            <span class="layer-name">Hard-stop på maskinen<span>Brukes av vedlikehold · ikke deg · på siden av kontrollskap</span></span>
+            <span class="layer-tag">Manuell</span>
+          </li>
+          <li class="layer manual">
+            <span class="layer-num">03</span>
+            <span class="layer-name">Yara vakt på samband<span>Vakt kan be deg stoppe · du følger umiddelbart</span></span>
+            <span class="layer-tag">Manuell</span>
+          </li>
+        </ul>
+      </div>
+      <div class="estop-col">
+        <div class="estop-col-label">Reset · fem trinn i fast rekkefølge</div>
+        <ol class="procedure" style="margin-top: 14px;">
+          <li><span class="step-num">01</span><span class="step-text">Identifiser <strong>hvorfor</strong> stoppen kom. Noter i loggen.</span></li>
+          <li><span class="step-num">02</span><span class="step-text"><strong>Verifiser</strong> at årsaken er ryddet. Visuelt fra kamera eller via vakt.</span></li>
+          <li><span class="step-num">03</span><span class="step-text"><strong>Kontakt Yara vakt</strong> før du resetter.</span></li>
+          <li><span class="step-num">04</span><span class="step-text">Reset i HMI: <strong>«Acknowledge»</strong> → <strong>«Reset»</strong>.</span></li>
+          <li><span class="step-num">05</span><span class="step-text">Vent fem sekunder, sjekk all-grønt på sensor-bar. Klarsignal fra vakt før drift.</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="slide-counter">11 / 18</div>
+</section>
+
+<!-- ====================================================== -->
+<!-- SLIDE 12 — KJERNEPROSEDYRE 3: HMI WALKTHROUGH -->
+<!-- ====================================================== -->
+<section class="slide pattern-dots" data-slide="12">
+  <img src="yara-training-assets/hive-logo.png" class="logo" alt="Hive" loading="lazy" decoding="async">
+  <div class="slide-inner wide">
+    <div class="eyebrow">Kjerneprosedyre · 3 av 4</div>
+    <h2 class="headline">HMI har fire soner.<br><span style="color: var(--ink-60); font-style: italic;">Lær toppen først.</span></h2>
+    <div class="hmi-mockup" role="img" aria-label="Skisse av HMI: topp-bar, hovedfelt med kamera og lidar, sidepanel med sensor-status, og bunn-bar med varsler">
+      <div class="hmi-zone hmi-top">
+        <span class="hmi-zone-label">Topp</span>
+        <span class="hmi-zone-detail">Maskin-ID · modus · tilkobling · klokke</span>
+        <span class="hmi-status-pill">Online</span>
+      </div>
+      <div class="hmi-mid">
+        <div class="hmi-main hmi-fake-grid">
+          <div>
+            <div class="hmi-main-label">Hovedfelt</div>
+            <div class="hmi-main-detail">Primærkamera · lidar-overlay · geofence-grenser. Det du jobber i 95 % av tiden.</div>
+          </div>
+          <div class="meta-label">Wireframe · erstattes med faktisk screenshot i v2.1</div>
+        </div>
+        <div class="hmi-side">
+          <div class="hmi-side-label">Sidepanel</div>
+          <ul class="hmi-side-list">
+            <li><span>Sensor-status</span><span class="dot"></span></li>
+            <li><span>Drivstoff</span><span class="dot"></span></li>
+            <li><span>Motor-temp</span><span class="dot"></span></li>
+            <li><span>Hyd-trykk</span><span class="dot"></span></li>
+            <li><span>Varsler</span><span class="dot"></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="hmi-zone hmi-bottom">
+        <span class="hmi-zone-label">Bunn</span>
+        <span class="hmi-zone-detail">Hive Stop · kamera-bytte · varsler · acknowledge</span>
+      </div>
+    </div>
+  </div>
+  <div class="slide-counter">12 / 18</div>
+</section>
+
+<!-- ====================================================== -->
+<!-- SLIDE 13 — TOP 5 FEIL -->
+<!-- ====================================================== -->
+<section class="slide" data-slide="13">
+  <img src="yara-training-assets/hive-logo.png" class="logo" alt="Hive" loading="lazy" decoding="async">
+  <div class="slide-inner wide">
+    <div class="eyebrow">Kjerneprosedyre · 4 av 4</div>
+    <h2 class="headline">Fem feil du vil møte.</h2>
+    <div class="subhead">Reaksjonen er definert. Du gjetter ikke.</div>
+    <div class="fault-table">
+      <div class="fault-row head">
+        <div class="fault-cell">Feil</div>
+        <div class="fault-cell">Symptom</div>
+        <div class="fault-cell">Hva du gjør</div>
+        <div class="fault-cell">Når du ringer</div>
+      </div>
+      <div class="fault-row severity-med">
+        <div class="fault-cell fault-name">Nettverksbrudd</div>
+        <div class="fault-cell">HMI fryser, kamera henger</div>
+        <div class="fault-cell">Vent 30 sek på auto-reconnect. Ellers Hive Stop.</div>
+        <div class="fault-cell">Hive support hvis &gt; 1 min</div>
+      </div>
+      <div class="fault-row severity-med">
+        <div class="fault-cell fault-name">Sensorfeil (lidar)</div>
+        <div class="fault-cell">Lidar-status går rød</div>
+        <div class="fault-cell">Maskin går i degraded mode (saktere drift).</div>
+        <div class="fault-cell">Hive support. Ikke fortsett autonomt.</div>
+      </div>
+      <div class="fault-row severity-med">
+        <div class="fault-cell fault-name">HMI henger</div>
+        <div class="fault-cell">Skjerm fryst, knapper svarer ikke</div>
+        <div class="fault-cell">Bruk fysisk Hive Stop. Logg ut/inn fra HMI.</div>
+        <div class="fault-cell">Hive support hvis det henger igjen</div>
+      </div>
+      <div class="fault-row severity-high">
+        <div class="fault-cell fault-name">Person/objekt i sone</div>
+        <div class="fault-cell">Light barrier eller kollisjonsdetekt</div>
+        <div class="fault-cell">Maskin er stoppet. Vakt rydder sonen.</div>
+        <div class="fault-cell">Yara vakt først, deretter Hive</div>
+      </div>
+      <div class="fault-row severity-high">
+        <div class="fault-cell fault-name">E-stop uten klar årsak</div>
+        <div class="fault-cell">«E-STOP AKTIV» i HMI</div>
+        <div class="fault-cell">Identifiser kilde. Verifiser. Reset etter klarsignal.</div>
+        <div class="fault-cell">Hvis kilde ukjent · Hive support</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-counter">13 / 18</div>
+</section>
+
+<!-- ====================================================== -->
+<!-- SLIDE 14 — DRY RUN VIDEO -->
+<!-- ====================================================== -->
+<section class="slide dark" data-slide="14">
+  <img src="yara-training-assets/hive-logo-white.png" class="logo" alt="Hive" loading="lazy" decoding="async">
+  <div class="slide-inner wide">
+    <div class="eyebrow">Full dry run</div>
+    <h2 class="headline" style="color: #fff;">Slik ser et helt skift ut.<br><span style="color: var(--yellow-soft); font-style: italic;">Fra du setter deg ned til du går hjem.</span></h2>
+    <div class="video-slot" style="aspect-ratio: 16/9; max-height: 50vh;">
+      <img class="poster" src="yara-training-assets/yara-loader-still.jpg" alt="Yara Porsgrunn · L120H i drift">
+      <video muted playsinline preload="none" controls poster="yara-training-assets/yara-loader-still.jpg">
+        <source src="yara-training-assets/yara-loader.mp4" type="video/mp4">
+        Nettleseren din støtter ikke video-avspilling.
+      </video>
+      <div class="meta">
+        <div class="mark">Yara Porsgrunn · referanse</div>
+        <div class="title">Wheel loader operation · illustrasjon av miljøet</div>
+      </div>
+    </div>
+    <div class="body" style="margin-top: 20px; color: rgba(255,255,255,0.85); max-width: 100%;">
+      Den fulle ende-til-ende-videoen (oppstart, drift, feilscenario, reset, shutdown) spilles inn etter at tech er låst. Daniel som operatør, Nicole bak kamera. Norsk og engelsk versjon. Klar til Fase 2.
+    </div>
+  </div>
+  <div class="slide-counter">14 / 18</div>
+</section>
+
+<!-- ====================================================== -->
+<!-- SLIDE 15 — VEIEN VIDERE: FASE 2 + FASE 3 -->
+<!-- ====================================================== -->
+<section class="slide pattern-grid" data-slide="15">
+  <img src="yara-training-assets/hive-logo.png" class="logo" alt="Hive" loading="lazy" decoding="async">
+  <div class="slide-inner wide">
+    <div class="eyebrow">Veien videre</div>
+    <h2 class="headline">Du er ferdig med Fase 1.</h2>
+    <div class="subhead">Programmet har tre faser. Sertifikatet i Fase 3 er det som dokumenterer License-to-Operate.</div>
+    <div class="timeline">
+      <div class="phase done">
+        <div class="phase-dot">✓</div>
+        <div class="phase-mark">Fase 01 · klasserom</div>
+        <div class="phase-name">Fullført i dag</div>
+        <div class="phase-body">Vision · regelverk · system · dokumentasjon · kjerneprosedyrer.</div>
+      </div>
+      <div class="phase current">
+        <div class="phase-dot">2</div>
+        <div class="phase-mark">Fase 02 · neste</div>
+        <div class="phase-name">On-the-job</div>
+        <div class="phase-body">Daniel og Kenneth fysisk på Yara · 2-3 dager · du sitter ved stasjonen, instruktør ved siden. Påmelding via skiftplanlegger.</div>
+      </div>
+      <div class="phase">
+        <div class="phase-dot">3</div>
+        <div class="phase-mark">Fase 03 · sertifisering</div>
+        <div class="phase-name">Hive operatør-bevis</div>
+        <div class="phase-body">10-15 timer dokumentert drift. Hive operatør-bevis. Gyldig så lenge du kjører kontinuerlig.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-counter">15 / 18</div>
+</section>
+
+<!-- ====================================================== -->
+<!-- SLIDE 16 — KUNDE-SPESIFIKK 1: YARA HSE-KONTAKTER -->
+<!-- ====================================================== -->
+<section class="slide pattern-dots" data-slide="16">
+  <img src="yara-training-assets/hive-logo.png" class="logo" alt="Hive" loading="lazy" decoding="async">
+  <div class="slide-inner wide">
+    <div class="eyebrow">For deg på Yara Porsgrunn · 1 av 2</div>
+    <h2 class="headline">Yaras HSE-rammeverk.</h2>
+    <div class="subhead">De konkrete navnene og lenkene du trenger. Lagre numrene før du går herfra.</div>
+    <div class="two-col">
+      <div class="col them">
+        <div class="col-mark">Mennesker</div>
+        <div class="col-title">Kontaktpersoner</div>
+        <div class="col-body">
+          <p><strong>Yara HSE-leder Porsgrunn</strong><br>navn · tlf · e-post <span class="tbc">TBC</span></p>
+          <p><strong>Yara koordinator (Hive-leveranse)</strong><br>navn · tlf · e-post <span class="tbc">TBC</span></p>
+          <p><strong>Skift-vakt Porsgrunn</strong><br>vakttelefon <span class="tbc">TBC</span></p>
+        </div>
+      </div>
+      <div class="col us">
+        <div class="col-mark">Prosedyrer</div>
+        <div class="col-title">Hva gjelder din drift</div>
+        <ul class="proc-list">
+          <li><strong>SJA</strong><span class="proc-detail">Sikker jobb-analyse</span></li>
+          <li><strong>LOTO</strong><span class="proc-detail">Lock-out / Tag-out</span></li>
+          <li><strong>Stop &amp; Think</strong><span class="proc-detail">Yara HMS-modul</span></li>
+          <li><strong>Light barrier-prosedyre</strong><span class="proc-detail">Yara intranett</span></li>
+          <li><strong>Operasjonell risikoanalyse</strong><span class="proc-detail">Versjon kommer fra Yara</span></li>
+          <li><strong>Skift-overlevering</strong><span class="proc-detail">Egen prosedyre</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-counter">16 / 18</div>
+</section>
+
+<!-- ====================================================== -->
+<!-- SLIDE 17 — KUNDE-SPESIFIKK 2: DIN INSTALLASJON -->
+<!-- ====================================================== -->
+<section class="slide" data-slide="17">
+  <img src="yara-training-assets/hive-logo.png" class="logo" alt="Hive" loading="lazy" decoding="async">
+  <div class="slide-inner wide">
+    <div class="eyebrow">For deg på Yara Porsgrunn · 2 av 2</div>
+    <h2 class="headline">Din installasjon.</h2>
+    <div class="split-img-text">
+      <div class="split-img-wrap" style="position: relative;">
+        <div class="split-img" style="background-image: url('yara-training-assets/yara-detail.jpg'); aspect-ratio: 4/3;"></div>
+        <div class="img-placeholder-tag">Erstattes med Yara-installasjon · v2.1</div>
+      </div>
+      <div>
+        <div class="meta-label">Volvo L120H · Hive-retrofit · Yara Porsgrunn</div>
+        <ul class="annotated-list" style="margin-top: 24px;">
+          <li><span class="num">·</span><span class="label"><strong>Maskin:</strong> Volvo L120H med Hive-retrofit. Installert <span class="tbc">dato TBC</span>.</span></li>
+          <li><span class="num">·</span><span class="label"><strong>Operasjonsområde:</strong> avgrenset av geofence. Konkret område <span class="tbc">TBC fra Yara</span>.</span></li>
+          <li><span class="num">·</span><span class="label"><strong>Gass- og støvsoner:</strong> følg Yara HMS-håndbok.</span></li>
+          <li><span class="num">·</span><span class="label"><strong>Skiftbytte</strong> hver 8/12 time · egen prosedyre.</span></li>
+          <li><span class="num">·</span><span class="label"><strong>24/7-drift</strong> · alltid vakt på sambandet.</span></li>
+        </ul>
+        <div class="callout">Hvis HMI sier rødt på geofence, har du ikke lov til å kjøre dit. Systemet stopper deg uansett. Men du skal vite hvorfor.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-counter">17 / 18</div>
+</section>
+
+<!-- ====================================================== -->
+<!-- SLIDE 18 — TUSEN TAKK -->
+<!-- ====================================================== -->
+<section class="slide hero dark close-slide" data-slide="18">
+  <div class="bg" style="background-image: url('yara-training-assets/miljo-hero.jpg');"></div>
+  <div class="overlay"></div>
+  <img src="yara-training-assets/hive-logo-white.png" class="logo" alt="Hive" loading="lazy" decoding="async">
+  <div class="slide-inner">
+    <div class="hero-mark">Takk for i dag</div>
+    <div class="close-title">Vi sees i <em>Fase 2.</em></div>
+    <div class="hero-sub" style="margin-top: -16px; margin-bottom: 36px; max-width: 640px;">Du har grunnlaget. Resten lærer du ved stasjonen, sammen med Daniel og Kenneth.</div>
+    <div class="contact">
+      <span class="k">Hive support 24/7</span>
+      <span class="v big">+47 38 13 46 00</span>
+      <span class="k">E-post</span>
+      <span class="v">support@hiveautonomy.no</span>
+      <span class="k">Yara koordinator</span>
+      <span class="v"><span class="tbc">TBC før Fase 2</span></span>
+    </div>
+    <div class="body" style="color: rgba(255,255,255,0.78); margin-top: clamp(28px, 3.5vh, 44px); max-width: 600px;">
+      Spør hvis noe er uklart før vi avslutter. Du skal ikke gå herfra med tvil.
+    </div>
+  </div>
+  <div class="slide-counter">18 / 18</div>
+</section>
+
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const progress = document.getElementById('progress');
+const navHint = document.getElementById('nav-hint');
+const banner = document.querySelector('.banner');
+let current = 0;
+
+function go(i) {
+  if (i < 0 || i >= slides.length) return;
+  slides[current].classList.remove('active');
+  slides[current].setAttribute('aria-hidden', 'true');
+  current = i;
+  slides[current].classList.add('active');
+  slides[current].setAttribute('aria-hidden', 'false');
+  const pct = ((current + 1) / slides.length * 100);
+  progress.style.width = pct + '%';
+  progress.setAttribute('aria-valuenow', Math.round(pct));
+  // Lazy-load video sources on the active slide; never autoplay.
+  // Pause (don't reset) any video when leaving its slide.
+  slides.forEach((s, n) => {
+    s.querySelectorAll('video').forEach(v => {
+      if (n === current) {
+        if (v.dataset.loaded !== '1') { v.load(); v.dataset.loaded = '1'; }
+      } else if (!v.paused) {
+        v.pause();
+      }
+    });
+  });
+}
+
+// Initialize aria-hidden on all slides except the first.
+slides.forEach((s, n) => s.setAttribute('aria-hidden', n === 0 ? 'false' : 'true'));
+
+document.addEventListener('keydown', (e) => {
+  // Skip when an input is focused (defensive — none in this deck, but future-proof).
+  if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(current + 1); }
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(current - 1); }
+  else if (e.key === 'Home') { e.preventDefault(); go(0); }
+  else if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
+  else if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+    else document.exitFullscreen();
+  }
+});
+
+document.addEventListener('click', (e) => {
+  // Don't hijack clicks on links, videos, or interactive elements.
+  if (e.target.closest('a, video, button, .video-slot, [contenteditable]')) return;
+  const x = e.clientX / window.innerWidth;
+  if (x < 0.35) go(current - 1);
+  else if (x > 0.65) go(current + 1);
+});
+
+// Touch / swipe support for tablets used in classroom.
+let touchStartX = 0, touchStartY = 0;
+document.addEventListener('touchstart', (e) => {
+  const t = e.changedTouches[0];
+  touchStartX = t.clientX;
+  touchStartY = t.clientY;
+}, { passive: true });
+document.addEventListener('touchend', (e) => {
+  if (e.target.closest('video, button, a, .video-slot')) return;
+  const t = e.changedTouches[0];
+  const dx = t.clientX - touchStartX;
+  const dy = t.clientY - touchStartY;
+  if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+    if (dx < 0) go(current + 1);
+    else go(current - 1);
+  }
+}, { passive: true });
+
+setTimeout(() => banner.classList.add('fade'), 2500);
+setTimeout(() => navHint && navHint.classList.add('hide'), 5000);
+progress.style.width = (1 / slides.length * 100) + '%';
+
+// Note: videos are user-initiated only (no autoplay, no loop) to comply with training-deck rules.
+
+// Direct slide deep-linking: #s7 jumps to slide 7 (1-indexed). Useful for instructor handoff.
+function maybeJumpFromHash() {
+  const m = (location.hash || '').match(/^#s(\d+)$/);
+  if (m) {
+    const n = Math.max(1, Math.min(slides.length, parseInt(m[1], 10)));
+    if (n - 1 !== current) go(n - 1);
+  }
+}
+maybeJumpFromHash();
+window.addEventListener('hashchange', maybeJumpFromHash);
+</script>
+
+</body>
+</html>
