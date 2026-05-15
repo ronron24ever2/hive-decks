@@ -477,29 +477,64 @@ h2.headline .accent { color: var(--yellow); }
 .slide.dark .page-num,
 .slide[data-theme="dark"] .page-num { color: rgba(255,255,255,0.50); }
 
-/* Navigation */
+/* Navigation — bigger, visible on both themes, with edge tap zones */
+.tap-zone {
+  position: fixed;
+  top: 0;
+  width: 22vw;
+  height: 100vh;
+  z-index: 8;
+  cursor: pointer;
+  background: transparent;
+}
+.tap-zone.left { left: 0; }
+.tap-zone.right { right: 0; }
+
 .nav {
   position: fixed;
-  bottom: 18px;
+  bottom: 22px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 10;
+  z-index: 15;
   display: flex;
-  gap: 8px;
+  gap: 10px;
+  background: rgba(255,255,255,0.94);
+  padding: 6px 10px;
+  border-radius: 32px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+  backdrop-filter: blur(8px);
+  align-items: center;
 }
 .nav button {
-  background: rgba(27,58,92,0.10);
+  background: var(--navy);
   border: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
   cursor: pointer;
-  font-size: 14px;
-  color: var(--navy);
+  font-size: 22px;
+  line-height: 1;
+  color: white;
   font-weight: 700;
-  transition: background 200ms ease;
+  transition: background 180ms ease, transform 120ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
-.nav button:hover { background: rgba(27,58,92,0.20); }
+.nav button:hover { background: var(--cyan); }
+.nav button:active { transform: scale(0.94); }
+.nav .counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  padding: 0 6px;
+  letter-spacing: 0.06em;
+  min-width: 44px;
+  text-align: center;
+}
+body.static .nav, body.static .tap-zone { display: none !important; }
 
 /* PDF / static mode — disable animations for clean screenshots */
 body.static .slide * {
@@ -556,7 +591,7 @@ body.static .slide.active {
           <div class="number">01 · SUPERVISED OPS</div>
           <h3>An ops center watching the machine, around the clock.</h3>
           <p>Kristiansand supervises every Hive machine in operation today. We're standing up a Houston center this year so the Americas runs on its own time zone, working alongside one of the largest energy operators in Texas.</p>
-          <p>Each operator handles one to three machines today, with a target of five to ten as the model matures. The 100 percent uptime guarantee runs through this center, which is the part of the model most autonomy vendors can't justify to their investors.</p>
+          <p>The 100 percent uptime guarantee runs through this center — the part of the model most autonomy vendors can't justify to their investors.</p>
         </div>
 
         <div class="bridge-card">
@@ -564,14 +599,14 @@ body.static .slide.active {
           <div class="pullbig">80% · 100%</div>
           <h3>Operator cost down, uptime guaranteed in writing.</h3>
           <p>You pay 80 percent of what an operator costs you today, and you get 100 percent uptime in the contract. When the AI hits something it can't handle, our remote operator drives the machine until it's back in autonomous mode.</p>
-          <p>You don't lose production while we figure it out, because the technology risk stays with us. The same numbers you read on this slide go in the term sheet.</p>
+          <p>The technology risk stays with us. The same numbers you read here go in the term sheet.</p>
         </div>
 
         <div class="bridge-card">
           <div class="number">03 · VOLVO PARTNERSHIP</div>
           <h3>Co-developing the wheel-loader integration with Volvo.</h3>
-          <p>Hive is one of three vendors Volvo is evaluating for their global autonomy program, and we're already working with their engineering team on the wheel-loader integration. The goal is that any Volvo dealer in North America can quote Hive on a loader.</p>
-          <p>Three ways to buy: <strong>A.</strong> you own the loader and we retrofit it, <strong>B.</strong> bundled rental with loader plus autonomy plus remote ops in one contract, or <strong>C.</strong> you buy the unit and lease the autonomy. The bundled rental is useful if Lone Wolf timing doesn't line up with your equipment-purchase cycle.</p>
+          <p>Hive is one of three vendors Volvo is evaluating for their global autonomy program, and we're already co-developing the wheel-loader integration with their engineering team. The goal is that any Volvo dealer in North America can quote Hive on a loader.</p>
+          <p>Three ways to buy: <strong>A.</strong> you own the loader, we retrofit. <strong>B.</strong> bundled rental — loader, autonomy, remote ops in one contract. <strong>C.</strong> you buy, lease the autonomy. The rental option helps if Lone Wolf timing doesn't match your purchase cycle.</p>
         </div>
 
       </div>
@@ -592,27 +627,27 @@ body.static .slide.active {
 
         <div class="proof-item">
           <span class="qtag">Q1 · SAFETY</span>
-          <strong>Safer than today is the bar, and we have a real regulator who's already validated the approach.</strong>
-          <p>The bar internally is that our operation has to be measurably safer than what you're already running, and nobody gets hurt. We don't compromise on that, even when it costs us a deadline. Safety architecture is four layers running in parallel: the remote and core systems layer handles health monitoring, brake feedback, control logic, and emergency stops; the autonomy layer runs localization, path planning, object detection, geofencing, and a confidence monitor that triggers handover when the model is uncertain; an independent PLd-certified third-party safety system sits underneath that and stops the machine regardless of what the autonomy or remote operator is doing; and operational safety, which we set with your team before the first autonomous cycle, covers speed zones, traffic flow, exclusion zones, and site-specific HSE policy.</p>
-          <p>On the regulator side, Statens Vegvesen (the Norwegian Public Roads Administration) has cleared us to operate autonomously on a public mountain pass at Vikafjellet, including under closed-road winter conditions. That's not a closed test site, it's live public infrastructure. We're working against ISO 3691-4, 17757, 20474, 13849, 13850, and 12100, and we'll walk the full safety case through with your team during the deep-dive.</p>
+          <strong>Safer than today is the bar, and a regulator has already validated the approach.</strong>
+          <p>The internal bar: our operation is measurably safer than what you run today, and nobody gets hurt. Four safety layers run in parallel — remote &amp; core systems (health, brake feedback, control logic, e-stops), autonomy (localization, path planning, object detection, geofencing, a confidence monitor that triggers handover), an independent PLd-certified third-party stop system, and operational safety set with your team (speed zones, traffic flow, exclusion zones, site HSE).</p>
+          <p>Statens Vegvesen (Norwegian Public Roads) has cleared us to run autonomously on a public mountain pass at Vikafjellet, including under closed-road winter conditions. Live public infrastructure, not a test site. We work against ISO 3691-4, 17757, 20474, 13849, 13850, and 12100, and we'll walk the full case with your team during the deep-dive.</p>
         </div>
 
         <div class="proof-item">
           <span class="qtag">Q2 · MINING BENCHMARK</span>
-          <strong>We haven't run hard-rock copper, and the economics still work while we close the gap.</strong>
-          <p>We haven't benchmarked at hard-rock copper scale, and we won't pretend otherwise. What we run today is a mix of full production and scaled pilots in aggregates, industrial bulk handling, road tunneling, and snow clearing on public roads. The geometric closest match to a copper re-handling cycle is the aggregate work at Feiring Bruk and Hamar Pukk. On your site we'd start phase one remote-operated, with our team driving the machine while every cycle becomes labeled training data for the model. The 100 percent uptime guarantee runs from the first shift at 80 percent of your current operator cost, so the production economics work whether we're 50 or 95 percent autonomous on any given cycle. We'll agree a joint productivity-tracking method during scoping and report against it monthly.</p>
+          <strong>We haven't run hard-rock copper. The economics work while we close the gap.</strong>
+          <p>We haven't benchmarked at hard-rock copper scale, and we won't pretend otherwise. The closest cycle analog we run today is the aggregate work at Feiring Bruk and Hamar Pukk. On your site, phase one starts remote-operated by our team while every cycle becomes labeled training data. The 100 percent uptime guarantee runs from the first shift at 80 percent of your current operator cost, so the economics work whether we're 50 or 95 percent autonomous on any given cycle.</p>
         </div>
 
         <div class="proof-item">
           <span class="qtag">Q3 · NETWORK AT COPPER ONE</span>
           <strong>We audit your network before we ship any hardware.</strong>
-          <p>You run Celona private 5G at Copper One, and we ship on Celona-class private 5G inside road tunnels with Veidekke today, which is physically harsher than an open pit. Before any kit lands on your site we'll run a one-week network audit, measuring latency, jitter, packet loss, and coverage at the working faces and along the haul roads. The output is a green-amber-red map of the cells plus a Wi-Fi mesh failover plan for any cell that comes back amber. The latency budget is under 100 ms for supervised autonomy and under 50 ms for full tele-remote, which Celona should hit. Send us your current coverage report and we can run audit assumptions before our next call.</p>
+          <p>You run Celona private 5G, and we ship on Celona-class private 5G inside road tunnels with Veidekke today — physically harsher than an open pit. Before any kit lands we run a one-week audit (latency, jitter, packet loss, coverage at faces and haul roads) and deliver a green-amber-red cell map plus a Wi-Fi mesh failover plan. Send us your current coverage report and we'll run audit assumptions before the next call.</p>
         </div>
 
         <div class="proof-item">
           <span class="qtag">Q4 · ON-SITE SUPPORT</span>
-          <strong>Houston ops handles you 24/7, and we fly to site within a day if something needs hands.</strong>
-          <p>Our engineering team will be on-site at Copper One for two to three weeks during installation and the first SLAM map, with quarterly maintenance passes after that. Day-to-day support runs through the Houston ops center with a single point of contact, and any incident we can't resolve remotely gets a site engineer to Copper One within 24 hours. We agree with you that Moab doesn't have a local autonomy labor pool, which is the point of the Houston-plus-fly-in model — it's how we work around the constraint, not how we hide it.</p>
+          <strong>Houston ops 24/7, with engineers on a plane within a day if something needs hands.</strong>
+          <p>Our engineering team is on-site at Copper One for two to three weeks during install, with quarterly passes after that. Day-to-day support runs through Houston ops with a single point of contact, and any incident we can't resolve remotely gets an engineer to Copper One within 24 hours. Moab doesn't have a local autonomy labor pool — that's why Houston-plus-fly-in is the model.</p>
         </div>
 
       </div>
@@ -763,25 +798,47 @@ body.static .slide.active {
 
 </div>
 
-<div class="nav">
-  <button onclick="prev()">←</button>
-  <button onclick="next()">→</button>
+<div class="tap-zone left" onclick="prev()" aria-label="Previous slide"></div>
+<div class="tap-zone right" onclick="next()" aria-label="Next slide"></div>
+
+<div class="nav" role="navigation" aria-label="Slide navigation">
+  <button onclick="prev()" aria-label="Previous slide">‹</button>
+  <span class="counter" id="counter">1 / 5</span>
+  <button onclick="next()" aria-label="Next slide">›</button>
 </div>
 
 <script>
 const slides = document.querySelectorAll('.slide');
+const counter = document.getElementById('counter');
 let i = 0;
 function show(n) {
   i = (n + slides.length) % slides.length;
   slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+  if (counter) counter.textContent = (i + 1) + ' / ' + slides.length;
 }
 function next() { show(i + 1); }
 function prev() { show(i - 1); }
+
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowRight' || e.key === ' ') next();
-  if (e.key === 'ArrowLeft') prev();
-  if (/^[1-5]$/.test(e.key)) show(parseInt(e.key, 10) - 1);
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); next(); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+  if (/^[1-9]$/.test(e.key)) show(parseInt(e.key, 10) - 1);
 });
+
+/* Touch swipe support */
+let touchStartX = 0, touchStartY = 0;
+document.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+  touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
+document.addEventListener('touchend', (e) => {
+  const dx = e.changedTouches[0].screenX - touchStartX;
+  const dy = e.changedTouches[0].screenY - touchStartY;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+    if (dx < 0) next();
+    else prev();
+  }
+}, { passive: true });
 
 /* Static mode for PDF export */
 const params = new URLSearchParams(location.search);
