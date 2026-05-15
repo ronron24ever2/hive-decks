@@ -899,6 +899,134 @@ body.static .video-modal, body.static .play-overlay { display: none !important; 
   margin-top: 6px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.10); line-height: 1.5;
 }
 
+/* INTERNAL slide — Trojan Kill Map */
+.internal-banner {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 4;
+  background: linear-gradient(90deg, #c63838 0%, #e85d3a 100%);
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 8px 12px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+.internal-banner strong { color: var(--yellow); font-weight: 800; margin: 0 8px; }
+
+.kill-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 0.7fr repeat(7, 0.5fr) 1.1fr;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  background: white;
+  margin-top: clamp(12px, 1.4vh, 18px);
+  font-size: clamp(10.5px, 0.78vw, 12.5px);
+}
+.kill-grid .kc {
+  padding: clamp(7px, 0.85vh, 10px) clamp(8px, 0.85vw, 12px);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  line-height: 1.32;
+  color: var(--ink);
+}
+.kill-grid .kc:nth-child(10n) { border-right: none; }
+.kill-grid > .kc:nth-last-child(-n+10) { border-bottom: none; }
+.kill-grid .kc-head {
+  background: var(--navy);
+  color: white;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  justify-content: center;
+  text-align: center;
+  padding: clamp(8px, 1vh, 12px) 4px;
+}
+.kill-grid .kc-name {
+  background: var(--bg-soft);
+  font-weight: 700;
+  color: var(--navy);
+  font-size: clamp(11.5px, 0.88vw, 13.5px);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.kill-grid .kc-name small {
+  display: block;
+  font-weight: 400;
+  color: var(--ink-60);
+  font-size: 10px;
+  margin-top: 2px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.kill-grid .kc-strength {
+  font-size: 10.5px;
+  color: var(--ink-60);
+  line-height: 1.4;
+}
+.kill-grid .kc-kill {
+  justify-content: center;
+  text-align: center;
+  font-weight: 700;
+}
+.kill-grid .kc-kill.kill { color: #b94545; }
+.kill-grid .kc-kill.ok { color: #1e7c3c; }
+.kill-grid .kc-kill.partial { color: #b8770a; }
+.kill-grid .kc-best {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.32;
+}
+.kill-grid .kc-best small {
+  display: block;
+  font-weight: 400;
+  color: var(--ink-60);
+  font-size: 9.5px;
+  margin-top: 2px;
+}
+
+.kill-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 1.4vw, 20px);
+  margin-top: clamp(14px, 1.6vh, 22px);
+}
+.kill-summary .ks-card {
+  background: var(--bg-soft);
+  border-left: 3px solid var(--cyan);
+  padding: clamp(12px, 1.4vh, 16px) clamp(14px, 1.2vw, 18px);
+  border-radius: 4px;
+}
+.kill-summary .ks-card.alarm { border-left-color: #c63838; }
+.kill-summary .ks-card.win { border-left-color: #1e7c3c; }
+.kill-summary .ks-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: 5px;
+}
+.kill-summary .ks-card.alarm .ks-label { color: #c63838; }
+.kill-summary .ks-card.win .ks-label { color: #1e7c3c; }
+.kill-summary .ks-body {
+  font-size: clamp(11.5px, 0.88vw, 13.5px);
+  color: var(--ink);
+  line-height: 1.45;
+}
+.kill-summary .ks-body strong { color: var(--navy); font-weight: 700; }
+
 /* PDF / static mode */
 body.static .slide * {
   opacity: 1 !important;
@@ -936,7 +1064,7 @@ body.static .slide.active {
     <div class="hero-footer">
       Ronny Liverød <span class="sep">·</span> VP Heavy Machinery <span class="sep">·</span> Hive Autonomy
     </div>
-    <span class="page-num">01 / 09</span>
+    <span class="page-num">01 / 10</span>
   </section>
 
   <!-- SLIDE 2A: Operational model — ALT 1 BALANCED (Immediate ROI 80%/100%) -->
@@ -980,7 +1108,7 @@ body.static .slide.active {
 
       </div>
     </div>
-    <span class="page-num" style="color: rgba(27,58,92,0.42);">02 / 09</span>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">02 / 10</span>
   </section>
 
   <!-- SLIDE 2B: Operational model — ALT 2 UPTIME-FIRST -->
@@ -1024,7 +1152,7 @@ body.static .slide.active {
 
       </div>
     </div>
-    <span class="page-num" style="color: rgba(27,58,92,0.42);">03 / 09</span>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">03 / 10</span>
   </section>
 
   <!-- SLIDE 2C: Operational model — ALT 3 COST-FIRST -->
@@ -1068,7 +1196,7 @@ body.static .slide.active {
 
       </div>
     </div>
-    <span class="page-num" style="color: rgba(27,58,92,0.42);">04 / 09</span>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">04 / 10</span>
   </section>
 
   <!-- SLIDE 3 (NEW): OEM Flexibility — today Volvo, tomorrow any machine -->
@@ -1112,7 +1240,7 @@ body.static .slide.active {
 
       </div>
     </div>
-    <span class="page-num">05 / 09</span>
+    <span class="page-num">05 / 10</span>
   </section>
 
   <!-- SLIDE 3: How we run safely — safety anchor + 3 supporting cards -->
@@ -1181,7 +1309,7 @@ body.static .slide.active {
 
       </div>
     </div>
-    <span class="page-num">06 / 09</span>
+    <span class="page-num">06 / 10</span>
   </section>
 
   <!-- SLIDE 7A: Vendor scorecard / Evaluation criteria — ALT 1 QUESTIONS -->
@@ -1239,7 +1367,7 @@ body.static .slide.active {
         <span class="yellow-tag">PARTNERSHIP, NOT PITCH</span>
       </div>
     </div>
-    <span class="page-num" style="color: rgba(27,58,92,0.42);">07 / 09</span>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">07 / 10</span>
   </section>
 
   <!-- SLIDE 7B: Competitive matrix — ALT 2 MATRIX -->
@@ -1322,7 +1450,7 @@ body.static .slide.active {
         </div>
       </div>
     </div>
-    <span class="page-num" style="color: rgba(27,58,92,0.42);">08 / 09</span>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">08 / 10</span>
   </section>
 
   <!-- SLIDE 5: Track record + Next moves -->
@@ -1415,7 +1543,150 @@ body.static .slide.active {
 
       </div>
     </div>
-    <span class="page-num">09 / 09</span>
+    <span class="page-num">09 / 10</span>
+  </section>
+
+  <!-- SLIDE 10 (INTERNAL): Trojan Kill Map — for Hive team only, do not share with customer -->
+  <section class="slide" data-theme="light" style="padding-top: 60px;">
+    <div class="internal-banner"><strong>INTERNAL</strong> · do not share with customer · for Hive team review only · <strong>INTERNAL</strong></div>
+    <img src="presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy" style="top: 50px;">
+    <span class="deck-tag" style="top: 56px;">10 · TROJAN KILL MAP</span>
+    <div class="slide-inner" style="max-width: 1700px; padding-top: 20px;">
+      <div class="eyebrow" style="margin-top: 12px;">FOR FREDRIK · STRATEGIC OVERVIEW</div>
+      <h2 class="headline" style="font-size: clamp(24px, 2.8vw, 36px); margin-bottom: 8px;">Which evaluation criteria kill which competitor.</h2>
+      <p class="subhead" style="font-size: clamp(13px, 1vw, 15px); margin-bottom: 10px;">Cross-reference of the six trojan questions + OEM-flex against the actual competitive field. <strong>Not for customer-facing material.</strong></p>
+
+      <div class="kill-grid">
+
+        <div class="kc kc-head">Competitor</div>
+        <div class="kc kc-head">Their strength</div>
+        <div class="kc kc-head">Q1<br>Uptime</div>
+        <div class="kc kc-head">Q2<br>5-sec</div>
+        <div class="kc kc-head">Q3<br>24/7 ops</div>
+        <div class="kc kc-head">Q4<br>Week 1</div>
+        <div class="kc kc-head">Q5<br>Coexist</div>
+        <div class="kc kc-head">Q6<br>M&amp;A</div>
+        <div class="kc kc-head">OEM<br>flex</div>
+        <div class="kc kc-head">Sharpest kill</div>
+
+        <div class="kc kc-name">Teleo (HAVOC)<small>Acquired Mar 2026</small></div>
+        <div class="kc kc-strength">Supervised positioning twin to Hive. Volvo L350F in Finland. $29.8M pre-acquisition.</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill partial">~</div>
+        <div class="kc kc-kill partial">~</div>
+        <div class="kc kc-kill ok">✓</div>
+        <div class="kc kc-kill partial">~</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill ok">✓</div>
+        <div class="kc kc-best">Q6 · acquisition<small>Defense pivot, commercial roadmap unclear</small></div>
+
+        <div class="kc kc-name">Pronto/Atoms/SafeAI<small>Acquired Apr 2026</small></div>
+        <div class="kc kc-strength">Incumbent on haul-truck at Copper One. Kalanick capital. Heidelberg refs.</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill ok">✓</div>
+        <div class="kc kc-best">Q5 · coexist<small>Wants dispatch. Forces haul-stack rip-out.</small></div>
+
+        <div class="kc kc-name">Sandvik AutoMine<small>Already at Copper One</small></div>
+        <div class="kc kc-strength">Drill rig already on site. Mining-scale references. Sandvik balance sheet.</div>
+        <div class="kc kc-kill partial">~</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-best">OEM-flex<small>Sandvik-equipment-locked. Surface WL not primary.</small></div>
+
+        <div class="kc kc-name">Sensmore (Berlin)<small>Series A May 2025</small></div>
+        <div class="kc kc-strength">Same VLAM tech as Hive. Cemex + Lhoist references. Point Nine.</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill partial">~</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill partial">~</div>
+        <div class="kc kc-kill partial">~</div>
+        <div class="kc kc-kill ok">✓</div>
+        <div class="kc kc-best">Q3 + NA footprint<small>No ops center. EU-only.</small></div>
+
+        <div class="kc kc-name">Gravis Robotics<small>ETH Zürich spinout</small></div>
+        <div class="kc kc-strength">$23M. Holcim Lee Moor 133 cycles/hr. HD Hyundai alliance.</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill partial">~</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill partial">~</div>
+        <div class="kc kc-kill ok">✓</div>
+        <div class="kc kc-kill ok">✓</div>
+        <div class="kc kc-best">Q3 + Q4<small>No ops center. Still pilot-stage.</small></div>
+
+        <div class="kc kc-name">Bedrock Robotics<small>Ex-Waymo, $350M+</small></div>
+        <div class="kc kc-strength">$1.75B valuation. Ex-Waymo CEO. Named-customer pilots (Sundt, Zachry).</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill partial">~</div>
+        <div class="kc kc-kill ok">✓</div>
+        <div class="kc kc-kill ok">✓</div>
+        <div class="kc kc-best">Q4 · week 1<small>Excavator-first. Loaders on roadmap.</small></div>
+
+        <div class="kc kc-name">Cat Command Loading<small>Live OEM solution</small></div>
+        <div class="kc kc-strength">OEM-backed CAT. Ships today on 950–982 series. Dealer-ready.</div>
+        <div class="kc kc-kill partial">~</div>
+        <div class="kc kc-kill partial">~</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill ok">✓</div>
+        <div class="kc kc-kill ok">✓</div>
+        <div class="kc kc-kill ok">✓</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-best">OEM-flex<small>CAT-only. Teleop, not autonomy. 1:1 ratio.</small></div>
+
+        <div class="kc kc-name">Chinese OEMs<small>LiuGong / XCMG / SANY</small></div>
+        <div class="kc kc-strength">World-first commercial deployments. LiuGong 870HE in Yunnan. State-scale.</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill partial">~</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-best">NA footprint + OEM-flex<small>No US ops. OEM-locked. No Volvo.</small></div>
+
+        <div class="kc kc-name">HD Hyundai (Develon)<small>Concept-X 2.0</small></div>
+        <div class="kc kc-strength">Korean OEM scale. Demo'd 2,000-mile remote at CES 2024. Holcim via Gravis.</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-kill partial">~</div>
+        <div class="kc kc-kill ok">✓</div>
+        <div class="kc kc-kill kill">✗</div>
+        <div class="kc kc-best">Q4 + OEM-flex<small>Loader still concept-stage. OEM-locked.</small></div>
+
+      </div>
+
+      <div class="kill-summary">
+        <div class="ks-card win">
+          <div class="ks-label">Broadest-kill questions</div>
+          <div class="ks-body"><strong>Q3 (24/7 ops + ratio)</strong> kills 8 of 9 — most don't have a real center. <strong>Q1 (uptime in writing)</strong> kills 7 of 9 — no one else contractualises it. <strong>Q2 (5-sec handover)</strong> kills 7 of 9 — pure autonomy stops and waits.</div>
+        </div>
+        <div class="ks-card alarm">
+          <div class="ks-label">Highest-threat competitors</div>
+          <div class="ks-body"><strong>Teleo (HAVOC)</strong> — direct positioning twin. <strong>Pronto/Atoms</strong> — already on the haul side at Copper One. Both killed primarily by Q3 + Q6. Pronto also fails Q5 (wants dispatch) hard.</div>
+        </div>
+        <div class="ks-card">
+          <div class="ks-label">Where we have the least margin</div>
+          <div class="ks-body"><strong>Mining-scale references.</strong> Hive doesn't have hard-rock copper. Pronto and Sandvik do. We honour this on slide 6 (mining benchmark card). Don't oversell.</div>
+        </div>
+      </div>
+
+    </div>
+    <span class="page-num">10 / 10</span>
   </section>
 
 </div>
@@ -1436,7 +1707,7 @@ body.static .slide.active {
 
 <div class="nav" role="navigation" aria-label="Slide navigation">
   <button onclick="prev()" aria-label="Previous slide">‹</button>
-  <span class="counter" id="counter">1 / 5</span>
+  <span class="counter" id="counter">1 / 10</span>
   <button onclick="next()" aria-label="Next slide">›</button>
 </div>
 
