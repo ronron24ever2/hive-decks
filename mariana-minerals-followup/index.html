@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hive Autonomy — Mariana Minerals Partnership v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1B3A5C;
+  --navy-deep: #0B1A2C;
+  --cyan: #4A90D9;
+  --yellow: #E8D44D;
+  --ink: #1a1a1a;
+  --ink-60: rgba(26,26,26,0.62);
+  --ink-40: rgba(26,26,26,0.40);
+  --bg: #FFFFFF;
+  --bg-soft: #F8F9FA;
+  --line: rgba(27,58,92,0.12);
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--navy-deep);
+  color: var(--ink);
+  overflow: hidden;
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01", "cv11";
+}
+
+.deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(40px, 5vh, 80px) clamp(40px, 6vw, 120px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 500ms var(--ease);
+  background: var(--bg);
+}
+.slide.active { opacity: 1; pointer-events: auto; z-index: 2; }
+
+.slide-inner {
+  max-width: 1280px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.eyebrow {
+  font-size: clamp(11px, 0.9vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: clamp(16px, 1.8vh, 24px);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.slide.active .eyebrow { opacity: 1; transform: translateY(0); transition-delay: 80ms; }
+.slide.dark .eyebrow,
+.slide[data-theme="dark"] .eyebrow { color: var(--yellow); }
+
+h1.title {
+  font-size: clamp(42px, 5.5vw, 76px);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--navy);
+  margin-bottom: clamp(22px, 2.5vh, 32px);
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active h1.title { opacity: 1; transform: translateY(0); transition-delay: 180ms; }
+.slide.dark h1.title,
+.slide[data-theme="dark"] h1.title { color: #fff; text-shadow: 0 2px 22px rgba(0,0,0,0.4); }
+
+h1.title .accent { color: var(--yellow); }
+
+h2.headline {
+  font-size: clamp(28px, 3.4vw, 46px);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+  color: var(--navy);
+  margin-bottom: clamp(18px, 2vh, 26px);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active h2.headline { opacity: 1; transform: translateY(0); transition-delay: 180ms; }
+.slide.dark h2.headline,
+.slide[data-theme="dark"] h2.headline { color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,0.35); }
+h2.headline .accent { color: var(--yellow); }
+.slide:not(.dark):not([data-theme="dark"]) h2.headline .accent { color: var(--cyan); }
+
+.subhead {
+  font-size: clamp(17px, 1.4vw, 22px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ink-60);
+  max-width: 920px;
+  margin-bottom: clamp(22px, 2.6vh, 36px);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .subhead { opacity: 1; transform: translateY(0); transition-delay: 280ms; }
+.slide.dark .subhead,
+.slide[data-theme="dark"] .subhead { color: rgba(255,255,255,0.88); text-shadow: 0 1px 12px rgba(0,0,0,0.35); }
+
+/* Hero photo */
+.slide.hero-photo { background: var(--navy-deep); }
+.slide.hero-photo .bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  animation: kenburns 18s ease-in-out infinite alternate;
+}
+.slide.hero-photo .overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right,
+    rgba(11,26,44,0.94) 0%,
+    rgba(11,26,44,0.82) 28%,
+    rgba(11,26,44,0.52) 58%,
+    rgba(11,26,44,0.14) 88%,
+    transparent 100%);
+  z-index: 1;
+}
+@keyframes kenburns {
+  0% { transform: scale(1.0); }
+  100% { transform: scale(1.08); }
+}
+
+/* Logo */
+.logo {
+  position: absolute;
+  top: clamp(24px, 3vh, 40px);
+  left: clamp(30px, 4vw, 60px);
+  height: clamp(40px, 4vh, 54px);
+  z-index: 5;
+  opacity: 1;
+}
+.slide.dark .logo,
+.slide.hero-photo.dark .logo,
+.slide[data-theme="dark"] .logo {
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+}
+
+.deck-tag {
+  position: absolute;
+  top: clamp(24px, 3vh, 40px);
+  right: clamp(30px, 4vw, 60px);
+  z-index: 5;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.62);
+  font-weight: 500;
+  font-family: 'JetBrains Mono', monospace;
+}
+.slide:not(.dark):not([data-theme="dark"]):not(.hero-photo) .deck-tag {
+  color: rgba(27,58,92,0.50);
+}
+
+/* Slide 1 contact footer */
+.hero-footer {
+  position: absolute;
+  bottom: clamp(28px, 3.6vh, 44px);
+  left: clamp(30px, 4vw, 60px);
+  z-index: 5;
+  font-size: clamp(12px, 0.95vw, 14px);
+  font-weight: 500;
+  color: rgba(255,255,255,0.78);
+  letter-spacing: 0.02em;
+}
+.hero-footer .sep {
+  margin: 0 10px;
+  color: rgba(255,255,255,0.35);
+}
+
+/* Bridge grid (3 cards) */
+.bridge-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: clamp(22px, 2.4vw, 36px);
+  margin-top: clamp(20px, 2.2vh, 32px);
+}
+.bridge-card {
+  background: var(--bg-soft);
+  border-top: 3px solid var(--cyan);
+  padding: clamp(28px, 3.2vh, 38px) clamp(24px, 2.2vw, 32px);
+  border-radius: 4px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.slide.active .bridge-card { opacity: 1; transform: translateY(0); }
+.slide.active .bridge-card:nth-child(1) { transition-delay: 360ms; }
+.slide.active .bridge-card:nth-child(2) { transition-delay: 480ms; }
+.slide.active .bridge-card:nth-child(3) { transition-delay: 600ms; }
+
+.bridge-card .number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 0.12em;
+  margin-bottom: 14px;
+}
+.bridge-card h3 {
+  font-size: clamp(19px, 1.5vw, 24px);
+  font-weight: 800;
+  line-height: 1.18;
+  color: var(--navy);
+  margin-bottom: 14px;
+  letter-spacing: -0.018em;
+}
+.bridge-card h3 .accent { color: var(--navy); background: linear-gradient(transparent 62%, rgba(232,212,77,0.5) 62%); padding: 0 2px; }
+.bridge-card p {
+  font-size: clamp(13.5px, 1.02vw, 16px);
+  line-height: 1.58;
+  color: var(--ink-60);
+  margin-bottom: 10px;
+}
+.bridge-card p:last-child { margin-bottom: 0; }
+.bridge-card .pullbig {
+  font-size: clamp(28px, 2.6vw, 38px);
+  font-weight: 800;
+  line-height: 1.0;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.bridge-card .pullbig .yellow { color: #C5A800; }
+
+/* Proof list (Lukas questions) */
+.proof-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 2.2vh, 26px);
+  margin-top: clamp(16px, 2vh, 22px);
+  max-width: 1100px;
+}
+.proof-item {
+  border-left: 3px solid var(--cyan);
+  padding-left: clamp(18px, 1.6vw, 26px);
+  opacity: 0;
+  transform: translateX(-14px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.slide.active .proof-item { opacity: 1; transform: translateX(0); }
+.slide.active .proof-item:nth-of-type(1) { transition-delay: 320ms; }
+.slide.active .proof-item:nth-of-type(2) { transition-delay: 420ms; }
+.slide.active .proof-item:nth-of-type(3) { transition-delay: 520ms; }
+.slide.active .proof-item:nth-of-type(4) { transition-delay: 620ms; }
+
+.proof-item .qtag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.slide.dark .proof-item .qtag,
+.slide[data-theme="dark"] .proof-item .qtag { color: var(--yellow); }
+.proof-item strong {
+  font-size: clamp(17px, 1.3vw, 21px);
+  font-weight: 700;
+  color: var(--navy);
+  display: block;
+  margin-bottom: 7px;
+  letter-spacing: -0.015em;
+}
+.slide.dark .proof-item strong,
+.slide[data-theme="dark"] .proof-item strong { color: #fff; }
+.proof-item p {
+  font-size: clamp(14px, 1.05vw, 16.5px);
+  line-height: 1.55;
+  color: var(--ink-60);
+}
+.slide.dark .proof-item p,
+.slide[data-theme="dark"] .proof-item p { color: rgba(255,255,255,0.82); }
+
+/* Vendor scorecard (slide 4) */
+.score-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 2.2vw, 30px) clamp(28px, 3vw, 44px);
+  margin-top: clamp(20px, 2.2vh, 28px);
+  max-width: 1280px;
+}
+.score-q {
+  border-left: 3px solid var(--cyan);
+  padding-left: clamp(16px, 1.4vw, 22px);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 500ms var(--ease), transform 500ms var(--ease);
+}
+.slide.active .score-q { opacity: 1; transform: translateY(0); }
+.slide.active .score-q:nth-of-type(1) { transition-delay: 280ms; }
+.slide.active .score-q:nth-of-type(2) { transition-delay: 360ms; }
+.slide.active .score-q:nth-of-type(3) { transition-delay: 440ms; }
+.slide.active .score-q:nth-of-type(4) { transition-delay: 520ms; }
+.slide.active .score-q:nth-of-type(5) { transition-delay: 600ms; }
+.slide.active .score-q:nth-of-type(6) { transition-delay: 680ms; }
+.score-q .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--yellow);
+  background: var(--navy);
+  padding: 3px 8px;
+  letter-spacing: 0.08em;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.score-q .question {
+  font-size: clamp(15px, 1.13vw, 18px);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.32;
+  margin-bottom: 6px;
+  letter-spacing: -0.012em;
+}
+.score-q .marker {
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.5;
+  color: var(--ink-60);
+  font-style: italic;
+}
+
+.scorecard-footer {
+  margin-top: clamp(22px, 2.6vh, 32px);
+  padding-top: clamp(16px, 1.8vh, 22px);
+  border-top: 1px solid var(--line);
+  font-size: clamp(14px, 1.02vw, 16px);
+  font-weight: 600;
+  color: var(--navy);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.scorecard-footer .yellow-tag { color: var(--cyan); font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
+
+/* Closing grid (slide 5) */
+.close-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(36px, 4vw, 56px);
+  margin-top: clamp(18px, 2vh, 26px);
+  align-items: start;
+}
+.customer-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 1.8vh, 20px);
+}
+.customer-row {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: clamp(16px, 1.4vw, 22px);
+  align-items: center;
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 500ms var(--ease), transform 500ms var(--ease);
+}
+.slide.active .customer-row { opacity: 1; transform: translateX(0); }
+.slide.active .customer-row:nth-child(1) { transition-delay: 320ms; }
+.slide.active .customer-row:nth-child(2) { transition-delay: 400ms; }
+.slide.active .customer-row:nth-child(3) { transition-delay: 480ms; }
+.slide.active .customer-row:nth-child(4) { transition-delay: 560ms; }
+.slide.active .customer-row:nth-child(5) { transition-delay: 640ms; }
+
+.customer-thumb {
+  width: 96px;
+  height: 64px;
+  border-radius: 4px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.customer-meta strong {
+  font-size: clamp(14.5px, 1.08vw, 17px);
+  font-weight: 700;
+  color: #fff;
+  display: block;
+  margin-bottom: 3px;
+  letter-spacing: -0.01em;
+}
+.customer-meta span {
+  font-size: clamp(12.5px, 0.95vw, 14.5px);
+  color: rgba(255,255,255,0.72);
+  line-height: 1.45;
+}
+
+.next-steps {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: clamp(22px, 2.6vh, 32px) clamp(22px, 2vw, 30px);
+  border-radius: 6px;
+}
+.next-steps .ns-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  font-weight: 700;
+  margin-bottom: clamp(14px, 1.6vh, 20px);
+}
+.ns-item {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 12px;
+  align-items: baseline;
+  padding: clamp(10px, 1.2vh, 14px) 0;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+.ns-item:last-child { border-bottom: none; }
+.ns-item .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--cyan);
+}
+.ns-item .text {
+  font-size: clamp(13.5px, 1.02vw, 16px);
+  color: rgba(255,255,255,0.92);
+  line-height: 1.45;
+}
+.ns-item .text strong { font-weight: 700; color: #fff; }
+
+.contact-block {
+  margin-top: clamp(18px, 2.2vh, 26px);
+  padding-top: clamp(14px, 1.6vh, 20px);
+  border-top: 1px solid rgba(255,255,255,0.12);
+  font-size: clamp(12.5px, 0.95vw, 14.5px);
+  color: rgba(255,255,255,0.78);
+  line-height: 1.55;
+}
+.contact-block strong { color: #fff; font-weight: 700; }
+
+/* Page indicator */
+.page-num {
+  position: absolute;
+  bottom: clamp(24px, 3vh, 38px);
+  right: clamp(30px, 4vw, 60px);
+  z-index: 5;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: rgba(27,58,92,0.42);
+  font-weight: 600;
+}
+.slide.dark .page-num,
+.slide[data-theme="dark"] .page-num { color: rgba(255,255,255,0.50); }
+
+/* Navigation */
+.nav {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: 8px;
+}
+.nav button {
+  background: rgba(27,58,92,0.10);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--navy);
+  font-weight: 700;
+  transition: background 200ms ease;
+}
+.nav button:hover { background: rgba(27,58,92,0.20); }
+
+/* PDF / static mode — disable animations for clean screenshots */
+body.static .slide * {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+body.static .slide {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  display: none !important;
+}
+body.static .slide.active {
+  opacity: 1 !important;
+  display: flex !important;
+  pointer-events: auto !important;
+}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- SLIDE 1: Hero / Partnership cover -->
+  <section class="slide hero-photo dark active" data-theme="dark">
+    <div class="bg" style="background-image: url('presentation-assets/mariana/slide1-quarry-hero.jpg');"></div>
+    <div class="overlay"></div>
+    <img src="presentation-assets/mariana/hive-logo-white.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">MARIANA × HIVE · MAY 2026</span>
+    <div class="slide-inner">
+      <div class="eyebrow">PARTNERSHIP DECK</div>
+      <h1 class="title">Wheel-loader autonomy<br>for Copper One, ready<br>when you scale to <span class="accent">Lone Wolf</span>.</h1>
+      <p class="subhead">Supervised physical AI on your Volvo loaders, starting with the re-handling cycle you suggested on the 7 May call. We earn the Lone Wolf fleet by showing you the numbers along the way.</p>
+    </div>
+    <div class="hero-footer">
+      Ronny Liverød <span class="sep">·</span> VP Heavy Machinery <span class="sep">·</span> Hive Autonomy
+    </div>
+    <span class="page-num">01 / 05</span>
+  </section>
+
+  <!-- SLIDE 2: Operational model fits Mariana -->
+  <section class="slide" data-theme="light">
+    <img src="presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">02 · OPERATIONAL MODEL</span>
+    <div class="slide-inner">
+      <div class="eyebrow">WHY THE MODEL FITS</div>
+      <h2 class="headline">An operating model that fits how you actually run a pit.</h2>
+      <p class="subhead">The retrofit kit is the easy part. What separates us is everything wrapped around it, from the ops center watching the machine, to the contract that guarantees uptime, to the OEM partnership that makes the equipment easy to source.</p>
+
+      <div class="bridge-grid">
+
+        <div class="bridge-card">
+          <div class="number">01 · SUPERVISED OPS</div>
+          <h3>An ops center watching the machine, around the clock.</h3>
+          <p>Kristiansand supervises every Hive machine in operation today. We're standing up a Houston center this year so the Americas runs on its own time zone, working alongside one of the largest energy operators in Texas.</p>
+          <p>Each operator handles one to three machines today, with a target of five to ten as the model matures. The 100 percent uptime guarantee runs through this center, which is the part of the model most autonomy vendors can't justify to their investors.</p>
+        </div>
+
+        <div class="bridge-card">
+          <div class="number">02 · COMMERCIAL FRAME</div>
+          <div class="pullbig">80% · 100%</div>
+          <h3>Operator cost down, uptime guaranteed in writing.</h3>
+          <p>You pay 80 percent of what an operator costs you today, and you get 100 percent uptime in the contract. When the AI hits something it can't handle, our remote operator drives the machine until it's back in autonomous mode.</p>
+          <p>You don't lose production while we figure it out, because the technology risk stays with us. The same numbers you read on this slide go in the term sheet.</p>
+        </div>
+
+        <div class="bridge-card">
+          <div class="number">03 · VOLVO PARTNERSHIP</div>
+          <h3>Co-developing the wheel-loader integration with Volvo.</h3>
+          <p>Hive is one of three vendors Volvo is evaluating for their global autonomy program, and we're already working with their engineering team on the wheel-loader integration. The goal is that any Volvo dealer in North America can quote Hive on a loader.</p>
+          <p>Three ways to buy: <strong>A.</strong> you own the loader and we retrofit it, <strong>B.</strong> bundled rental with loader plus autonomy plus remote ops in one contract, or <strong>C.</strong> you buy the unit and lease the autonomy. The bundled rental is useful if Lone Wolf timing doesn't line up with your equipment-purchase cycle.</p>
+        </div>
+
+      </div>
+    </div>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">02 / 05</span>
+  </section>
+
+  <!-- SLIDE 3: Your four questions, answered -->
+  <section class="slide dark" data-theme="dark" style="background: var(--navy-deep);">
+    <img src="presentation-assets/mariana/hive-logo-white.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">03 · YOUR CALL QUESTIONS</span>
+    <div class="slide-inner">
+      <div class="eyebrow">FOUR ASKS FROM 7 MAY</div>
+      <h2 class="headline">Starting with the one that matters most: safety.</h2>
+      <p class="subhead">You raised four concerns on the call. Three of them we can answer firmly, and the mining-benchmark one is a real gap we'll own up front.</p>
+
+      <div class="proof-list">
+
+        <div class="proof-item">
+          <span class="qtag">Q1 · SAFETY</span>
+          <strong>Safer than today is the bar, and we have a real regulator who's already validated the approach.</strong>
+          <p>The bar internally is that our operation has to be measurably safer than what you're already running, and nobody gets hurt. We don't compromise on that, even when it costs us a deadline. Safety architecture is four layers running in parallel: the remote and core systems layer handles health monitoring, brake feedback, control logic, and emergency stops; the autonomy layer runs localization, path planning, object detection, geofencing, and a confidence monitor that triggers handover when the model is uncertain; an independent PLd-certified third-party safety system sits underneath that and stops the machine regardless of what the autonomy or remote operator is doing; and operational safety, which we set with your team before the first autonomous cycle, covers speed zones, traffic flow, exclusion zones, and site-specific HSE policy.</p>
+          <p>On the regulator side, Statens Vegvesen (the Norwegian Public Roads Administration) has cleared us to operate autonomously on a public mountain pass at Vikafjellet, including under closed-road winter conditions. That's not a closed test site, it's live public infrastructure. We're working against ISO 3691-4, 17757, 20474, 13849, 13850, and 12100, and we'll walk the full safety case through with your team during the deep-dive.</p>
+        </div>
+
+        <div class="proof-item">
+          <span class="qtag">Q2 · MINING BENCHMARK</span>
+          <strong>We haven't run hard-rock copper, and the economics still work while we close the gap.</strong>
+          <p>We haven't benchmarked at hard-rock copper scale, and we won't pretend otherwise. What we run today is a mix of full production and scaled pilots in aggregates, industrial bulk handling, road tunneling, and snow clearing on public roads. The geometric closest match to a copper re-handling cycle is the aggregate work at Feiring Bruk and Hamar Pukk. On your site we'd start phase one remote-operated, with our team driving the machine while every cycle becomes labeled training data for the model. The 100 percent uptime guarantee runs from the first shift at 80 percent of your current operator cost, so the production economics work whether we're 50 or 95 percent autonomous on any given cycle. We'll agree a joint productivity-tracking method during scoping and report against it monthly.</p>
+        </div>
+
+        <div class="proof-item">
+          <span class="qtag">Q3 · NETWORK AT COPPER ONE</span>
+          <strong>We audit your network before we ship any hardware.</strong>
+          <p>You run Celona private 5G at Copper One, and we ship on Celona-class private 5G inside road tunnels with Veidekke today, which is physically harsher than an open pit. Before any kit lands on your site we'll run a one-week network audit, measuring latency, jitter, packet loss, and coverage at the working faces and along the haul roads. The output is a green-amber-red map of the cells plus a Wi-Fi mesh failover plan for any cell that comes back amber. The latency budget is under 100 ms for supervised autonomy and under 50 ms for full tele-remote, which Celona should hit. Send us your current coverage report and we can run audit assumptions before our next call.</p>
+        </div>
+
+        <div class="proof-item">
+          <span class="qtag">Q4 · ON-SITE SUPPORT</span>
+          <strong>Houston ops handles you 24/7, and we fly to site within a day if something needs hands.</strong>
+          <p>Our engineering team will be on-site at Copper One for two to three weeks during installation and the first SLAM map, with quarterly maintenance passes after that. Day-to-day support runs through the Houston ops center with a single point of contact, and any incident we can't resolve remotely gets a site engineer to Copper One within 24 hours. We agree with you that Moab doesn't have a local autonomy labor pool, which is the point of the Houston-plus-fly-in model — it's how we work around the constraint, not how we hide it.</p>
+        </div>
+
+      </div>
+    </div>
+    <span class="page-num">03 / 05</span>
+  </section>
+
+  <!-- SLIDE 4: Vendor scorecard / Evaluation criteria -->
+  <section class="slide" data-theme="light">
+    <img src="presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">04 · VENDOR SCORECARD</span>
+    <div class="slide-inner">
+      <div class="eyebrow">EVALUATION CRITERIA</div>
+      <h2 class="headline">Six questions to ask every wheel-loader vendor.</h2>
+      <p class="subhead">We've been on the buyer's side of an autonomy evaluation, and these are the questions that separated vendors who could actually run a site from vendors who could run a demo. Ask us first, then send them to the others.</p>
+
+      <div class="score-grid">
+
+        <div class="score-q">
+          <span class="num">01</span>
+          <div class="question">Productive-uptime guarantee in the contract, with financial penalty if missed?</div>
+          <div class="marker">Look for a specific percentage tied to scheduled production hours, with a defined remedy if it's missed. Anything softer than that is marketing.</div>
+        </div>
+
+        <div class="score-q">
+          <span class="num">02</span>
+          <div class="question">When the AI becomes uncertain mid-cycle, what happens in the next five seconds, and who's accountable for the downtime?</div>
+          <div class="marker">The right answer involves a live operator who can pick the cycle up without breaking it. If the machine stops and waits for a call-out, you've bought a stoppage system rather than a production system.</div>
+        </div>
+
+        <div class="score-q">
+          <span class="num">03</span>
+          <div class="question">Where is the 24/7 supervised ops center, and what's the operator-to-machine ratio today?</div>
+          <div class="marker">A real address, actual shift coverage, and a ratio backed by telemetry. A 24/7 ops center is a P&amp;L line that most VC-backed vendors can't justify carrying.</div>
+        </div>
+
+        <div class="score-q">
+          <span class="num">04</span>
+          <div class="question">Productivity from week one, before site mapping and model training are complete?</div>
+          <div class="marker">A real number, backed by a remote-operator fallback that runs from day one. Vendors who need three to six months of mapping before production are selling you a pilot.</div>
+        </div>
+
+        <div class="score-q">
+          <span class="num">05</span>
+          <div class="question">Coexistence with your existing haul autonomy, under your orchestration layer?</div>
+          <div class="marker">A clean yes, plus a defined integration contract with your fleet management system. Look for a vendor who plugs under your mine plan and dispatch via a high-level command API, owns the per-machine work, and leaves orchestration to you. Vendors who want to own the dispatch layer will eventually force you to rip out your haul stack.</div>
+        </div>
+
+        <div class="score-q">
+          <span class="num">06</span>
+          <div class="question">If acquired in the next twelve months, what's the change-of-control commitment to existing customers?</div>
+          <div class="marker">Look for a contractual assignment clause that locks your roadmap and SLA terms through any change of control, plus a source-code escrow option on the safety-critical components. Independent ownership today is a plus, given how much consolidation has happened in this space recently.</div>
+        </div>
+
+      </div>
+
+      <div class="scorecard-footer">
+        <span>Send these to us first, and we'll give you written answers before the next call.</span>
+        <span class="yellow-tag">PARTNERSHIP, NOT PITCH</span>
+      </div>
+    </div>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">04 / 05</span>
+  </section>
+
+  <!-- SLIDE 5: Track record + Next steps -->
+  <section class="slide dark" data-theme="dark" style="background: var(--navy-deep);">
+    <img src="presentation-assets/mariana/hive-logo-white.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">05 · LIVE TODAY · NEXT MOVES</span>
+    <div class="slide-inner">
+      <div class="eyebrow">WHERE WE RUN TODAY</div>
+      <h2 class="headline">Live sites, scaled pilots, and the <span class="accent">three things we'd do next.</span></h2>
+
+      <div class="close-grid">
+
+        <div class="customer-list">
+          <div class="customer-row">
+            <div class="customer-thumb" style="background-image: url('presentation-assets/mariana/yara-bulk-still.jpg');"></div>
+            <div class="customer-meta">
+              <strong>Yara · Herøya</strong>
+              <span>Industrial bulk handling at a regulated chemical plant, zero recordable incidents to date. This is the safety case we'd anchor Copper One against.</span>
+            </div>
+          </div>
+          <div class="customer-row">
+            <div class="customer-thumb" style="background-image: url('presentation-assets/mariana/veidekke-tunnel-still.jpg');"></div>
+            <div class="customer-meta">
+              <strong>Veidekke · Road tunneling</strong>
+              <span>Confined-space loading on a road project, running on Telia's private 5G inside the tunnel. The network conditions are physically harsher than your open pit.</span>
+            </div>
+          </div>
+          <div class="customer-row">
+            <div class="customer-thumb" style="background-image: url('presentation-assets/mariana/miljo-15.jpg');"></div>
+            <div class="customer-meta">
+              <strong>Hamar Pukk · Aggregate quarry</strong>
+              <span>Continuous shift-cycle loading on a Volvo L-series, closer to a stockpile-to-feed cycle than to direct truck loading.</span>
+            </div>
+          </div>
+          <div class="customer-row">
+            <div class="customer-thumb" style="background-image: url('presentation-assets/mariana/feiring-quarry-still.jpg');"></div>
+            <div class="customer-meta">
+              <strong>Feiring Bruk · Aggregate quarry, HGV loading</strong>
+              <span>Different cycle from Hamar Pukk — we load heavy goods vehicles for road transport. The closer geometric match if Lone Wolf scales toward direct truck loading.</span>
+            </div>
+          </div>
+          <div class="customer-row">
+            <div class="customer-thumb" style="background-image: url('presentation-assets/mariana/presis-vikafjellet-still.jpg');"></div>
+            <div class="customer-meta">
+              <strong>Statens Vegvesen · Vikafjellet</strong>
+              <span>Norwegian Public Roads Administration has cleared us to run autonomously on a live mountain pass, including under closed-road winter conditions.</span>
+            </div>
+          </div>
+          <div class="customer-row">
+            <div class="customer-thumb" style="background-image: url('presentation-assets/mariana/miljo-6.jpg');"></div>
+            <div class="customer-meta">
+              <strong>Presis Veidrift · Winter ops</strong>
+              <span>Snow clearing in real winter conditions on the same supervised model, with edge cases sharper than copper.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="next-steps">
+          <div class="ns-title">Three next moves</div>
+
+          <div class="ns-item">
+            <span class="num">01</span>
+            <div class="text"><strong>Sixty-minute technical deep-dive,</strong> where we walk this deck with our engineering team, run the network audit assumptions live with your IT, and scope the re-handling pilot. Week of 19 May works on our side.</div>
+          </div>
+
+          <div class="ns-item">
+            <span class="num">02</span>
+            <div class="text"><strong>Term sheet draft,</strong> with a commercial frame for the Copper One re-handling phase and a defined bridge clause into Lone Wolf. Signed before we put hands on a machine.</div>
+          </div>
+
+          <div class="ns-item">
+            <span class="num">03</span>
+            <div class="text"><strong>Houston ops tour and a Hive team at Copper One,</strong> so you see the operating model in person before the Lone Wolf vendor decision, and we can scope the first retrofit window on your pit.</div>
+          </div>
+
+          <div class="contact-block">
+            <strong>Ronny Liverød</strong> · VP Heavy Machinery<br>
+            Hive Autonomy · Kristiansand &amp; Houston (standing up) · ronny.liverod@hiveautonomy.no
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <span class="page-num">05 / 05</span>
+  </section>
+
+</div>
+
+<div class="nav">
+  <button onclick="prev()">←</button>
+  <button onclick="next()">→</button>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let i = 0;
+function show(n) {
+  i = (n + slides.length) % slides.length;
+  slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+}
+function next() { show(i + 1); }
+function prev() { show(i - 1); }
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') next();
+  if (e.key === 'ArrowLeft') prev();
+  if (/^[1-5]$/.test(e.key)) show(parseInt(e.key, 10) - 1);
+});
+
+/* Static mode for PDF export */
+const params = new URLSearchParams(location.search);
+if (params.get('static') === '1') {
+  document.body.classList.add('static');
+  const slideIdx = parseInt(params.get('slide') || '1', 10) - 1;
+  slides.forEach((s, idx) => s.classList.toggle('active', idx === slideIdx));
+}
+</script>
+</body>
+</html>
