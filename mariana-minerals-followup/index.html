@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hive Autonomy · Mariana Minerals Partnership v6</title>
+<title>Hive Autonomy · Mariana Minerals Partnership v7 (all alternatives)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -784,6 +784,121 @@ body.static .nav, body.static .tap-zone { display: none !important; }
 .video-modal .close-btn:hover { transform: scale(1.06); }
 body.static .video-modal, body.static .play-overlay { display: none !important; }
 
+/* Alternative banner */
+.alt-banner {
+  position: absolute;
+  top: clamp(24px, 3vh, 40px);
+  right: clamp(120px, 12vw, 180px);
+  z-index: 5;
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 14px; border-radius: 16px;
+  background: var(--yellow); color: var(--navy-deep);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+}
+.alt-banner .alt-dot { width: 6px; height: 6px; border-radius: 3px; background: var(--navy-deep); }
+
+/* Competitive matrix */
+.matrix-wrap { margin-top: clamp(14px, 1.6vh, 22px); }
+.matrix-grid {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr 1fr 1fr 1.15fr;
+  gap: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: white;
+}
+.matrix-grid .m-cell {
+  padding: clamp(9px, 1.05vh, 13px) clamp(12px, 1.2vw, 18px);
+  border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  font-size: clamp(12px, 0.92vw, 14.5px); display: flex; align-items: center; line-height: 1.32; color: var(--ink);
+}
+.matrix-grid .m-cell:nth-child(5n) { border-right: none; }
+.matrix-grid > .m-cell:nth-last-child(-n+5) { border-bottom: none; }
+.matrix-grid .m-head {
+  background: var(--navy); color: white; font-weight: 700;
+  font-size: clamp(11px, 0.85vw, 13px); letter-spacing: 0.08em; text-transform: uppercase;
+  padding: clamp(11px, 1.3vh, 15px) clamp(12px, 1.2vw, 18px); justify-content: center; text-align: center;
+}
+.matrix-grid .m-head.hive { background: var(--navy-deep); color: var(--yellow); border-left: 3px solid var(--yellow); }
+.matrix-grid .m-criterion {
+  background: var(--bg-soft); font-weight: 600; color: var(--navy);
+  font-size: clamp(12.5px, 0.95vw, 15px); flex-direction: column; align-items: flex-start; justify-content: center;
+}
+.matrix-grid .m-criterion small {
+  display: block; font-weight: 400; color: var(--ink-60);
+  font-size: clamp(10.5px, 0.78vw, 12px); margin-top: 2px; letter-spacing: 0; text-transform: none;
+}
+.matrix-grid .m-val { justify-content: center; text-align: center; }
+.matrix-grid .m-hive {
+  background: rgba(74,144,217,0.08); color: var(--navy); font-weight: 700;
+  border-left: 3px solid var(--yellow); justify-content: center; text-align: center;
+}
+.matrix-grid .m-cell .check { color: #1e7c3c; font-weight: 800; font-size: 15px; }
+.matrix-grid .m-cell .x { color: #b94545; font-weight: 800; font-size: 14px; }
+.matrix-grid .m-cell .partial { color: #b8770a; font-weight: 600; font-size: 12.5px; }
+.matrix-grid .m-cell .dash { color: var(--ink-40); font-size: 14px; }
+.matrix-foot {
+  margin-top: clamp(12px, 1.4vh, 18px);
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: clamp(12px, 0.9vw, 14px); color: var(--ink-60); gap: 24px;
+}
+.matrix-foot .legend { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; font-size: 12px; }
+.matrix-foot .legend span { display: inline-flex; align-items: center; gap: 5px; }
+.matrix-foot .yellow-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); font-weight: 700; }
+
+/* OEM flexibility slide */
+.oem-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr 1fr;
+  gap: clamp(16px, 2vw, 28px);
+  margin-top: clamp(22px, 2.6vh, 36px);
+}
+.oem-statement {
+  display: flex; flex-direction: column; gap: 14px;
+  padding: clamp(22px, 2.6vh, 30px) clamp(20px, 2vw, 28px);
+  background: rgba(255,255,255,0.06);
+  border-left: 3px solid var(--yellow);
+  border-radius: 4px;
+}
+.oem-statement .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  color: var(--yellow); text-transform: uppercase;
+}
+.oem-statement strong {
+  font-size: clamp(17px, 1.4vw, 22px); font-weight: 800;
+  color: white; letter-spacing: -0.015em; line-height: 1.22;
+}
+.oem-statement p {
+  font-size: clamp(13.5px, 1vw, 16px); line-height: 1.55;
+  color: rgba(255,255,255,0.82);
+}
+.oem-card {
+  padding: clamp(24px, 2.8vh, 34px) clamp(20px, 1.8vw, 26px);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 8px;
+  display: flex; flex-direction: column; gap: 8px; position: relative;
+}
+.oem-card.live { background: rgba(74,144,217,0.14); border-color: var(--cyan); }
+.oem-card .badge {
+  position: absolute; top: 12px; right: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+  padding: 3px 8px; border-radius: 10px; text-transform: uppercase;
+}
+.oem-card.live .badge { background: var(--cyan); color: white; }
+.oem-card.active .badge { background: var(--yellow); color: var(--navy-deep); }
+.oem-card.next .badge { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.72); }
+.oem-card .brand {
+  font-size: clamp(22px, 1.9vw, 30px); font-weight: 800;
+  color: white; letter-spacing: -0.02em;
+}
+.oem-card .state { font-size: clamp(12.5px, 0.95vw, 15px); color: rgba(255,255,255,0.78); line-height: 1.5; }
+.oem-card .detail {
+  font-size: clamp(11.5px, 0.85vw, 13.5px); color: rgba(255,255,255,0.55);
+  margin-top: 6px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.10); line-height: 1.5;
+}
+
 /* PDF / static mode */
 body.static .slide * {
   opacity: 1 !important;
@@ -821,17 +936,18 @@ body.static .slide.active {
     <div class="hero-footer">
       Ronny Liverød <span class="sep">·</span> VP Heavy Machinery <span class="sep">·</span> Hive Autonomy
     </div>
-    <span class="page-num">01 / 05</span>
+    <span class="page-num">01 / 09</span>
   </section>
 
-  <!-- SLIDE 2: Operational model fits Mariana — 3 cards with parallel pull-numbers -->
+  <!-- SLIDE 2A: Operational model — ALT 1 BALANCED (Immediate ROI 80%/100%) -->
   <section class="slide" data-theme="light">
     <img src="presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
     <span class="deck-tag">02 · OPERATIONAL MODEL</span>
+    <div class="alt-banner"><span class="alt-dot"></span> ALT 1 of 3 · BALANCED</div>
     <div class="slide-inner">
       <div class="eyebrow">WHY THE MODEL FITS</div>
       <h2 class="headline">An operating model built around how you actually run a pit.</h2>
-      <p class="subhead">The retrofit kit is the easy part. What separates us is everything wrapped around it, from the ops center watching the machine, to the contract that guarantees uptime, to the OEM partnership that makes the equipment easy to source.</p>
+      <p class="subhead">The retrofit kit is the easy part. What separates us is everything wrapped around it — the ops center watching the machine, the contract that guarantees uptime, and the OEM partnership that makes the equipment easy to source.</p>
 
       <div class="bridge-grid">
 
@@ -864,7 +980,139 @@ body.static .slide.active {
 
       </div>
     </div>
-    <span class="page-num" style="color: rgba(27,58,92,0.42);">02 / 05</span>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">02 / 09</span>
+  </section>
+
+  <!-- SLIDE 2B: Operational model — ALT 2 UPTIME-FIRST -->
+  <section class="slide" data-theme="light">
+    <img src="presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">02 · OPERATIONAL MODEL</span>
+    <div class="alt-banner"><span class="alt-dot"></span> ALT 2 of 3 · UPTIME-FIRST</div>
+    <div class="slide-inner">
+      <div class="eyebrow">WHY THE MODEL FITS</div>
+      <h2 class="headline">An operating model built around how you actually run a pit.</h2>
+      <p class="subhead">The retrofit kit is the easy part. What separates us is everything wrapped around it — the ops center watching the machine, the contract that guarantees uptime, and the OEM partnership that makes the equipment easy to source.</p>
+
+      <div class="bridge-grid">
+
+        <div class="bridge-card">
+          <div class="number">01 · SUPERVISED OPS</div>
+          <div class="pullbig">24/7 · <span class="yellow">KRS+HOU</span></div>
+          <div class="pull-caption">Always-on, two time zones</div>
+          <h3>An ops center watching the machine, around the clock.</h3>
+          <p>Kristiansand supervises every Hive machine in operation today. Houston stands up this year, working alongside one of the largest energy operators in Texas, so the Americas runs on its own clock.</p>
+          <p>The 100 percent uptime guarantee runs through this center. It's the part of the model most autonomy vendors can't justify to their investors.</p>
+        </div>
+
+        <div class="bridge-card">
+          <div class="number">02 · COMMERCIAL FRAME</div>
+          <div class="pullbig">DAY 1 · <span class="yellow">100%</span></div>
+          <div class="pull-caption">Live from day one · uptime in contract</div>
+          <h3>Immediate, always-on uptime guaranteed in writing.</h3>
+          <p>You get 100 percent uptime in the contract from the first shift. When the AI hits something it can't handle, our supervising operator takes over the machine until it's back in autonomous mode. You don't lose production while we figure it out.</p>
+          <p>The technology risk stays with us. Commercial terms — including the cost-saving model — are set in the term sheet, with discounting that scales as the fleet grows.</p>
+        </div>
+
+        <div class="bridge-card">
+          <div class="number">03 · VOLVO PARTNERSHIP</div>
+          <div class="pullbig">1 of 3 · <span class="yellow">A·B·C</span></div>
+          <div class="pull-caption">OEM shortlist · three ways to buy</div>
+          <h3>One of three vendors Volvo is evaluating for global autonomy.</h3>
+          <p>Hive is one of three vendors Volvo is evaluating for their global autonomy program, and we're already co-developing the wheel-loader integration with their engineering team. The goal: any Volvo dealer in North America can quote Hive on a loader, with OEM-backed warranty and service in the same contract.</p>
+          <p><strong>A.</strong> you own the loader, we retrofit. <strong>B.</strong> bundled rental, loader plus autonomy plus supervised ops in one contract. <strong>C.</strong> you buy, lease the autonomy.</p>
+        </div>
+
+      </div>
+    </div>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">03 / 09</span>
+  </section>
+
+  <!-- SLIDE 2C: Operational model — ALT 3 COST-FIRST -->
+  <section class="slide" data-theme="light">
+    <img src="presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">02 · OPERATIONAL MODEL</span>
+    <div class="alt-banner"><span class="alt-dot"></span> ALT 3 of 3 · COST-FIRST</div>
+    <div class="slide-inner">
+      <div class="eyebrow">WHY THE MODEL FITS</div>
+      <h2 class="headline">An operating model built around how you actually run a pit.</h2>
+      <p class="subhead">The retrofit kit is the easy part. What separates us is everything wrapped around it — the ops center watching the machine, the contract that guarantees uptime, and the OEM partnership that makes the equipment easy to source.</p>
+
+      <div class="bridge-grid">
+
+        <div class="bridge-card">
+          <div class="number">01 · SUPERVISED OPS</div>
+          <div class="pullbig">24/7 · <span class="yellow">KRS+HOU</span></div>
+          <div class="pull-caption">Always-on, two time zones</div>
+          <h3>An ops center watching the machine, around the clock.</h3>
+          <p>Kristiansand supervises every Hive machine in operation today. Houston stands up this year, working alongside one of the largest energy operators in Texas, so the Americas runs on its own clock.</p>
+          <p>The 100 percent uptime guarantee runs through this center. It's the part of the model most autonomy vendors can't justify to their investors.</p>
+        </div>
+
+        <div class="bridge-card">
+          <div class="number">02 · COMMERCIAL FRAME</div>
+          <div class="pullbig">20% · <span class="yellow">100%</span></div>
+          <div class="pull-caption">Immediate cost reduction · uptime guarantee</div>
+          <h3>20% immediate cost reduction, with uptime guaranteed in writing.</h3>
+          <p>You get a 20 percent cost reduction against your current operator line from the first shift, and 100 percent uptime in the contract. When the AI hits something it can't handle, our supervising operator takes over the machine until it's back in autonomous mode.</p>
+          <p>The savings curve scales with volume — Lone Wolf-class fleets see deeper discounts. The technology risk stays with us, the same numbers go in the term sheet.</p>
+        </div>
+
+        <div class="bridge-card">
+          <div class="number">03 · VOLVO PARTNERSHIP</div>
+          <div class="pullbig">1 of 3 · <span class="yellow">A·B·C</span></div>
+          <div class="pull-caption">OEM shortlist · three ways to buy</div>
+          <h3>One of three vendors Volvo is evaluating for global autonomy.</h3>
+          <p>Hive is one of three vendors Volvo is evaluating for their global autonomy program, and we're already co-developing the wheel-loader integration with their engineering team. The goal: any Volvo dealer in North America can quote Hive on a loader, with OEM-backed warranty and service in the same contract.</p>
+          <p><strong>A.</strong> you own the loader, we retrofit. <strong>B.</strong> bundled rental, loader plus autonomy plus supervised ops in one contract. <strong>C.</strong> you buy, lease the autonomy.</p>
+        </div>
+
+      </div>
+    </div>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">04 / 09</span>
+  </section>
+
+  <!-- SLIDE 3 (NEW): OEM Flexibility — today Volvo, tomorrow any machine -->
+  <section class="slide dark" data-theme="dark" style="background: var(--navy-deep);">
+    <img src="presentation-assets/mariana/hive-logo-white.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">03 · OEM FLEXIBILITY</span>
+    <div class="slide-inner" style="max-width: 1400px;">
+      <div class="eyebrow">EQUIPMENT-AGNOSTIC BY DESIGN</div>
+      <h2 class="headline">Today Volvo. Tomorrow whichever OEM you choose.</h2>
+      <p class="subhead">Hive is platform-first. Volvo is the production-ready first OEM. Komatsu and Hitachi are in active dialogue. The question is which to prioritise next, not whether we can do it.</p>
+
+      <div class="oem-grid">
+
+        <div class="oem-statement">
+          <span class="label">HOW WE THINK ABOUT IT</span>
+          <strong>The OEMs are open. The dealers are reachable.</strong>
+          <p>In the Nordics we've seen this first-hand: dealer networks are accessible, OEMs are willing partners, and integration timelines are weeks once an OEM is committed. For us this is a capacity-allocation question — where we put engineering capacity first.</p>
+          <p>If Lone Wolf lands on a different brand than Copper One, we'll be on that platform. Tell us what you're buying, and we'll prioritise.</p>
+        </div>
+
+        <div class="oem-card live">
+          <span class="badge">Live today</span>
+          <div class="brand">Volvo</div>
+          <div class="state">Production-ready integration. L60–L350, model year 2018+, retrofit on existing fleet or bundled rental through the dealer network.</div>
+          <div class="detail">One of three vendors Volvo is evaluating for global autonomy. Co-developing the wheel-loader integration with their engineering team today.</div>
+        </div>
+
+        <div class="oem-card active">
+          <span class="badge">In dialogue</span>
+          <div class="brand">Komatsu</div>
+          <div class="state">Active conversations with Komatsu on platform integration. Wheel-loader and adjacent equipment within scope.</div>
+          <div class="detail">Komatsu already runs FrontRunner on haul trucks, and is open to additional autonomy partners on the loader side.</div>
+        </div>
+
+        <div class="oem-card active">
+          <span class="badge">In dialogue</span>
+          <div class="brand">Hitachi</div>
+          <div class="state">Active conversations with Hitachi Construction Machinery. Wheel-loader and ZW-series scope on the table.</div>
+          <div class="detail">Hitachi has been public about supervised-autonomy ambition, including a recent Teleo collaboration demo. Open to broader partnerships.</div>
+        </div>
+
+      </div>
+    </div>
+    <span class="page-num">05 / 09</span>
   </section>
 
   <!-- SLIDE 3: How we run safely — safety anchor + 3 supporting cards -->
@@ -933,13 +1181,14 @@ body.static .slide.active {
 
       </div>
     </div>
-    <span class="page-num">03 / 05</span>
+    <span class="page-num">06 / 09</span>
   </section>
 
-  <!-- SLIDE 4: Vendor scorecard / Evaluation criteria -->
+  <!-- SLIDE 7A: Vendor scorecard / Evaluation criteria — ALT 1 QUESTIONS -->
   <section class="slide" data-theme="light">
     <img src="presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
-    <span class="deck-tag">04 · VENDOR SCORECARD</span>
+    <span class="deck-tag">07 · VENDOR SCORECARD</span>
+    <div class="alt-banner"><span class="alt-dot"></span> ALT 1 of 2 · QUESTIONS</div>
     <div class="slide-inner">
       <div class="eyebrow">EVALUATION CRITERIA</div>
       <h2 class="headline">Six questions to ask every wheel-loader vendor.</h2>
@@ -990,7 +1239,90 @@ body.static .slide.active {
         <span class="yellow-tag">PARTNERSHIP, NOT PITCH</span>
       </div>
     </div>
-    <span class="page-num" style="color: rgba(27,58,92,0.42);">04 / 05</span>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">07 / 09</span>
+  </section>
+
+  <!-- SLIDE 7B: Competitive matrix — ALT 2 MATRIX -->
+  <section class="slide" data-theme="light">
+    <img src="presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">07 · COMPETITIVE LANDSCAPE</span>
+    <div class="alt-banner"><span class="alt-dot"></span> ALT 2 of 2 · MATRIX</div>
+    <div class="slide-inner" style="max-width: 1500px;">
+      <div class="eyebrow">HOW THE FIELD COMPARES</div>
+      <h2 class="headline">The criteria that separate production from demo.</h2>
+      <p class="subhead">A view across the four operating models you'll evaluate. We scored against generic categories, not named vendors. Ask each one of them directly.</p>
+
+      <div class="matrix-wrap">
+        <div class="matrix-grid">
+
+          <div class="m-cell m-head"></div>
+          <div class="m-cell m-head">Manual operator</div>
+          <div class="m-cell m-head">Pure autonomy</div>
+          <div class="m-cell m-head">Pure teleop</div>
+          <div class="m-cell m-head hive">Hive supervised</div>
+
+          <div class="m-cell m-criterion">Productive-uptime guarantee in writing<small>Percentage tied to scheduled hours, with remedy</small></div>
+          <div class="m-cell m-val"><span class="partial">Best-effort</span></div>
+          <div class="m-cell m-val"><span class="x">✗</span></div>
+          <div class="m-cell m-val"><span class="x">✗</span></div>
+          <div class="m-cell m-hive"><span class="check">✓</span> 100% in contract</div>
+
+          <div class="m-cell m-criterion">AI-uncertainty fallback in 5 seconds<small>Who takes the seat when the model defers</small></div>
+          <div class="m-cell m-val"><span class="dash">n/a</span></div>
+          <div class="m-cell m-val"><span class="partial">Stop &amp; wait</span></div>
+          <div class="m-cell m-val"><span class="partial">Operator-driven</span></div>
+          <div class="m-cell m-hive"><span class="check">✓</span> Operator picks up cycle</div>
+
+          <div class="m-cell m-criterion">24/7 supervised ops center, real ratio<small>P&amp;L line, not slideware</small></div>
+          <div class="m-cell m-val"><span class="dash">n/a</span></div>
+          <div class="m-cell m-val"><span class="x">✗</span></div>
+          <div class="m-cell m-val"><span class="partial">Some</span></div>
+          <div class="m-cell m-hive"><span class="check">✓</span> Kristiansand + Houston</div>
+
+          <div class="m-cell m-criterion">Productive from week one<small>Without mapping or model training first</small></div>
+          <div class="m-cell m-val"><span class="check">✓</span></div>
+          <div class="m-cell m-val"><span class="x">✗ (3–6 mo)</span></div>
+          <div class="m-cell m-val"><span class="check">✓</span></div>
+          <div class="m-cell m-hive"><span class="check">✓</span> Supervised fallback day one</div>
+
+          <div class="m-cell m-criterion">Coexists under your orchestration<small>FMS integration, not dispatch ownership</small></div>
+          <div class="m-cell m-val"><span class="check">✓</span></div>
+          <div class="m-cell m-val"><span class="x">Wants dispatch</span></div>
+          <div class="m-cell m-val"><span class="partial">Limited</span></div>
+          <div class="m-cell m-hive"><span class="check">✓</span> Plugs under your stack</div>
+
+          <div class="m-cell m-criterion">OEM-backed equipment path<small>Volvo today, Komatsu and Hitachi in dialogue</small></div>
+          <div class="m-cell m-val"><span class="dash">—</span></div>
+          <div class="m-cell m-val"><span class="partial">OEM-locked</span></div>
+          <div class="m-cell m-val"><span class="x">✗</span></div>
+          <div class="m-cell m-hive"><span class="check">✓</span> Multi-OEM roadmap</div>
+
+          <div class="m-cell m-criterion">Operator-cost-aligned pricing<small>You pay what an operator costs, less 20%</small></div>
+          <div class="m-cell m-val"><span class="dash">—</span></div>
+          <div class="m-cell m-val"><span class="x">CapEx + sub</span></div>
+          <div class="m-cell m-val"><span class="partial">Subscription</span></div>
+          <div class="m-cell m-hive"><span class="check">✓</span> 80% of operator cost</div>
+
+          <div class="m-cell m-criterion">Independent ownership today<small>No acquired-parent risk on contract</small></div>
+          <div class="m-cell m-val"><span class="dash">—</span></div>
+          <div class="m-cell m-val"><span class="x">Most acquired</span></div>
+          <div class="m-cell m-val"><span class="x">Most acquired</span></div>
+          <div class="m-cell m-hive"><span class="check">✓</span> Independent</div>
+
+        </div>
+
+        <div class="matrix-foot">
+          <span class="legend">
+            <span><span class="check">✓</span> meets the bar</span>
+            <span><span class="partial">limited</span></span>
+            <span><span class="x">does not meet</span></span>
+            <span><span class="dash">—</span> not applicable</span>
+          </span>
+          <span class="yellow-tag">ASK EACH VENDOR DIRECTLY</span>
+        </div>
+      </div>
+    </div>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">08 / 09</span>
   </section>
 
   <!-- SLIDE 5: Track record + Next moves -->
@@ -1083,7 +1415,7 @@ body.static .slide.active {
 
       </div>
     </div>
-    <span class="page-num">05 / 05</span>
+    <span class="page-num">09 / 09</span>
   </section>
 
 </div>
