@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hive Autonomy · Mariana Minerals Partnership v4</title>
+<title>Hive Autonomy · Mariana Minerals Partnership v5</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -693,6 +693,97 @@ h2.headline .accent { color: var(--yellow); }
 }
 body.static .nav, body.static .tap-zone { display: none !important; }
 
+/* Slide 5 — clickable thumbnail with play overlay */
+.customer-row { cursor: pointer; transition: transform 180ms ease, background 180ms ease; border-radius: 6px; padding: 6px; margin: -6px; }
+.customer-row:hover { background: rgba(74,144,217,0.10); transform: translateX(4px); }
+.customer-row:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.customer-thumb { position: relative; }
+.play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(11,26,44,0.25), rgba(11,26,44,0.50));
+  color: white;
+  font-size: 22px;
+  opacity: 0.85;
+  border-radius: inherit;
+  transition: opacity 180ms ease, background 180ms ease;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+.customer-row:hover .play-overlay { opacity: 1; background: linear-gradient(135deg, rgba(74,144,217,0.55), rgba(11,26,44,0.40)); }
+
+/* Video modal */
+.video-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(11,26,44,0.95);
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 4vh 4vw;
+  cursor: pointer;
+}
+.video-modal.open { display: flex; }
+.video-modal-inner {
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.video-modal video {
+  width: 100%;
+  max-height: 78vh;
+  border-radius: 8px;
+  background: black;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+}
+.video-modal-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: white;
+  padding: 0 6px;
+}
+.video-modal-meta .vm-title {
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.018em;
+  color: white;
+}
+.video-modal-meta .vm-sub {
+  font-size: clamp(14px, 1.1vw, 17px);
+  color: rgba(255,255,255,0.72);
+  font-weight: 400;
+}
+.video-modal .close-btn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  background: var(--yellow);
+  border: none;
+  color: var(--navy-deep);
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  transition: transform 150ms ease;
+}
+.video-modal .close-btn:hover { transform: scale(1.06); }
+body.static .video-modal, body.static .play-overlay { display: none !important; }
+
 /* PDF / static mode */
 body.static .slide * {
   opacity: 1 !important;
@@ -757,18 +848,18 @@ body.static .slide.active {
           <div class="number">02 · COMMERCIAL FRAME</div>
           <div class="pullbig">80% · <span class="yellow">100%</span></div>
           <div class="pull-caption">Operator cost · uptime guarantee</div>
-          <h3>Operator cost down, uptime guaranteed in writing.</h3>
-          <p>You pay 80 percent of what an operator costs you today, and you get 100 percent uptime in the contract. When the AI hits something it can't handle, our supervising operator takes over the machine until it's back in autonomous mode.</p>
+          <h3>Immediate ROI, with uptime guaranteed in writing.</h3>
+          <p>You pay 80 percent of what an operator costs you today, and you get 100 percent uptime in the contract. The 20 percent saving lands from the first shift. When the AI hits something it can't handle, our supervising operator takes over the machine until it's back in autonomous mode.</p>
           <p>The technology risk stays with us. The same numbers you read here go in the term sheet.</p>
         </div>
 
         <div class="bridge-card">
           <div class="number">03 · VOLVO PARTNERSHIP</div>
-          <div class="pullbig">1 of 3 · <span class="yellow">A·B·C</span></div>
-          <div class="pull-caption">OEM shortlist · three ways to buy</div>
-          <h3>Co-developing the wheel-loader integration with Volvo.</h3>
-          <p>Hive is one of three vendors Volvo is evaluating for their global autonomy program, and we're already co-developing the wheel-loader integration with their engineering team. The goal: any Volvo dealer in North America can quote Hive on a loader.</p>
-          <p><strong>A.</strong> you own the loader, we retrofit. <strong>B.</strong> bundled rental, loader plus autonomy plus remote ops in one contract. <strong>C.</strong> you buy, lease the autonomy.</p>
+          <div class="pullbig">JOINT · <span class="yellow">A·B·C</span></div>
+          <div class="pull-caption">Joint GTM · three ways to buy</div>
+          <h3>A close collaborator of Volvo on a joint global GTM for autonomy.</h3>
+          <p>Hive is a close collaborator of Volvo, working on a joint global GTM strategy for autonomy solutions on their wheel-loader platform. The goal: any Volvo dealer in North America can quote Hive on a loader, with OEM-backed warranty and service in the same contract.</p>
+          <p><strong>A.</strong> you own the loader, we retrofit. <strong>B.</strong> bundled rental, loader plus autonomy plus supervised ops in one contract. <strong>C.</strong> you buy, lease the autonomy.</p>
         </div>
 
       </div>
@@ -859,37 +950,37 @@ body.static .slide.active {
         <div class="score-q">
           <span class="num">01</span>
           <div class="question">Productive-uptime guarantee in the contract, with financial penalty if missed?</div>
-          <div class="marker">Look for a specific percentage tied to scheduled production hours, with a defined remedy if it's missed. Anything softer than that is marketing.</div>
+          <div class="marker">A specific percentage tied to scheduled production hours, with a defined remedy if missed.</div>
         </div>
 
         <div class="score-q">
           <span class="num">02</span>
           <div class="question">When the AI gets uncertain mid-cycle, what happens in the next five seconds, and who owns the downtime?</div>
-          <div class="marker">The right answer involves a live operator who picks the cycle up without breaking it. If the machine stops and waits for a call-out, you've bought a stoppage system rather than a production system.</div>
+          <div class="marker">A live operator picks the cycle up without breaking it. Stop-and-wait means you bought a stoppage system.</div>
         </div>
 
         <div class="score-q">
           <span class="num">03</span>
           <div class="question">Where is the 24/7 supervised ops center, and what's the operator-to-machine ratio today?</div>
-          <div class="marker">A real address, actual shift coverage, and a ratio backed by telemetry. A 24/7 ops center is a P&amp;L line that most VC-backed vendors can't justify carrying.</div>
+          <div class="marker">A real address, real shift coverage, ratio backed by telemetry. Most VC-backed vendors can't carry this P&amp;L line.</div>
         </div>
 
         <div class="score-q">
           <span class="num">04</span>
           <div class="question">Productivity from week one, before site mapping and model training are complete?</div>
-          <div class="marker">A real number, backed by a supervising-operator fallback that runs from day one. Vendors who need three to six months of mapping before production are selling you a pilot.</div>
+          <div class="marker">A real number backed by a supervising-operator fallback that runs from day one. Otherwise it's a pilot, not production.</div>
         </div>
 
         <div class="score-q">
           <span class="num">05</span>
           <div class="question">Coexistence with your existing haul autonomy, under your orchestration layer?</div>
-          <div class="marker">A clean yes, plus a defined integration contract with your fleet management system. Look for a vendor who plugs under your mine plan and dispatch via a high-level command API, owns the per-machine work, and leaves orchestration to you. Vendors who want the dispatch layer will eventually force you to rip out your haul stack.</div>
+          <div class="marker">A clean yes, plus an integration contract with your FMS. Vendors who want dispatch will force you to rip out your haul stack.</div>
         </div>
 
         <div class="score-q">
           <span class="num">06</span>
           <div class="question">If acquired in the next twelve months, what's the change-of-control commitment to existing customers?</div>
-          <div class="marker">Look for a contractual assignment clause that locks your roadmap and SLA through any change of control, plus a source-code escrow option on the safety-critical components. Independent ownership today is a plus, given how much consolidation has happened in this space recently.</div>
+          <div class="marker">An assignment clause locking roadmap and SLA through change of control, plus source-code escrow on safety-critical components.</div>
         </div>
 
       </div>
@@ -913,29 +1004,29 @@ body.static .slide.active {
       <div class="close-stack">
 
         <div class="customer-grid">
-          <div class="customer-row">
-            <div class="customer-thumb" style="background-image: url('presentation-assets/mariana/yara-bulk-still.jpg');"></div>
+          <div class="customer-row" onclick="openVideo('yara-bulk.mp4','Yara · Herøya','Industrial bulk handling at a regulated chemical plant.')" tabindex="0" role="button" aria-label="Play Yara video">
+            <div class="customer-thumb" style="background-image: url('presentation-assets/mariana/yara-bulk-still.jpg');"><div class="play-overlay">▶</div></div>
             <div class="customer-meta">
               <strong>Yara · Herøya</strong>
               <span>Industrial bulk handling at a regulated chemical plant, zero recordable incidents to date. The safety case we'd anchor Copper One against.</span>
             </div>
           </div>
-          <div class="customer-row">
-            <div class="customer-thumb" style="background-image: url('presentation-assets/mariana/veidekke-tunnel-still.jpg');"></div>
+          <div class="customer-row" onclick="openVideo('veidekke-tunnel.mp4','Veidekke · Railway tunneling','Confined-space loading inside a railway tunnel on private 5G.')" tabindex="0" role="button" aria-label="Play Veidekke video">
+            <div class="customer-thumb" style="background-image: url('presentation-assets/mariana/veidekke-tunnel-still.jpg');"><div class="play-overlay">▶</div></div>
             <div class="customer-meta">
               <strong>Veidekke · Railway tunneling</strong>
               <span>Confined-space loading on a railway tunnel project, running on private 5G inside the tunnel. The network conditions are physically harsher than your open pit.</span>
             </div>
           </div>
-          <div class="customer-row">
-            <div class="customer-thumb" style="background-image: url('presentation-assets/mariana/feiring-quarry-still.jpg');"></div>
+          <div class="customer-row" onclick="openVideo('feiring-quarry.mp4','Hamar Pukk · Loading trucks','Continuous shift-cycle truck loading on a Volvo L-series.')" tabindex="0" role="button" aria-label="Play Hamar Pukk video">
+            <div class="customer-thumb" style="background-image: url('presentation-assets/mariana/feiring-quarry-still.jpg');"><div class="play-overlay">▶</div></div>
             <div class="customer-meta">
               <strong>Hamar Pukk · Loading trucks</strong>
               <span>Continuous shift-cycle truck loading on a Volvo L-series at an aggregate quarry. The closest cycle analog we run today to copper re-handling.</span>
             </div>
           </div>
-          <div class="customer-row">
-            <div class="customer-thumb" style="background-image: url('presentation-assets/mariana/presis-vikafjellet-still.jpg');"></div>
+          <div class="customer-row" onclick="openVideo('presis-vikafjellet.mp4','Statens Vegvesen · Vikafjellet','Autonomous operation on a live Norwegian mountain pass.')" tabindex="0" role="button" aria-label="Play Vikafjellet video">
+            <div class="customer-thumb" style="background-image: url('presentation-assets/mariana/presis-vikafjellet-still.jpg');"><div class="play-overlay">▶</div></div>
             <div class="customer-meta">
               <strong>Statens Vegvesen · Vikafjellet</strong>
               <span>Norwegian Public Roads has cleared us to run autonomously on a live mountain pass, including under closed-road winter conditions.</span>
@@ -1000,6 +1091,17 @@ body.static .slide.active {
 <div class="tap-zone left" onclick="prev()" aria-label="Previous slide"></div>
 <div class="tap-zone right" onclick="next()" aria-label="Next slide"></div>
 
+<div class="video-modal" id="videoModal" onclick="closeVideo(event)" role="dialog" aria-label="Video viewer">
+  <div class="video-modal-inner" onclick="event.stopPropagation()">
+    <button class="close-btn" onclick="closeVideo()" aria-label="Close video">×</button>
+    <video id="modalVideo" controls preload="none" playsinline></video>
+    <div class="video-modal-meta">
+      <div class="vm-title" id="vmTitle"></div>
+      <div class="vm-sub" id="vmSub"></div>
+    </div>
+  </div>
+</div>
+
 <div class="nav" role="navigation" aria-label="Slide navigation">
   <button onclick="prev()" aria-label="Previous slide">‹</button>
   <span class="counter" id="counter">1 / 5</span>
@@ -1019,9 +1121,40 @@ function next() { show(i + 1); }
 function prev() { show(i - 1); }
 
 document.addEventListener('keydown', (e) => {
+  const modal = document.getElementById('videoModal');
+  if (modal && modal.classList.contains('open')) {
+    if (e.key === 'Escape') closeVideo();
+    return;
+  }
   if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); next(); }
   if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
   if (/^[1-9]$/.test(e.key)) show(parseInt(e.key, 10) - 1);
+});
+
+/* Video modal */
+function openVideo(filename, title, subtitle) {
+  const modal = document.getElementById('videoModal');
+  const video = document.getElementById('modalVideo');
+  document.getElementById('vmTitle').textContent = title || '';
+  document.getElementById('vmSub').textContent = subtitle || '';
+  video.src = 'presentation-assets/mariana/' + filename;
+  modal.classList.add('open');
+  video.load();
+  video.play().catch(() => {});
+}
+function closeVideo(e) {
+  if (e && e.target && e.target.closest && e.target.closest('.video-modal-inner') && !e.target.classList.contains('close-btn')) return;
+  const modal = document.getElementById('videoModal');
+  const video = document.getElementById('modalVideo');
+  video.pause();
+  video.removeAttribute('src');
+  video.load();
+  modal.classList.remove('open');
+}
+document.querySelectorAll('.customer-row').forEach(r => {
+  r.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); r.click(); }
+  });
 });
 
 /* Touch swipe support */
