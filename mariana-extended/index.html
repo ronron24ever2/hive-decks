@@ -1,0 +1,3188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hive Autonomy · Company Brief for Mariana Minerals</title>
+<!-- v5 — photos embedded, deeper bios, Willem-tested -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1B3A5C;
+  --navy-deep: #0B1A2C;
+  --cyan: #4A90D9;
+  --yellow: #E8D44D;
+  --ink: #1a1a1a;
+  --ink-60: rgba(26,26,26,0.62);
+  --ink-40: rgba(26,26,26,0.40);
+  --bg: #FFFFFF;
+  --bg-soft: #F8F9FA;
+  --bg-warm: oklch(98.2% 0.004 250);
+  --paper: oklch(97.4% 0.006 245);
+  --line: rgba(27,58,92,0.12);
+  --line-warm: oklch(88% 0.012 245);
+  --rule: oklch(72% 0.022 245);
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--navy-deep);
+  color: var(--ink);
+  overflow: hidden;
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01", "cv11";
+}
+
+.deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(40px, 5vh, 80px) clamp(40px, 6vw, 120px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 500ms var(--ease);
+  background: var(--bg-warm);
+}
+.slide.breathe { padding: clamp(56px, 7vh, 112px) clamp(56px, 7vw, 140px); }
+.slide.tight { padding: clamp(34px, 4.2vh, 64px) clamp(40px, 5vw, 96px); }
+.slide.tight .slide-inner { max-width: 1380px; }
+.slide.dark, .slide[data-theme="dark"] { background: var(--navy-deep); }
+.slide.active { opacity: 1; pointer-events: auto; z-index: 2; }
+
+.slide-inner {
+  max-width: 1320px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.eyebrow {
+  font-size: clamp(11px, 0.9vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: clamp(16px, 1.8vh, 24px);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.slide.active .eyebrow { opacity: 1; transform: translateY(0); transition-delay: 80ms; }
+.slide.dark .eyebrow,
+.slide[data-theme="dark"] .eyebrow { color: var(--yellow); }
+
+h1.title {
+  font-size: clamp(42px, 5.5vw, 76px);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--navy);
+  margin-bottom: clamp(22px, 2.5vh, 32px);
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active h1.title { opacity: 1; transform: translateY(0); transition-delay: 180ms; }
+.slide.dark h1.title,
+.slide[data-theme="dark"] h1.title { color: #fff; text-shadow: 0 2px 22px rgba(0,0,0,0.4); }
+
+h1.title .accent { color: var(--yellow); }
+
+h2.headline {
+  font-size: clamp(28px, 3.3vw, 44px);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+  color: var(--navy);
+  margin-bottom: clamp(16px, 1.8vh, 22px);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active h2.headline { opacity: 1; transform: translateY(0); transition-delay: 180ms; }
+.slide.dark h2.headline,
+.slide[data-theme="dark"] h2.headline { color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,0.35); }
+h2.headline .accent { color: var(--yellow); position: relative; display: inline; }
+.slide:not(.dark):not([data-theme="dark"]) h2.headline .accent { color: var(--navy); background-image: linear-gradient(transparent 68%, rgba(232,212,77,0.55) 68%, rgba(232,212,77,0.55) 92%, transparent 92%); background-repeat: no-repeat; background-size: 100% 100%; padding: 0 0.04em; }
+.slide.dark h2.headline .accent, .slide[data-theme="dark"] h2.headline .accent { background: none; padding: 0; }
+
+.subhead {
+  font-size: clamp(16px, 1.3vw, 20px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ink-60);
+  max-width: 920px;
+  margin-bottom: clamp(18px, 2.2vh, 28px);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .subhead { opacity: 1; transform: translateY(0); transition-delay: 280ms; }
+.slide.dark .subhead,
+.slide[data-theme="dark"] .subhead { color: rgba(255,255,255,0.86); text-shadow: 0 1px 12px rgba(0,0,0,0.35); }
+
+/* Hero photo */
+.slide.hero-photo { background: var(--navy-deep); }
+.slide.hero-photo .bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  animation: kenburns 18s ease-in-out infinite alternate;
+}
+.slide.hero-photo .overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right,
+    rgba(11,26,44,0.94) 0%,
+    rgba(11,26,44,0.82) 28%,
+    rgba(11,26,44,0.52) 58%,
+    rgba(11,26,44,0.14) 88%,
+    transparent 100%);
+  z-index: 1;
+}
+@keyframes kenburns {
+  0% { transform: scale(1.0); }
+  100% { transform: scale(1.08); }
+}
+
+/* Logo */
+.logo {
+  position: absolute;
+  top: clamp(24px, 3vh, 40px);
+  left: clamp(30px, 4vw, 60px);
+  height: clamp(40px, 4vh, 54px);
+  z-index: 5;
+  opacity: 1;
+}
+.slide.dark .logo,
+.slide.hero-photo.dark .logo,
+.slide[data-theme="dark"] .logo {
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+}
+
+.deck-tag {
+  position: absolute;
+  top: clamp(24px, 3vh, 40px);
+  right: clamp(30px, 4vw, 60px);
+  z-index: 5;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.62);
+  font-weight: 500;
+  font-family: 'JetBrains Mono', monospace;
+}
+.slide:not(.dark):not([data-theme="dark"]):not(.hero-photo) .deck-tag {
+  color: rgba(27,58,92,0.50);
+}
+
+/* Slide 1 contact footer */
+.hero-footer {
+  position: absolute;
+  bottom: clamp(28px, 3.6vh, 44px);
+  left: clamp(30px, 4vw, 60px);
+  z-index: 5;
+  font-size: clamp(12px, 0.95vw, 14px);
+  font-weight: 500;
+  color: rgba(255,255,255,0.78);
+  letter-spacing: 0.02em;
+}
+.hero-footer .sep {
+  margin: 0 10px;
+  color: rgba(255,255,255,0.35);
+}
+.hero-footer .confidential {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--yellow);
+  text-transform: uppercase;
+  margin-right: 14px;
+  padding: 3px 8px;
+  border: 1px solid rgba(232,212,77,0.55);
+  border-radius: 3px;
+}
+
+/* Bridge grid (slide 2 — 3 cards with parallel pull-numbers) */
+.bridge-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: clamp(20px, 2vw, 30px);
+  margin-top: clamp(18px, 2vh, 28px);
+}
+.bridge-card {
+  background: var(--bg-soft);
+  border-top: 3px solid var(--cyan);
+  padding: clamp(26px, 3vh, 34px) clamp(22px, 2vw, 30px);
+  border-radius: 4px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+  display: flex;
+  flex-direction: column;
+}
+.slide.active .bridge-card { opacity: 1; transform: translateY(0); }
+.slide.active .bridge-card:nth-child(1) { transition-delay: 360ms; }
+.slide.active .bridge-card:nth-child(2) { transition-delay: 480ms; }
+.slide.active .bridge-card:nth-child(3) { transition-delay: 600ms; }
+
+.bridge-card .number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 0.14em;
+  margin-bottom: 10px;
+}
+.bridge-card .pullbig {
+  font-size: clamp(26px, 2.4vw, 36px);
+  font-weight: 800;
+  line-height: 1.0;
+  color: var(--navy);
+  letter-spacing: -0.022em;
+  margin-bottom: 6px;
+  font-variant-numeric: tabular-nums;
+}
+.bridge-card .pullbig .yellow { color: #C5A800; }
+.bridge-card .pull-caption {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-40);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.bridge-card h3 {
+  font-size: clamp(17px, 1.32vw, 21px);
+  font-weight: 800;
+  line-height: 1.22;
+  color: var(--navy);
+  margin-bottom: 12px;
+  letter-spacing: -0.018em;
+}
+.bridge-card p {
+  font-size: clamp(13px, 1vw, 15.5px);
+  line-height: 1.55;
+  color: var(--ink-60);
+  margin-bottom: 8px;
+}
+.bridge-card p:last-child { margin-bottom: 0; }
+.bridge-card p strong { color: var(--navy); font-weight: 700; }
+
+/* SLIDE 3 — safety-anchor layout: hero safety card on top, 3 supporting cards below */
+.safety-anchor {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2vh, 22px);
+  margin-top: clamp(8px, 1.2vh, 16px);
+}
+
+.safety-hero {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-left: 4px solid var(--yellow);
+  border-radius: 8px;
+  padding: clamp(22px, 2.4vh, 30px) clamp(24px, 2.4vw, 36px);
+  display: grid;
+  grid-template-columns: 1.05fr 1.35fr;
+  gap: clamp(28px, 3vw, 44px);
+  align-items: center;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .safety-hero { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+
+.safety-hero-left .qtag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.safety-hero-left .claim {
+  font-size: clamp(20px, 1.7vw, 27px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.18;
+  letter-spacing: -0.018em;
+  margin-bottom: 12px;
+}
+.safety-hero-left .claim .accent { color: var(--yellow); }
+.safety-hero-left .reg-line {
+  font-size: clamp(13px, 1vw, 15.5px);
+  line-height: 1.5;
+  color: rgba(255,255,255,0.82);
+  margin-bottom: 10px;
+}
+.safety-hero-left .reg-line strong { color: #fff; font-weight: 700; }
+.safety-hero-left .iso {
+  font-size: clamp(11.5px, 0.9vw, 13.5px);
+  color: rgba(255,255,255,0.58);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+}
+
+.safety-layers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(8px, 0.8vw, 12px);
+}
+.layer {
+  background: rgba(11,26,44,0.55);
+  border: 1px solid rgba(74,144,217,0.28);
+  border-radius: 6px;
+  padding: clamp(12px, 1.4vh, 16px) clamp(10px, 0.9vw, 14px);
+  position: relative;
+}
+.layer .lnum {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 0.12em;
+  margin-bottom: 6px;
+}
+.layer .lname {
+  font-size: clamp(12px, 0.95vw, 14.5px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.layer .ldesc {
+  font-size: clamp(10.5px, 0.78vw, 12px);
+  color: rgba(255,255,255,0.66);
+  line-height: 1.4;
+}
+
+/* 3 supporting cards under the safety hero */
+.support-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(14px, 1.4vw, 22px);
+}
+.support-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-left: 3px solid var(--cyan);
+  border-radius: 6px;
+  padding: clamp(16px, 1.8vh, 22px) clamp(16px, 1.4vw, 22px);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.slide.active .support-card:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 480ms; }
+.slide.active .support-card:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 580ms; }
+.slide.active .support-card:nth-of-type(3) { opacity: 1; transform: translateY(0); transition-delay: 680ms; }
+.support-card .qtag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.support-card .stitle {
+  font-size: clamp(15px, 1.15vw, 18px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.25;
+  margin-bottom: 8px;
+  letter-spacing: -0.012em;
+}
+.support-card .sbody {
+  font-size: clamp(12.5px, 0.92vw, 14.5px);
+  line-height: 1.5;
+  color: rgba(255,255,255,0.78);
+}
+
+/* Vendor scorecard (slide 4 — unchanged structure, Ronny approved) */
+.score-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 2.2vw, 30px) clamp(28px, 3vw, 44px);
+  margin-top: clamp(20px, 2.2vh, 28px);
+  max-width: 1280px;
+}
+.score-q {
+  border-left: 3px solid var(--cyan);
+  padding-left: clamp(16px, 1.4vw, 22px);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 500ms var(--ease), transform 500ms var(--ease);
+}
+.slide.active .score-q { opacity: 1; transform: translateY(0); }
+.slide.active .score-q:nth-of-type(1) { transition-delay: 280ms; }
+.slide.active .score-q:nth-of-type(2) { transition-delay: 360ms; }
+.slide.active .score-q:nth-of-type(3) { transition-delay: 440ms; }
+.slide.active .score-q:nth-of-type(4) { transition-delay: 520ms; }
+.slide.active .score-q:nth-of-type(5) { transition-delay: 600ms; }
+.slide.active .score-q:nth-of-type(6) { transition-delay: 680ms; }
+.score-q .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--yellow);
+  background: var(--navy);
+  padding: 3px 8px;
+  letter-spacing: 0.08em;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.score-q .question {
+  font-size: clamp(15px, 1.13vw, 18px);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.32;
+  margin-bottom: 6px;
+  letter-spacing: -0.012em;
+}
+.score-q .marker {
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.5;
+  color: var(--ink-60);
+  font-style: italic;
+}
+
+.scorecard-footer {
+  margin-top: clamp(22px, 2.6vh, 32px);
+  padding-top: clamp(16px, 1.8vh, 22px);
+  border-top: 1px solid var(--line);
+  font-size: clamp(14px, 1.02vw, 16px);
+  font-weight: 600;
+  color: var(--navy);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.scorecard-footer .yellow-tag { color: var(--cyan); font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
+
+/* SLIDE 5 — customers (2x2 grid) + bold horizontal next-moves cards */
+.close-stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.4vh, 32px);
+  margin-top: clamp(8px, 1.2vh, 16px);
+}
+
+.customer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(14px, 1.4vw, 20px) clamp(20px, 2vw, 32px);
+}
+.customer-row {
+  display: grid;
+  grid-template-columns: 116px 1fr;
+  gap: clamp(16px, 1.4vw, 22px);
+  align-items: center;
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 500ms var(--ease), transform 500ms var(--ease);
+}
+.slide.active .customer-row { opacity: 1; transform: translateX(0); }
+.slide.active .customer-row:nth-child(1) { transition-delay: 320ms; }
+.slide.active .customer-row:nth-child(2) { transition-delay: 400ms; }
+.slide.active .customer-row:nth-child(3) { transition-delay: 480ms; }
+.slide.active .customer-row:nth-child(4) { transition-delay: 560ms; }
+
+.customer-thumb {
+  width: 116px;
+  height: 78px;
+  border-radius: 4px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.customer-meta strong {
+  font-size: clamp(15px, 1.12vw, 18px);
+  font-weight: 700;
+  color: #fff;
+  display: block;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.customer-meta span {
+  font-size: clamp(12.5px, 0.92vw, 14.5px);
+  color: rgba(255,255,255,0.72);
+  line-height: 1.45;
+}
+
+/* Three next moves — bold horizontal cards */
+.moves-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-top: clamp(4px, 0.6vh, 8px);
+  padding-top: clamp(14px, 1.6vh, 20px);
+  border-top: 1px solid rgba(255,255,255,0.14);
+}
+.moves-header .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  font-weight: 700;
+}
+.moves-header .cue {
+  font-size: clamp(14px, 1.05vw, 16.5px);
+  color: rgba(255,255,255,0.72);
+  font-weight: 500;
+}
+
+.moves-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 1.6vw, 24px);
+}
+.move-card {
+  background: linear-gradient(180deg, rgba(74,144,217,0.10) 0%, rgba(74,144,217,0.04) 100%);
+  border: 1px solid rgba(74,144,217,0.28);
+  border-radius: 8px;
+  padding: clamp(18px, 2.2vh, 26px) clamp(18px, 1.6vw, 26px);
+  position: relative;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.move-card.feature {
+  background: linear-gradient(180deg, rgba(232,212,77,0.16) 0%, rgba(232,212,77,0.04) 100%);
+  border-color: rgba(232,212,77,0.42);
+}
+.slide.active .move-card:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 660ms; }
+.slide.active .move-card:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 760ms; }
+.slide.active .move-card:nth-of-type(3) { opacity: 1; transform: translateY(0); transition-delay: 860ms; }
+
+.move-card .step {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.move-card .step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(22px, 1.9vw, 28px);
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.move-card.feature .step-num { color: var(--yellow); }
+.move-card .step-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.62);
+  font-weight: 700;
+}
+.move-card h4 {
+  font-size: clamp(16px, 1.25vw, 20px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+}
+.move-card p {
+  font-size: clamp(12.5px, 0.95vw, 14.5px);
+  line-height: 1.5;
+  color: rgba(255,255,255,0.80);
+}
+.move-card .when {
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.10);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+}
+.move-card.feature .when { color: var(--yellow); }
+
+.close-contact {
+  margin-top: clamp(10px, 1.4vh, 18px);
+  padding-top: clamp(12px, 1.6vh, 20px);
+  border-top: 1px solid rgba(255,255,255,0.12);
+  font-size: clamp(12.5px, 0.95vw, 14.5px);
+  color: rgba(255,255,255,0.78);
+  line-height: 1.5;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  align-items: baseline;
+}
+.close-contact strong { color: #fff; font-weight: 700; }
+.close-contact .dot { color: rgba(255,255,255,0.35); margin: 0 6px; }
+
+/* Page indicator */
+.page-num {
+  position: absolute;
+  bottom: clamp(24px, 3vh, 38px);
+  right: clamp(30px, 4vw, 60px);
+  z-index: 5;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: rgba(27,58,92,0.42);
+  font-weight: 600;
+}
+.page-num::before {
+  content: '';
+  display: inline-block;
+  width: 18px; height: 1px;
+  background: currentColor;
+  vertical-align: 0.28em;
+  margin-right: 8px;
+  opacity: 0.45;
+}
+.slide.dark .page-num,
+.slide[data-theme="dark"] .page-num { color: rgba(255,255,255,0.50); }
+
+/* Navigation */
+.tap-zone {
+  position: fixed;
+  top: 0;
+  width: 22vw;
+  height: 100vh;
+  z-index: 8;
+  cursor: pointer;
+  background: transparent;
+}
+.tap-zone.left { left: 0; }
+.tap-zone.right { right: 0; }
+
+.nav {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  display: flex;
+  gap: 10px;
+  background: rgba(255,255,255,0.94);
+  padding: 6px 10px;
+  border-radius: 32px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+  backdrop-filter: blur(8px);
+  align-items: center;
+}
+.nav button {
+  background: var(--navy);
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  color: white;
+  font-weight: 700;
+  transition: background 180ms ease, transform 120ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.nav button:hover { background: var(--cyan); }
+.nav button:active { transform: scale(0.94); }
+.nav .counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  padding: 0 6px;
+  letter-spacing: 0.06em;
+  min-width: 44px;
+  text-align: center;
+}
+body.static .nav, body.static .tap-zone { display: none !important; }
+
+/* Slide 5 — clickable thumbnail with play overlay */
+.customer-row { cursor: pointer; transition: transform 180ms ease, background 180ms ease; border-radius: 6px; padding: 6px; margin: -6px; }
+.customer-row:hover { background: rgba(74,144,217,0.10); transform: translateX(4px); }
+.customer-row:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.customer-thumb { position: relative; }
+.play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(11,26,44,0.25), rgba(11,26,44,0.50));
+  color: white;
+  font-size: 22px;
+  opacity: 0.85;
+  border-radius: inherit;
+  transition: opacity 180ms ease, background 180ms ease;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+.customer-row:hover .play-overlay { opacity: 1; background: linear-gradient(135deg, rgba(74,144,217,0.55), rgba(11,26,44,0.40)); }
+
+/* —— Slide 8 video grid (heavy machinery 2×2) —— */
+.video-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 2px;
+  background: var(--line-warm);
+  border: 1px solid var(--line-warm);
+  margin-top: clamp(12px, 1.4vh, 18px);
+  border-radius: 2px;
+  overflow: hidden;
+}
+/* 5-cell intralogistics mosaic: 2 cols × 3 rows; first cell spans 2 cols as wide hero */
+.video-grid-2x3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 2px;
+  background: var(--line-warm);
+  border: 1px solid var(--line-warm);
+  margin-top: clamp(12px, 1.4vh, 18px);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.video-grid-2x3 .vgcell { aspect-ratio: 4 / 3; }
+.video-grid-2x3 .vgcell.span-2 { grid-column: 1 / span 2; aspect-ratio: 16 / 7; }
+.video-grid-2x3 .vgcell.text-only::before { display: none; }
+.video-grid-2x3 .vgcell.text-only .vgcell-meta { padding-bottom: clamp(18px, 2vh, 26px); }
+.slide.active .video-grid-2x3 .vgcell:nth-child(5) { transition-delay: 640ms; }
+.vgcell {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--navy-deep);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  cursor: default;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 600ms var(--ease-out-quart), transform 600ms var(--ease-out-quart);
+}
+.slide.active .vgcell { opacity: 1; transform: translateY(0); }
+.slide.active .vgcell:nth-child(1) { transition-delay: 320ms; }
+.slide.active .vgcell:nth-child(2) { transition-delay: 400ms; }
+.slide.active .vgcell:nth-child(3) { transition-delay: 480ms; }
+.slide.active .vgcell:nth-child(4) { transition-delay: 560ms; }
+.vgcell.playable { cursor: pointer; }
+.vgcell::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(11,26,44,0.05) 0%, rgba(11,26,44,0.10) 45%, rgba(11,26,44,0.94) 100%);
+  z-index: 1;
+  transition: background 300ms ease;
+}
+.vgcell.playable:hover::before { background: linear-gradient(180deg, rgba(11,26,44,0.0) 0%, rgba(11,26,44,0.20) 45%, rgba(11,26,44,0.90) 100%); }
+.vgcell .vgcell-tag {
+  position: absolute;
+  top: clamp(12px, 1.4vh, 16px);
+  left: clamp(12px, 1.4vw, 18px);
+  z-index: 2;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  padding: 3px 8px;
+  background: rgba(11,26,44,0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 2px;
+}
+.vgcell .vgcell-play {
+  position: absolute;
+  top: clamp(12px, 1.4vh, 16px);
+  right: clamp(12px, 1.4vw, 18px);
+  z-index: 2;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.92);
+  color: var(--navy-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  padding-left: 2px;
+  opacity: 0.88;
+  transition: transform 300ms var(--ease-out-quart), background 300ms ease, opacity 300ms ease;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+}
+.vgcell.playable:hover .vgcell-play {
+  transform: scale(1.08);
+  background: var(--yellow);
+  opacity: 1;
+}
+.vgcell .vgcell-meta {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 2;
+  padding: clamp(14px, 1.6vh, 22px) clamp(14px, 1.4vw, 22px);
+  color: #fff;
+}
+.vgcell .vgcell-name {
+  font-size: clamp(15px, 1.25vw, 19px);
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -0.012em;
+  margin-bottom: 4px;
+}
+.vgcell .vgcell-why {
+  font-size: clamp(11.5px, 0.86vw, 13.5px);
+  line-height: 1.42;
+  color: rgba(255,255,255,0.78);
+}
+
+/* Video modal */
+.video-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(11,26,44,0.95);
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 4vh 4vw;
+  cursor: pointer;
+}
+.video-modal.open { display: flex; }
+.video-modal-inner {
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.video-modal video {
+  width: 100%;
+  max-height: 78vh;
+  border-radius: 8px;
+  background: black;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+}
+.video-modal-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: white;
+  padding: 0 6px;
+}
+.video-modal-meta .vm-title {
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.018em;
+  color: white;
+}
+.video-modal-meta .vm-sub {
+  font-size: clamp(14px, 1.1vw, 17px);
+  color: rgba(255,255,255,0.72);
+  font-weight: 400;
+}
+.video-modal .close-btn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  background: var(--yellow);
+  border: none;
+  color: var(--navy-deep);
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  transition: transform 150ms ease;
+}
+.video-modal .close-btn:hover { transform: scale(1.06); }
+body.static .video-modal, body.static .play-overlay { display: none !important; }
+
+/* Alternative banner */
+.alt-banner {
+  position: absolute;
+  top: clamp(24px, 3vh, 40px);
+  right: clamp(120px, 12vw, 180px);
+  z-index: 5;
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 14px; border-radius: 16px;
+  background: var(--yellow); color: var(--navy-deep);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+}
+.alt-banner .alt-dot { width: 6px; height: 6px; border-radius: 3px; background: var(--navy-deep); }
+
+/* Competitive matrix */
+.matrix-wrap { margin-top: clamp(14px, 1.6vh, 22px); }
+.matrix-grid {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr 1fr 1fr 1.15fr;
+  gap: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: white;
+}
+.matrix-grid .m-cell {
+  padding: clamp(9px, 1.05vh, 13px) clamp(12px, 1.2vw, 18px);
+  border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  font-size: clamp(12px, 0.92vw, 14.5px); display: flex; align-items: center; line-height: 1.32; color: var(--ink);
+}
+.matrix-grid .m-cell:nth-child(5n) { border-right: none; }
+.matrix-grid > .m-cell:nth-last-child(-n+5) { border-bottom: none; }
+.matrix-grid .m-head {
+  background: var(--navy); color: white; font-weight: 700;
+  font-size: clamp(11px, 0.85vw, 13px); letter-spacing: 0.08em; text-transform: uppercase;
+  padding: clamp(11px, 1.3vh, 15px) clamp(12px, 1.2vw, 18px); justify-content: center; text-align: center;
+}
+.matrix-grid .m-head.hive { background: var(--navy-deep); color: var(--yellow); border-left: 3px solid var(--yellow); }
+.matrix-grid .m-criterion {
+  background: var(--bg-soft); font-weight: 600; color: var(--navy);
+  font-size: clamp(12.5px, 0.95vw, 15px); flex-direction: column; align-items: flex-start; justify-content: center;
+}
+.matrix-grid .m-criterion small {
+  display: block; font-weight: 400; color: var(--ink-60);
+  font-size: clamp(10.5px, 0.78vw, 12px); margin-top: 2px; letter-spacing: 0; text-transform: none;
+}
+.matrix-grid .m-val { justify-content: center; text-align: center; }
+.matrix-grid .m-hive {
+  background: rgba(74,144,217,0.08); color: var(--navy); font-weight: 700;
+  border-left: 3px solid var(--yellow); justify-content: center; text-align: center;
+}
+.matrix-grid .m-cell .check { color: #1e7c3c; font-weight: 800; font-size: 15px; }
+.matrix-grid .m-cell .x { color: #b94545; font-weight: 800; font-size: 14px; }
+.matrix-grid .m-cell .partial { color: #b8770a; font-weight: 600; font-size: 12.5px; }
+.matrix-grid .m-cell .dash { color: var(--ink-40); font-size: 14px; }
+.matrix-foot {
+  margin-top: clamp(12px, 1.4vh, 18px);
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: clamp(12px, 0.9vw, 14px); color: var(--ink-60); gap: 24px;
+}
+.matrix-foot .legend { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; font-size: 12px; }
+.matrix-foot .legend span { display: inline-flex; align-items: center; gap: 5px; }
+.matrix-foot .yellow-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); font-weight: 700; }
+
+/* OEM flexibility slide */
+.oem-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr 1fr;
+  gap: clamp(16px, 2vw, 28px);
+  margin-top: clamp(22px, 2.6vh, 36px);
+}
+.oem-statement {
+  display: flex; flex-direction: column; gap: 14px;
+  padding: clamp(22px, 2.6vh, 30px) clamp(20px, 2vw, 28px);
+  background: rgba(255,255,255,0.06);
+  border-left: 3px solid var(--yellow);
+  border-radius: 4px;
+}
+.oem-statement .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  color: var(--yellow); text-transform: uppercase;
+}
+.oem-statement strong {
+  font-size: clamp(17px, 1.4vw, 22px); font-weight: 800;
+  color: white; letter-spacing: -0.015em; line-height: 1.22;
+}
+.oem-statement p {
+  font-size: clamp(13.5px, 1vw, 16px); line-height: 1.55;
+  color: rgba(255,255,255,0.82);
+}
+.oem-card {
+  padding: clamp(24px, 2.8vh, 34px) clamp(20px, 1.8vw, 26px);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 8px;
+  display: flex; flex-direction: column; gap: 8px; position: relative;
+}
+.oem-card.live { background: rgba(74,144,217,0.14); border-color: var(--cyan); }
+.oem-card .badge {
+  position: absolute; top: 12px; right: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+  padding: 3px 8px; border-radius: 10px; text-transform: uppercase;
+}
+.oem-card.live .badge { background: var(--cyan); color: white; }
+.oem-card.active .badge { background: var(--yellow); color: var(--navy-deep); }
+.oem-card.next .badge { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.72); }
+.oem-card .brand {
+  font-size: clamp(22px, 1.9vw, 30px); font-weight: 800;
+  color: white; letter-spacing: -0.02em;
+}
+.oem-card .state { font-size: clamp(12.5px, 0.95vw, 15px); color: rgba(255,255,255,0.78); line-height: 1.5; }
+.oem-card .detail {
+  font-size: clamp(11.5px, 0.85vw, 13.5px); color: rgba(255,255,255,0.55);
+  margin-top: 6px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.10); line-height: 1.5;
+}
+
+/* INTERNAL slide — Trojan Kill Map */
+.internal-banner {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 4;
+  background: linear-gradient(90deg, #c63838 0%, #e85d3a 100%);
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 8px 12px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+.internal-banner strong { color: var(--yellow); font-weight: 800; margin: 0 8px; }
+
+.kill-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 0.7fr repeat(7, 0.5fr) 1.1fr;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  background: white;
+  margin-top: clamp(12px, 1.4vh, 18px);
+  font-size: clamp(10.5px, 0.78vw, 12.5px);
+}
+.kill-grid .kc {
+  padding: clamp(7px, 0.85vh, 10px) clamp(8px, 0.85vw, 12px);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  line-height: 1.32;
+  color: var(--ink);
+}
+.kill-grid .kc:nth-child(10n) { border-right: none; }
+.kill-grid > .kc:nth-last-child(-n+10) { border-bottom: none; }
+.kill-grid .kc-head {
+  background: var(--navy);
+  color: white;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  justify-content: center;
+  text-align: center;
+  padding: clamp(8px, 1vh, 12px) 4px;
+}
+.kill-grid .kc-name {
+  background: var(--bg-soft);
+  font-weight: 700;
+  color: var(--navy);
+  font-size: clamp(11.5px, 0.88vw, 13.5px);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.kill-grid .kc-name small {
+  display: block;
+  font-weight: 400;
+  color: var(--ink-60);
+  font-size: 10px;
+  margin-top: 2px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.kill-grid .kc-strength {
+  font-size: 10.5px;
+  color: var(--ink-60);
+  line-height: 1.4;
+}
+.kill-grid .kc-kill {
+  justify-content: center;
+  text-align: center;
+  font-weight: 700;
+}
+.kill-grid .kc-kill.kill { color: #b94545; }
+.kill-grid .kc-kill.ok { color: #1e7c3c; }
+.kill-grid .kc-kill.partial { color: #b8770a; }
+.kill-grid .kc-best {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.32;
+}
+.kill-grid .kc-best small {
+  display: block;
+  font-weight: 400;
+  color: var(--ink-60);
+  font-size: 9.5px;
+  margin-top: 2px;
+}
+
+.kill-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 1.4vw, 20px);
+  margin-top: clamp(14px, 1.6vh, 22px);
+}
+.kill-summary .ks-card {
+  background: var(--bg-soft);
+  border-left: 3px solid var(--cyan);
+  padding: clamp(12px, 1.4vh, 16px) clamp(14px, 1.2vw, 18px);
+  border-radius: 4px;
+}
+.kill-summary .ks-card.alarm { border-left-color: #c63838; }
+.kill-summary .ks-card.win { border-left-color: #1e7c3c; }
+.kill-summary .ks-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+  margin-bottom: 5px;
+}
+.kill-summary .ks-card.alarm .ks-label { color: #c63838; }
+.kill-summary .ks-card.win .ks-label { color: #1e7c3c; }
+.kill-summary .ks-body {
+  font-size: clamp(11.5px, 0.88vw, 13.5px);
+  color: var(--ink);
+  line-height: 1.45;
+}
+.kill-summary .ks-body strong { color: var(--navy); font-weight: 700; }
+
+/* Vision ladder (slide 2) — 3-step horizontal ladder with phase tags */
+.ladder-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: clamp(20px, 2vw, 30px);
+  margin-top: clamp(20px, 2.4vh, 30px);
+}
+.ladder-step {
+  background: var(--bg-soft);
+  border-top: 3px solid var(--cyan);
+  padding: clamp(24px, 2.8vh, 32px) clamp(22px, 2vw, 28px);
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.ladder-step.destination { border-top-color: var(--yellow); background: linear-gradient(180deg, rgba(232,212,77,0.12) 0%, var(--bg-soft) 90%); }
+.slide.active .ladder-step:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+.slide.active .ladder-step:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 440ms; }
+.slide.active .ladder-step:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 560ms; }
+.ladder-step .phase {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.ladder-step.destination .phase { color: #B89400; }
+.ladder-step h3 {
+  font-size: clamp(18px, 1.4vw, 22px);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--navy);
+  margin-bottom: 12px;
+  letter-spacing: -0.018em;
+}
+.ladder-step p {
+  font-size: clamp(13px, 1vw, 15.5px);
+  line-height: 1.55;
+  color: var(--ink-60);
+}
+.ladder-step p strong { color: var(--navy); font-weight: 700; }
+.ladder-closer {
+  margin-top: clamp(20px, 2.4vh, 30px);
+  padding-top: clamp(16px, 1.8vh, 22px);
+  border-top: 1px solid var(--line);
+  font-size: clamp(14px, 1.08vw, 17px);
+  line-height: 1.5;
+  color: var(--navy);
+  font-weight: 500;
+  max-width: 1100px;
+}
+.ladder-closer strong { font-weight: 800; }
+
+/* Two-column commercial slide (slide 4) */
+.twocol-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(22px, 2.4vw, 36px);
+  margin-top: clamp(18px, 2.2vh, 28px);
+}
+.twocol-card {
+  background: var(--bg-soft);
+  border-top: 3px solid var(--cyan);
+  border-radius: 4px;
+  padding: clamp(24px, 2.8vh, 32px) clamp(22px, 2vw, 30px);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.twocol-card.feature {
+  border-top-color: var(--yellow);
+  background: linear-gradient(180deg, rgba(232,212,77,0.14) 0%, var(--bg-soft) 90%);
+}
+.slide.active .twocol-card:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+.slide.active .twocol-card:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 460ms; }
+.twocol-card .ctag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 10px;
+}
+.twocol-card.feature .ctag { color: #B89400; }
+.twocol-card h3 {
+  font-size: clamp(19px, 1.5vw, 24px);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--navy);
+  margin-bottom: 16px;
+  letter-spacing: -0.018em;
+}
+.twocol-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.twocol-card li {
+  font-size: clamp(13.5px, 1.05vw, 16px);
+  line-height: 1.45;
+  color: var(--ink);
+  padding-left: 22px;
+  position: relative;
+}
+.twocol-card li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.55em;
+  width: 10px; height: 2px;
+  background: var(--cyan);
+  border-radius: 2px;
+}
+.twocol-card.feature li::before { background: var(--yellow); }
+.twocol-card li strong { color: var(--navy); font-weight: 700; }
+.twocol-closer {
+  margin-top: clamp(18px, 2.2vh, 28px);
+  padding-top: clamp(14px, 1.6vh, 20px);
+  border-top: 1px solid var(--line);
+  font-size: clamp(14px, 1.08vw, 17px);
+  line-height: 1.5;
+  color: var(--navy);
+  font-weight: 500;
+  max-width: 1100px;
+}
+.twocol-closer strong { font-weight: 800; }
+
+/* Co-development numbered blocks (slide 5) */
+.codev-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: clamp(20px, 2vw, 28px);
+  margin-top: clamp(18px, 2.2vh, 28px);
+}
+.codev-block {
+  background: var(--bg-soft);
+  border-left: 3px solid var(--cyan);
+  border-radius: 4px;
+  padding: clamp(22px, 2.6vh, 30px) clamp(20px, 1.8vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.slide.active .codev-block:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+.slide.active .codev-block:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 440ms; }
+.slide.active .codev-block:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 560ms; }
+.codev-block .cnum {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(26px, 2.2vw, 34px);
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.codev-block h3 {
+  font-size: clamp(17px, 1.32vw, 21px);
+  font-weight: 800;
+  line-height: 1.22;
+  color: var(--navy);
+  letter-spacing: -0.018em;
+}
+.codev-block p {
+  font-size: clamp(13px, 1vw, 15.5px);
+  line-height: 1.55;
+  color: var(--ink-60);
+}
+.codev-block p strong { color: var(--navy); font-weight: 700; }
+.codev-closer {
+  margin-top: clamp(18px, 2.2vh, 26px);
+  padding-top: clamp(14px, 1.6vh, 20px);
+  border-top: 1px solid var(--line);
+  font-size: clamp(13.5px, 1.02vw, 16px);
+  color: var(--ink-60);
+  line-height: 1.5;
+  font-style: italic;
+}
+.codev-closer strong { color: var(--navy); font-weight: 700; font-style: normal; }
+
+/* Release path / timeline (slide 6) */
+.timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(14px, 1.4vw, 20px);
+  margin-top: clamp(18px, 2.2vh, 28px);
+  position: relative;
+}
+.timeline-step {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-top: 3px solid var(--cyan);
+  border-radius: 6px;
+  padding: clamp(18px, 2.2vh, 24px) clamp(16px, 1.4vw, 22px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+  position: relative;
+}
+.timeline-step.now { border-top-color: var(--cyan); background: rgba(74,144,217,0.12); }
+.timeline-step.mariana { border-top-color: var(--yellow); background: linear-gradient(180deg, rgba(232,212,77,0.18) 0%, rgba(232,212,77,0.04) 100%); }
+.slide.active .timeline-step:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 280ms; }
+.slide.active .timeline-step:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 400ms; }
+.slide.active .timeline-step:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 520ms; }
+.slide.active .timeline-step:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 640ms; }
+.timeline-step .tphase {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+.timeline-step.mariana .tphase { color: var(--yellow); }
+.timeline-step h3 {
+  font-size: clamp(15px, 1.18vw, 19px);
+  font-weight: 800;
+  line-height: 1.24;
+  color: #fff;
+  letter-spacing: -0.012em;
+}
+.timeline-step p {
+  font-size: clamp(12px, 0.92vw, 14.5px);
+  line-height: 1.5;
+  color: rgba(255,255,255,0.78);
+}
+.timeline-step p strong { color: #fff; font-weight: 700; }
+.timeline-foot {
+  margin-top: clamp(16px, 2vh, 22px);
+  padding-top: clamp(12px, 1.6vh, 18px);
+  border-top: 1px solid rgba(255,255,255,0.12);
+  font-size: clamp(13px, 1vw, 15.5px);
+  color: rgba(255,255,255,0.72);
+  line-height: 1.5;
+  font-style: italic;
+}
+.timeline-foot strong { color: #fff; font-weight: 700; font-style: normal; }
+
+/* Team & backing slide (slide 7) */
+.team-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(24px, 2.6vw, 40px);
+  margin-top: clamp(18px, 2.2vh, 28px);
+}
+.team-col {
+  background: var(--bg-soft);
+  border-top: 3px solid var(--cyan);
+  border-radius: 4px;
+  padding: clamp(22px, 2.6vh, 30px) clamp(22px, 2vw, 30px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.team-col.org { border-top-color: var(--yellow); background: linear-gradient(180deg, rgba(232,212,77,0.12) 0%, var(--bg-soft) 90%); }
+.slide.active .team-col:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+.slide.active .team-col:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 460ms; }
+.team-col .ctag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 4px;
+}
+.team-col.org .ctag { color: #B89400; }
+.team-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.team-col li {
+  font-size: clamp(12.5px, 0.98vw, 15.5px);
+  line-height: 1.4;
+  color: var(--ink-60);
+  padding-left: 16px;
+  position: relative;
+}
+.team-col li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.55em;
+  width: 8px; height: 2px;
+  background: var(--cyan);
+  border-radius: 2px;
+}
+.team-col.org li::before { background: var(--yellow); }
+.team-col li strong { color: var(--navy); font-weight: 700; display: block; margin-bottom: 2px; font-size: clamp(13px, 1.02vw, 16px); }
+.team-col li span.role { color: var(--ink-60); }
+
+/* [VERIFY] markers — visible inline tag so Ronny can spot them on screen */
+.verify {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #B89400;
+  background: rgba(232,212,77,0.22);
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin: 0 2px;
+  vertical-align: 0.06em;
+  text-transform: uppercase;
+}
+.slide.dark .verify,
+.slide[data-theme="dark"] .verify {
+  color: var(--yellow);
+  background: rgba(232,212,77,0.18);
+}
+
+/* Heritage two-column (dark theme) — Slide 3 */
+.heritage-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(22px, 2.4vw, 36px);
+  margin-top: clamp(18px, 2.2vh, 28px);
+}
+.heritage-col {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-top: 3px solid var(--cyan);
+  border-radius: 6px;
+  padding: clamp(22px, 2.6vh, 30px) clamp(22px, 2vw, 30px);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.heritage-col.alt { border-top-color: var(--yellow); background: linear-gradient(180deg, rgba(232,212,77,0.10) 0%, rgba(255,255,255,0.04) 90%); }
+.slide.active .heritage-col:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+.slide.active .heritage-col:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 460ms; }
+.heritage-col .ctag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 10px;
+}
+.heritage-col.alt .ctag { color: var(--yellow); }
+.heritage-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.heritage-col li {
+  font-size: clamp(12.5px, 0.98vw, 15.5px);
+  line-height: 1.45;
+  color: rgba(255,255,255,0.80);
+  padding-left: 18px;
+  position: relative;
+}
+.heritage-col li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.6em;
+  width: 10px; height: 2px;
+  background: var(--cyan);
+  border-radius: 2px;
+}
+.heritage-col.alt li::before { background: var(--yellow); }
+.heritage-col li strong { color: #fff; font-weight: 700; }
+
+/* Team & backing — 2-col leadership cards layout (slide 7 rewrite) */
+.team-leadership {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(14px, 1.4vw, 20px) clamp(20px, 2vw, 28px);
+}
+.team-card {
+  padding: clamp(12px, 1.4vh, 16px) 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: clamp(14px, 1.3vw, 20px);
+  align-items: start;
+}
+.team-card:nth-child(1), .team-card:nth-child(2) { border-top: none; padding-top: 2px; }
+.team-card .tphoto {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center 18%;
+  border: 2px solid rgba(74,144,217,0.22);
+  flex-shrink: 0;
+}
+.team-card .tphoto.placeholder {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+  color: var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  border-color: rgba(232,212,77,0.32);
+}
+.team-card .tbody { min-width: 0; }
+.team-card .tname {
+  font-size: clamp(14px, 1.08vw, 17px);
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin-bottom: 2px;
+}
+.team-card .trole {
+  font-size: clamp(10.5px, 0.82vw, 12.5px);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  color: #B89400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.team-card .tbio {
+  font-size: clamp(11.5px, 0.88vw, 13.5px);
+  line-height: 1.46;
+  color: var(--ink-60);
+}
+.team-card .tbio strong { color: var(--navy); font-weight: 700; }
+
+/* Contact slide photo treatment (slide 6) */
+.contact-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center top;
+  border: 3px solid rgba(74,144,217,0.32);
+  margin-bottom: 16px;
+}
+.contact-photo.placeholder {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 70%, var(--cyan) 180%);
+  color: var(--yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  font-size: 38px;
+  letter-spacing: 0.02em;
+}
+.twocol-card.feature .contact-photo { border-color: rgba(232,212,77,0.55); }
+.contact-card-head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 10px;
+}
+.contact-card-head .contact-photo { margin-bottom: 0; }
+
+/* PDF / static mode */
+body.static .slide * {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+body.static .slide {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  display: none !important;
+}
+body.static .slide.active {
+  opacity: 1 !important;
+  display: flex !important;
+  pointer-events: auto !important;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   DESIGN UPGRADE LAYER — Investor-deck visual tier
+   ════════════════════════════════════════════════════════════════ */
+
+/* —— Vertical metadata rail —— */
+.vrail {
+  position: absolute;
+  right: clamp(28px, 3vw, 56px);
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: right center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(10px, 0.75vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-40);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.slide.dark .vrail, .slide[data-theme="dark"] .vrail { color: rgba(255,255,255,0.32); }
+
+/* —— Editorial cover —— */
+.cover-rule {
+  position: absolute;
+  left: clamp(40px, 6vw, 120px);
+  right: clamp(40px, 6vw, 120px);
+  bottom: clamp(80px, 9vh, 130px);
+  height: 1px;
+  background: var(--rule);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 900ms var(--ease-out-expo) 320ms;
+}
+.slide.active .cover-rule { transform: scaleX(1); }
+
+.cover-meta {
+  position: absolute;
+  left: clamp(40px, 6vw, 120px);
+  right: clamp(40px, 6vw, 120px);
+  bottom: clamp(40px, 5vh, 64px);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--ink-60);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 700ms var(--ease-out-quart) 480ms, transform 700ms var(--ease-out-quart) 480ms;
+}
+.slide.active .cover-meta { opacity: 1; transform: translateY(0); }
+.cover-meta .meta-key { color: var(--ink-40); text-transform: uppercase; font-size: 0.84em; letter-spacing: 0.18em; display: block; margin-bottom: 4px; }
+.cover-meta .meta-val { color: var(--navy); font-weight: 700; }
+.cover-meta .meta-block { line-height: 1.5; }
+.cover-meta .meta-block.right { text-align: right; }
+
+.cover-title-block {
+  max-width: 1080px;
+  margin-top: clamp(-20px, -2vh, -8px);
+}
+.cover-title-block .eyebrow {
+  font-size: clamp(11px, 0.85vw, 13px);
+  margin-bottom: clamp(26px, 3.2vh, 42px);
+  color: var(--ink-40);
+}
+.cover-title-block h1.title {
+  font-size: clamp(72px, 9vw, 144px);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  font-weight: 800;
+  margin-bottom: 0;
+}
+.cover-title-block .stripe {
+  display: inline-block;
+  height: 0.78em;
+  width: 0.18em;
+  background: var(--cyan);
+  margin: 0 0.04em 0 0.02em;
+  vertical-align: -0.04em;
+  border-radius: 1px;
+  transform: scaleY(0);
+  transform-origin: bottom center;
+  transition: transform 600ms var(--ease-out-expo) 380ms;
+}
+.slide.active .cover-title-block .stripe { transform: scaleY(1); }
+.cover-title-block .underline-acc {
+  display: inline-block;
+  position: relative;
+  color: var(--navy);
+}
+.cover-title-block .underline-acc::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0.06em;
+  height: 0.16em;
+  background: var(--yellow);
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 800ms var(--ease-out-expo) 540ms;
+}
+.slide.active .cover-title-block .underline-acc::after { transform: scaleX(1); }
+
+/* —— Numbered list (oversized mono numerals) —— */
+.numlist {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(18px, 2.2vh, 30px);
+  max-width: 760px;
+  margin-top: clamp(18px, 2.4vh, 32px);
+}
+.numlist > li {
+  display: grid;
+  grid-template-columns: clamp(48px, 4.4vw, 64px) 1fr;
+  gap: clamp(14px, 1.4vw, 22px);
+  align-items: baseline;
+  font-size: clamp(15px, 1.18vw, 19px);
+  line-height: 1.45;
+  color: var(--ink);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 600ms var(--ease-out-quart), transform 600ms var(--ease-out-quart);
+}
+.slide.active .numlist > li { opacity: 1; transform: translateY(0); }
+.slide.active .numlist > li:nth-child(1) { transition-delay: 320ms; }
+.slide.active .numlist > li:nth-child(2) { transition-delay: 420ms; }
+.slide.active .numlist > li:nth-child(3) { transition-delay: 520ms; }
+.slide.active .numlist > li:nth-child(4) { transition-delay: 620ms; }
+.numlist .n {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(22px, 2vw, 32px);
+  font-weight: 500;
+  color: var(--cyan);
+  letter-spacing: -0.02em;
+  align-self: start;
+  line-height: 1.1;
+}
+.numlist strong { color: var(--navy); font-weight: 700; }
+
+.split-2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(40px, 5vw, 88px);
+  align-items: start;
+  margin-top: clamp(18px, 2.2vh, 28px);
+}
+.split-2 .lede {
+  font-size: clamp(15px, 1.2vw, 19px);
+  line-height: 1.55;
+  color: var(--ink-60);
+  max-width: 38ch;
+}
+
+/* —— Timeline strip (Slide 3) —— */
+.timestrip {
+  display: grid;
+  grid-template-columns: auto 1fr auto 1fr auto;
+  align-items: center;
+  gap: clamp(18px, 2vw, 32px);
+  margin: clamp(8px, 1.2vh, 18px) 0 clamp(28px, 3.4vh, 42px);
+  max-width: 880px;
+}
+.timestrip .yr {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(28px, 3vw, 48px);
+  font-weight: 500;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 700ms var(--ease-out-quart), transform 700ms var(--ease-out-quart);
+  position: relative;
+}
+.timestrip .yr::before {
+  content: '';
+  position: absolute;
+  top: -10px; left: -2px;
+  width: 6px; height: 6px;
+  background: var(--yellow);
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 400ms var(--ease-out-expo);
+}
+.slide.active .timestrip .yr::before { transform: scale(1); transition-delay: 700ms; }
+.timestrip .yr:nth-child(5)::before { background: var(--cyan); }
+.timestrip .yr .label {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-40);
+  margin-top: 8px;
+}
+.timestrip .tline {
+  height: 1px;
+  background: var(--rule);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 700ms var(--ease-out-expo);
+}
+.slide.active .timestrip .yr:nth-child(1) { transition-delay: 320ms; opacity: 1; transform: translateY(0); }
+.slide.active .timestrip .tline:nth-child(2) { transition-delay: 460ms; transform: scaleX(1); }
+.slide.active .timestrip .yr:nth-child(3) { transition-delay: 580ms; opacity: 1; transform: translateY(0); }
+.slide.active .timestrip .tline:nth-child(4) { transition-delay: 720ms; transform: scaleX(1); }
+.slide.active .timestrip .yr:nth-child(5) { transition-delay: 840ms; opacity: 1; transform: translateY(0); }
+
+.history-prose {
+  max-width: 720px;
+  font-size: clamp(15px, 1.18vw, 18px);
+  line-height: 1.68;
+  color: var(--ink-60);
+  font-weight: 400;
+}
+.history-prose p { margin-bottom: 1.05em; }
+.history-prose p:last-child { margin-bottom: 0; }
+.history-prose strong { color: var(--navy); font-weight: 700; }
+/* dropcap retired: it read as half-committed serif against an Inter body */
+.history-prose .dropcap { /* class is harmless; keep no special styling */ }
+
+/* —— Site grid (Slide 4) —— */
+.sitegrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, auto);
+  gap: 1px;
+  background: rgba(255,255,255,0.10);
+  margin-top: clamp(18px, 2vh, 28px);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+.scell {
+  background: var(--navy-deep);
+  padding: clamp(18px, 2.4vh, 30px) clamp(18px, 2vw, 28px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: clamp(120px, 14vh, 160px);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 600ms var(--ease-out-quart), transform 600ms var(--ease-out-quart);
+}
+.slide.active .scell { opacity: 1; transform: translateY(0); }
+.slide.active .scell:nth-child(1) { transition-delay: 280ms; }
+.slide.active .scell:nth-child(2) { transition-delay: 340ms; }
+.slide.active .scell:nth-child(3) { transition-delay: 400ms; }
+.slide.active .scell:nth-child(4) { transition-delay: 460ms; }
+.slide.active .scell:nth-child(5) { transition-delay: 520ms; }
+.slide.active .scell:nth-child(6) { transition-delay: 580ms; }
+.slide.active .scell:nth-child(7) { transition-delay: 640ms; }
+.slide.active .scell:nth-child(8) { transition-delay: 700ms; }
+.slide.active .scell:nth-child(9) { transition-delay: 760ms; }
+
+.scell.featured {
+  grid-column: span 2;
+  background: linear-gradient(135deg, oklch(28% 0.06 245), oklch(22% 0.04 240));
+}
+.scell .stop {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: clamp(8px, 1.2vh, 14px);
+}
+.scell .sec {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(10px, 0.78vw, 12px);
+  letter-spacing: 0.14em;
+  color: rgba(232, 212, 77, 0.66);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.scell .coord {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(9px, 0.7vw, 11px);
+  color: rgba(255,255,255,0.36);
+  letter-spacing: 0.04em;
+}
+.scell .name {
+  font-size: clamp(20px, 2vw, 30px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  margin-bottom: clamp(4px, 0.8vh, 10px);
+}
+.scell.featured .name { font-size: clamp(26px, 2.6vw, 38px); }
+.scell .desc {
+  font-size: clamp(12px, 0.95vw, 14.5px);
+  line-height: 1.45;
+  color: rgba(255,255,255,0.66);
+}
+.scell .star {
+  position: absolute;
+  top: clamp(16px, 1.6vh, 22px);
+  right: clamp(16px, 1.4vw, 22px);
+  color: var(--yellow);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(10px, 0.8vw, 12px);
+  letter-spacing: 0.14em;
+  font-weight: 500;
+}
+.scell.featured { position: relative; }
+
+.site-meta {
+  margin-top: clamp(16px, 1.8vh, 22px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(16px, 2vw, 32px);
+  font-size: clamp(12px, 0.95vw, 14px);
+  color: rgba(255,255,255,0.60);
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.04em;
+}
+.site-meta .mblock { display: flex; align-items: baseline; gap: 8px; }
+.site-meta .mlabel {
+  color: rgba(232, 212, 77, 0.62);
+  font-size: 0.84em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.site-meta strong { color: #fff; font-weight: 700; }
+
+/* —— Team grid v2 (Slide 5) —— */
+.tgrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 2vw, 32px) clamp(22px, 2.4vw, 36px);
+  margin-top: clamp(20px, 2.4vh, 32px);
+}
+.tcard {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.2vh, 16px);
+  position: relative;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 600ms var(--ease-out-quart), transform 600ms var(--ease-out-quart);
+}
+.slide.active .tcard { opacity: 1; transform: translateY(0); }
+.slide.active .tcard:nth-child(1) { transition-delay: 280ms; }
+.slide.active .tcard:nth-child(2) { transition-delay: 340ms; }
+.slide.active .tcard:nth-child(3) { transition-delay: 400ms; }
+.slide.active .tcard:nth-child(4) { transition-delay: 460ms; }
+.slide.active .tcard:nth-child(5) { transition-delay: 520ms; }
+.slide.active .tcard:nth-child(6) { transition-delay: 580ms; }
+
+.tcard .tphoto2 {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-size: cover;
+  background-position: center 22%;
+  background-color: var(--paper);
+  filter: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.tcard .tphoto2.ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%);
+  color: var(--yellow);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(34px, 3.6vw, 56px);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  filter: none;
+  position: relative;
+}
+.tcard .tphoto2.ph::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 30%, rgba(74,144,217,0.20) 0%, transparent 70%),
+    repeating-linear-gradient(45deg, transparent 0 8px, rgba(255,255,255,0.012) 8px 9px);
+  pointer-events: none;
+}
+.tcard .tphoto2.ph::after { display: none; }
+
+.tcard .tname2 {
+  font-size: clamp(17px, 1.4vw, 21px);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  margin-top: 4px;
+}
+.tcard .trole2 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(10px, 0.78vw, 12px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 600;
+  margin-top: -1px;
+}
+.tcard .tbio2 {
+  font-size: clamp(12.5px, 1vw, 14.5px);
+  line-height: 1.58;
+  color: var(--ink-60);
+  margin-top: 4px;
+  font-weight: 400;
+}
+.tcard .tbio2 strong { color: var(--navy); font-weight: 600; }
+
+.rr-banner {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(14px, 1.4vw, 22px);
+  align-items: center;
+  padding: clamp(10px, 1.4vh, 16px) 0;
+  margin-bottom: clamp(8px, 1.2vh, 14px);
+  border-top: 1px solid var(--line-warm);
+  border-bottom: 1px solid var(--line-warm);
+  font-family: 'JetBrains Mono', monospace;
+}
+.rr-banner .rr-key {
+  font-size: clamp(10.5px, 0.84vw, 13px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--navy);
+  font-weight: 700;
+}
+.rr-banner .rr-val {
+  font-size: clamp(11.5px, 0.92vw, 14px);
+  color: var(--ink-60);
+  letter-spacing: 0.04em;
+}
+.rr-banner .rr-val strong { color: var(--navy); font-weight: 700; }
+
+/* —— Contact cards (Slide 6) —— */
+.contact-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(28px, 3vw, 48px);
+  margin-top: clamp(22px, 2.6vh, 36px);
+}
+.ccard {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--paper);
+  border: 1px solid var(--line-warm);
+  padding: clamp(22px, 2.6vh, 34px) clamp(22px, 2.4vw, 32px);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 600ms var(--ease-out-quart), transform 600ms var(--ease-out-quart);
+  position: relative;
+}
+.slide.active .ccard { opacity: 1; transform: translateY(0); }
+.slide.active .ccard:nth-child(1) { transition-delay: 280ms; }
+.slide.active .ccard:nth-child(2) { transition-delay: 400ms; }
+
+.ccard.feature {
+  background: oklch(96.5% 0.018 90);
+  border-color: oklch(82% 0.08 90);
+}
+.ccard .role-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(10.5px, 0.82vw, 12.5px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 500;
+  margin-bottom: clamp(14px, 1.8vh, 22px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ccard.feature .role-tag { color: oklch(46% 0.14 70); }
+.ccard .role-tag::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: currentColor;
+}
+.ccard .chead {
+  display: grid;
+  grid-template-columns: clamp(96px, 9vw, 132px) 1fr;
+  gap: clamp(18px, 2vw, 28px);
+  align-items: center;
+  margin-bottom: clamp(18px, 2.2vh, 28px);
+}
+.ccard .cphoto {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-size: cover;
+  background-position: center 30%;
+  background-color: var(--paper);
+  filter: none;
+  position: relative;
+  overflow: hidden;
+}
+.ccard .cphoto::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 4px;
+  background: var(--yellow);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 600ms var(--ease-out-expo) 0.4s;
+}
+.slide.active .ccard .cphoto::after { transform: scaleX(1); }
+.ccard .cphoto.ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--navy), oklch(28% 0.06 245));
+  color: var(--yellow);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(28px, 2.6vw, 42px);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.ccard h3.cname {
+  font-size: clamp(20px, 1.7vw, 26px);
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1.14;
+  letter-spacing: -0.018em;
+  margin-bottom: 4px;
+}
+.ccard .ctitle {
+  font-size: clamp(13.5px, 1.05vw, 16px);
+  color: var(--navy);
+  font-weight: 600;
+}
+.ccard .cbio {
+  font-size: clamp(13px, 1.02vw, 15.5px);
+  line-height: 1.6;
+  color: var(--ink-60);
+}
+.ccard .cbio p { margin-bottom: 0.85em; }
+.ccard .cbio p:last-child { margin-bottom: 0; }
+.ccard .cbio strong { color: var(--navy); font-weight: 700; }
+
+/* —— Backing cards (Slide 7) —— */
+.bgrid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr 1fr;
+  gap: clamp(18px, 1.8vw, 28px);
+  margin-top: clamp(22px, 2.6vh, 36px);
+  align-items: stretch;
+}
+.bcard {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 1.4vh, 18px);
+  padding: clamp(22px, 2.6vh, 34px) clamp(22px, 2.4vw, 32px);
+  background: var(--paper);
+  border: 1px solid var(--line-warm);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 600ms var(--ease-out-quart), transform 600ms var(--ease-out-quart);
+  position: relative;
+}
+.slide.active .bcard { opacity: 1; transform: translateY(0); }
+.slide.active .bcard:nth-child(1) { transition-delay: 280ms; }
+.slide.active .bcard:nth-child(2) { transition-delay: 380ms; }
+.slide.active .bcard:nth-child(3) { transition-delay: 480ms; }
+.bcard.primary {
+  background: var(--navy-deep);
+  border-color: var(--navy-deep);
+  color: rgba(255,255,255,0.78);
+}
+.bcard .bcat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(10px, 0.78vw, 12px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-40);
+  font-weight: 500;
+}
+.bcard.primary .bcat { color: rgba(232, 212, 77, 0.72); }
+.bcard h3.bname {
+  font-size: clamp(20px, 1.7vw, 26px);
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1.14;
+  letter-spacing: -0.018em;
+}
+.bcard.primary h3.bname { color: #fff; }
+.bcard .bbody {
+  font-size: clamp(13px, 1.02vw, 15px);
+  line-height: 1.58;
+  color: var(--ink-60);
+  flex: 1;
+}
+.bcard.primary .bbody { color: rgba(255,255,255,0.74); }
+.bcard .bbody strong { color: var(--navy); font-weight: 700; }
+.bcard.primary .bbody strong { color: #fff; }
+.bcard .bstat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(28px, 2.6vw, 40px);
+  font-weight: 500;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-top: 4px;
+}
+.bcard .bstat .sub {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 600;
+  color: var(--ink-40);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+/* —— Dark hero cover —— */
+.slide.hero-photo.cover { background: var(--navy-deep); }
+.slide.hero-photo.cover .bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  filter: saturate(0.78) contrast(1.04);
+  animation: kenburns 22s ease-in-out infinite alternate;
+}
+.slide.hero-photo.cover .hero-overlay {
+  position: absolute; inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(105deg,
+      rgba(11,26,44,0.92) 0%,
+      rgba(11,26,44,0.78) 38%,
+      rgba(11,26,44,0.42) 70%,
+      rgba(11,26,44,0.18) 100%),
+    radial-gradient(ellipse 60% 100% at 18% 50%, rgba(11,26,44,0.55) 0%, transparent 70%);
+}
+.slide.hero-photo.cover .slide-inner { z-index: 3; }
+.slide.hero-photo.cover .cover-title-block.cover-dark h1.title {
+  color: #fff;
+  text-shadow: 0 4px 32px rgba(0,0,0,0.45);
+}
+.slide.hero-photo.cover .cover-title-block.cover-dark .eyebrow { color: var(--yellow); }
+.slide.hero-photo.cover .cover-title-block.cover-dark .underline-acc { color: #fff; }
+.slide.hero-photo.cover .cover-title-block.cover-dark .underline-acc::after { background: var(--yellow); height: 0.14em; }
+.slide.hero-photo.cover .cover-title-block.cover-dark .stripe { background: var(--yellow); }
+.slide.hero-photo.cover .cover-rule-dark {
+  background: rgba(255,255,255,0.22);
+}
+.slide.hero-photo.cover .cover-meta-dark { color: rgba(255,255,255,0.72); z-index: 3; }
+.slide.hero-photo.cover .cover-meta-dark .meta-key { color: var(--yellow); opacity: 0.72; }
+.slide.hero-photo.cover .cover-meta-dark .meta-val { color: #fff; }
+.slide.hero-photo.cover .page-num { color: rgba(255,255,255,0.45); }
+
+/* —— Cover overrides —— */
+.slide.active.cover .page-num { display: none; }
+.slide .cover-title-block + .cover-meta { z-index: 6; }
+.slide:first-child .page-num,
+.slide:first-child .logo,
+.slide:first-child .deck-tag { display: none; }
+
+/* —— Quiet existing deck-tag on light slides (more refined) —— */
+.slide:not(.dark):not([data-theme="dark"]) .deck-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: var(--ink-40);
+  font-size: clamp(10px, 0.78vw, 12px);
+  border: none !important;
+  background: transparent;
+  padding: 0;
+}
+.deck-tag::before {
+  content: '';
+  display: inline-block;
+  width: 18px; height: 1px;
+  background: currentColor;
+  vertical-align: 0.28em;
+  margin-right: 8px;
+  opacity: 0.55;
+}
+
+/* —— Slide-level atmosphere patterns —— */
+.slide.atmosphere-soft::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 42% 32% at 18% 28%, rgba(74,144,217,0.06) 0%, transparent 65%),
+    radial-gradient(ellipse 38% 38% at 86% 76%, rgba(232,212,77,0.045) 0%, transparent 65%),
+    radial-gradient(circle at 50% 110%, rgba(27,58,92,0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+.slide.atmosphere-grid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(27,58,92,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27,58,92,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+          mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  pointer-events: none;
+}
+.slide.atmosphere-dots-dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1.5px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+
+/* Hex mark (subtle, slide 2) */
+.hex-mark {
+  position: absolute;
+  right: clamp(40px, 6vw, 110px);
+  bottom: clamp(80px, 9vh, 120px);
+  width: clamp(180px, 18vw, 260px);
+  height: clamp(180px, 18vw, 260px);
+  z-index: 0;
+  opacity: 0;
+  transform: translateY(20px) rotate(-6deg);
+  pointer-events: none;
+  color: var(--navy);
+  transition: opacity 1400ms var(--ease-out-quart) 480ms, transform 1400ms var(--ease-out-quart) 480ms;
+}
+.slide.active .hex-mark { opacity: 0.07; transform: translateY(0) rotate(0); }
+.hex-mark svg { width: 100%; height: 100%; display: block; }
+.hex-mark svg polygon { transform-origin: center; }
+.hex-mark svg polygon:nth-child(1) { animation: hex-pulse 8s ease-in-out infinite; }
+.hex-mark svg polygon:nth-child(2) { animation: hex-pulse 8s ease-in-out infinite 1.3s; }
+.hex-mark svg polygon:nth-child(3) { animation: hex-pulse 8s ease-in-out infinite 2.6s; }
+@keyframes hex-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.slide.dark .hex-mark, .slide[data-theme="dark"] .hex-mark { opacity: 0.045; color: #fff; }
+
+/* ════════════════════════════════════════════════════════════════
+   QA FIX PASS — formatting bugs caught in v8 screenshots
+   ════════════════════════════════════════════════════════════════ */
+
+/* Fix: numlist on dark slides — text was invisible (dark on dark) */
+.slide.dark .numlist > li,
+.slide[data-theme="dark"] .numlist > li { color: rgba(255,255,255,0.88); }
+.slide.dark .numlist strong,
+.slide[data-theme="dark"] .numlist strong { color: #fff; }
+.slide.dark .numlist .n,
+.slide[data-theme="dark"] .numlist .n { color: var(--yellow); }
+
+/* Fix: cover stripe too prominent — make a subtle thin divider */
+.cover-title-block .stripe {
+  width: 0.06em !important;
+  height: 0.62em !important;
+  margin: 0 0.10em 0 0.06em !important;
+  background: var(--cyan) !important;
+}
+
+/* Fix: team slide overflow — tighter photo aspect, smaller bio text, compact gaps */
+.slide:has(> .slide-inner .rr-banner) .tgrid { gap: clamp(10px, 1vw, 16px) !important; }
+.tcard .tphoto2 { aspect-ratio: 1 / 1 !important; }
+.tcard .tname2 { font-size: clamp(14px, 1.1vw, 17px) !important; }
+.tcard .trole2 { font-size: clamp(9.5px, 0.75vw, 11px) !important; }
+.tcard .tbio2 { font-size: clamp(11px, 0.88vw, 13px) !important; line-height: 1.45 !important; }
+.rr-banner .rr-key { font-size: clamp(9.5px, 0.78vw, 12px) !important; }
+.rr-banner .rr-val { font-size: clamp(11px, 0.86vw, 13px) !important; }
+.rr-banner { padding: clamp(8px, 1.1vh, 12px) 0 !important; }
+
+/* Fix: slide-inner vertical balance — anchor content top-aligned on dense slides */
+.slide.tight .slide-inner {
+  align-self: flex-start;
+  margin-top: clamp(24px, 3vh, 48px);
+}
+
+/* Fix: team slide — reduce photo aspect + spacing aggressively */
+.slide.tight .tcard .tphoto2 { aspect-ratio: 4 / 3 !important; }
+.slide.tight .tgrid { gap: clamp(10px, 1vw, 16px) !important; }
+.slide.tight .rr-banner { margin-top: clamp(10px, 1.2vh, 16px) !important; margin-bottom: clamp(8px, 1vh, 12px) !important; padding: clamp(6px, 0.8vh, 10px) 0 !important; }
+
+/* Founder photos — make slightly smaller for higher rendered resolution */
+.slide.tight > .slide-inner > .tgrid:not(.clevel-row) {
+  max-width: 1180px;
+}
+.slide.tight > .slide-inner > .tgrid .tcard .tphoto2 { aspect-ratio: 5 / 4 !important; }
+
+/* Slide 6 — history with prose left, photo right */
+.history-split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.1fr);
+  gap: clamp(34px, 4vw, 64px);
+  align-items: start;
+  margin-top: clamp(6px, 1vh, 12px);
+}
+.history-split .history-prose { max-width: none; }
+.history-photo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 700ms var(--ease-out-quart) 600ms, transform 700ms var(--ease-out-quart) 600ms;
+}
+.slide.active .history-photo { opacity: 1; transform: translateY(0); }
+.history-photo img {
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  border: 1px solid var(--line-warm);
+  filter: none;
+}
+.history-photo-caption {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(10.5px, 0.82vw, 12.5px);
+  letter-spacing: 0.08em;
+  color: var(--ink-40);
+  text-transform: none;
+}
+
+/* Slide 7 — journey hero with photo background */
+.journey-bg {
+  position: absolute;
+  inset: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center 28%;
+  background-color: var(--navy-deep);
+  z-index: 0;
+}
+.journey-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(11,26,44,0.62) 0%, rgba(11,26,44,0.35) 28%, rgba(11,26,44,0.78) 70%, rgba(11,26,44,0.94) 100%);
+}
+.journey-timeline {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(14px, 1.6vw, 22px) clamp(22px, 2.6vw, 40px);
+  max-width: 1380px;
+}
+.journey-timeline > li {
+  display: grid;
+  grid-template-columns: clamp(40px, 3.4vw, 56px) 1fr;
+  gap: clamp(10px, 1vw, 16px);
+  align-items: baseline;
+  color: rgba(255,255,255,0.92);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 600ms var(--ease-out-quart), transform 600ms var(--ease-out-quart);
+}
+.slide.active .journey-timeline > li { opacity: 1; transform: translateY(0); }
+.slide.active .journey-timeline > li:nth-child(1) { transition-delay: 360ms; }
+.slide.active .journey-timeline > li:nth-child(2) { transition-delay: 440ms; }
+.slide.active .journey-timeline > li:nth-child(3) { transition-delay: 520ms; }
+.slide.active .journey-timeline > li:nth-child(4) { transition-delay: 600ms; }
+.slide.active .journey-timeline > li:nth-child(5) { transition-delay: 680ms; }
+.slide.active .journey-timeline > li:nth-child(6) { transition-delay: 760ms; }
+.journey-timeline .jt-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(18px, 1.6vw, 26px);
+  color: var(--yellow);
+  font-weight: 500;
+  line-height: 1;
+}
+.journey-timeline .jt-text {
+  font-size: clamp(13px, 1vw, 15.5px);
+  line-height: 1.45;
+  color: rgba(255,255,255,0.86);
+}
+.journey-timeline .jt-text strong { color: #fff; font-weight: 700; }
+
+/* Slide 11 — vision split with prose left, photo right */
+.vision-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.95fr);
+  gap: clamp(34px, 4vw, 64px);
+  align-items: start;
+  margin-top: clamp(6px, 1vh, 12px);
+}
+.vision-prose {
+  font-size: clamp(15px, 1.18vw, 18px);
+  line-height: 1.68;
+  color: rgba(255,255,255,0.82);
+  max-width: none;
+}
+.vision-prose p { margin-bottom: 1.05em; }
+.vision-prose p:last-child { margin-bottom: 0; }
+.vision-prose strong { color: #fff; }
+.vision-prose .vision-anchor { margin-top: 0.4em; }
+.vision-photo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 700ms var(--ease-out-quart) 600ms, transform 700ms var(--ease-out-quart) 600ms;
+}
+.slide.active .vision-photo { opacity: 1; transform: translateY(0); }
+.vision-photo img {
+  width: 100%;
+  height: auto;
+  max-height: 62vh;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 2px;
+  border: 1px solid rgba(255,255,255,0.10);
+  filter: none;
+}
+.vision-photo-caption {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(10px, 0.78vw, 12px);
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.46);
+  font-style: italic;
+}
+
+/* C-level row — compact horizontal pill cards */
+.clevel-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(18px, 2vw, 28px);
+  margin-top: clamp(2px, 0.4vh, 8px);
+}
+.clevel-card {
+  display: grid;
+  grid-template-columns: clamp(72px, 6vw, 100px) 1fr;
+  gap: clamp(12px, 1.2vw, 18px);
+  align-items: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 600ms var(--ease-out-quart), transform 600ms var(--ease-out-quart);
+}
+.slide.active .clevel-card { opacity: 1; transform: translateY(0); transition-delay: 540ms; }
+.slide.active .clevel-card:nth-child(2) { transition-delay: 620ms; }
+.clevel-photo {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-size: 92% auto;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: var(--paper);
+  filter: none;
+  border-radius: 2px;
+}
+.clevel-text { display: flex; flex-direction: column; gap: 3px; }
+.clevel-name {
+  font-size: clamp(13.5px, 1.05vw, 16px);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+}
+.clevel-role {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(10px, 0.8vw, 12px);
+  font-weight: 500;
+  color: var(--cyan);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.clevel-bio {
+  font-size: clamp(11.5px, 0.9vw, 13.5px);
+  line-height: 1.45;
+  color: var(--ink-60);
+}
+.clevel-bio strong { color: var(--navy); font-weight: 700; }
+
+/* Fix: underline-acc cleaner break when wrapping (limit to one logical phrase) */
+.headline .accent::after,
+.cover-title-block .underline-acc::after { box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+
+/* —— Generic closer line —— */
+.closer-line {
+  font-style: italic;
+  color: var(--ink-60);
+  font-weight: 400;
+  font-size: clamp(13px, 1vw, 15.5px);
+  margin-top: clamp(20px, 2.4vh, 30px);
+  max-width: 76ch;
+  line-height: 1.55;
+}
+.slide.dark .closer-line, .slide[data-theme="dark"] .closer-line { color: rgba(255,255,255,0.66); }
+
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- SLIDE 1: Cover — hero photo + editorial title -->
+  <section class="slide hero-photo dark active cover" data-theme="dark">
+    <div class="bg" style="background-image: url('../mariana-minerals-followup/presentation-assets/mariana/slide1-quarry-hero.jpg');"></div>
+    <div class="hero-overlay"></div>
+    <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo-white.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag" style="color: rgba(255,255,255,0.7);">CONFIDENTIAL · MARIANA × HIVE</span>
+    <div class="vrail" style="color: rgba(255,255,255,0.42);">Company Brief · May 2026 · prepared for Mariana Minerals</div>
+    <div class="slide-inner">
+      <div class="cover-title-block cover-dark">
+        <div class="eyebrow">Company Brief — 01 / 11</div>
+        <h1 class="title">Hive<span class="stripe"></span><span class="underline-acc">Autonomy</span>.</h1>
+      </div>
+    </div>
+    <div class="cover-rule cover-rule-dark"></div>
+    <div class="cover-meta cover-meta-dark">
+      <div class="meta-block">
+        <span class="meta-key">Prepared for</span>
+        <span class="meta-val">Mariana Minerals · Copper One / Lone Wolf</span>
+      </div>
+      <div class="meta-block">
+        <span class="meta-key">From</span>
+        <span class="meta-val">Ronny Liverød · VP Heavy Machinery</span>
+      </div>
+      <div class="meta-block right">
+        <span class="meta-key">Contact</span>
+        <span class="meta-val">ronny.liverod@hiveautonomy.no</span>
+      </div>
+    </div>
+    <span class="page-num">01 / 11</span>
+  </section>
+
+  <!-- SLIDE 2: Mission (light) — breathes -->
+  <section class="slide atmosphere-soft breathe" data-theme="light">
+    <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">02 · MISSION</span>
+    <div class="vrail">We sell productive machine-hours, not software</div>
+    <div class="hex-mark" aria-hidden="true">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.4">
+        <polygon points="50,5 90,28 90,72 50,95 10,72 10,28" />
+        <polygon points="50,18 78,34 78,66 50,82 22,66 22,34" />
+        <polygon points="50,32 65,40 65,60 50,68 35,60 35,40" />
+      </svg>
+    </div>
+    <div class="slide-inner">
+      <div class="eyebrow">Mission</div>
+      <h2 class="headline" style="margin-bottom: clamp(20px, 2.4vh, 32px); max-width: 1100px;">We sell productive <span class="accent">machine-hours,</span> not software.</h2>
+
+      <div class="history-prose" style="max-width: 760px;">
+        <p>Hive retrofits industrial machines and runs them as a service. A supervising operator at our centre handles the edge cases; the model runs the routine. Customers buy the work, not the platform.</p>
+        <p>The field is the only judge. A demo or a dashboard can be wrong. A machine running an eight-hour shift in a quarry, in winter, without a human touching it, cannot.</p>
+      </div>
+    </div>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">02 / 11</span>
+  </section>
+
+  <!-- SLIDE 3: Team (light) — Founders (5) + C-level additions (2) -->
+  <section class="slide tight" data-theme="light">
+    <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">03 · THE TEAM</span>
+    <div class="vrail">Five founders · two recent C-level additions</div>
+    <div class="slide-inner">
+      <div class="eyebrow">The team</div>
+      <h2 class="headline" style="margin-bottom: clamp(14px, 1.8vh, 22px); max-width: 1200px;">Five founders. <span class="accent">Two recent additions to scale.</span></h2>
+
+      <!-- Section label: Founders -->
+      <div class="rr-banner" style="margin-top: clamp(6px, 0.8vh, 12px); margin-bottom: clamp(14px, 1.8vh, 22px);">
+        <span class="rr-key">Founders</span>
+        <span class="rr-val">Built and exited <strong>Red Rock</strong> together over twelve years. Building Hive together since 2022.</span>
+      </div>
+
+      <!-- Founders row: 5 cards -->
+      <div class="tgrid" style="grid-template-columns: repeat(5, 1fr); gap: clamp(14px, 1.5vw, 22px);">
+        <div class="tcard">
+          <div class="tphoto2" style="background-image: url('../mariana-minerals-followup/presentation-assets/team/christoffer.jpg');"></div>
+          <div class="tname2">Christoffer Jørgenvåg</div>
+          <div class="trole2">CEO</div>
+          <div class="tbio2">Founded <strong>Red Rock</strong> in 2009 to automate offshore lifting. Led twelve years and 300+ shipped systems to the Ocean Infinity exit. Self-funded the Hive thesis through to incorporation. AI and programming, University of Agder.</div>
+        </div>
+        <div class="tcard">
+          <div class="tphoto2" style="background-image: url('../mariana-minerals-followup/presentation-assets/team/fredrik.jpg');"></div>
+          <div class="tname2">Fredrik Bringager</div>
+          <div class="trole2">CCO</div>
+          <div class="tbio2">Robotics and AI master's, University of Agder. Commercial roles at <strong>Red Rock</strong> and <strong>Ocean Infinity</strong>.</div>
+        </div>
+        <div class="tcard">
+          <div class="tphoto2" style="background-image: url('../mariana-minerals-followup/presentation-assets/team/oskar.jpg');"></div>
+          <div class="tname2">Oskar Mykland</div>
+          <div class="trole2">CFO</div>
+          <div class="tbio2">CFO and VP roles across <strong>Sevan Marine</strong>, <strong>Siem Offshore</strong> and <strong>Viking Supply Ships</strong>. Over USD 1B raised across those entities.</div>
+        </div>
+        <div class="tcard">
+          <div class="tphoto2" style="background-image: url('../mariana-minerals-followup/presentation-assets/team/michael.jpg');"></div>
+          <div class="tname2">Michael Gallagher</div>
+          <div class="trole2">HEAD OF SAFETY</div>
+          <div class="tbio2">Earlier at <strong>Red Rock</strong>. Leads Hive's safety and compliance practice.</div>
+        </div>
+        <div class="tcard">
+          <div class="tphoto2" style="background-image: url('../mariana-minerals-followup/presentation-assets/team/vidar.jpg');"></div>
+          <div class="tname2">Vidar Hansen</div>
+          <div class="trole2">CHAIR</div>
+          <div class="tbio2">Chaired <strong>Red Rock</strong> from its 2009 founding through the Ocean Infinity exit. Extensive Norwegian maritime and industrial-business background.</div>
+        </div>
+      </div>
+
+      <!-- Section label: C-level additions -->
+      <div class="rr-banner" style="margin-top: clamp(20px, 2.4vh, 30px); margin-bottom: clamp(14px, 1.8vh, 22px);">
+        <span class="rr-key">C-level additions</span>
+        <span class="rr-val">Joined to scale operations and the AI platform.</span>
+      </div>
+
+      <!-- C-level row: 2 horizontal pill cards -->
+      <div class="clevel-row">
+        <div class="clevel-card">
+          <div class="clevel-photo" style="background-image: url('../mariana-minerals-followup/presentation-assets/team/severin.jpg');"></div>
+          <div class="clevel-text">
+            <div class="clevel-name">Severin Baugstø Hanssen <span class="clevel-role">· CHIEF DELIVERY OFFICER</span></div>
+            <div class="clevel-bio">Most recently CEO of <strong>Lekekassen</strong>, Norway's largest online toy retailer. Siviløkonom, NHH. Owns delivery and customer rollout at Hive.</div>
+          </div>
+        </div>
+        <div class="clevel-card">
+          <div class="clevel-photo" style="background-image: url('../mariana-minerals-followup/presentation-assets/team/dmitrii.jpg');"></div>
+          <div class="clevel-text">
+            <div class="clevel-name">Dmitrii Rudnitckii <span class="clevel-role">· CTO</span></div>
+            <div class="clevel-bio">Most recently CTO at <strong>Humanoid</strong> (Artem Sokolov-backed). Earlier SVP Robotics at <strong>Arrival</strong>, designed the autonomous microfactory for EV production.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">03 / 11</span>
+  </section>
+
+  <!-- SLIDE 4: Backed by (light) -->
+  <section class="slide atmosphere-grid tight" data-theme="light">
+    <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">04 · BACKING</span>
+    <div class="vrail">Founder-owned · large seed round closing</div>
+    <div class="slide-inner">
+      <div class="eyebrow">Backing</div>
+      <h2 class="headline" style="margin-bottom: clamp(20px, 2.4vh, 32px); max-width: 1200px;">The founders own the company. <span class="accent">A large seed round</span> becomes public in early June.</h2>
+
+      <div class="history-prose" style="max-width: 820px;">
+        <p>Hive is owned through <strong>Percept Investment</strong>, the founders' vehicle. The journey from the Red Rock exit through Hive's first years has been largely self-funded.</p>
+        <p>A large seed round is closing and becomes public in early June 2026. What's already public: <strong>Børge Hald</strong> — co-founder of Medallia, sold to Thoma Bravo for $6.4B in 2021 — is joining the board.</p>
+        <p>The round includes other large investors, including a US lead. We share names in person.</p>
+      </div>
+
+      <div class="closer-line" style="font-style: italic;">
+        Engineering roadmap is set by customer pull, not fund timing.
+      </div>
+    </div>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">04 / 11</span>
+  </section>
+
+  <!-- SLIDE 5: What we do (light) — two columns -->
+  <section class="slide" data-theme="light">
+    <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">05 · WHAT WE DO</span>
+    <div class="vrail">Two parts. One service.</div>
+    <div class="slide-inner">
+      <div class="eyebrow">What we do</div>
+      <h2 class="headline" style="margin-bottom: clamp(20px, 2.4vh, 32px);">Two parts. <span class="accent">One service.</span></h2>
+
+      <div class="split-2" style="grid-template-columns: 1fr 1fr; gap: clamp(36px, 4vw, 64px); align-items: start;">
+        <div>
+          <div class="trole2" style="margin-bottom: 10px;">VISION · LANGUAGE · ACTION</div>
+          <div class="tname2" style="font-size: clamp(19px, 1.5vw, 24px); margin-bottom: 12px;">The model</div>
+          <div class="tbio2" style="font-size: clamp(13px, 1vw, 14.5px); line-height: 1.55;">
+            <p style="margin-bottom: 0.85em;">Cameras and lidar on the machine. A model trained on labelled cycles decides what to do next. An action expert turns that decision into joint commands at the machine layer.</p>
+            <p style="margin-bottom: 0;">The architecture works across forklifts, wheel loaders, terminal tractors and cranes. The customer keeps the machine, the dealer and the service contract; we add the autonomy on top.</p>
+          </div>
+        </div>
+        <div>
+          <div class="trole2" style="margin-bottom: 10px;">KRISTIANSAND</div>
+          <div class="tname2" style="font-size: clamp(19px, 1.5vw, 24px); margin-bottom: 12px;">The ops centre</div>
+          <div class="tbio2" style="font-size: clamp(13px, 1vw, 14.5px); line-height: 1.55;">
+            <p style="margin-bottom: 0.85em;">A supervising operator takes over the moment the model loses confidence. The handover happens in under five seconds. Every intervention is two things at once: a guarantee that the work gets done, and a training signal that makes the next machine better.</p>
+            <p style="margin-bottom: 0;">Operators are not a scaffold on the way to "full autonomy." They are the engine that makes autonomy possible.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="closer-line" style="font-style: italic; margin-top: clamp(22px, 2.6vh, 32px);">
+        It's not programming. It's not automation. It is proper AI, supervised by people who know the field.
+      </div>
+    </div>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">05 / 11</span>
+  </section>
+
+  <!-- SLIDE 6: How we got here (light) — history prose with timestrip -->
+  <section class="slide atmosphere-soft tight" data-theme="light">
+    <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">06 · HOW WE GOT HERE</span>
+    <div class="vrail">From offshore cranes to wheel loaders</div>
+    <div class="slide-inner">
+      <div class="eyebrow">How we got here</div>
+      <h2 class="headline" style="margin-bottom: clamp(20px, 2.4vh, 32px);">From offshore cranes to <span class="accent">wheel loaders.</span></h2>
+
+      <div class="timestrip">
+        <div class="yr">2009<span class="label">Red Rock founded</span></div>
+        <div class="tline"></div>
+        <div class="yr">2021<span class="label">Ocean Infinity buys Red Rock</span></div>
+        <div class="tline"></div>
+        <div class="yr">2022<span class="label">Hive Autonomy incorporated</span></div>
+      </div>
+
+      <div class="history-split">
+        <div class="history-prose" style="max-width: 540px;">
+          <p class="dropcap">In 2009 Christoffer Jørgenvåg founded <strong>Red Rock</strong> in Kristiansand to automate offshore lifting — the heave-compensation hardware and remote-supervision software that lets a crane move heavy loads between a ship rolling on the sea and a platform fixed above. Over twelve years the team shipped more than three hundred mission-critical systems into the offshore industry.</p>
+          <p>In October 2021, <strong>Ocean Infinity</strong> — the Austin-based autonomous-maritime operator behind the twelve-vessel Armada fleet — bought Red Rock and folded the remote-supervision stack into its autonomous ocean operations.</p>
+          <p>The same engineering team kept building. Worked with several Norwegian industrial players on terminal tractors, gantry cranes and intralogistics. Self-funded most of the way.</p>
+          <p><strong>Hive Autonomy was incorporated in August 2022.</strong> Forty people today, growing.</p>
+        </div>
+        <div class="history-photo">
+          <img src="../mariana-minerals-followup/presentation-assets/heritage/redrock-crane-sunset.jpg" alt="Red Rock 3D motion-compensated crane offshore at sunset">
+          <div class="history-photo-caption">Red Rock 3D motion-compensated crane — offshore wind, North Sea.</div>
+        </div>
+      </div>
+    </div>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">06 / 11</span>
+  </section>
+
+  <!-- SLIDE 7: Customer journey — hero photo with timeline overlay -->
+  <section class="slide dark journey-hero" data-theme="dark" style="padding: 0; background: var(--navy-deep);">
+    <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo-white.png" class="logo" alt="Hive Autonomy" style="z-index: 5;">
+    <span class="deck-tag" style="z-index: 5;">07 · CUSTOMER JOURNEY</span>
+
+    <!-- Hero background photo -->
+    <div class="journey-bg" style="background-image: url('../mariana-minerals-followup/presentation-assets/customers/fleet-lineup.jpg');"></div>
+    <div class="journey-overlay"></div>
+
+    <div class="slide-inner" style="z-index: 2; align-self: flex-end; margin-bottom: clamp(48px, 6vh, 90px); max-width: 1380px;">
+      <div class="eyebrow" style="color: var(--yellow);">Where we started, where we are</div>
+      <h2 class="headline" style="margin-bottom: clamp(22px, 2.6vh, 32px); max-width: 1280px;">From pallet jacks to gantry cranes to <span class="accent">wheel loaders.</span></h2>
+
+      <ol class="journey-timeline">
+        <li><span class="jt-num">01</span><span class="jt-text"><strong>First</strong> — Pallet jacks and forklifts in Norwegian intralogistics.</span></li>
+        <li><span class="jt-num">02</span><span class="jt-text"><strong>2021</strong> — Terminal-tractor integrations across Norwegian logistics operators.</span></li>
+        <li><span class="jt-num">03</span><span class="jt-text"><strong>Moss Harbour</strong> — Remote gantry crane on container loading.</span></li>
+        <li><span class="jt-num">04</span><span class="jt-text"><strong>Yara · Herøya</strong> — Wheel-loader autonomy in heavy industry.</span></li>
+        <li><span class="jt-num">05</span><span class="jt-text"><strong>Presis · Veidekke</strong> — Highway maintenance and tunnel construction.</span></li>
+        <li><span class="jt-num">06</span><span class="jt-text"><strong>Today</strong> — Nine live deployments. Heavy machinery + intralogistics.</span></li>
+      </ol>
+    </div>
+    <span class="page-num" style="z-index: 5;">07 / 11</span>
+  </section>
+
+  <!-- SLIDE 8: Live deployments (light) — cinematic, tight -->
+  <section class="slide tight" data-theme="light">
+    <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">08 · LIVE DEPLOYMENTS</span>
+    <div class="vrail">Two streams · same model underneath</div>
+    <div class="slide-inner">
+      <div class="eyebrow">Live deployments</div>
+      <h2 class="headline" style="margin-bottom: clamp(20px, 2.4vh, 32px); max-width: 1200px;">Two streams. <span class="accent">The same model underneath.</span></h2>
+
+      <div class="split-2" style="grid-template-columns: 1fr 1fr; gap: clamp(40px, 4.4vw, 72px); align-items: start;">
+
+        <!-- LEFT: Heavy machinery — 2x2 video grid -->
+        <div>
+          <div class="trole2" style="margin-bottom: 14px;">HEAVY MACHINERY</div>
+
+          <div class="video-grid-2">
+            <div class="vgcell playable" onclick="openVideo('yara-bulk.mp4','Yara · Herøya','Wheel loader on a regulated chemical plant.')" tabindex="0" role="button" aria-label="Play Yara video"
+                 style="background-image: url('../mariana-minerals-followup/presentation-assets/mariana/yara-bulk-still.jpg');">
+              <span class="vgcell-tag">Bulk handling</span>
+              <span class="vgcell-play" aria-hidden="true">▶</span>
+              <div class="vgcell-meta">
+                <div class="vgcell-name">Yara · Herøya</div>
+                <div class="vgcell-why">Wheel loader on a regulated chemical plant.</div>
+              </div>
+            </div>
+            <div class="vgcell" style="background-image: url('../mariana-minerals-followup/presentation-assets/customers/hamar-pukk-still.jpg'); background-position: center;">
+              <span class="vgcell-tag">Quarry</span>
+              <div class="vgcell-meta">
+                <div class="vgcell-name">Hamar Pukk</div>
+                <div class="vgcell-why">Volvo L-series, continuous-shift quarry.</div>
+              </div>
+            </div>
+            <div class="vgcell" style="background-image: url('../mariana-minerals-followup/presentation-assets/mariana/presis-vikafjellet-still.jpg');">
+              <span class="vgcell-tag">Mountain pass</span>
+              <div class="vgcell-meta">
+                <div class="vgcell-name">Statens Vegvesen · Vikafjellet</div>
+                <div class="vgcell-why">Autonomy cleared on a live mountain pass.</div>
+              </div>
+            </div>
+            <div class="vgcell playable" onclick="openVideo('veidekke-tunnel.mp4','Veidekke','Confined-space loading on private 5G inside a railway tunnel.')" tabindex="0" role="button" aria-label="Play Veidekke video"
+                 style="background-image: url('../mariana-minerals-followup/presentation-assets/mariana/veidekke-tunnel-still.jpg');">
+              <span class="vgcell-tag">5G tunnel</span>
+              <span class="vgcell-play" aria-hidden="true">▶</span>
+              <div class="vgcell-meta">
+                <div class="vgcell-name">Veidekke</div>
+                <div class="vgcell-why">Confined-space loading on private 5G inside a railway tunnel.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Intralogistics — 5-cell mosaic mirroring heavy-machinery grid -->
+        <div>
+          <div class="trole2" style="margin-bottom: 14px;">INTRALOGISTICS</div>
+
+          <div class="video-grid-2x3">
+            <!-- Hero row: Moss Havn gantry crane spans full width -->
+            <div class="vgcell span-2" style="background-image: url('../mariana-minerals-followup/presentation-assets/customers/moss-havn.jpg');">
+              <span class="vgcell-tag">Gantry crane</span>
+              <div class="vgcell-meta">
+                <div class="vgcell-name">Norwegian Port of Moss</div>
+                <div class="vgcell-why">Remote gantry on container on/off-loading.</div>
+              </div>
+            </div>
+            <!-- Row 2: Saint-Gobain video + Stena video -->
+            <div class="vgcell playable" onclick="openVideo('stgobain-warehouse.mp4','Optimera · Saint-Gobain','Palletised goods, yard-to-warehouse, stack 5 high.','customers')" tabindex="0" role="button" aria-label="Play Saint-Gobain video"
+                 style="background-image: url('../mariana-minerals-followup/presentation-assets/customers/stgobain-warehouse-still.jpg');">
+              <span class="vgcell-tag">Palletised</span>
+              <span class="vgcell-play" aria-hidden="true">▶</span>
+              <div class="vgcell-meta">
+                <div class="vgcell-name">Optimera · Saint-Gobain</div>
+                <div class="vgcell-why">Indoor-outdoor pallet stacking.</div>
+              </div>
+            </div>
+            <div class="vgcell playable" onclick="openVideo('stena-recycling.mp4','Stena Recycling','Brownfield narrow-aisle recycling autonomy.','customers')" tabindex="0" role="button" aria-label="Play Stena Recycling video"
+                 style="background-image: url('../mariana-minerals-followup/presentation-assets/customers/stena-recycling-still.jpg');">
+              <span class="vgcell-tag">Recycling</span>
+              <span class="vgcell-play" aria-hidden="true">▶</span>
+              <div class="vgcell-meta">
+                <div class="vgcell-name">Stena Recycling</div>
+                <div class="vgcell-why">Brownfield narrow-aisle autonomy.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">08 / 11</span>
+  </section>
+
+  <!-- SLIDE 9: Your contact (light) — breathes -->
+  <section class="slide atmosphere-soft breathe" data-theme="light">
+    <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">09 · YOUR CONTACT</span>
+    <div class="vrail">Primary contact through scoping, pilot and roll-out</div>
+    <div class="slide-inner">
+      <div class="eyebrow">Day-to-day on Copper One</div>
+      <h2 class="headline" style="margin-bottom: clamp(22px, 2.6vh, 34px);">Your contact <span class="accent">at Hive.</span></h2>
+
+      <div class="ccard" style="max-width: 880px;">
+        <span class="role-tag">Primary contact</span>
+        <div class="chead">
+          <div class="cphoto" style="background-image: url('../mariana-minerals-followup/presentation-assets/team/ronny.jpg');"></div>
+          <div>
+            <h3 class="cname">Ronny Liverød</h3>
+            <div class="ctitle">VP Heavy Machinery</div>
+          </div>
+        </div>
+        <div class="cbio">
+          <p>Former co-founder of <strong>EMerald Geomodelling</strong>, the spin-off acquired by <strong>Xcalibur Multiphysics</strong>. Earlier, investment partner for construction at <strong>Startuplab</strong>'s pre-seed fund and Head of Innovation at <strong>AF Gruppen</strong>. Ten years before that on live infrastructure projects — site management across large-scale construction in Norway.</p>
+        </div>
+      </div>
+    </div>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">09 / 11</span>
+  </section>
+
+  <!-- SLIDE 10: Where we work (light) — locations + photo -->
+  <section class="slide atmosphere-soft tight" data-theme="light">
+    <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">10 · WHERE WE WORK</span>
+    <div class="vrail">Four locations · one engineering core</div>
+    <div class="slide-inner">
+      <div class="eyebrow">Where we work</div>
+      <h2 class="headline" style="margin-bottom: clamp(22px, 2.6vh, 34px); max-width: 1200px;">Five locations. <span class="accent">One engineering core.</span></h2>
+
+      <div class="split-2" style="grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(40px, 4.4vw, 72px); align-items: start;">
+
+        <ol class="numlist" style="list-style: none; padding: 0;">
+          <li><span class="n">01</span><span><strong>Kristiansand</strong> — HQ, delivery, commercial, engineering core</span></li>
+          <li><span class="n">02</span><span><strong>Oslo</strong> — commercial · Heavy Machinery</span></li>
+          <li><span class="n">03</span><span><strong>London</strong> — robotics and commercial · Intralogistics</span></li>
+          <li><span class="n">04</span><span><strong>Palo Alto</strong> — US fundraising and board</span></li>
+          <li><span class="n">05</span><span><strong>Houston</strong> — operations centre US <em style="color: var(--ink-40); font-style: italic;">(coming online later this year)</em></span></li>
+        </ol>
+
+        <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-hq-daylight.jpg" alt="Hive Autonomy HQ Kristiansand" style="width: 100%; aspect-ratio: 5 / 4; object-fit: cover; object-position: center 55%; border: 1px solid var(--line-warm); border-radius: 2px; filter: none;">
+
+      </div>
+    </div>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">10 / 11</span>
+  </section>
+
+  <!-- SLIDE 11: Vision — closing (dark) -->
+  <section class="slide dark atmosphere-dots-dark tight" data-theme="dark">
+    <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo-white.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">11 · VISION</span>
+    <div class="vrail">Where we're building toward</div>
+    <div class="slide-inner">
+      <div class="eyebrow">Where we're going</div>
+      <h2 class="headline" style="margin-bottom: clamp(20px, 2.4vh, 32px); max-width: 1320px;">What LLMs do for software, <span class="accent">Physical AI does for the real world.</span></h2>
+
+      <div class="vision-split">
+        <div class="vision-prose">
+          <p>Imagine building in the real world the way kids build in Minecraft. You want a house in a certain style — you place the walls, walk through it, change your mind, take a wing down, try a different roofline. The machine does the building. The cost is energy.</p>
+          <p>That is the shift LLMs created for software. You sit with ChatGPT or Claude and you build something just to see what it looks like. You throw it away if it doesn't work. The friction is gone.</p>
+          <p>Physical AI brings the same shift to the rest of the world. Every machine on every site assignable to a task at the cost of energy. A hundred thousand times faster than today. Materials reused, because tearing down and rebuilding is no longer the bottleneck.</p>
+          <p class="vision-anchor"><strong>Wheel-loader autonomy at a copper mine is one step toward that.</strong></p>
+        </div>
+        <div class="vision-photo">
+          <img src="../mariana-minerals-followup/presentation-assets/vision/impact-billboard.jpg" alt="Hey ChatGPT, finish this building — billboard">
+          <div class="vision-photo-caption">"Hey ChatGPT, finish this building." — already a billboard.</div>
+        </div>
+      </div>
+
+      <div class="closer-line" style="font-style: italic; color: rgba(255,255,255,0.72); margin-top: clamp(20px, 2.2vh, 28px);">
+        We started with the cycle in front of us. We're building for the one ahead.
+      </div>
+    </div>
+    <span class="page-num">11 / 11</span>
+  </section>
+
+</div>
+
+<div class="tap-zone left" onclick="prev()" aria-label="Previous slide"></div>
+<div class="tap-zone right" onclick="next()" aria-label="Next slide"></div>
+
+<div class="video-modal" id="videoModal" onclick="closeVideo(event)" role="dialog" aria-label="Video viewer">
+  <div class="video-modal-inner" onclick="event.stopPropagation()">
+    <button class="close-btn" onclick="closeVideo()" aria-label="Close video">×</button>
+    <video id="modalVideo" controls preload="none" playsinline></video>
+    <div class="video-modal-meta">
+      <div class="vm-title" id="vmTitle"></div>
+      <div class="vm-sub" id="vmSub"></div>
+    </div>
+  </div>
+</div>
+
+<div class="nav" role="navigation" aria-label="Slide navigation">
+  <button onclick="prev()" aria-label="Previous slide">‹</button>
+  <span class="counter" id="counter">1 / 11</span>
+  <button onclick="next()" aria-label="Next slide">›</button>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const counter = document.getElementById('counter');
+let i = 0;
+function show(n) {
+  i = (n + slides.length) % slides.length;
+  slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+  if (counter) counter.textContent = (i + 1) + ' / ' + slides.length;
+}
+function next() { show(i + 1); }
+function prev() { show(i - 1); }
+
+document.addEventListener('keydown', (e) => {
+  const modal = document.getElementById('videoModal');
+  if (modal && modal.classList.contains('open')) {
+    if (e.key === 'Escape') closeVideo();
+    return;
+  }
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); next(); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+  if (/^[1-9]$/.test(e.key)) show(parseInt(e.key, 10) - 1);
+});
+
+/* Video modal */
+function openVideo(filename, title, subtitle, folder) {
+  const modal = document.getElementById('videoModal');
+  const video = document.getElementById('modalVideo');
+  document.getElementById('vmTitle').textContent = title || '';
+  document.getElementById('vmSub').textContent = subtitle || '';
+  const base = folder ? '../mariana-minerals-followup/presentation-assets/' + folder + '/' : '../mariana-minerals-followup/presentation-assets/mariana/';
+  video.src = base + filename;
+  modal.classList.add('open');
+  video.load();
+  video.play().catch(() => {});
+}
+function closeVideo(e) {
+  if (e && e.target && e.target.closest && e.target.closest('.video-modal-inner') && !e.target.classList.contains('close-btn')) return;
+  const modal = document.getElementById('videoModal');
+  const video = document.getElementById('modalVideo');
+  video.pause();
+  video.removeAttribute('src');
+  video.load();
+  modal.classList.remove('open');
+}
+document.querySelectorAll('.customer-row, .vgcell.playable').forEach(r => {
+  r.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); r.click(); }
+  });
+});
+
+/* Touch swipe support */
+let touchStartX = 0, touchStartY = 0;
+document.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+  touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
+document.addEventListener('touchend', (e) => {
+  const dx = e.changedTouches[0].screenX - touchStartX;
+  const dy = e.changedTouches[0].screenY - touchStartY;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+    if (dx < 0) next();
+    else prev();
+  }
+}, { passive: true });
+
+/* Static mode for PDF export */
+const params = new URLSearchParams(location.search);
+if (params.get('static') === '1') {
+  document.body.classList.add('static');
+  const slideIdx = parseInt(params.get('slide') || '1', 10) - 1;
+  slides.forEach((s, idx) => s.classList.toggle('active', idx === slideIdx));
+}
+</script>
+</body>
+</html>
