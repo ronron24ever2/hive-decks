@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hive Autonomy · Franzefoss — Konseptforslag</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1B3A5C;
+  --navy-deep: #0B1A2C;
+  --cyan: #4A90D9;
+  --yellow: #E8D44D;
+  --ink: #1a1a1a;
+  --ink-60: rgba(26,26,26,0.62);
+  --ink-40: rgba(26,26,26,0.40);
+  --bg: #FFFFFF;
+  --bg-soft: #F8F9FA;
+  --line: rgba(27,58,92,0.12);
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--navy-deep);
+  color: var(--ink);
+  overflow: hidden;
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01", "cv11";
+}
+
+.deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(40px, 5vh, 80px) clamp(40px, 6vw, 120px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 500ms var(--ease);
+  background: var(--bg);
+}
+.slide.active { opacity: 1; pointer-events: auto; z-index: 2; }
+
+.slide-inner {
+  max-width: 1320px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.eyebrow {
+  font-size: clamp(11px, 0.9vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: clamp(16px, 1.8vh, 24px);
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.slide.active .eyebrow { opacity: 1; transform: translateY(0); transition-delay: 80ms; }
+.slide.dark .eyebrow,
+.slide[data-theme="dark"] .eyebrow { color: var(--yellow); }
+
+h1.title {
+  font-size: clamp(42px, 5.5vw, 76px);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--navy);
+  margin-bottom: clamp(22px, 2.5vh, 32px);
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active h1.title { opacity: 1; transform: translateY(0); transition-delay: 180ms; }
+.slide.dark h1.title,
+.slide[data-theme="dark"] h1.title { color: #fff; text-shadow: 0 2px 22px rgba(0,0,0,0.4); }
+
+h1.title .accent { color: var(--yellow); }
+
+h2.headline {
+  font-size: clamp(28px, 3.3vw, 44px);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+  color: var(--navy);
+  margin-bottom: clamp(16px, 1.8vh, 22px);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active h2.headline { opacity: 1; transform: translateY(0); transition-delay: 180ms; }
+.slide.dark h2.headline,
+.slide[data-theme="dark"] h2.headline { color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,0.35); }
+h2.headline .accent { color: var(--yellow); }
+.slide:not(.dark):not([data-theme="dark"]) h2.headline .accent { color: var(--cyan); }
+
+.subhead {
+  font-size: clamp(16px, 1.3vw, 20px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--ink-60);
+  max-width: 920px;
+  margin-bottom: clamp(18px, 2.2vh, 28px);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .subhead { opacity: 1; transform: translateY(0); transition-delay: 280ms; }
+.slide.dark .subhead,
+.slide[data-theme="dark"] .subhead { color: rgba(255,255,255,0.86); text-shadow: 0 1px 12px rgba(0,0,0,0.35); }
+
+/* Hero photo */
+.slide.hero-photo { background: var(--navy-deep); }
+.slide.hero-photo .bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  animation: kenburns 18s ease-in-out infinite alternate;
+}
+.slide.hero-photo .overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right,
+    rgba(11,26,44,0.94) 0%,
+    rgba(11,26,44,0.82) 28%,
+    rgba(11,26,44,0.52) 58%,
+    rgba(11,26,44,0.14) 88%,
+    transparent 100%);
+  z-index: 1;
+}
+@keyframes kenburns {
+  0% { transform: scale(1.0); }
+  100% { transform: scale(1.08); }
+}
+
+/* Logo */
+.logo {
+  position: absolute;
+  top: clamp(24px, 3vh, 40px);
+  left: clamp(30px, 4vw, 60px);
+  height: clamp(40px, 4vh, 54px);
+  z-index: 5;
+  opacity: 1;
+}
+.slide.dark .logo,
+.slide.hero-photo.dark .logo,
+.slide[data-theme="dark"] .logo {
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+}
+
+.deck-tag {
+  position: absolute;
+  top: clamp(24px, 3vh, 40px);
+  right: clamp(30px, 4vw, 60px);
+  z-index: 5;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.62);
+  font-weight: 500;
+  font-family: 'JetBrains Mono', monospace;
+}
+.slide:not(.dark):not([data-theme="dark"]):not(.hero-photo) .deck-tag {
+  color: rgba(27,58,92,0.50);
+}
+
+/* DRAFT banner */
+.draft-banner {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 6;
+  background: linear-gradient(90deg, #b8770a 0%, #e8a23a 100%);
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 7px 12px;
+}
+.draft-banner strong { color: var(--navy-deep); font-weight: 800; margin: 0 8px; }
+
+/* Hero footer (slide 1) */
+.hero-footer {
+  position: absolute;
+  bottom: clamp(28px, 3.6vh, 44px);
+  left: clamp(30px, 4vw, 60px);
+  z-index: 5;
+  font-size: clamp(12px, 0.95vw, 14px);
+  font-weight: 500;
+  color: rgba(255,255,255,0.78);
+  letter-spacing: 0.02em;
+}
+.hero-footer .sep {
+  margin: 0 10px;
+  color: rgba(255,255,255,0.35);
+}
+
+/* Two-column section (slide 2 — what we agreed) */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(28px, 3vw, 48px);
+  margin-top: clamp(18px, 2vh, 28px);
+  align-items: start;
+}
+.col-card {
+  background: var(--bg-soft);
+  border-top: 3px solid var(--cyan);
+  padding: clamp(26px, 3vh, 36px) clamp(24px, 2vw, 32px);
+  border-radius: 4px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.slide.active .col-card:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+.slide.active .col-card:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 460ms; }
+
+.col-card .tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.col-card h3 {
+  font-size: clamp(20px, 1.6vw, 26px);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--navy);
+  margin-bottom: 14px;
+  letter-spacing: -0.018em;
+}
+.col-card p {
+  font-size: clamp(14px, 1.05vw, 16.5px);
+  line-height: 1.55;
+  color: var(--ink-60);
+  margin-bottom: 10px;
+}
+.col-card p strong { color: var(--navy); font-weight: 700; }
+.col-card ul { list-style: none; padding: 0; margin: 8px 0 0 0; }
+.col-card ul li {
+  font-size: clamp(13.5px, 1vw, 16px);
+  line-height: 1.5;
+  color: var(--ink-60);
+  padding-left: 20px;
+  position: relative;
+  margin-bottom: 8px;
+}
+.col-card ul li::before {
+  content: "→";
+  color: var(--cyan);
+  font-weight: 800;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.col-card ul li strong { color: var(--navy); font-weight: 700; }
+
+/* Pricing table (slide 3) */
+.pricing-wrap { margin-top: clamp(20px, 2.4vh, 32px); }
+.pricing-intro {
+  font-size: clamp(15px, 1.13vw, 18px);
+  line-height: 1.55;
+  color: var(--ink-60);
+  margin-bottom: clamp(18px, 2.2vh, 26px);
+  max-width: 1000px;
+}
+.pricing-intro strong { color: var(--navy); font-weight: 700; }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 2vw, 30px);
+  margin-bottom: clamp(18px, 2.2vh, 26px);
+}
+.price-card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: clamp(24px, 2.8vh, 34px) clamp(22px, 2vw, 30px);
+  position: relative;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+  display: flex;
+  flex-direction: column;
+}
+.slide.active .price-card:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+.slide.active .price-card:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 460ms; }
+.price-card.preferred {
+  border-color: var(--yellow);
+  border-width: 2px;
+  background: linear-gradient(180deg, rgba(232,212,77,0.10) 0%, rgba(232,212,77,0.02) 100%);
+}
+.price-card .price-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.price-card.preferred .price-tag { color: #b8770a; }
+.price-card .price-label {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  background: var(--yellow);
+  color: var(--navy-deep);
+  padding: 4px 10px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+.price-card h3 {
+  font-size: clamp(22px, 1.8vw, 28px);
+  font-weight: 800;
+  line-height: 1.18;
+  color: var(--navy);
+  margin-bottom: 10px;
+  letter-spacing: -0.018em;
+}
+.price-card .lead {
+  font-size: clamp(14px, 1.05vw, 16.5px);
+  line-height: 1.5;
+  color: var(--ink-60);
+  margin-bottom: 14px;
+}
+.price-card .lead strong { color: var(--navy); font-weight: 700; }
+.price-card ul.mechanic { list-style: none; padding: 0; margin: 0 0 14px 0; }
+.price-card ul.mechanic li {
+  font-size: clamp(13px, 0.98vw, 15.5px);
+  line-height: 1.5;
+  color: var(--ink-60);
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.price-card ul.mechanic li:last-child { border-bottom: none; }
+.price-card ul.mechanic li .k { font-weight: 600; color: var(--navy); }
+.price-card ul.mechanic li .v { text-align: right; color: var(--ink); font-variant-numeric: tabular-nums; }
+.price-card ul.mechanic li .v.placeholder { color: #b8770a; font-style: italic; font-weight: 600; }
+.price-card .fit {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: clamp(12.5px, 0.92vw, 14.5px);
+  line-height: 1.5;
+  color: var(--ink-60);
+}
+.price-card .fit strong { color: var(--navy); font-weight: 700; }
+
+.pricing-footer {
+  background: var(--bg-soft);
+  border-left: 3px solid var(--yellow);
+  padding: clamp(16px, 1.8vh, 22px) clamp(20px, 1.6vw, 26px);
+  border-radius: 4px;
+  font-size: clamp(13.5px, 1vw, 16px);
+  line-height: 1.55;
+  color: var(--ink-60);
+}
+.pricing-footer strong { color: var(--navy); font-weight: 700; }
+.pricing-footer .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #b8770a;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* Scope table (slide 4) */
+.scope-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: clamp(18px, 1.8vw, 26px);
+  margin-top: clamp(20px, 2.4vh, 30px);
+}
+.scope-card {
+  background: var(--bg-soft);
+  border-top: 3px solid var(--cyan);
+  padding: clamp(22px, 2.6vh, 30px) clamp(20px, 1.8vw, 26px);
+  border-radius: 4px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.slide.active .scope-card:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+.slide.active .scope-card:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 440ms; }
+.slide.active .scope-card:nth-of-type(3) { opacity: 1; transform: translateY(0); transition-delay: 560ms; }
+
+.scope-card .tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.scope-card h3 {
+  font-size: clamp(18px, 1.4vw, 22px);
+  font-weight: 800;
+  line-height: 1.22;
+  color: var(--navy);
+  margin-bottom: 10px;
+  letter-spacing: -0.015em;
+}
+.scope-card p {
+  font-size: clamp(13.5px, 1vw, 16px);
+  line-height: 1.55;
+  color: var(--ink-60);
+  margin-bottom: 8px;
+}
+.scope-card p:last-child { margin-bottom: 0; }
+.scope-card p strong { color: var(--navy); font-weight: 700; }
+.scope-card .placeholder-note {
+  margin-top: 10px;
+  padding: 8px 10px;
+  background: rgba(232,212,77,0.15);
+  border-left: 3px solid #b8770a;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #8a5a08;
+  border-radius: 2px;
+  font-style: italic;
+}
+
+/* Timeline (slide 5) */
+.timeline-wrap { margin-top: clamp(22px, 2.6vh, 32px); }
+.timeline-bar {
+  position: relative;
+  height: 4px;
+  background: rgba(255,255,255,0.14);
+  margin: 60px 0 90px 0;
+  border-radius: 2px;
+}
+.timeline-bar .progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--cyan), var(--yellow));
+  border-radius: 2px;
+  transition: width 1200ms var(--ease);
+}
+.slide.active .timeline-bar .progress { width: 100%; transition-delay: 600ms; }
+
+.timeline-bar .milestone {
+  position: absolute;
+  top: -8px;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 500ms var(--ease);
+}
+.slide.active .timeline-bar .milestone { opacity: 1; }
+.slide.active .timeline-bar .milestone:nth-child(2) { transition-delay: 700ms; }
+.slide.active .timeline-bar .milestone:nth-child(3) { transition-delay: 900ms; }
+.slide.active .timeline-bar .milestone:nth-child(4) { transition-delay: 1100ms; }
+.slide.active .timeline-bar .milestone:nth-child(5) { transition-delay: 1300ms; }
+
+.timeline-bar .dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--yellow);
+  border: 3px solid var(--navy-deep);
+  box-shadow: 0 0 0 2px var(--yellow);
+}
+.timeline-bar .label-top {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--yellow);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.timeline-bar .label-bot {
+  position: absolute;
+  top: 38px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(13px, 1vw, 15px);
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  width: 200px;
+  line-height: 1.35;
+}
+.timeline-bar .label-bot small {
+  display: block;
+  font-weight: 400;
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+  margin-top: 4px;
+}
+
+.assumption-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(18px, 1.8vw, 26px);
+  margin-top: clamp(30px, 3vh, 40px);
+}
+.assumption-strip .as-card {
+  background: rgba(255,255,255,0.05);
+  border-left: 3px solid var(--cyan);
+  padding: clamp(16px, 1.8vh, 22px) clamp(18px, 1.6vw, 24px);
+  border-radius: 4px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 500ms var(--ease), transform 500ms var(--ease);
+}
+.slide.active .assumption-strip .as-card:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 1400ms; }
+.slide.active .assumption-strip .as-card:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 1500ms; }
+.assumption-strip .as-card.flag { border-left-color: #c63838; background: rgba(198,56,56,0.10); }
+.assumption-strip .as-card .tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 6px;
+}
+.assumption-strip .as-card.flag .tag { color: #ff9090; }
+.assumption-strip .as-card .body {
+  font-size: clamp(13px, 1vw, 15.5px);
+  line-height: 1.5;
+  color: rgba(255,255,255,0.84);
+}
+.assumption-strip .as-card .body strong { color: white; font-weight: 700; }
+
+/* Trade-off / risk slide (slide 6) — skeptiker first */
+.tradeoff-wrap { margin-top: clamp(18px, 2vh, 28px); }
+.tradeoff-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 2vw, 30px);
+  margin-bottom: clamp(20px, 2.4vh, 30px);
+}
+.tradeoff-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 8px;
+  padding: clamp(22px, 2.6vh, 30px) clamp(22px, 2vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.tradeoff-card.weakness { border-left: 3px solid #c63838; }
+.tradeoff-card.strength { border-left: 3px solid #1e7c3c; }
+.slide.active .tradeoff-card:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+.slide.active .tradeoff-card:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 460ms; }
+.slide.active .tradeoff-card:nth-of-type(3) { opacity: 1; transform: translateY(0); transition-delay: 600ms; }
+.slide.active .tradeoff-card:nth-of-type(4) { opacity: 1; transform: translateY(0); transition-delay: 740ms; }
+.tradeoff-card .tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.tradeoff-card.weakness .tag { color: #ff9090; }
+.tradeoff-card.strength .tag { color: #6fc888; }
+.tradeoff-card h3 {
+  font-size: clamp(16px, 1.25vw, 20px);
+  font-weight: 800;
+  line-height: 1.25;
+  color: white;
+  letter-spacing: -0.012em;
+}
+.tradeoff-card p {
+  font-size: clamp(13px, 1vw, 15.5px);
+  line-height: 1.5;
+  color: rgba(255,255,255,0.80);
+}
+.tradeoff-card p strong { color: white; font-weight: 700; }
+
+.recommendation {
+  background: linear-gradient(180deg, rgba(232,212,77,0.18) 0%, rgba(232,212,77,0.06) 100%);
+  border: 1px solid rgba(232,212,77,0.42);
+  border-radius: 8px;
+  padding: clamp(20px, 2.4vh, 28px) clamp(22px, 2vw, 30px);
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: clamp(18px, 1.8vw, 26px);
+  align-items: center;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.slide.active .recommendation { opacity: 1; transform: translateY(0); transition-delay: 880ms; }
+.recommendation .rec-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--yellow);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+.recommendation .rec-body {
+  font-size: clamp(15px, 1.13vw, 18px);
+  line-height: 1.55;
+  color: white;
+}
+.recommendation .rec-body strong { color: var(--yellow); font-weight: 800; }
+
+/* Track record (slide 7) */
+.track-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(14px, 1.4vw, 20px) clamp(20px, 2vw, 32px);
+  margin-top: clamp(18px, 2vh, 26px);
+}
+.track-row {
+  display: grid;
+  grid-template-columns: 116px 1fr;
+  gap: clamp(16px, 1.4vw, 22px);
+  align-items: center;
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 500ms var(--ease), transform 500ms var(--ease);
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 6px;
+  margin: -6px;
+}
+.track-row:hover { background: rgba(74,144,217,0.10); transform: translateX(4px); }
+.track-row:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.slide.active .track-row { opacity: 1; transform: translateX(0); }
+.slide.active .track-row:nth-child(1) { transition-delay: 320ms; }
+.slide.active .track-row:nth-child(2) { transition-delay: 400ms; }
+.slide.active .track-row:nth-child(3) { transition-delay: 480ms; }
+.slide.active .track-row:nth-child(4) { transition-delay: 560ms; }
+
+.track-thumb {
+  width: 116px;
+  height: 78px;
+  border-radius: 4px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(255,255,255,0.18);
+  position: relative;
+}
+.track-thumb .play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(11,26,44,0.25), rgba(11,26,44,0.50));
+  color: white;
+  font-size: 22px;
+  opacity: 0.85;
+  border-radius: inherit;
+  transition: opacity 180ms ease, background 180ms ease;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+.track-row:hover .play-overlay { opacity: 1; background: linear-gradient(135deg, rgba(74,144,217,0.55), rgba(11,26,44,0.40)); }
+
+.track-meta strong {
+  font-size: clamp(15px, 1.12vw, 18px);
+  font-weight: 700;
+  color: white;
+  display: block;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.track-meta span {
+  font-size: clamp(12.5px, 0.92vw, 14.5px);
+  color: rgba(255,255,255,0.72);
+  line-height: 1.45;
+}
+
+/* Next steps (slide 8) */
+.next-stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.4vh, 32px);
+  margin-top: clamp(8px, 1.2vh, 16px);
+}
+.next-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding-top: clamp(14px, 1.6vh, 20px);
+  border-top: 1px solid rgba(255,255,255,0.14);
+}
+.next-header .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  font-weight: 700;
+}
+.next-header .cue {
+  font-size: clamp(14px, 1.05vw, 16.5px);
+  color: rgba(255,255,255,0.72);
+  font-weight: 500;
+}
+.next-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 1.6vw, 24px);
+}
+.next-card {
+  background: linear-gradient(180deg, rgba(74,144,217,0.10) 0%, rgba(74,144,217,0.04) 100%);
+  border: 1px solid rgba(74,144,217,0.28);
+  border-radius: 8px;
+  padding: clamp(18px, 2.2vh, 26px) clamp(18px, 1.6vw, 26px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.next-card.feature {
+  background: linear-gradient(180deg, rgba(232,212,77,0.16) 0%, rgba(232,212,77,0.04) 100%);
+  border-color: rgba(232,212,77,0.42);
+}
+.slide.active .next-card:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 660ms; }
+.slide.active .next-card:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 760ms; }
+.slide.active .next-card:nth-of-type(3) { opacity: 1; transform: translateY(0); transition-delay: 860ms; }
+
+.next-card .step {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.next-card .step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(22px, 1.9vw, 28px);
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.next-card.feature .step-num { color: var(--yellow); }
+.next-card .step-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.62);
+  font-weight: 700;
+}
+.next-card h4 {
+  font-size: clamp(16px, 1.25vw, 20px);
+  font-weight: 800;
+  color: white;
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+}
+.next-card p {
+  font-size: clamp(12.5px, 0.95vw, 14.5px);
+  line-height: 1.5;
+  color: rgba(255,255,255,0.80);
+}
+.next-card .when {
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.10);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+}
+.next-card.feature .when { color: var(--yellow); }
+
+.close-contact {
+  margin-top: clamp(10px, 1.4vh, 18px);
+  padding-top: clamp(12px, 1.6vh, 20px);
+  border-top: 1px solid rgba(255,255,255,0.12);
+  font-size: clamp(12.5px, 0.95vw, 14.5px);
+  color: rgba(255,255,255,0.78);
+  line-height: 1.5;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  align-items: baseline;
+}
+.close-contact strong { color: white; font-weight: 700; }
+.close-contact .dot { color: rgba(255,255,255,0.35); margin: 0 6px; }
+
+/* Page indicator */
+.page-num {
+  position: absolute;
+  bottom: clamp(24px, 3vh, 38px);
+  right: clamp(30px, 4vw, 60px);
+  z-index: 5;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: rgba(27,58,92,0.42);
+  font-weight: 600;
+}
+.slide.dark .page-num,
+.slide[data-theme="dark"] .page-num { color: rgba(255,255,255,0.50); }
+
+/* Navigation */
+.tap-zone {
+  position: fixed;
+  top: 0;
+  width: 22vw;
+  height: 100vh;
+  z-index: 8;
+  cursor: pointer;
+  background: transparent;
+}
+.tap-zone.left { left: 0; }
+.tap-zone.right { right: 0; }
+
+.nav {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  display: flex;
+  gap: 10px;
+  background: rgba(255,255,255,0.94);
+  padding: 6px 10px;
+  border-radius: 32px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+  backdrop-filter: blur(8px);
+  align-items: center;
+}
+.nav button {
+  background: var(--navy);
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  color: white;
+  font-weight: 700;
+  transition: background 180ms ease, transform 120ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.nav button:hover { background: var(--cyan); }
+.nav button:active { transform: scale(0.94); }
+.nav .counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  padding: 0 6px;
+  letter-spacing: 0.06em;
+  min-width: 44px;
+  text-align: center;
+}
+body.static .nav, body.static .tap-zone { display: none !important; }
+
+/* Video modal */
+.video-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(11,26,44,0.95);
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 4vh 4vw;
+  cursor: pointer;
+}
+.video-modal.open { display: flex; }
+.video-modal-inner {
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.video-modal video {
+  width: 100%;
+  max-height: 78vh;
+  border-radius: 8px;
+  background: black;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+}
+.video-modal-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: white;
+  padding: 0 6px;
+}
+.video-modal-meta .vm-title {
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.018em;
+  color: white;
+}
+.video-modal-meta .vm-sub {
+  font-size: clamp(14px, 1.1vw, 17px);
+  color: rgba(255,255,255,0.72);
+  font-weight: 400;
+}
+.video-modal .close-btn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  background: var(--yellow);
+  border: none;
+  color: var(--navy-deep);
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  transition: transform 150ms ease;
+}
+.video-modal .close-btn:hover { transform: scale(1.06); }
+body.static .video-modal, body.static .play-overlay { display: none !important; }
+
+/* Static / PDF mode */
+body.static .slide * {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+body.static .slide {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  display: none !important;
+}
+body.static .slide.active {
+  opacity: 1 !important;
+  display: flex !important;
+  pointer-events: auto !important;
+}
+
+/* v0.3: McKinsey discussion-document layout */
+.doc-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 4vw, 64px);
+  margin-top: clamp(20px, 2.4vh, 30px);
+  align-items: start;
+}
+.doc-block {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.slide.active .doc-block:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+.slide.active .doc-block:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 460ms; }
+.doc-block .blabel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.slide.dark .doc-block .blabel,
+.slide[data-theme="dark"] .doc-block .blabel {
+  color: var(--yellow);
+  border-bottom-color: rgba(255,255,255,0.14);
+}
+.doc-block ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: docitem;
+}
+.doc-block ol li {
+  counter-increment: docitem;
+  padding: 12px 0 12px 38px;
+  position: relative;
+  font-size: clamp(14.5px, 1.08vw, 17px);
+  line-height: 1.55;
+  color: var(--ink-60);
+  border-bottom: 1px solid var(--line);
+}
+.doc-block ol li:last-child { border-bottom: none; }
+.doc-block ol li::before {
+  content: counter(docitem, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--cyan);
+}
+.doc-block ol li strong { color: var(--navy); font-weight: 700; }
+.slide.dark .doc-block ol li,
+.slide[data-theme="dark"] .doc-block ol li {
+  color: rgba(255,255,255,0.82);
+  border-bottom-color: rgba(255,255,255,0.10);
+}
+.slide.dark .doc-block ol li strong,
+.slide[data-theme="dark"] .doc-block ol li strong { color: white; }
+.slide.dark .doc-block ol li::before,
+.slide[data-theme="dark"] .doc-block ol li::before { color: var(--yellow); }
+
+/* v0.3: Single-column doc layout (slide 3, slide 6) */
+.doc-single {
+  margin-top: clamp(20px, 2.4vh, 30px);
+  max-width: 920px;
+}
+.doc-single p {
+  font-size: clamp(15px, 1.13vw, 18px);
+  line-height: 1.6;
+  color: var(--ink-60);
+  margin-bottom: clamp(12px, 1.6vh, 18px);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.slide.active .doc-single p:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 280ms; }
+.slide.active .doc-single p:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 380ms; }
+.slide.active .doc-single p:nth-of-type(3) { opacity: 1; transform: translateY(0); transition-delay: 480ms; }
+.doc-single p strong { color: var(--navy); font-weight: 700; }
+.slide.dark .doc-single p,
+.slide[data-theme="dark"] .doc-single p { color: rgba(255,255,255,0.84); }
+.slide.dark .doc-single p strong,
+.slide[data-theme="dark"] .doc-single p strong { color: white; }
+
+/* v0.3: Discussion block (questions for walkthrough) */
+.disc-block {
+  margin-top: clamp(22px, 2.6vh, 32px);
+  padding: clamp(20px, 2.4vh, 28px) clamp(22px, 2vw, 30px);
+  background: var(--bg-soft);
+  border-left: 3px solid var(--yellow);
+  border-radius: 4px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+}
+.slide.active .disc-block { opacity: 1; transform: translateY(0); transition-delay: 640ms; }
+.slide.dark .disc-block,
+.slide[data-theme="dark"] .disc-block {
+  background: rgba(232,212,77,0.08);
+  border-left-color: var(--yellow);
+}
+.disc-block .dlabel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #b8770a;
+  display: block;
+  margin-bottom: 12px;
+}
+.slide.dark .disc-block .dlabel,
+.slide[data-theme="dark"] .disc-block .dlabel { color: var(--yellow); }
+.disc-block ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.disc-block ul li {
+  font-size: clamp(14px, 1.05vw, 16.5px);
+  line-height: 1.55;
+  color: var(--navy);
+  font-weight: 500;
+  padding-left: 22px;
+  position: relative;
+}
+.disc-block ul li::before {
+  content: '?';
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  background: var(--navy);
+  color: var(--yellow);
+  font-size: 10.5px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+}
+.slide.dark .disc-block ul li,
+.slide[data-theme="dark"] .disc-block ul li { color: white; }
+.slide.dark .disc-block ul li::before,
+.slide[data-theme="dark"] .disc-block ul li::before {
+  background: var(--yellow);
+  color: var(--navy-deep);
+}
+
+/* v0.3: Autoplay video grid (Rental Group / Mariana pattern) */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(14px, 1.4vw, 22px);
+  margin-top: clamp(20px, 2.4vh, 30px);
+}
+.video-card {
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+}
+.slide.active .video-card:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 280ms; }
+.slide.active .video-card:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 380ms; }
+.slide.active .video-card:nth-of-type(3) { opacity: 1; transform: translateY(0); transition-delay: 480ms; }
+.slide.active .video-card:nth-of-type(4) { opacity: 1; transform: translateY(0); transition-delay: 580ms; }
+.video-slot {
+  aspect-ratio: 4/3;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 28px rgba(11,26,44,0.32), 0 2px 6px rgba(11,26,44,0.18);
+}
+.video-slot video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.video-slot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(11,26,44,0.50) 0%, rgba(11,26,44,0) 38%);
+  pointer-events: none;
+}
+.video-slot .live-dot {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: rgba(11,26,44,0.78);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: white;
+}
+.video-slot .live-dot::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4CD964;
+  box-shadow: 0 0 8px #4CD964;
+  animation: livepulse 1.6s ease-in-out infinite;
+}
+@keyframes livepulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.42; }
+}
+.video-card .vc-eyebrow {
+  margin-top: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  font-weight: 700;
+}
+.video-card .vc-title {
+  font-size: clamp(15px, 1.15vw, 18px);
+  font-weight: 800;
+  color: white;
+  margin-top: 4px;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+.video-card .vc-detail {
+  font-size: clamp(12px, 0.9vw, 14px);
+  color: rgba(255,255,255,0.74);
+  line-height: 1.48;
+  margin-top: 6px;
+}
+body.static .video-slot video { display: none; }
+
+/* v0.3: Timeline strip — compact horizontal */
+.t-compact {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(14px, 1.4vw, 22px);
+  margin-top: clamp(22px, 2.6vh, 32px);
+  padding-top: clamp(22px, 2.6vh, 32px);
+  border-top: 1px solid rgba(255,255,255,0.14);
+}
+.t-compact .tstep {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 500ms var(--ease), transform 500ms var(--ease);
+}
+.slide.active .t-compact .tstep:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 380ms; }
+.slide.active .t-compact .tstep:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 480ms; }
+.slide.active .t-compact .tstep:nth-of-type(3) { opacity: 1; transform: translateY(0); transition-delay: 580ms; }
+.slide.active .t-compact .tstep:nth-of-type(4) { opacity: 1; transform: translateY(0); transition-delay: 680ms; }
+.t-compact .tstep .twhen {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 8px;
+}
+.t-compact .tstep .twhat {
+  font-size: clamp(14px, 1.05vw, 16.5px);
+  font-weight: 700;
+  color: white;
+  line-height: 1.35;
+}
+.t-compact .tstep .tnote {
+  font-size: clamp(12px, 0.92vw, 14px);
+  color: rgba(255,255,255,0.66);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* v0.4: Glassmorphism doc-block on hero-photo slides */
+.slide.hero-photo .doc-block.glass,
+.slide.hero-photo .glass-card {
+  background: rgba(11,26,44,0.42);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-top: 2px solid var(--yellow);
+  border-radius: 6px;
+  padding: clamp(24px, 2.8vh, 32px) clamp(22px, 2vw, 30px);
+}
+.slide.hero-photo .doc-block.glass .blabel {
+  color: var(--yellow);
+  border-bottom-color: rgba(255,255,255,0.18);
+}
+
+/* v0.4: 3-card stat row (Mariana bridge pattern) */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(18px, 1.8vw, 28px);
+  margin-top: clamp(22px, 2.6vh, 32px);
+}
+.stat-row .stat {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 600ms var(--ease), transform 600ms var(--ease);
+  padding: clamp(20px, 2.4vh, 28px) clamp(20px, 1.8vw, 26px);
+  background: var(--bg-soft);
+  border-radius: 6px;
+  border-left: 3px solid var(--cyan);
+}
+.slide.active .stat-row .stat:nth-of-type(1) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+.slide.active .stat-row .stat:nth-of-type(2) { opacity: 1; transform: translateY(0); transition-delay: 440ms; }
+.slide.active .stat-row .stat:nth-of-type(3) { opacity: 1; transform: translateY(0); transition-delay: 560ms; }
+.stat-row .stat .snum {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 10px;
+}
+.stat-row .stat .sbig {
+  font-size: clamp(22px, 2vw, 30px);
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.015em;
+  margin-bottom: 8px;
+  line-height: 1.15;
+}
+.stat-row .stat .scopy {
+  font-size: clamp(13px, 0.98vw, 15px);
+  color: var(--ink-60);
+  line-height: 1.5;
+}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- SLIDE 1: Cover -->
+  <section class="slide hero-photo dark active" data-theme="dark">
+    <div class="bg" style="background-image: url('presentation-assets/slide1-quarry-hero.jpg');"></div>
+    <div class="overlay"></div>
+    <img src="presentation-assets/hive-logo-white.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">FRANZEFOSS · HIVE AUTONOMY · MAI 2026</span>
+    <div class="slide-inner">
+      <div class="eyebrow">KONSEPTFORSLAG</div>
+      <h1 class="title">Et alternativ til<br>å låse ned <span class="accent">anlegg.</span></h1>
+      <p class="subhead">Hive overtar bemanningen på Volvo-hjullaster fra operasjonssenteret i Kristiansand. Franzefoss holder maskinen og anlegget. Pilot oktober 2026. Utvidelse til flere anlegg etter pilot.</p>
+    </div>
+    <div class="hero-footer">
+      Forslag fra Hive Autonomy <span class="sep">·</span> Bygget på samtalen 30. april
+    </div>
+    <span class="page-num">01 / 08</span>
+  </section>
+
+  <!-- SLIDE 2: Forslaget -->
+  <section class="slide" data-theme="light">
+    <img src="presentation-assets/hive-logo.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">02 · FORSLAGET</span>
+    <div class="slide-inner">
+      <div class="eyebrow">SAMMENDRAG</div>
+      <h2 class="headline">Remote operator fra Kristiansand kjører Volvo-hjullaster på ett eller flere anlegg. Pilot i oktober.</h2>
+      <p class="subhead">Hive overtar bemanningen på anlegg som ikke kan forsvare egen operatør. Franzefoss holder maskinen, anlegget og kunderelasjonen. Modellen er supervised autonomy — samme som vi kjører på Yara i dag.</p>
+
+      <div class="doc-section">
+        <div class="doc-block">
+          <div class="blabel">Forslaget</div>
+          <ol>
+            <li><strong>Konsept:</strong> remote operator fra operasjonssenteret i Kristiansand kjører Volvo-hjullaster på ett eller flere anlegg som ellers vurderes nedstengt.</li>
+            <li><strong>Modell:</strong> månedlig minimum + timepris når maskinen kjører. Tilpasset variabel utnyttelse på anlegg med kort driftshorisont.</li>
+            <li><strong>Tidslinje:</strong> signering før 1. juli. Pilot oktober 2026. Utvidelse til flere anlegg fra januar 2027.</li>
+          </ol>
+        </div>
+        <div class="doc-block">
+          <div class="blabel">Åpne punkter til diskusjon</div>
+          <ol>
+            <li><strong>Pris-nivåer:</strong> hvilken minimumsavgift og timepris treffer Franzefoss' interne kalkyle?</li>
+            <li><strong>Sluttkunde-mekanikk:</strong> hvordan beholde kundene når lokalanlegg stenger?</li>
+            <li><strong>Pilot-anlegg:</strong> hvilke anlegg fra avviklingslisten passer best å starte med?</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">02 / 08</span>
+  </section>
+
+  <!-- SLIDE 3: Utgangspunktet -->
+  <section class="slide" data-theme="light">
+    <img src="presentation-assets/hive-logo.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">03 · UTGANGSPUNKTET</span>
+    <div class="slide-inner">
+      <div class="eyebrow">PROBLEMET HIVE LØSER</div>
+      <h2 class="headline">Anlegg som ikke kan forsvare egen operatør blir kandidater for nedstenging.</h2>
+      <p class="subhead">Lav utnyttelse, høyt fravær eller kort driftshorisont gjør det dyrt å holde fast operatør. Konsekvensen er at anlegget havner på avviklings-listen. Nesodden er ett eksempel som ble nevnt i samtalen 30. april. Det er antagelig flere på listen.</p>
+
+      <div class="stat-row">
+        <div class="stat">
+          <div class="snum">01 · BEMANNING</div>
+          <div class="sbig">Vanskelig å holde fast operatør</div>
+          <div class="scopy">Vikar på et anlegg som kanskje stenges neste år er politisk og økonomisk krevende.</div>
+        </div>
+        <div class="stat">
+          <div class="snum">02 · VOLUM</div>
+          <div class="sbig">Volum forsvinner ved stenging</div>
+          <div class="scopy">Når lokalanlegg stenger, må kundene kjøre lenger til neste Franzefoss-anlegg — eller de velger konkurrent.</div>
+        </div>
+        <div class="stat">
+          <div class="snum">03 · ALTERNATIV</div>
+          <div class="sbig">Remote drift holder anlegget åpent</div>
+          <div class="scopy">Hive overtar operatørene. Anlegg som ellers ville blitt stengt, holdes i drift. Volum og kunder beholdes.</div>
+        </div>
+      </div>
+
+      <div class="disc-block">
+        <span class="dlabel">Åpne punkter</span>
+        <ul>
+          <li>Hvor mange anlegg på avviklings-listen har dette bemanningsproblemet som hovedårsak?</li>
+          <li>For hvilke av dem er Hive-modellen verdt å vurdere som alternativ til nedstenging?</li>
+          <li>Hvilke anlegg er mest naturlig å starte med?</li>
+        </ul>
+      </div>
+    </div>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">03 / 08</span>
+  </section>
+
+  <!-- SLIDE 4: Konseptet -->
+  <section class="slide hero-photo dark" data-theme="dark">
+    <div class="bg" style="background-image: url('presentation-assets/hq-kontoret.jpg');"></div>
+    <div class="overlay" style="background: linear-gradient(135deg, rgba(11,26,44,0.94) 0%, rgba(11,26,44,0.82) 40%, rgba(11,26,44,0.62) 100%);"></div>
+    <img src="presentation-assets/hive-logo-white.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">04 · KONSEPTET</span>
+    <div class="slide-inner">
+      <div class="eyebrow">ARBEIDSDELING</div>
+      <h2 class="headline">Hive overtar operatørene fra Kristiansand. Franzefoss holder maskinen og anlegget.</h2>
+      <p class="subhead">Hver part beholder det de er gode på. Franzefoss kjenner anlegget og kundene. Hive kjører autonomi-systemet og remote drift 24/7 fra operasjonssenteret.</p>
+
+      <div class="doc-section">
+        <div class="doc-block glass">
+          <div class="blabel">Franzefoss holder</div>
+          <ol>
+            <li><strong>Maskinen.</strong> Én Volvo-hjullaster i eksisterende park (L60–L350, modell 2018+).</li>
+            <li><strong>Anlegget.</strong> Oppgavebeskrivelse og én kontaktperson for daglig drift.</li>
+            <li><strong>Kunderelasjonen.</strong> Salg, fakturering, materialdialog med sluttkunde.</li>
+          </ol>
+        </div>
+        <div class="doc-block glass">
+          <div class="blabel">Hive holder</div>
+          <ol>
+            <li><strong>Remote operator</strong> fra operasjonssenteret i Kristiansand, 24/7.</li>
+            <li><strong>Autonomi-systemet:</strong> retrofit, sensorer, software, kommunikasjon, ISO-sertifisert sikkerhetslag.</li>
+            <li><strong>Network audit + support.</strong> 4G/5G-verifikasjon før retrofit. Lokal support ved behov.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="disc-block">
+        <span class="dlabel">Åpne punkter</span>
+        <ul>
+          <li>Hvilke maskiner på de aktuelle anleggene er kandidater for retrofit?</li>
+          <li>Hvor mange anlegg kan modellen dekke over 2026–2028?</li>
+          <li>Vi starter med hjullastere. Dumper trucks senere i år — bør vi koordinere allerede nå?</li>
+        </ul>
+      </div>
+    </div>
+    <span class="page-num">04 / 08</span>
+  </section>
+
+  <!-- SLIDE 5: Modellen -->
+  <section class="slide hero-photo dark" data-theme="dark">
+    <div class="bg" style="background-image: url('presentation-assets/slide6-volvo-profile.jpg');"></div>
+    <div class="overlay" style="background: linear-gradient(115deg, rgba(11,26,44,0.94) 0%, rgba(11,26,44,0.82) 40%, rgba(11,26,44,0.62) 100%);"></div>
+    <img src="presentation-assets/hive-logo-white.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">05 · MODELLEN</span>
+    <div class="slide-inner">
+      <div class="eyebrow">FORRETNINGSMODELL</div>
+      <h2 class="headline">Månedlig minimum + timepris når maskinen kjører.</h2>
+      <p class="subhead">To-komponent modell tilpasset variabel utnyttelse. Månedsavgiften holder operasjons-kapasiteten oppe. Timepris reflekterer faktisk drift. Konkrete tall settes i samtale med Franzefoss.</p>
+
+      <div class="doc-section">
+        <div class="doc-block glass">
+          <div class="blabel">Komponent 1 · Månedlig minimum</div>
+          <ol>
+            <li><strong>Dekker:</strong> remote operator-beredskap, autonomi-systemet, 24/7 supervised autonomy.</li>
+            <li><strong>Logikk:</strong> Hive må holde operasjons-kapasitet uavhengig av om maskinen kjører den enkelte uken.</li>
+            <li><strong>Nivå:</strong> reflekterer Hives faktiske kost. Ikke et anker mot Franzefoss' kalkyle.</li>
+          </ol>
+        </div>
+        <div class="doc-block glass">
+          <div class="blabel">Komponent 2 · Timepris</div>
+          <ol>
+            <li><strong>Betales per produktive maskin-time.</strong></li>
+            <li><strong>Definisjon:</strong> "produktive timer" avtales eksplisitt i term sheet.</li>
+            <li><strong>Risiko:</strong> Franzefoss betaler for timene. Hive bærer utnyttelses-risikoen.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="disc-block">
+        <span class="dlabel">Åpne punkter</span>
+        <ul>
+          <li>Hvilket nivå på månedlig minimum gir mening mot Franzefoss' interne minimumskostnad for å beholde et anlegg åpent?</li>
+          <li>Hva er rimelig timepris-anker mot operatør-skift på det aktuelle anlegget?</li>
+          <li>Hvordan defineres "produktive timer" så det er konsistent for begge parter?</li>
+        </ul>
+      </div>
+    </div>
+    <span class="page-num">05 / 08</span>
+  </section>
+
+  <!-- SLIDE 6: Sluttkunde-mekanikken -->
+  <section class="slide dark" data-theme="dark" style="background: var(--navy-deep);">
+    <img src="presentation-assets/hive-logo-white.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">06 · SLUTTKUNDE-MEKANIKKEN</span>
+    <div class="slide-inner">
+      <div class="eyebrow">ÅPENT TEMA</div>
+      <h2 class="headline">Hvordan beholdes kunden når lokalanlegget stenger?</h2>
+      <p class="subhead">Når et anlegg stenges må sluttkunden kjøre lenger til neste Franzefoss-anlegg, eller velge konkurrent. Hive-modellen kan finansiere en kunde-fordel som holder volumet inne. Mekanikken bygges i fellesskap.</p>
+
+      <div class="doc-single">
+        <p>Hvis Hive holder driften på et anlegg som ellers ville stengt, beholder Franzefoss volumet og kunden. Det er en del av verdien til modellen. Ikke bare bemanningsbesparelse, men <strong>kundetap som ikke skjer</strong>.</p>
+        <p>Hvis lokalanlegget faktisk stenger og kunden må kjøre til alternativt anlegg, kan en del av Hive-besparelsen brukes til <strong>transport-rabatt eller volumavtale</strong> som gjør at kunden blir hos Franzefoss. Struktur og størrelse utformes i fellesskap.</p>
+      </div>
+
+      <div class="disc-block">
+        <span class="dlabel">Åpne punkter</span>
+        <ul>
+          <li>Hvilke sluttkunder er mest sårbare for å miste sitt lokalanlegg?</li>
+          <li>Hvor stor fordel kreves for at de fortsetter med Franzefoss på alternativt anlegg?</li>
+          <li>Hvordan strukturerer vi mekanikken så den er økonomisk levedyktig for begge?</li>
+        </ul>
+      </div>
+    </div>
+    <span class="page-num">06 / 08</span>
+  </section>
+
+  <!-- SLIDE 7: Referansene -->
+  <section class="slide dark" data-theme="dark" style="background: var(--navy-deep);">
+    <img src="presentation-assets/hive-logo-white.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">07 · REFERANSENE</span>
+    <div class="slide-inner">
+      <div class="eyebrow">DRIFT SOM DOKUMENTERER MODELLEN</div>
+      <h2 class="headline">Modellen er bevist.</h2>
+      <p class="subhead">1,5+ år autonom drift på samme maskinklasse hos Yara. Pukkverk-drift testet og kjørt på Hamar Pukk. Ny aggregat-kunde i autonom drift fra juni. Modellen er ute av test-fasen.</p>
+
+      <div class="video-grid">
+        <div class="video-card">
+          <div class="video-slot" data-src="presentation-assets/yara-bulk.mp4" style="background-image: url('presentation-assets/yara-bulk-still.jpg');">
+            <span class="live-dot">Live · 1,5 år</span>
+          </div>
+          <div class="vc-eyebrow">YARA · HERØYA</div>
+          <div class="vc-title">Bulk-materialdrift på Volvo L120H</div>
+          <div class="vc-detail">Industriell autonom drift, 1,5+ år. Samme maskinklasse som foreslås for Franzefoss.</div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-slot" data-src="presentation-assets/feiring-quarry.mp4" style="background-image: url('presentation-assets/feiring-quarry-still.jpg');">
+            <span class="live-dot">Live · Pukkverk</span>
+          </div>
+          <div class="vc-eyebrow">HAMAR PUKK</div>
+          <div class="vc-title">Volvo L-serie aggregat-lasting</div>
+          <div class="vc-detail">Pukkverk-drift testet og kjørt. Ny aggregat-kunde i autonom drift fra juni (NDA).</div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-slot" data-src="presentation-assets/veidekke-tunnel.mp4" style="background-image: url('presentation-assets/veidekke-tunnel-still.jpg');">
+            <span class="live-dot">Telia 5G</span>
+          </div>
+          <div class="vc-eyebrow">VEIDEKKE · TUNNEL</div>
+          <div class="vc-title">Fjernstyrt drift over kommersielt 5G</div>
+          <div class="vc-detail">Europas første industrielle 5G-drift i tunnel. Network-case er mer krevende enn åpen pit.</div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-slot" data-src="presentation-assets/presis-vikafjellet.mp4" style="background-image: url('presentation-assets/presis-vikafjellet-still.jpg');">
+            <span class="live-dot">Live · NRK</span>
+          </div>
+          <div class="vc-eyebrow">STATENS VEGVESEN · VIKAFJELLET</div>
+          <div class="vc-title">Klarert for autonom drift på fjellovergang</div>
+          <div class="vc-detail">Norsk regulator har klarert Hive for autonom drift. Vist på NRK Nyhetsmorgen.</div>
+        </div>
+      </div>
+    </div>
+    <span class="page-num">07 / 08</span>
+  </section>
+
+  <!-- SLIDE 8: Tidslinje -->
+  <section class="slide hero-photo dark" data-theme="dark">
+    <div class="bg" style="background-image: url('presentation-assets/multi-vehicle-fleet.jpg');"></div>
+    <div class="overlay" style="background: linear-gradient(120deg, rgba(11,26,44,0.95) 0%, rgba(11,26,44,0.86) 45%, rgba(11,26,44,0.68) 100%);"></div>
+    <img src="presentation-assets/hive-logo-white.png" class="logo" alt="Hive Autonomy">
+    <span class="deck-tag">08 · TIDSLINJE</span>
+    <div class="slide-inner">
+      <div class="eyebrow">BUDSJETT-VINDUET</div>
+      <h2 class="headline">Pilot oktober 2026 krever signering før 1. juli.</h2>
+      <p class="subhead">2027-budsjettet låses i Q3. Hvis avtalen ikke er signert før det, må Hive inn i 2028-budsjettet. Teknisk klargjøring (network audit + retrofit) tar 8–10 uker fra signering. Tidslinjen er Franzefoss' egen budsjettkjøring.</p>
+
+      <div class="t-compact">
+        <div class="tstep">
+          <div class="twhen">Mai – jun 2026</div>
+          <div class="twhat">Avtale</div>
+          <div class="tnote">Gjennomgang av modell og tall. Intern beslutning. Valg av anlegg og signering.</div>
+        </div>
+        <div class="tstep">
+          <div class="twhen">Jul – sep 2026</div>
+          <div class="twhat">Teknisk klargjøring</div>
+          <div class="tnote">Network audit på pilot-anlegg. Retrofit-planlegging. Operatør-onboarding på Franzefoss-driften.</div>
+        </div>
+        <div class="tstep">
+          <div class="twhen">Okt 2026</div>
+          <div class="twhat">Pilot</div>
+          <div class="tnote">Én Volvo-hjullaster under supervised autonomy. Evaluering 8–10 uker.</div>
+        </div>
+        <div class="tstep">
+          <div class="twhen">Jan 2027 →</div>
+          <div class="twhat">Operativt</div>
+          <div class="tnote">Utvidelse til flere anlegg etter pilot-evaluering. Modell og mekanikk bekreftet.</div>
+        </div>
+      </div>
+
+      <div class="close-contact" style="margin-top: clamp(28px, 3vh, 40px);">
+        <span><strong>Ronny Liverød</strong> · VP Heavy Machinery · Hive Autonomy</span>
+        <span class="dot">·</span>
+        <span>ronny.liverod@hiveautonomy.no</span>
+        <span class="dot">·</span>
+        <span>+47 481 32 299</span>
+      </div>
+    </div>
+    <span class="page-num">08 / 08</span>
+  </section>
+
+</div>
+
+<div class="tap-zone left" onclick="prev()" aria-label="Forrige slide"></div>
+<div class="tap-zone right" onclick="next()" aria-label="Neste slide"></div>
+
+<div class="video-modal" id="videoModal" onclick="closeVideo(event)" role="dialog" aria-label="Video">
+  <div class="video-modal-inner" onclick="event.stopPropagation()">
+    <button class="close-btn" onclick="closeVideo()" aria-label="Lukk video">×</button>
+    <video id="modalVideo" controls preload="none" playsinline></video>
+    <div class="video-modal-meta">
+      <div class="vm-title" id="vmTitle"></div>
+      <div class="vm-sub" id="vmSub"></div>
+    </div>
+  </div>
+</div>
+
+<div class="nav" role="navigation" aria-label="Slide-navigasjon">
+  <button onclick="prev()" aria-label="Forrige slide">‹</button>
+  <span class="counter" id="counter">1 / 8</span>
+  <button onclick="next()" aria-label="Neste slide">›</button>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const counter = document.getElementById('counter');
+let i = 0;
+function show(n) {
+  i = (n + slides.length) % slides.length;
+  slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+  if (counter) counter.textContent = (i + 1) + ' / ' + slides.length;
+  syncVideos();
+}
+
+function syncVideos() {
+  document.querySelectorAll('.video-slot').forEach(slot => {
+    const active = slot.closest('.slide')?.classList.contains('active');
+    let video = slot.querySelector('video');
+    const src = slot.getAttribute('data-src');
+    if (active && src) {
+      if (!video) {
+        video = document.createElement('video');
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+        video.autoplay = true;
+        video.preload = 'metadata';
+        video.src = src;
+        slot.appendChild(video);
+      }
+      video.play().catch(() => {});
+    } else if (video) {
+      video.pause();
+    }
+  });
+}
+function next() { show(i + 1); }
+function prev() { show(i - 1); }
+
+document.addEventListener('keydown', (e) => {
+  const modal = document.getElementById('videoModal');
+  if (modal && modal.classList.contains('open')) {
+    if (e.key === 'Escape') closeVideo();
+    return;
+  }
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); next(); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+  if (/^[1-9]$/.test(e.key)) show(parseInt(e.key, 10) - 1);
+});
+
+function openVideo(filename, title, subtitle) {
+  const modal = document.getElementById('videoModal');
+  const video = document.getElementById('modalVideo');
+  document.getElementById('vmTitle').textContent = title || '';
+  document.getElementById('vmSub').textContent = subtitle || '';
+  video.src = 'presentation-assets/' + filename;
+  modal.classList.add('open');
+  video.load();
+  video.play().catch(() => {});
+}
+function closeVideo(e) {
+  if (e && e.target && e.target.closest && e.target.closest('.video-modal-inner') && !e.target.classList.contains('close-btn')) return;
+  const modal = document.getElementById('videoModal');
+  const video = document.getElementById('modalVideo');
+  video.pause();
+  video.removeAttribute('src');
+  video.load();
+  modal.classList.remove('open');
+}
+document.querySelectorAll('.track-row').forEach(r => {
+  r.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); r.click(); }
+  });
+});
+
+/* Touch swipe */
+let touchStartX = 0, touchStartY = 0;
+document.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+  touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
+document.addEventListener('touchend', (e) => {
+  const dx = e.changedTouches[0].screenX - touchStartX;
+  const dy = e.changedTouches[0].screenY - touchStartY;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+    if (dx < 0) next();
+    else prev();
+  }
+}, { passive: true });
+
+/* Static mode for PDF */
+const params = new URLSearchParams(location.search);
+if (params.get('static') === '1') {
+  document.body.classList.add('static');
+  const slideIdx = parseInt(params.get('slide') || '1', 10) - 1;
+  slides.forEach((s, idx) => s.classList.toggle('active', idx === slideIdx));
+}
+syncVideos();
+</script>
+</body>
+</html>
