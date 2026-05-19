@@ -2497,107 +2497,6 @@ body.static .slide.active {
   text-transform: none;
 }
 
-/* Slide 4 — Org structure */
-.org-bar {
-  display: flex;
-  width: 100%;
-  height: 6px;
-  margin: clamp(14px, 1.8vh, 22px) 0 clamp(20px, 2.4vh, 32px);
-  background: var(--paper);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.org-bar-seg {
-  height: 100%;
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 900ms var(--ease-out-expo) 320ms;
-}
-.slide.active .org-bar-seg { transform: scaleX(1); }
-.slide.active .org-bar-seg.ops { transition-delay: 480ms; }
-.slide.active .org-bar-seg.comm { transition-delay: 640ms; }
-.org-bar-seg.tech { background: var(--navy); }
-.org-bar-seg.ops { background: var(--cyan); }
-.org-bar-seg.comm { background: oklch(74% 0.13 90); }
-
-.org-grid {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr;
-  gap: clamp(26px, 3vw, 48px);
-  margin-top: clamp(4px, 0.8vh, 12px);
-}
-.org-col {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(8px, 1vh, 14px);
-  padding-top: clamp(12px, 1.4vh, 18px);
-  border-top: 2px solid;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 700ms var(--ease-out-quart) 380ms, transform 700ms var(--ease-out-quart) 380ms;
-}
-.slide.active .org-col { opacity: 1; transform: translateY(0); }
-.slide.active .org-col:nth-child(2) { transition-delay: 520ms; }
-.slide.active .org-col:nth-child(3) { transition-delay: 660ms; }
-.org-col.tech { border-color: var(--navy); }
-.org-col.ops { border-color: var(--cyan); }
-.org-col.comm { border-color: oklch(64% 0.14 80); }
-.org-stat {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(54px, 5.8vw, 88px);
-  font-weight: 800;
-  color: var(--navy);
-  line-height: 0.95;
-  letter-spacing: -0.035em;
-}
-.org-stat-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: clamp(10.5px, 0.82vw, 12.5px);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-40);
-  font-weight: 500;
-  margin-top: -2px;
-}
-.org-pills {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(5px, 0.7vh, 9px);
-  margin-top: clamp(6px, 1vh, 12px);
-}
-.org-pills li {
-  font-size: clamp(12.5px, 0.95vw, 14.5px);
-  line-height: 1.4;
-  color: var(--ink-60);
-}
-.org-pills li strong {
-  color: var(--navy);
-  font-weight: 700;
-}
-.org-reports {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: clamp(10px, 0.78vw, 12px);
-  letter-spacing: 0.06em;
-  color: var(--ink-40);
-  font-style: italic;
-  margin-top: auto;
-  padding-top: clamp(10px, 1.4vh, 16px);
-  border-top: 1px solid var(--line-warm);
-}
-.org-footer {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: clamp(10.5px, 0.82vw, 12.5px);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-40);
-  text-align: right;
-  margin-top: clamp(18px, 2.2vh, 28px);
-  padding-top: clamp(10px, 1.2vh, 16px);
-  border-top: 1px solid var(--line-warm);
-}
-
 /* Slide 7 — journey hero with photo background */
 .journey-bg {
   position: absolute;
@@ -2781,7 +2680,7 @@ body.static .slide.active {
     <div class="vrail" style="color: rgba(255,255,255,0.42);">Company Brief · May 2026 · prepared for Mariana Minerals</div>
     <div class="slide-inner">
       <div class="cover-title-block cover-dark">
-        <div class="eyebrow">Company Brief — 01 / 12</div>
+        <div class="eyebrow">Company Brief — 01 / 11</div>
         <h1 class="title">Hive<span class="stripe"></span><span class="underline-acc">Autonomy</span>.</h1>
       </div>
     </div>
@@ -2800,7 +2699,7 @@ body.static .slide.active {
         <span class="meta-val">ronny.liverod@hiveautonomy.no</span>
       </div>
     </div>
-    <span class="page-num">01 / 12</span>
+    <span class="page-num">01 / 11</span>
   </section>
 
   <!-- SLIDE 2: Mission (light) — breathes -->
@@ -2824,7 +2723,7 @@ body.static .slide.active {
         <p>The field is the only judge. A demo or a dashboard can be wrong. A machine running an eight-hour shift in a quarry, in winter, without a human touching it, cannot.</p>
       </div>
     </div>
-    <span class="page-num" style="color: rgba(27,58,92,0.42);">02 / 12</span>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">02 / 11</span>
   </section>
 
   <!-- SLIDE 3: Team (light) — Founders (5) + C-level additions (2) -->
@@ -2900,66 +2799,13 @@ body.static .slide.active {
         </div>
       </div>
     </div>
-    <span class="page-num" style="color: rgba(27,58,92,0.42);">03 / 12</span>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">03 / 11</span>
   </section>
 
-  <!-- SLIDE 4: Org structure (light) -->
-  <section class="slide atmosphere-soft tight" data-theme="light">
-    <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
-    <span class="deck-tag">04 · ORG STRUCTURE</span>
-    <div class="vrail">Twenty-seven engineers · ten operations · three commercial</div>
-    <div class="slide-inner">
-      <div class="eyebrow">How the team is structured</div>
-      <h2 class="headline" style="margin-bottom: clamp(8px, 1vh, 14px); max-width: 1280px;">Twenty-seven engineers. <span class="accent">Ten operations. Three commercial.</span></h2>
-      <p style="font-style: italic; color: var(--ink-60); font-size: clamp(13px, 1vw, 15.5px); margin-bottom: 0;">Hiring across every team.</p>
-
-      <div class="org-bar">
-        <div class="org-bar-seg tech" style="flex: 27"></div>
-        <div class="org-bar-seg ops" style="flex: 10"></div>
-        <div class="org-bar-seg comm" style="flex: 3"></div>
-      </div>
-
-      <div class="org-grid">
-        <div class="org-col tech">
-          <div class="org-stat">27</div>
-          <div class="org-stat-label">TECH · ENGINEERING</div>
-          <ul class="org-pills">
-            <li><strong>Core</strong> — platform and infrastructure</li>
-            <li><strong>AI</strong> — VLA model, perception, training</li>
-            <li><strong>Autonomy</strong> — supervised driving, handover</li>
-            <li><strong>Integration</strong> — OEM and customer-site</li>
-          </ul>
-          <div class="org-reports">Reports to Dmitri · CTO</div>
-        </div>
-        <div class="org-col ops">
-          <div class="org-stat">10</div>
-          <div class="org-stat-label">OPERATIONS · DELIVERY</div>
-          <ul class="org-pills">
-            <li><strong>Operations centre</strong> — Kristiansand, 24/7 supervision</li>
-            <li><strong>Implementation</strong> — customer-site rollout</li>
-          </ul>
-          <div class="org-reports">Reports to Severin · Chief Delivery Officer</div>
-        </div>
-        <div class="org-col comm">
-          <div class="org-stat">3</div>
-          <div class="org-stat-label">COMMERCIAL · GTM</div>
-          <ul class="org-pills">
-            <li><strong>Heavy Machinery</strong> — Oslo-led</li>
-            <li><strong>Intralogistics</strong> — London-led</li>
-          </ul>
-          <div class="org-reports">Reports to Fredrik · CCO</div>
-        </div>
-      </div>
-
-      <div class="org-footer">67 / 25 / 8 split · 40+ today · hiring across every team</div>
-    </div>
-    <span class="page-num" style="color: rgba(27,58,92,0.42);">04 / 12</span>
-  </section>
-
-  <!-- SLIDE 5: Backed by (light) -->
+  <!-- SLIDE 4: Backed by (light) -->
   <section class="slide atmosphere-grid tight" data-theme="light">
     <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
-    <span class="deck-tag">05 · BACKING</span>
+    <span class="deck-tag">04 · BACKING</span>
     <div class="vrail">Founder-owned · large seed round closing</div>
     <div class="slide-inner">
       <div class="eyebrow">Backing</div>
@@ -2975,13 +2821,13 @@ body.static .slide.active {
         Engineering roadmap is set by customer pull, not fund timing.
       </div>
     </div>
-    <span class="page-num" style="color: rgba(27,58,92,0.42);">04 / 12</span>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">04 / 11</span>
   </section>
 
   <!-- SLIDE 5: What we do (light) — two columns -->
   <section class="slide" data-theme="light">
     <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
-    <span class="deck-tag">06 · WHAT WE DO</span>
+    <span class="deck-tag">05 · WHAT WE DO</span>
     <div class="vrail">Two parts. One service.</div>
     <div class="slide-inner">
       <div class="eyebrow">What we do</div>
@@ -3010,13 +2856,13 @@ body.static .slide.active {
         It's not programming. It's not automation. It is proper AI, supervised by people who know the field.
       </div>
     </div>
-    <span class="page-num" style="color: rgba(27,58,92,0.42);">12 / 12</span>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">05 / 11</span>
   </section>
 
   <!-- SLIDE 6: How we got here (light) — history prose with timestrip -->
   <section class="slide atmosphere-soft tight" data-theme="light">
     <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
-    <span class="deck-tag">07 · HOW WE GOT HERE</span>
+    <span class="deck-tag">06 · HOW WE GOT HERE</span>
     <div class="vrail">From offshore cranes to wheel loaders</div>
     <div class="slide-inner">
       <div class="eyebrow">How we got here</div>
@@ -3043,13 +2889,13 @@ body.static .slide.active {
         </div>
       </div>
     </div>
-    <span class="page-num" style="color: rgba(27,58,92,0.42);">12 / 12</span>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">06 / 11</span>
   </section>
 
   <!-- SLIDE 7: Customer journey — hero photo with timeline overlay -->
   <section class="slide dark journey-hero" data-theme="dark" style="padding: 0; background: var(--navy-deep);">
     <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo-white.png" class="logo" alt="Hive Autonomy" style="z-index: 5;">
-    <span class="deck-tag" style="z-index: 5;">08 · CUSTOMER JOURNEY</span>
+    <span class="deck-tag" style="z-index: 5;">07 · CUSTOMER JOURNEY</span>
 
     <!-- Hero background photo -->
     <div class="journey-bg" style="background-image: url('../mariana-minerals-followup/presentation-assets/customers/fleet-lineup.jpg');"></div>
@@ -3068,13 +2914,13 @@ body.static .slide.active {
         <li><span class="jt-num">06</span><span class="jt-text"><strong>Today</strong> — Nine live deployments. Heavy machinery + intralogistics.</span></li>
       </ol>
     </div>
-    <span class="page-num" style="z-index: 5;">12 / 12</span>
+    <span class="page-num" style="z-index: 5;">07 / 11</span>
   </section>
 
   <!-- SLIDE 8: Live deployments (light) — cinematic, tight -->
   <section class="slide tight" data-theme="light">
     <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
-    <span class="deck-tag">09 · LIVE DEPLOYMENTS</span>
+    <span class="deck-tag">08 · LIVE DEPLOYMENTS</span>
     <div class="vrail">Two streams · same model underneath</div>
     <div class="slide-inner">
       <div class="eyebrow">Live deployments</div>
@@ -3159,13 +3005,13 @@ body.static .slide.active {
 
       </div>
     </div>
-    <span class="page-num" style="color: rgba(27,58,92,0.42);">12 / 12</span>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">08 / 11</span>
   </section>
 
   <!-- SLIDE 9: Your contact (light) — breathes -->
   <section class="slide atmosphere-soft breathe" data-theme="light">
     <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
-    <span class="deck-tag">10 · YOUR CONTACT</span>
+    <span class="deck-tag">09 · YOUR CONTACT</span>
     <div class="vrail">Primary contact through scoping, pilot and roll-out</div>
     <div class="slide-inner">
       <div class="eyebrow">Day-to-day on Copper One</div>
@@ -3185,13 +3031,13 @@ body.static .slide.active {
         </div>
       </div>
     </div>
-    <span class="page-num" style="color: rgba(27,58,92,0.42);">12 / 12</span>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">09 / 11</span>
   </section>
 
   <!-- SLIDE 10: Where we work (light) — locations + photo -->
   <section class="slide atmosphere-soft tight" data-theme="light">
     <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo.png" class="logo" alt="Hive Autonomy">
-    <span class="deck-tag">11 · WHERE WE WORK</span>
+    <span class="deck-tag">10 · WHERE WE WORK</span>
     <div class="vrail">Four locations · one engineering core</div>
     <div class="slide-inner">
       <div class="eyebrow">Where we work</div>
@@ -3211,13 +3057,13 @@ body.static .slide.active {
 
       </div>
     </div>
-    <span class="page-num" style="color: rgba(27,58,92,0.42);">12 / 12</span>
+    <span class="page-num" style="color: rgba(27,58,92,0.42);">10 / 11</span>
   </section>
 
   <!-- SLIDE 11: Vision — closing (dark) -->
   <section class="slide dark atmosphere-dots-dark tight" data-theme="dark">
     <img src="../mariana-minerals-followup/presentation-assets/mariana/hive-logo-white.png" class="logo" alt="Hive Autonomy">
-    <span class="deck-tag">12 · VISION</span>
+    <span class="deck-tag">11 · VISION</span>
     <div class="vrail">Where we're building toward</div>
     <div class="slide-inner">
       <div class="eyebrow">Where we're going</div>
@@ -3240,7 +3086,7 @@ body.static .slide.active {
         We started with the cycle in front of us. We're building for the one ahead.
       </div>
     </div>
-    <span class="page-num">12 / 12</span>
+    <span class="page-num">11 / 11</span>
   </section>
 
 </div>
@@ -3261,7 +3107,7 @@ body.static .slide.active {
 
 <div class="nav" role="navigation" aria-label="Slide navigation">
   <button onclick="prev()" aria-label="Previous slide">‹</button>
-  <span class="counter" id="counter">1 / 12</span>
+  <span class="counter" id="counter">1 / 11</span>
   <button onclick="next()" aria-label="Next slide">›</button>
 </div>
 
