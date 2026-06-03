@@ -23,6 +23,7 @@ html,body{font-family:var(--font);background:#000;color:var(--ink);overflow:hidd
   background:radial-gradient(130% 130% at 22% 18%,#0E2338 0%,#0B1A2C 46%,#07101C 100%)}
 .slide.active{opacity:1;pointer-events:auto;z-index:2}
 .slide-inner{max-width:1180px;width:100%;position:relative;z-index:3}
+.slide-inner.wide{max-width:1320px}
 
 /* eyebrow */
 .eyebrow{font-family:var(--mono);font-size:clamp(11px,0.9vw,13px);font-weight:500;letter-spacing:0.22em;
@@ -36,6 +37,10 @@ html,body{font-family:var(--font);background:#000;color:var(--ink);overflow:hidd
   opacity:0;transform:translateY(24px);transition:opacity 800ms var(--ease),transform 800ms var(--ease);max-width:16em}
 .slide.active .msg{opacity:1;transform:translateY(0);transition-delay:230ms}
 .msg .c{color:var(--cyan)}.msg .g{color:var(--gold)}
+/* text-shadow only where text sits over imagery — keeps the lighter scrim legible */
+.slide:has(.bg) .msg{text-shadow:0 2px 22px rgba(4,9,15,0.65),0 1px 3px rgba(4,9,15,0.5)}
+.slide:has(.bg) .sub,.slide:has(.bg) .byline{text-shadow:0 1px 14px rgba(4,9,15,0.7),0 1px 2px rgba(4,9,15,0.6)}
+.slide:has(.bg) .eyebrow{text-shadow:0 1px 8px rgba(4,9,15,0.6)}
 .sub{font-size:clamp(15px,1.3vw,20px);font-weight:400;line-height:1.5;color:var(--muted);margin-top:clamp(20px,2.6vh,32px);max-width:40em;
   opacity:0;transform:translateY(20px);transition:opacity 800ms var(--ease),transform 800ms var(--ease)}
 .slide.active .sub{opacity:1;transform:translateY(0);transition-delay:360ms}
@@ -45,9 +50,16 @@ html,body{font-family:var(--font);background:#000;color:var(--ink);overflow:hidd
 
 /* full-bleed bg image/video — works on any slide */
 .slide .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
-.slide .scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(rgba(7,16,28,0.80),rgba(7,16,28,0.88))}
+/* DIRECTIONAL scrim: text sits left + vertically centered. Dark-anchored bottom-left,
+   clears to the right so the photograph reads. Two layers: a left-weighted wash for
+   legibility + a bottom floor for grounding. Roughly half the old veil. */
+.slide .scrim{position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(105deg,rgba(7,16,28,0.86)0%,rgba(7,16,28,0.62)26%,rgba(7,16,28,0.28)50%,rgba(7,16,28,0.10)74%,rgba(7,16,28,0.04)100%),
+    linear-gradient(to top,rgba(7,16,28,0.55)0%,rgba(7,16,28,0.16)34%,rgba(7,16,28,0)62%)}
 .slide.media{padding:0;justify-content:flex-end;background:#000}
-.slide.media .scrim{background:linear-gradient(to top,rgba(4,9,15,0.92)0%,rgba(4,9,15,0.45)40%,rgba(4,9,15,0.15)75%,rgba(4,9,15,0.35)100%)}
+/* media (bottom-anchored text): bottom-weighted, top stays clear */
+.slide.media .scrim{background:linear-gradient(to top,rgba(4,9,15,0.90)0%,rgba(4,9,15,0.62)22%,rgba(4,9,15,0.22)48%,rgba(4,9,15,0.04)74%,rgba(4,9,15,0)100%)}
 .slide.media .slide-inner{padding:clamp(56px,9vw,160px);padding-top:0;z-index:3}
 .slide.media .msg{font-size:clamp(32px,4.4vw,62px)}
 
@@ -92,14 +104,17 @@ html,body{font-family:var(--font);background:#000;color:var(--ink);overflow:hidd
 .banner{position:fixed;top:16px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;letter-spacing:0.1em;
   color:var(--muted);background:rgba(7,16,28,0.7);border:1px solid var(--line);border-radius:20px;padding:7px 16px;z-index:40;transition:opacity 600ms}
 .banner.fade{opacity:0}
-.bars{margin-top:clamp(16px,2.2vh,28px);display:flex;flex-direction:column;gap:9px;opacity:0;transform:translateY(18px);transition:opacity 700ms var(--ease),transform 700ms var(--ease)}
+.bars{margin-top:clamp(20px,2.8vh,34px);display:flex;flex-direction:column;gap:clamp(11px,1.5vh,16px);opacity:0;transform:translateY(18px);transition:opacity 700ms var(--ease),transform 700ms var(--ease)}
 .slide.active .bars{opacity:1;transform:translateY(0);transition-delay:340ms}
-.bar{display:grid;grid-template-columns:190px 1fr;align-items:center;gap:14px}
-.bar .bl{font-size:13px;color:var(--muted);text-align:right;font-family:var(--mono);letter-spacing:.03em}
-.bar .bl.gold{color:var(--gold)}
-.bar .bb{height:26px;background:var(--cyan);border-radius:3px;min-width:54px;display:flex;align-items:center;justify-content:flex-end;padding:0 10px;color:#06121f;font-weight:700;font-size:13px;white-space:nowrap}
-.bar .bb.sm{background:var(--muted)}
+.bar{display:grid;grid-template-columns:clamp(230px,18vw,300px) 1fr;align-items:center;gap:clamp(18px,1.6vw,26px)}
+.bar .bl{font-size:clamp(15px,1.15vw,18px);color:rgba(244,241,234,0.82);text-align:right;font-family:var(--font);font-weight:500;letter-spacing:0}
+.bar .bl.gold{color:var(--gold);font-weight:600}
+.bar .bb{height:clamp(30px,3.6vh,40px);background:var(--cyan);border-radius:4px;min-width:0;display:flex;align-items:center;justify-content:flex-end;padding:0 14px;color:#06121f;font-weight:700;font-size:clamp(14px,1vw,17px);white-space:nowrap;position:relative}
+/* value label sits OUTSIDE the bar to its right when the bar is too small to hold it */
+.bar .bb.sm{background:var(--muted);justify-content:flex-start;color:transparent;overflow:visible}
+.bar .bb.sm::after{content:attr(data-v);position:absolute;left:calc(100% + 12px);color:rgba(244,241,234,0.9);font-weight:600;font-size:clamp(14px,1vw,17px)}
 .bar .bb.gold{background:var(--gold)}
+.bar .bb.sm.gold::after{color:var(--gold);font-weight:700}
 @media print{.nav,.counter,.banner,.progress{display:none}.slide{opacity:1!important;position:relative!important;page-break-after:always;height:100vh}}
 </style>
 </head>
@@ -116,7 +131,7 @@ html,body{font-family:var(--font);background:#000;color:var(--ink);overflow:hidd
   </section>
 
   <!-- ===== ACT 1 — You power the revolution ===== -->
-  <section class="slide"><img class="bg" src="presentation-assets/wave/concept-office.jpg"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The shift</span><div class="msg">You're all using AI now.<br>At your desk, like everyone.</div></div></section>
+  <section class="slide"><img class="bg" src="presentation-assets/wave/concept-office.jpg"><div class="scrim" style="background:linear-gradient(105deg,rgba(7,16,28,0.78)0%,rgba(7,16,28,0.5)28%,rgba(7,16,28,0.18)54%,rgba(7,16,28,0.02)80%,transparent 100%)"></div><div class="slide-inner"><span class="eyebrow">The shift</span><div class="msg">You're all using AI now.<br>At your desk, like everyone.</div></div></section>
 
   <section class="slide"><img class="bg" src="presentation-assets/wave/power-2.jpg"><div class="scrim"></div><div class="slide-inner"><div class="msg">But you don't just <span class="c">use</span> this revolution.<br>You have to <span class="g">power</span> it.</div></div></section>
 
@@ -176,10 +191,10 @@ html,body{font-family:var(--font);background:#000;color:var(--ink);overflow:hidd
     <div class="bars">
       <div class="bar"><span class="bl">Physical labour</span><span class="bb" style="width:100%">$57T</span></div>
       <div class="bar"><span class="bl">Construction</span><span class="bb" style="width:28%">$15.8T</span></div>
-      <div class="bar"><span class="bl">Heavy machinery</span><span class="bb sm" style="width:7%">~$1T</span></div>
-      <div class="bar"><span class="bl">Logistics automation</span><span class="bb sm" style="width:4%">$70B</span></div>
-      <div class="bar"><span class="bl">Humanoid robots</span><span class="bb sm" style="width:3%">$4B</span></div>
-      <div class="bar"><span class="bl gold">LLM / GenAI</span><span class="bb gold" style="width:4%">$90B</span></div>
+      <div class="bar"><span class="bl">Heavy machinery</span><span class="bb sm" style="width:7%" data-v="~$1T"></span></div>
+      <div class="bar"><span class="bl">Logistics automation</span><span class="bb sm" style="width:5%" data-v="$70B"></span></div>
+      <div class="bar"><span class="bl">Humanoid robots</span><span class="bb sm" style="width:4%" data-v="$4B"></span></div>
+      <div class="bar"><span class="bl gold">LLM / GenAI</span><span class="bb gold sm" style="width:5%;background:var(--gold)" data-v="$90B"></span></div>
     </div>
     <div class="sub" style="font-size:clamp(15px,1.4vw,20px);margin-top:16px">Physical AI isn't a niche on top of LLMs. It's the bigger prize — 600×.</div>
   </div></section>
