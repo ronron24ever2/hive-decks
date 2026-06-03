@@ -194,7 +194,7 @@ html,body{font-family:var(--font);background:#000;color:var(--ink);overflow:hidd
 
   <section class="slide media"><video class="bg" src="presentation-assets/wave/figure.mp4" muted loop playsinline preload="auto"></video><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The wave · Figure</span><div class="msg">Humanoids on the BMW line.</div><div class="sub" style="color:var(--ink)">Full shifts. Five days a week.</div></div></section>
 
-  <section class="slide media"><video class="bg" src="presentation-assets/wave/neo.mp4" loop playsinline preload="auto"></video><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The wave · 1X Neo</span><div class="msg">And one is moving into homes.<br><span class="g">It's Norwegian.</span></div></div></section>
+  <section class="slide media"><video class="bg" id="neoVid" src="presentation-assets/wave/neo.mp4" playsinline preload="auto"></video><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The wave · 1X Neo</span><div class="msg">And one is moving into homes.<br><span class="g">It's Norwegian.</span></div></div></section>
 
   <section class="slide media"><video class="bg" src="presentation-assets/wave/unitree.mp4" muted loop playsinline preload="auto"></video><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The wave · Unitree</span><div class="msg"><span class="c">5,500</span> robots last year.<br><span class="c">20,000</span> this year.</div></div></section>
 
@@ -328,6 +328,12 @@ document.addEventListener('keydown',e=>{
 let tx=null;
 document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
 document.addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>60)show(index+(dx<0?1:-1));tx=null;},{passive:true});
+// Neo clip: play sound once at 30%, then keep looping silently
+var _nv=document.getElementById('neoVid');
+if(_nv){
+  _nv.addEventListener('play',function(){ if(!_nv.loop){ _nv.volume=0.30; } });
+  _nv.addEventListener('ended',function(){ _nv.muted=true; _nv.loop=true; _nv.play().catch(function(){}); });
+}
 </script>
 </body>
 </html>
