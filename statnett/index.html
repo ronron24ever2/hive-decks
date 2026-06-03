@@ -55,11 +55,11 @@ html,body{font-family:var(--font);background:#000;color:var(--ink);overflow:hidd
    legibility + a bottom floor for grounding. Roughly half the old veil. */
 .slide .scrim{position:absolute;inset:0;z-index:1;
   background:
-    linear-gradient(105deg,rgba(7,16,28,0.86)0%,rgba(7,16,28,0.62)26%,rgba(7,16,28,0.28)50%,rgba(7,16,28,0.10)74%,rgba(7,16,28,0.04)100%),
-    linear-gradient(to top,rgba(7,16,28,0.55)0%,rgba(7,16,28,0.16)34%,rgba(7,16,28,0)62%)}
+    linear-gradient(105deg,rgba(7,16,28,0.72)0%,rgba(7,16,28,0.48)26%,rgba(7,16,28,0.28)50%,rgba(7,16,28,0.10)74%,rgba(7,16,28,0.04)100%),
+    linear-gradient(to top,rgba(7,16,28,0.42)0%,rgba(7,16,28,0.16)34%,rgba(7,16,28,0)62%)}
 .slide.media{padding:0;justify-content:flex-end;background:#000}
 /* media (bottom-anchored text): bottom-weighted, top stays clear */
-.slide.media .scrim{background:linear-gradient(to top,rgba(4,9,15,0.90)0%,rgba(4,9,15,0.62)22%,rgba(4,9,15,0.22)48%,rgba(4,9,15,0.04)74%,rgba(4,9,15,0)100%)}
+.slide.media .scrim{background:linear-gradient(to top,rgba(4,9,15,0.76)0%,rgba(4,9,15,0.48)22%,rgba(4,9,15,0.22)48%,rgba(4,9,15,0.04)74%,rgba(4,9,15,0)100%)}
 .slide.media .slide-inner{padding:clamp(56px,9vw,160px);padding-top:0;z-index:3}
 .slide.media .msg{font-size:clamp(32px,4.4vw,62px)}
 
@@ -115,6 +115,15 @@ html,body{font-family:var(--font);background:#000;color:var(--ink);overflow:hidd
 .bar .bb.sm::after{content:attr(data-v);position:absolute;left:calc(100% + 12px);color:rgba(244,241,234,0.9);font-weight:600;font-size:clamp(14px,1vw,17px)}
 .bar .bb.gold{background:var(--gold)}
 .bar .bb.sm.gold::after{color:var(--gold);font-weight:700}
+.slide.diag{padding:0;background:#000;justify-content:flex-end}
+.slide.diag .half{position:absolute;inset:0;width:100%;background-size:cover;background-position:center;z-index:0}
+.slide.diag .half.left{clip-path:polygon(0 0,58% 0,46% 100%,0 100%)}
+.slide.diag .half.right{clip-path:polygon(58% 0,100% 0,100% 100%,46% 100%)}
+.slide.diag .seam{position:absolute;top:-8%;bottom:-8%;left:52%;width:3px;background:linear-gradient(var(--gold),var(--cyan));transform:rotate(6.5deg);z-index:1;opacity:.7}
+.slide.diag .dlbl{position:absolute;top:26px;z-index:4;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#fff;text-shadow:0 1px 6px #000}
+.slide.diag .dlbl.l{left:38px}.slide.diag .dlbl.r{right:38px}
+.slide.diag .scrim{z-index:2;background:linear-gradient(to top,rgba(4,9,15,0.86)0%,rgba(4,9,15,0.28)42%,rgba(4,9,15,0)72%)}
+.slide.diag .slide-inner{z-index:4}
 @media print{.nav,.counter,.banner,.progress{display:none}.slide{opacity:1!important;position:relative!important;page-break-after:always;height:100vh}}
 </style>
 </head>
@@ -157,7 +166,13 @@ html,body{font-family:var(--font);background:#000;color:var(--ink);overflow:hidd
     <div class="slide-inner"><span class="eyebrow">Who we are</span><div class="msg">We're Hive.<br>We put a brain into machines you already own.</div></div>
   </section>
 
-  <section class="slide"><img class="bg" src="presentation-assets/case-assets/multi-vehicle-fleet.jpg"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">Where we came from</span><div class="msg">Red Rock, 2009.<br>Ocean Infinity, 2021.<br>Hive, 2022.</div><div class="sub">We didn't come from tech. We came from the physical world.</div></div></section>
+  <section class="slide diag media" data-theme="dark">
+    <div class="half left" style="background-image:url('presentation-assets/wave/ocean-infinity.jpg')"></div>
+    <div class="half right" style="background-image:url('presentation-assets/wave/red-rock.jpg');background-position:center 35%"></div>
+    <div class="seam"></div><div class="scrim"></div>
+    <span class="dlbl l">Ocean Infinity</span><span class="dlbl r">Red Rock</span>
+    <div class="slide-inner"><span class="eyebrow">Where we came from</span><div class="msg">Red Rock, 2009.<br>Ocean Infinity, 2021.<br>Hive, 2022.</div><div class="sub" style="color:var(--ink)">We didn't come from tech. We came from the physical world.</div></div>
+  </section>
 
   <section class="slide"><img class="bg" src="presentation-assets/case-assets/miljo-7.jpg"><div class="scrim"></div><div class="slide-inner"><div class="msg">We don't sell software.<br>We sell <span class="g">productive machine-hours.</span></div><div class="sub">Here's what that looks like.</div></div></section>
 
@@ -173,40 +188,37 @@ html,body{font-family:var(--font);background:#000;color:var(--ink);overflow:hidd
   <section class="slide"><div class="slide-inner"><div class="msg">If that were just us,<br>it would be a nice story.</div><div class="sub" style="font-size:clamp(20px,2vw,30px);color:var(--ink);margin-top:18px">It isn't just us.</div></div></section>
 
   <!-- ===== ACT 6 — The wave ===== -->
-  <section class="slide quote"><img class="bg" src="presentation-assets/wave/jensen-stage.jpg" style="object-position:center 28%"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">2026</span><div class="msg">The year AI<br>learned to <span class="c">move</span>.</div><div class="byline">"The ChatGPT moment for physical AI is here." — Jensen Huang, NVIDIA</div></div></section>
+  <section class="slide quote"><img class="bg" src="presentation-assets/wave/jensen-ces.webp" style="object-position:center 32%"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">2026</span><div class="msg">The year AI<br>learned to <span class="c">move</span>.</div><div class="byline">"The ChatGPT moment for physical AI is here." — Jensen Huang, NVIDIA</div></div></section>
 
   <section class="slide media"><video class="bg" src="presentation-assets/wave/waymo.mp4" muted loop playsinline preload="auto"></video><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The wave · Waymo</span><div class="msg"><span class="c">500,000</span> driverless rides a week.</div><div class="sub" style="color:var(--ink)">Doubled in a year.</div></div></section>
 
   <section class="slide media"><video class="bg" src="presentation-assets/wave/figure.mp4" muted loop playsinline preload="auto"></video><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The wave · Figure</span><div class="msg">Humanoids on the BMW line.</div><div class="sub" style="color:var(--ink)">Full shifts. Five days a week.</div></div></section>
 
-  <section class="slide media"><video class="bg" src="presentation-assets/wave/neo.mp4" muted loop playsinline preload="auto"></video><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The wave · 1X Neo</span><div class="msg">And one is moving into homes.<br><span class="g">It's Norwegian.</span></div></div></section>
+  <section class="slide media"><video class="bg" src="presentation-assets/wave/neo.mp4" loop playsinline preload="auto"></video><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The wave · 1X Neo</span><div class="msg">And one is moving into homes.<br><span class="g">It's Norwegian.</span></div></div></section>
 
   <section class="slide media"><video class="bg" src="presentation-assets/wave/unitree.mp4" muted loop playsinline preload="auto"></video><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The wave · Unitree</span><div class="msg"><span class="c">5,500</span> robots last year.<br><span class="c">20,000</span> this year.</div></div></section>
 
-  <section class="slide media" data-theme="dark"><img class="bg" src="presentation-assets/wave/china-expo.jpg"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The wave · China</span><div class="msg">In China, this is boring.</div><div class="sub" style="color:var(--ink)">A hall full of humanoids. Here it's still novel. There it's everyday.</div></div></section>
+  <section class="slide media" data-theme="dark"><img class="bg" src="presentation-assets/wave/china-expo.jpg"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The wave · China</span><div class="msg">In China, this is boring.</div><div class="sub" style="color:var(--ink)">500,000 m². 18 halls, all packed. Here it's still novel. There it's everyday.</div></div></section>
 
   <section class="slide"><img class="bg" src="presentation-assets/wave/concept-humanoid-future.jpg" style="object-position:center 25%"><div class="scrim"></div><div class="slide-inner"><div class="msg">Cars. Factories. Homes.</div><div class="sub" style="font-size:clamp(20px,2vw,30px);color:var(--ink);margin-top:16px">Next: the machines that build and power everything.</div></div></section>
 
-  <section class="slide" data-theme="dark"><div class="slide-inner wide"><span class="eyebrow">The market</span><div class="msg" style="font-size:clamp(28px,3.4vw,50px);margin-bottom:4px">LLM software: $90B.<br><span class="c">Physical work: $57T.</span></div>
+  <section class="slide" data-theme="dark"><div class="slide-inner wide"><span class="eyebrow">The market</span><div class="msg" style="font-size:clamp(28px,3.4vw,50px);margin-bottom:6px">Software AI: ~$90B.<br><span class="c">Physical work: ~$57T.</span></div>
     <div class="bars">
-      <div class="bar"><span class="bl">Physical labour</span><span class="bb" style="width:100%">$57T</span></div>
-      <div class="bar"><span class="bl">Construction</span><span class="bb" style="width:28%">$15.8T</span></div>
-      <div class="bar"><span class="bl">Heavy machinery</span><span class="bb sm" style="width:7%" data-v="~$1T"></span></div>
-      <div class="bar"><span class="bl">Logistics automation</span><span class="bb sm" style="width:5%" data-v="$70B"></span></div>
-      <div class="bar"><span class="bl">Humanoid robots</span><span class="bb sm" style="width:4%" data-v="$4B"></span></div>
-      <div class="bar"><span class="bl gold">LLM / GenAI</span><span class="bb gold sm" style="width:5%;background:var(--gold)" data-v="$90B"></span></div>
+      <div class="bar"><span class="bl">Physical work · global labour</span><span class="bb" style="width:100%">~$57T</span></div>
+      <div class="bar"><span class="bl gold">Software AI · LLMs</span><span class="bb gold sm" style="width:1%;background:var(--gold)" data-v="$90B"></span></div>
     </div>
-    <div class="sub" style="font-size:clamp(15px,1.4vw,20px);margin-top:16px">Physical AI isn't a niche on top of LLMs. It's the bigger prize — 600×.</div>
+    <div class="sub" style="font-size:clamp(15px,1.4vw,20px);margin-top:18px">Construction, manufacturing, logistics, agriculture, energy — all physical, all untouched by software AI. <span class="c">600× the LLM market.</span></div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:14px;letter-spacing:.04em">Sources: ILO Global Wage Report + IMF (labour, derived) · Grand View / Statista (GenAI software)</div>
   </div></section>
 
   <!-- ===== ACT 7 — Your physical world ===== -->
   <section class="slide"><div class="slide-inner"><span class="eyebrow">Your world</span><div class="msg">So — your world.</div></div></section>
 
-  <section class="slide"><img class="bg" src="presentation-assets/wave/concept-controlroom.jpg"><div class="scrim"></div><div class="slide-inner"><div class="msg"><span class="c">2,372</span> of you.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">But your contractors build the grid, across 250 projects.</div></div></section>
+  <section class="slide"><img class="bg" src="presentation-assets/wave/statnett-terjeborud.jpg"><div class="scrim"></div><div class="slide-inner"><div class="msg"><span class="c">2,372</span> of you.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">But your contractors build the grid, across 250 projects.</div></div></section>
 
   <section class="slide"><img class="bg" src="presentation-assets/wave/grid-norway-1.jpg"><div class="scrim"></div><div class="slide-inner"><div class="msg"><span class="c">228</span> stations.<br><span class="c">13,000 km</span> of line.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">Kristiansand to Kirkenes. A lot of it where there's no road.</div></div></section>
 
-  <section class="slide interact"><div class="slide-inner"><span class="eyebrow">Over to you</span><div class="msg">What physical work eats the most time, money, or risk?</div><div class="hint"><span class="dot"></span>One word — on your phone</div></div></section>
+  <section class="slide interact"><div class="slide-inner"><span class="eyebrow">Over to you</span><div class="msg">What physical work eats the most time, money, or risk?</div><div class="hint"><span class="dot"></span>One word — out loud</div></div></section>
 
   <section class="slide"><img class="bg" src="presentation-assets/wave/concept-substation-alt.jpg"><div class="scrim"></div><div class="slide-inner"><div class="msg">Half this grid is end-of-life by <span class="c">2040</span>.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">And there aren't more people to hire. Everyone in Europe wants the same crews.</div></div></section>
 
@@ -214,7 +226,7 @@ html,body{font-family:var(--font);background:#000;color:var(--ink);overflow:hidd
 
   <section class="slide"><img class="bg" src="presentation-assets/wave/concept-lineman-height-alt.jpg" style="object-position:center 20%"><div class="scrim"></div><div class="slide-inner"><div class="msg">Your goal is <span class="g">zero</span>.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">You don't reach zero by being careful. You reach it by taking people out of the red zone.</div></div></section>
 
-  <section class="slide"><img class="bg" src="presentation-assets/wave/concept-drone-powerline.jpg"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">You already do this</span><div class="msg">Helicopter inspections, now flown by <span class="c">autonomous drones</span>.</div><div class="sub" style="font-size:clamp(20px,2vw,30px);color:var(--ink);margin-top:16px">That was the air. The ground is next.</div></div></section>
+  <section class="slide"><img class="bg" src="presentation-assets/wave/slide30-avag.jpg"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">You already do this</span><div class="msg">Helicopter inspections, now flown by <span class="c">autonomous drones</span>.</div><div class="sub" style="font-size:clamp(20px,2vw,30px);color:var(--ink);margin-top:16px">That was the air. The ground is next.</div></div></section>
 
   <!-- ===== ACT 8a — Retrofit + AMR ===== -->
   <section class="slide"><img class="bg" src="presentation-assets/case-assets/slide12-sensors-labeled.jpg"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">How we do it</span><div class="msg">We don't replace the machine. We retrofit it.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">Sensors, lidar and a control cabinet on the machine you already own. Live in days. Reversible.</div></div></section>
@@ -231,8 +243,6 @@ html,body{font-family:var(--font);background:#000;color:var(--ink);overflow:hidd
   <section class="slide"><div class="slide-inner"><div class="msg">The same breakthrough as ChatGPT.<br>Now in a body.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">Words in, words out. Here: the world in, motion out.</div></div></section>
 
   <section class="slide"><img class="bg" src="presentation-assets/wave/vla-2.jpg"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">Why it transfers</span><div class="msg">A wheel loader is just a very large robot arm.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">Degrees of freedom are the unit of transfer. Robot arm: 6. Excavator: 6. Loader: 5. We started with a robot arm in Kristiansand in 2024. In 2026 a Toyota forklift runs in production. Same model, bigger body. Every correction trains the whole fleet.</div></div></section>
-
-  <section class="slide interact"><div class="slide-inner"><span class="eyebrow">Over to you</span><div class="msg">Tell the machine what to do — in plain words.</div><div class="hint"><span class="dot"></span>Type a command — on your phone</div></div></section>
 
   <!-- ===== ACT 9 — Already here (one video each) ===== -->
   <section class="slide media">
