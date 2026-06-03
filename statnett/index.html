@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hive Autonomy · Statnett InnoBoost</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07101C; --bg2:#0B1A2C; --ink:#F4F1EA; --cyan:#4A90D9; --gold:#E8D44D;
+  --muted:#7FA8C9; --line:rgba(127,168,201,0.18);
+  --ease:cubic-bezier(0.25,0.46,0.45,0.94);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono:'IBM Plex Mono','JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{font-family:var(--font);background:#000;color:var(--ink);overflow:hidden;height:100vh;-webkit-font-smoothing:antialiased}
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(56px,9vw,160px);opacity:0;pointer-events:none;transition:opacity 600ms var(--ease);
+  background:radial-gradient(130% 130% at 22% 18%,#0E2338 0%,#0B1A2C 46%,#07101C 100%)}
+.slide.active{opacity:1;pointer-events:auto;z-index:2}
+.slide-inner{max-width:1180px;width:100%;position:relative;z-index:3}
+
+/* eyebrow */
+.eyebrow{font-family:var(--mono);font-size:clamp(11px,0.9vw,13px);font-weight:500;letter-spacing:0.22em;
+  text-transform:uppercase;color:var(--cyan);margin-bottom:clamp(22px,3vh,40px);display:inline-block;
+  opacity:0;transform:translateY(14px);transition:opacity 700ms var(--ease),transform 700ms var(--ease)}
+.eyebrow::before{content:"[ "}.eyebrow::after{content:" ]"}
+.slide.active .eyebrow{opacity:1;transform:translateY(0);transition-delay:120ms}
+
+/* the one message */
+.msg{font-size:clamp(36px,5.2vw,76px);font-weight:600;line-height:1.05;letter-spacing:-0.03em;color:var(--ink);
+  opacity:0;transform:translateY(24px);transition:opacity 800ms var(--ease),transform 800ms var(--ease);max-width:16em}
+.slide.active .msg{opacity:1;transform:translateY(0);transition-delay:230ms}
+.msg .c{color:var(--cyan)}.msg .g{color:var(--gold)}
+.sub{font-size:clamp(15px,1.3vw,20px);font-weight:400;line-height:1.5;color:var(--muted);margin-top:clamp(20px,2.6vh,32px);max-width:40em;
+  opacity:0;transform:translateY(20px);transition:opacity 800ms var(--ease),transform 800ms var(--ease)}
+.slide.active .sub{opacity:1;transform:translateY(0);transition-delay:360ms}
+
+/* big number lead */
+.msg.huge{font-size:clamp(56px,9vw,150px);letter-spacing:-0.04em;line-height:0.98}
+
+/* full-bleed bg image/video — works on any slide */
+.slide .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.slide .scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(rgba(7,16,28,0.80),rgba(7,16,28,0.88))}
+.slide.media{padding:0;justify-content:flex-end;background:#000}
+.slide.media .scrim{background:linear-gradient(to top,rgba(4,9,15,0.92)0%,rgba(4,9,15,0.45)40%,rgba(4,9,15,0.15)75%,rgba(4,9,15,0.35)100%)}
+.slide.media .slide-inner{padding:clamp(56px,9vw,160px);padding-top:0;z-index:3}
+.slide.media .msg{font-size:clamp(32px,4.4vw,62px)}
+
+/* film slide */
+.slide.film{padding:0;background:#000;justify-content:center;align-items:center}
+.slide.film video{width:100%;height:100%;object-fit:contain;background:#000;z-index:0}
+.slide.film .filmtag{position:absolute;top:28px;left:32px;z-index:4;font-family:var(--mono);font-size:11px;letter-spacing:0.2em;color:rgba(244,241,234,0.55);text-transform:uppercase}
+
+/* interaction */
+.slide.interact{background:radial-gradient(130% 130% at 50% 30%,#13314E 0%,#0B1A2C 55%,#07101C 100%);justify-content:center}
+.slide.interact .eyebrow{color:var(--gold)}
+.slide.interact .eyebrow::before,.slide.interact .eyebrow::after{color:var(--gold)}
+.slide.interact .msg{max-width:18em}
+.slide.interact .hint{margin-top:clamp(28px,4vh,48px);font-family:var(--mono);font-size:13px;letter-spacing:0.12em;color:var(--muted);
+  display:inline-flex;align-items:center;gap:12px;opacity:0;transition:opacity 800ms var(--ease) 480ms}
+.slide.active .interact .hint,.slide.interact.active .hint{opacity:1}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px rgba(232,212,77,0.8);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}
+
+/* placeholder (wave clips to source) */
+.ph{margin-top:clamp(26px,3.4vh,40px);font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--muted);border:1px dashed var(--line);border-radius:6px;padding:12px 18px;display:inline-block}
+
+/* quote */
+.slide.quote .msg{font-weight:600;font-style:normal}
+.byline{font-family:var(--mono);font-size:clamp(12px,1vw,15px);color:var(--cyan);margin-top:clamp(24px,3vh,36px);letter-spacing:0.06em;
+  opacity:0;transition:opacity 800ms var(--ease) 420ms}
+.slide.active .byline{opacity:1}
+
+/* close */
+.slide.close{justify-content:center;align-items:flex-start}
+.slide.close .msg{font-size:clamp(56px,8vw,120px)}
+
+/* logo + chrome */
+.logo{position:absolute;top:clamp(26px,3.4vh,42px);left:clamp(40px,5vw,72px);height:clamp(26px,2.8vh,34px);z-index:6;opacity:0.9}
+.counter{position:fixed;bottom:24px;left:26px;font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:rgba(127,168,201,0.6);z-index:40}
+.nav{position:fixed;bottom:20px;right:24px;display:flex;gap:9px;z-index:40}
+.nav button{font-family:var(--mono);font-size:11px;letter-spacing:0.06em;background:rgba(127,168,201,0.1);color:var(--ink);
+  border:1px solid var(--line);border-radius:6px;padding:8px 12px;cursor:pointer;transition:background 200ms}
+.nav button:hover{background:rgba(127,168,201,0.22)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--cyan);width:0;z-index:50;transition:width 400ms var(--ease)}
+.banner{position:fixed;top:16px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;letter-spacing:0.1em;
+  color:var(--muted);background:rgba(7,16,28,0.7);border:1px solid var(--line);border-radius:20px;padding:7px 16px;z-index:40;transition:opacity 600ms}
+.banner.fade{opacity:0}
+.bars{margin-top:clamp(16px,2.2vh,28px);display:flex;flex-direction:column;gap:9px;opacity:0;transform:translateY(18px);transition:opacity 700ms var(--ease),transform 700ms var(--ease)}
+.slide.active .bars{opacity:1;transform:translateY(0);transition-delay:340ms}
+.bar{display:grid;grid-template-columns:190px 1fr;align-items:center;gap:14px}
+.bar .bl{font-size:13px;color:var(--muted);text-align:right;font-family:var(--mono);letter-spacing:.03em}
+.bar .bl.gold{color:var(--gold)}
+.bar .bb{height:26px;background:var(--cyan);border-radius:3px;min-width:54px;display:flex;align-items:center;justify-content:flex-end;padding:0 10px;color:#06121f;font-weight:700;font-size:13px;white-space:nowrap}
+.bar .bb.sm{background:var(--muted)}
+.bar .bb.gold{background:var(--gold)}
+@media print{.nav,.counter,.banner,.progress{display:none}.slide{opacity:1!important;position:relative!important;page-break-after:always;height:100vh}}
+</style>
+</head>
+<body>
+<div class="progress" id="progressFill"></div>
+<div class="deck">
+
+  <!-- ===== ACT 0 — HOLDING SLIDE (loops while Ronny introduces himself) ===== -->
+  <section class="slide media active" data-theme="dark">
+    <video class="bg" src="presentation-assets/case-assets/hive-launch-sekvens.mp4" muted loop autoplay playsinline preload="auto"></video>
+    <div class="scrim" style="background:linear-gradient(to top,rgba(4,9,15,0.72)0%,rgba(4,9,15,0.12)45%,rgba(4,9,15,0.45)100%)"></div>
+    <img class="logo" src="presentation-assets/hive-brand-logos/SVG/Hive_Logo_White_transparent.svg" alt="Hive">
+    <div class="slide-inner"><span class="eyebrow">Statnett InnoBoost · 4 June 2026</span><div class="msg" style="font-size:clamp(28px,3.4vw,50px)">Physical AI for the real world.</div></div>
+  </section>
+
+  <!-- ===== ACT 1 — You power the revolution ===== -->
+  <section class="slide"><img class="bg" src="presentation-assets/wave/concept-office.jpg"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The shift</span><div class="msg">You're all using AI now.<br>At your desk, like everyone.</div></div></section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/wave/power-2.jpg"><div class="scrim"></div><div class="slide-inner"><div class="msg">But you don't just <span class="c">use</span> this revolution.<br>You have to <span class="g">power</span> it.</div></div></section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/wave/power-1.jpg"><div class="scrim"></div><div class="slide-inner"><div class="msg">Every data center runs on electricity.</div><div class="sub">Over 20,000 MW are waiting in your connection queue.</div></div></section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/wave/grid-norway-2.jpg"><div class="scrim"></div><div class="slide-inner"><div class="msg">Build more grid.<br><span class="g">Faster and cheaper</span> than ever before.</div></div></section>
+
+  <!-- ===== ACT 2 — ChatGPT won't build it ===== -->
+  <section class="slide media">
+    <img class="bg" src="presentation-assets/case-assets/impact-billboard.jpg" style="object-fit:contain;object-position:right center">
+    <div class="scrim" style="background:linear-gradient(90deg,rgba(7,16,28,0.97)0%,rgba(7,16,28,0.86)36%,rgba(7,16,28,0.3)54%,transparent 68%)"></div>
+    <div class="slide-inner"><span class="eyebrow">Seen on a building site</span><div class="msg">"Hey ChatGPT,<br>finish this building."</div></div>
+  </section>
+
+  <section class="slide"><div class="slide-inner"><div class="msg">It can't.</div><div class="sub">ChatGPT won't finish your next power line. It can't move a single tonne of steel.</div></div></section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/case-assets/slide1-quarry-hero.jpg"><div class="scrim"></div><div class="slide-inner"><div class="msg"><span class="c">Physical AI</span> will.<br>It's where the actual work gets done.</div></div></section>
+
+  <!-- ===== ACT 3 — Who we are ===== -->
+  <section class="slide media">
+    <video class="bg" src="presentation-assets/case-assets/hive-launch-sekvens.mp4" muted loop playsinline preload="auto"></video>
+    <div class="scrim"></div>
+    <div class="slide-inner"><span class="eyebrow">Who we are</span><div class="msg">We're Hive.<br>We put a brain into machines you already own.</div></div>
+  </section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/case-assets/multi-vehicle-fleet.jpg"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">Where we came from</span><div class="msg">Red Rock, 2009.<br>Ocean Infinity, 2021.<br>Hive, 2022.</div><div class="sub">We didn't come from tech. We came from the physical world.</div></div></section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/case-assets/miljo-7.jpg"><div class="scrim"></div><div class="slide-inner"><div class="msg">We don't sell software.<br>We sell <span class="g">productive machine-hours.</span></div><div class="sub">Here's what that looks like.</div></div></section>
+
+  <!-- ===== ACT 4 — The film ===== -->
+  <section class="slide film">
+    <span class="filmtag">Veidekke · Telia · Hive — Espa, 2025</span>
+    <video src="presentation-assets/case-assets/veidekke-hovedfilm.mp4" playsinline preload="auto" controls></video>
+  </section>
+
+  <!-- ===== ACT 5 — Not just us ===== -->
+  <section class="slide"><img class="bg" src="presentation-assets/case-assets/slide4-tunnel.jpg"><div class="scrim"></div><div class="slide-inner"><div class="msg">One machine. One tunnel.<br>In Norway.</div></div></section>
+
+  <section class="slide"><div class="slide-inner"><div class="msg">If that were just us,<br>it would be a nice story.</div><div class="sub" style="font-size:clamp(20px,2vw,30px);color:var(--ink);margin-top:18px">It isn't just us.</div></div></section>
+
+  <!-- ===== ACT 6 — The wave ===== -->
+  <section class="slide quote"><img class="bg" src="presentation-assets/wave/jensen-stage.jpg" style="object-position:center 28%"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">2026</span><div class="msg">The year AI<br>learned to <span class="c">move</span>.</div><div class="byline">"The ChatGPT moment for physical AI is here." — Jensen Huang, NVIDIA</div></div></section>
+
+  <section class="slide media"><video class="bg" src="presentation-assets/wave/waymo.mp4" muted loop playsinline preload="auto"></video><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The wave · Waymo</span><div class="msg"><span class="c">500,000</span> driverless rides a week.</div><div class="sub" style="color:var(--ink)">Doubled in a year.</div></div></section>
+
+  <section class="slide media"><video class="bg" src="presentation-assets/wave/figure.mp4" muted loop playsinline preload="auto"></video><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The wave · Figure</span><div class="msg">Humanoids on the BMW line.</div><div class="sub" style="color:var(--ink)">Full shifts. Five days a week.</div></div></section>
+
+  <section class="slide media"><video class="bg" src="presentation-assets/wave/neo.mp4" muted loop playsinline preload="auto"></video><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The wave · 1X Neo</span><div class="msg">And one is moving into homes.<br><span class="g">It's Norwegian.</span></div></div></section>
+
+  <section class="slide media"><video class="bg" src="presentation-assets/wave/unitree.mp4" muted loop playsinline preload="auto"></video><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The wave · Unitree</span><div class="msg"><span class="c">5,500</span> robots last year.<br><span class="c">20,000</span> this year.</div></div></section>
+
+  <section class="slide media" data-theme="dark"><img class="bg" src="presentation-assets/wave/china-expo.jpg"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The wave · China</span><div class="msg">In China, this is boring.</div><div class="sub" style="color:var(--ink)">A hall full of humanoids. Here it's still novel. There it's everyday.</div></div></section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/wave/concept-humanoid-future.jpg" style="object-position:center 25%"><div class="scrim"></div><div class="slide-inner"><div class="msg">Cars. Factories. Homes.</div><div class="sub" style="font-size:clamp(20px,2vw,30px);color:var(--ink);margin-top:16px">Next: the machines that build and power everything.</div></div></section>
+
+  <section class="slide" data-theme="dark"><div class="slide-inner wide"><span class="eyebrow">The market</span><div class="msg" style="font-size:clamp(28px,3.4vw,50px);margin-bottom:4px">LLM software: $90B.<br><span class="c">Physical work: $57T.</span></div>
+    <div class="bars">
+      <div class="bar"><span class="bl">Physical labour</span><span class="bb" style="width:100%">$57T</span></div>
+      <div class="bar"><span class="bl">Construction</span><span class="bb" style="width:28%">$15.8T</span></div>
+      <div class="bar"><span class="bl">Heavy machinery</span><span class="bb sm" style="width:7%">~$1T</span></div>
+      <div class="bar"><span class="bl">Logistics automation</span><span class="bb sm" style="width:4%">$70B</span></div>
+      <div class="bar"><span class="bl">Humanoid robots</span><span class="bb sm" style="width:3%">$4B</span></div>
+      <div class="bar"><span class="bl gold">LLM / GenAI</span><span class="bb gold" style="width:4%">$90B</span></div>
+    </div>
+    <div class="sub" style="font-size:clamp(15px,1.4vw,20px);margin-top:16px">Physical AI isn't a niche on top of LLMs. It's the bigger prize — 600×.</div>
+  </div></section>
+
+  <!-- ===== ACT 7 — Your physical world ===== -->
+  <section class="slide"><div class="slide-inner"><span class="eyebrow">Your world</span><div class="msg">So — your world.</div></div></section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/wave/concept-controlroom.jpg"><div class="scrim"></div><div class="slide-inner"><div class="msg"><span class="c">2,372</span> of you.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">But your contractors build the grid, across 250 projects.</div></div></section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/wave/grid-norway-1.jpg"><div class="scrim"></div><div class="slide-inner"><div class="msg"><span class="c">228</span> stations.<br><span class="c">13,000 km</span> of line.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">Kristiansand to Kirkenes. A lot of it where there's no road.</div></div></section>
+
+  <section class="slide interact"><div class="slide-inner"><span class="eyebrow">Over to you</span><div class="msg">What physical work eats the most time, money, or risk?</div><div class="hint"><span class="dot"></span>One word — on your phone</div></div></section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/wave/concept-substation-alt.jpg"><div class="scrim"></div><div class="slide-inner"><div class="msg">Half this grid is end-of-life by <span class="c">2040</span>.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">And there aren't more people to hire. Everyone in Europe wants the same crews.</div></div></section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/wave/concept-lineman-height.jpg" style="object-position:center 25%"><div class="scrim"></div><div class="slide-inner"><div class="msg">Last year: <span class="g">eleven</span> serious near-misses.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">Working at height.</div></div></section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/wave/concept-lineman-height-alt.jpg" style="object-position:center 20%"><div class="scrim"></div><div class="slide-inner"><div class="msg">Your goal is <span class="g">zero</span>.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">You don't reach zero by being careful. You reach it by taking people out of the red zone.</div></div></section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/wave/concept-drone-powerline.jpg"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">You already do this</span><div class="msg">Helicopter inspections, now flown by <span class="c">autonomous drones</span>.</div><div class="sub" style="font-size:clamp(20px,2vw,30px);color:var(--ink);margin-top:16px">That was the air. The ground is next.</div></div></section>
+
+  <!-- ===== ACT 8a — Retrofit + AMR ===== -->
+  <section class="slide"><img class="bg" src="presentation-assets/case-assets/slide12-sensors-labeled.jpg"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">How we do it</span><div class="msg">We don't replace the machine. We retrofit it.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">Sensors, lidar and a control cabinet on the machine you already own. Live in days. Reversible.</div></div></section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/volvo/forklift-warehouse.jpg"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">The honest problem</span><div class="msg">AMRs were built to replace labour.<br>They can't. <span class="c">Yet.</span></div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">Conveyor belts on wheels: fixed routes, one task, stop on exception. Real work needs judgment. Everyone who ran a pilot met this gap.</div></div></section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/case-assets/slide11-operator-chair.jpg"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">Where Hive begins</span><div class="msg">One model. Not a fleet of single-purpose robots.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">A packaged service: the Kristiansand ops center, trained operators, 24/7. Supervision is the product, not the fallback.</div></div></section>
+
+  <!-- ===== ACT 8 — How it works (VLA) — demo-led, fewer slides ===== -->
+  <section class="slide"><div class="slide-inner"><span class="eyebrow">How it works</span><div class="msg">Fixed automation. Remote control.<br>Now: <span class="c">a machine that sees, reasons, and acts.</span></div></div></section>
+
+  <section class="slide media"><video class="bg" src="presentation-assets/case-assets/vla-pallet.mp4" muted loop playsinline preload="auto"></video><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">Watch — no script</span><div class="msg"><span class="c">Vision</span> in. <span class="c">Language</span> in. <span class="c">Action</span> out.</div><div class="sub" style="color:var(--ink)">Show it the scene. Tell it the goal in plain words. It acts.</div></div></section>
+
+  <section class="slide"><div class="slide-inner"><div class="msg">The same breakthrough as ChatGPT.<br>Now in a body.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">Words in, words out. Here: the world in, motion out.</div></div></section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/wave/vla-2.jpg"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">Why it transfers</span><div class="msg">A wheel loader is just a very large robot arm.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">Degrees of freedom are the unit of transfer. Robot arm: 6. Excavator: 6. Loader: 5. We started with a robot arm in Kristiansand in 2024. In 2026 a Toyota forklift runs in production. Same model, bigger body. Every correction trains the whole fleet.</div></div></section>
+
+  <section class="slide interact"><div class="slide-inner"><span class="eyebrow">Over to you</span><div class="msg">Tell the machine what to do — in plain words.</div><div class="hint"><span class="dot"></span>Type a command — on your phone</div></div></section>
+
+  <!-- ===== ACT 9 — Already here (one video each) ===== -->
+  <section class="slide media">
+    <video class="bg" src="presentation-assets/case-assets/presis-vikafjellet.mp4" muted loop playsinline preload="auto"></video>
+    <div class="scrim"></div>
+    <div class="slide-inner"><span class="eyebrow">Already here · 01</span><div class="msg">Vikafjellet.</div><div class="sub" style="color:var(--ink)">Remote operation in the mountains. Approved by the Ministry.</div></div>
+  </section>
+
+  <section class="slide media">
+    <video class="bg" src="presentation-assets/case-assets/yara-bulk.mp4" muted loop playsinline preload="auto"></video>
+    <div class="scrim"></div>
+    <div class="slide-inner"><span class="eyebrow">Already here · 02</span><div class="msg">Yara.</div><div class="sub" style="color:var(--ink)">One of Europe's harshest industrial sites.</div></div>
+  </section>
+
+  <section class="slide media">
+    <video class="bg" src="presentation-assets/case-assets/feiring-quarry.mp4" muted loop playsinline preload="auto"></video>
+    <div class="scrim"></div>
+    <div class="slide-inner"><span class="eyebrow">Already here · 03</span><div class="msg">A working quarry.</div><div class="sub" style="color:var(--ink)">Every day.</div></div>
+  </section>
+
+  <section class="slide media">
+    <video class="bg" src="presentation-assets/case-assets/optimera-small.mp4" muted loop playsinline preload="auto"></video>
+    <div class="scrim"></div>
+    <div class="slide-inner"><span class="eyebrow">Already here · 04</span><div class="msg">Indoors too.</div><div class="sub" style="color:var(--ink)">Forklifts, warehouses, ports.</div></div>
+  </section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/case-assets/fleet-lineup.jpg"><div class="scrim"></div><div class="slide-inner"><div class="msg"><span class="c">One model.</span><br>Every machine.</div></div></section>
+
+  <section class="slide media" data-theme="dark"><img class="bg" src="presentation-assets/case-assets/boston-dynamics.jpg"><div class="scrim"></div><div class="slide-inner"><span class="eyebrow">Our next step</span><div class="msg">Swap our brain into the humanoid.</div><div class="sub" style="color:var(--ink)">Take a humanoid, replace its brain with ours: remote-controllable, semi-autonomous. We've run the robot dog the same way. Norwegian software, operators and data, from Kristiansand. Then: one in every station.</div></div></section>
+
+  <!-- ===== ACT 10 — Back to you + close ===== -->
+  <section class="slide"><div class="slide-inner"><span class="eyebrow">Back to you</span><div class="msg">So — back to you.</div></div></section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/wave/concept-substation.jpg"><div class="scrim"></div><div class="slide-inner"><div class="msg">A robot at every station.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">The expert in Nydalen takes over when it matters.</div></div></section>
+
+  <section class="slide"><img class="bg" src="presentation-assets/case-assets/miljo-6.jpg"><div class="scrim"></div><div class="slide-inner"><div class="msg">Robustness. Preparedness. Safety.</div><div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">Your strategy — built differently.</div></div></section>
+
+  <section class="slide interact"><div class="slide-inner"><span class="eyebrow">Over to you</span><div class="msg">Where could this create value at Statnett?</div><div class="hint"><span class="dot"></span>On your phone</div></div></section>
+
+  <section class="slide interact"><div class="slide-inner"><span class="eyebrow">Over to you</span><div class="msg">What's the biggest barrier to using it?</div><div class="hint"><span class="dot"></span>On your phone</div></div></section>
+
+  <section class="slide close">
+    <img class="logo" src="presentation-assets/hive-brand-logos/SVG/Hive_Logo_White_transparent.svg" alt="Hive">
+    <div class="slide-inner"><div class="msg">This isn't coming.<br><span class="c">It's here.</span></div></div>
+  </section>
+
+</div>
+
+<div class="banner" id="banner">F for fullscreen · arrow keys to navigate</div>
+<div class="counter"><span id="current">1</span> / <span id="total">44</span></div>
+<div class="nav"><button id="prev">←</button><button id="next">→</button><button id="fs">⛶ Fullscreen</button></div>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+const total=slides.length;
+const cur=document.getElementById('current'), tot=document.getElementById('total'), pf=document.getElementById('progressFill');
+let index=0; tot.textContent=total;
+function show(i){
+  index=Math.max(0,Math.min(total-1,i));
+  slides.forEach((s,n)=>s.classList.toggle('active',n===index));
+  cur.textContent=index+1; pf.style.width=((index+1)/total*100)+'%';
+  slides.forEach((s,n)=>s.querySelectorAll('video').forEach(v=>{
+    if(n===index){ if(v.paused){ v.load(); v.play().catch(()=>{}); } }
+    else { if(!v.paused) v.pause(); }
+  }));
+}
+show(0);
+setTimeout(()=>{const b=document.getElementById('banner');if(b)b.classList.add('fade');},5000);
+document.getElementById('next').addEventListener('click',()=>show(index+1));
+document.getElementById('prev').addEventListener('click',()=>show(index-1));
+document.addEventListener('click',e=>{
+  if(e.target.closest('.nav')||e.target.closest('a')||e.target.closest('button')||e.target.closest('video'))return;
+  const x=e.clientX/window.innerWidth; if(x<0.3)show(index-1); else show(index+1);
+});
+document.getElementById('fs').addEventListener('click',tf);
+function tf(){ if(!document.fullscreenElement){document.documentElement.requestFullscreen().catch(()=>{});} else {document.exitFullscreen();} }
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){show(index+1);e.preventDefault();}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){show(index-1);e.preventDefault();}
+  if(e.key==='Home'){show(0);} if(e.key==='End'){show(total-1);}
+  if(e.key==='f'||e.key==='F'){tf();}
+});
+let tx=null;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>60)show(index+(dx<0?1:-1));tx=null;},{passive:true});
+</script>
+</body>
+</html>
