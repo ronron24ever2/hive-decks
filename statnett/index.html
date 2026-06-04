@@ -124,6 +124,24 @@ html,body{font-family:var(--font);background:#000;color:var(--ink);overflow:hidd
 .slide.diag .dlbl.l{left:38px}.slide.diag .dlbl.r{right:38px}
 .slide.diag .scrim{z-index:2;background:linear-gradient(to top,rgba(4,9,15,0.86)0%,rgba(4,9,15,0.28)42%,rgba(4,9,15,0)72%)}
 .slide.diag .slide-inner{z-index:4}
+.slide.intro{flex-direction:row;justify-content:flex-start;align-items:center;gap:clamp(36px,5vw,90px);padding:clamp(48px,7vw,130px)}
+.slide.intro .intro-left{flex:0 0 auto;text-align:center}
+.slide.intro .intro-photo{width:clamp(220px,21vw,300px);height:clamp(220px,21vw,300px);border-radius:18px;object-fit:cover;border:1px solid var(--line);box-shadow:0 18px 60px rgba(0,0,0,.5)}
+.slide.intro .intro-name{font-size:clamp(20px,1.7vw,26px);font-weight:600;letter-spacing:-.01em;margin-top:22px}
+.slide.intro .intro-role{font-family:var(--mono);font-size:clamp(11px,.95vw,13px);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.slide.intro .intro-right{flex:1 1 auto;max-width:760px}
+.slide.intro .intro-nav{font-family:var(--mono);font-size:clamp(11px,.9vw,13px);letter-spacing:.04em;color:var(--muted);margin:18px 0 clamp(22px,3vh,34px);border-left:2px solid var(--line);padding-left:14px;line-height:1.7}
+.slide.intro .intro-nav b{color:var(--ink);font-weight:500}
+.slide.intro .intro-cta{font-size:clamp(30px,4vw,56px);font-weight:600;line-height:1.06;letter-spacing:-.025em}
+.slide.intro .intro-cta .c{color:var(--cyan)}
+.slide.intro .intro-sub{font-size:clamp(16px,1.4vw,21px);color:rgba(244,241,234,.82);margin-top:14px}
+.slide.intro .intro-contacts{margin-top:clamp(26px,3.4vh,40px);display:flex;flex-direction:column;gap:14px}
+.slide.intro .intro-row{display:flex;align-items:center;gap:16px;font-size:clamp(16px,1.5vw,22px);color:var(--ink);text-decoration:none;width:fit-content}
+.slide.intro .intro-ic{width:40px;height:40px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:10px;color:var(--gold);font-family:var(--mono);font-size:16px;font-weight:600}
+.slide.intro .intro-row:hover .intro-val{color:var(--gold)}
+.slide.intro .intro-row:hover .intro-ic{border-color:var(--gold)}
+.slide.intro .intro-val{transition:color .2s}
+.slide.intro .intro-sig{font-family:var(--mono);font-size:11px;color:var(--muted);position:absolute;bottom:26px;left:clamp(48px,7vw,130px);letter-spacing:.06em}
 @media print{.nav,.counter,.banner,.progress{display:none}.slide{opacity:1!important;position:relative!important;page-break-after:always;height:100vh}}
 </style>
 </head>
@@ -132,7 +150,29 @@ html,body{font-family:var(--font);background:#000;color:var(--ink);overflow:hidd
 <div class="deck">
 
   <!-- ===== ACT 0 — HOLDING SLIDE (loops while Ronny introduces himself) ===== -->
-  <section class="slide media active" data-theme="dark">
+  <!-- ===== INTRO / CONTACT slide (first — for the shared link) ===== -->
+  <section class="slide intro active" data-theme="dark">
+    <div class="intro-left">
+      <img class="intro-photo" src="presentation-assets/case-assets/ronny.jpg" alt="Ronny Azimi Liverød">
+      <div class="intro-name">Ronny Azimi Liverød</div>
+      <div class="intro-role">VP Heavy Machinery · Hive Autonomy</div>
+    </div>
+    <div class="intro-right">
+      <span class="eyebrow">Hive Autonomy · Physical AI</span>
+      <div class="intro-nav">This is my talk from Statnett's InnoBoost — the slides follow.<br><b>→</b> or <b>Space</b> to advance · <b>←</b> to go back · <b>F</b> for fullscreen.</div>
+      <div class="intro-cta">Think any of this is <span class="c">interesting?</span></div>
+      <div class="intro-sub">Don't hesitate to reach out.</div>
+      <div class="intro-contacts">
+        <a class="intro-row" href="mailto:ronny.liverod@hiveautonomy.no"><span class="intro-ic">@</span><span class="intro-val">ronny.liverod@hiveautonomy.no</span></a>
+        <a class="intro-row" href="tel:+4748132299"><span class="intro-ic">☎</span><span class="intro-val">+47 481 32 299</span></a>
+        <a class="intro-row" href="https://www.linkedin.com/in/ronny-liveroed/" target="_blank" rel="noopener"><span class="intro-ic">in</span><span class="intro-val">linkedin.com/in/ronny-liveroed</span></a>
+      </div>
+    </div>
+    <div class="intro-sig">Hive Autonomy · Kristiansand · Oslo · London · Palo Alto</div>
+  </section>
+
+  <!-- ===== ACT 0 — HOLDING SLIDE (loops while Ronny introduces himself) ===== -->
+  <section class="slide media" data-theme="dark">
     <video class="bg" src="presentation-assets/case-assets/hive-launch-sekvens.mp4" muted loop autoplay playsinline preload="auto"></video>
     <div class="scrim" style="background:linear-gradient(to top,rgba(4,9,15,0.72)0%,rgba(4,9,15,0.12)45%,rgba(4,9,15,0.45)100%)"></div>
     <img class="logo" src="presentation-assets/hive-brand-logos/SVG/Hive_Logo_White_transparent.svg" alt="Hive">
