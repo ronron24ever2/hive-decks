@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hive Autonomy · Zero Emission Construction 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07101C; --bg2:#0B1A2C; --ink:#F4F1EA; --cyan:#4A90D9; --gold:#E8D44D;
+  --muted:#7FA8C9; --line:rgba(127,168,201,0.18);
+  --ease:cubic-bezier(0.25,0.46,0.45,0.94);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono:'IBM Plex Mono','JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{font-family:var(--font);background:#000;color:var(--ink);overflow:hidden;height:100vh;-webkit-font-smoothing:antialiased}
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(56px,9vw,160px);opacity:0;pointer-events:none;transition:opacity 600ms var(--ease);
+  background:radial-gradient(130% 130% at 22% 18%,#0E2338 0%,#0B1A2C 46%,#07101C 100%)}
+.slide.active{opacity:1;pointer-events:auto;z-index:2}
+.slide-inner{max-width:1180px;width:100%;position:relative;z-index:3}
+.slide-inner.wide{max-width:1320px}
+.eyebrow{font-family:var(--mono);font-size:clamp(11px,0.9vw,13px);font-weight:500;letter-spacing:0.22em;
+  text-transform:uppercase;color:var(--cyan);margin-bottom:clamp(22px,3vh,40px);display:inline-block;
+  opacity:0;transform:translateY(14px);transition:opacity 700ms var(--ease),transform 700ms var(--ease)}
+.eyebrow::before{content:"[ "}.eyebrow::after{content:" ]"}
+.slide.active .eyebrow{opacity:1;transform:translateY(0);transition-delay:120ms}
+.msg{font-size:clamp(36px,5.2vw,76px);font-weight:600;line-height:1.05;letter-spacing:-0.03em;color:var(--ink);
+  opacity:0;transform:translateY(24px);transition:opacity 800ms var(--ease),transform 800ms var(--ease);max-width:16em}
+.slide.active .msg{opacity:1;transform:translateY(0);transition-delay:230ms}
+.msg .c{color:var(--cyan)}.msg .g{color:var(--gold)}
+.slide:has(.bg) .msg{text-shadow:0 2px 22px rgba(4,9,15,0.65),0 1px 3px rgba(4,9,15,0.5)}
+.slide:has(.bg) .sub,.slide:has(.bg) .byline{text-shadow:0 1px 14px rgba(4,9,15,0.7),0 1px 2px rgba(4,9,15,0.6)}
+.slide:has(.bg) .eyebrow{text-shadow:0 1px 8px rgba(4,9,15,0.6)}
+.sub{font-size:clamp(15px,1.3vw,20px);font-weight:400;line-height:1.5;color:var(--muted);margin-top:clamp(20px,2.6vh,32px);max-width:40em;
+  opacity:0;transform:translateY(20px);transition:opacity 800ms var(--ease),transform 800ms var(--ease)}
+.slide.active .sub{opacity:1;transform:translateY(0);transition-delay:360ms}
+.msg.huge{font-size:clamp(56px,9vw,150px);letter-spacing:-0.04em;line-height:0.98}
+.slide .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.slide .scrim{position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(105deg,rgba(7,16,28,0.86)0%,rgba(7,16,28,0.60)26%,rgba(7,16,28,0.28)50%,rgba(7,16,28,0.10)74%,rgba(7,16,28,0.04)100%),
+    linear-gradient(to top,rgba(7,16,28,0.54)0%,rgba(7,16,28,0.16)34%,rgba(7,16,28,0)62%)}
+.slide.media{padding:0;justify-content:flex-end;background:#000}
+.slide.media .scrim{background:linear-gradient(to top,rgba(4,9,15,0.88)0%,rgba(4,9,15,0.60)22%,rgba(4,9,15,0.22)48%,rgba(4,9,15,0.04)74%,rgba(4,9,15,0)100%)}
+.slide.media .slide-inner{padding:clamp(56px,9vw,160px);padding-top:0;z-index:3}
+.slide.media .msg{font-size:clamp(32px,4.4vw,62px)}
+.slide.film{padding:0;background:#000;justify-content:center;align-items:center}
+.slide.film video{width:100%;height:100%;object-fit:cover;background:#000;z-index:0}
+.slide.film .scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(4,9,15,0.55)0%,rgba(4,9,15,0.10)30%,rgba(4,9,15,0)55%)}
+.slide.film .filmtag{position:absolute;top:28px;left:32px;z-index:4;font-family:var(--mono);font-size:clamp(11px,1vw,14px);letter-spacing:0.2em;color:rgba(244,241,234,0.78);text-transform:uppercase;text-shadow:0 1px 6px #000}
+.slide.film .filmcap{position:absolute;bottom:46px;left:clamp(40px,5vw,72px);z-index:4;max-width:30em;font-family:var(--font);font-size:clamp(16px,1.7vw,26px);font-weight:600;color:var(--ink);text-shadow:0 2px 14px rgba(4,9,15,0.8)}
+.logo{position:absolute;top:clamp(26px,3.4vh,42px);left:clamp(40px,5vw,72px);height:clamp(26px,2.8vh,34px);z-index:6;opacity:0.9}
+.counter{position:fixed;bottom:24px;left:26px;font-family:var(--mono);font-size:11px;letter-spacing:0.1em;color:rgba(127,168,201,0.6);z-index:40}
+.nav{position:fixed;bottom:20px;right:24px;display:flex;gap:9px;z-index:40}
+.nav button{font-family:var(--mono);font-size:11px;letter-spacing:0.06em;background:rgba(127,168,201,0.1);color:var(--ink);
+  border:1px solid var(--line);border-radius:6px;padding:8px 12px;cursor:pointer;transition:background 200ms}
+.nav button:hover{background:rgba(127,168,201,0.22)}
+.progress{position:fixed;top:0;left:0;height:2px;background:var(--cyan);width:0;z-index:50;transition:width 400ms var(--ease)}
+.banner{position:fixed;top:16px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;letter-spacing:0.1em;
+  color:var(--muted);background:rgba(7,16,28,0.7);border:1px solid var(--line);border-radius:20px;padding:7px 16px;z-index:40;transition:opacity 600ms}
+.banner.fade{opacity:0}
+.slide.close{justify-content:center;align-items:flex-start}
+.slide.close .msg{font-size:clamp(56px,8vw,120px)}
+.contacts{margin-top:clamp(26px,3.4vh,42px);display:flex;flex-direction:column;gap:12px;
+  opacity:0;transform:translateY(18px);transition:opacity 800ms var(--ease) 500ms,transform 800ms var(--ease) 500ms}
+.slide.active .contacts{opacity:1;transform:translateY(0)}
+.contacts a{display:flex;align-items:center;gap:14px;font-size:clamp(15px,1.4vw,20px);color:var(--ink);text-decoration:none;width:fit-content}
+.contacts .ic{width:36px;height:36px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:9px;color:var(--gold);font-family:var(--mono);font-size:15px;font-weight:600}
+.contacts a:hover .v{color:var(--gold)}.contacts .v{transition:color .2s}
+@media print{.nav,.counter,.banner,.progress{display:none}.slide{opacity:1!important;position:relative!important;page-break-after:always;height:100vh}}
+</style>
+</head>
+<body>
+<div class="progress" id="progressFill"></div>
+<div class="deck">
+
+  <!-- 1 — TITLE / HOLDING -->
+  <section class="slide media active">
+    <img class="bg" src="presentation-assets/slide1-quarry-hero.jpg">
+    <div class="scrim"></div>
+    <img class="logo" src="presentation-assets/hive-brand-logos/SVG/Hive_Logo_White_transparent.svg" alt="Hive">
+    <div class="slide-inner"><span class="eyebrow">Zero Emission Construction · Oslo · 9 June 2026</span><div class="msg">Physical AI for the real world.</div></div>
+  </section>
+
+  <!-- 2 — HOOK 1: zero emission -->
+  <section class="slide">
+    <img class="bg" src="presentation-assets/volvo-hx0.webp">
+    <div class="scrim"></div>
+    <div class="slide-inner"><span class="eyebrow">The shift</span><div class="msg">You're rebuilding the machine for <span class="g">zero emission.</span></div></div>
+  </section>
+
+  <!-- 3 — HOOK 2: autonomy window -->
+  <section class="slide">
+    <img class="bg" src="presentation-assets/hive-loader.jpg">
+    <div class="scrim"></div>
+    <div class="slide-inner"><div class="msg">The same window just opened for <span class="c">autonomy.</span></div><div class="sub" style="color:var(--ink)">And it's the brain, not the battery, that decides the next decade.</div></div>
+  </section>
+
+  <!-- 4 — THESIS: ChatGPT billboard -->
+  <section class="slide media">
+    <img class="bg" src="presentation-assets/impact-billboard.jpg" style="object-position:right center">
+    <div class="scrim" style="background:linear-gradient(90deg,rgba(7,16,28,0.97)0%,rgba(7,16,28,0.86)36%,rgba(7,16,28,0.3)54%,transparent 68%)"></div>
+    <div class="slide-inner"><span class="eyebrow">Seen on a building site</span><div class="msg">"Hey ChatGPT,<br>finish this building."</div></div>
+  </section>
+
+  <!-- 5 — THESIS answer -->
+  <section class="slide">
+    <div class="slide-inner"><div class="msg">It can't. <span class="c">Physical AI</span> will.</div><div class="sub">The brain is the bottleneck, not the machine. A wheel loader is just a very large robot arm.</div></div>
+  </section>
+
+  <!-- 6 — OEM POSITION -->
+  <section class="slide">
+    <img class="bg" src="presentation-assets/multi-vehicle-fleet.jpg">
+    <div class="scrim"></div>
+    <div class="slide-inner"><span class="eyebrow">Where we fit</span><div class="msg">We don't build machines.<br>We give the machines you build a <span class="g">brain.</span></div><div class="sub" style="color:var(--ink);font-size:clamp(18px,1.8vw,26px)">One model. Every machine. Every brand.</div></div>
+  </section>
+
+  <!-- 7 — RETROFIT -->
+  <section class="slide">
+    <img class="bg" src="presentation-assets/slide12-sensors-labeled.jpg">
+    <div class="scrim"></div>
+    <div class="slide-inner"><span class="eyebrow">How it goes on</span><div class="msg">Sensors, lidar, a cabinet.<br><span class="c">Live in days.</span> Reversible.</div><div class="sub" style="color:var(--ink);font-size:clamp(18px,1.8vw,26px)">Electric makes it easier: drive-by-wire, sensors native.</div></div>
+  </section>
+
+  <!-- 8 — HUMAN IN THE LOOP -->
+  <section class="slide">
+    <img class="bg" src="presentation-assets/slide11-operator-chair.jpg">
+    <div class="scrim"></div>
+    <div class="slide-inner"><span class="eyebrow">Human in the loop</span><div class="msg">One operator. <span class="c">Two to three machines.</span><br>Always falls back to manual.</div><div class="sub" style="color:var(--ink);font-size:clamp(18px,1.8vw,26px)">Supervised autonomy. 100% production.</div></div>
+  </section>
+
+  <!-- 9 — WHY IT SHIPS NOW -->
+  <section class="slide">
+    <div class="slide-inner"><div class="msg">That's why we go live in <span class="g">days, not years.</span></div><div class="sub">We don't wait for perfect autonomy. The operator covers the hard parts, and every correction trains the whole fleet.</div></div>
+  </section>
+
+  <!-- 10 — ANCHOR FILM: Veidekke (silent loop, narrated live) -->
+  <section class="slide film">
+    <video class="bg" src="presentation-assets/veidekke-tunnel.mp4" muted loop playsinline preload="auto"></video>
+    <div class="scrim"></div>
+    <span class="filmtag">Veidekke · Telia · Hive — active construction site, 5G</span>
+    <div class="filmcap">Operator 90 km away at Ulven. The machine does the driving, the human takes the hard parts.</div>
+  </section>
+
+  <!-- 11 — NOT JUST US -->
+  <section class="slide">
+    <img class="bg" src="presentation-assets/slide4-tunnel.jpg">
+    <div class="scrim"></div>
+    <div class="slide-inner"><div class="msg">One machine. One tunnel.<br>In Norway.</div><div class="sub" style="color:var(--ink);font-size:clamp(20px,2vw,30px);margin-top:16px">And it isn't just us.</div></div>
+  </section>
+
+  <!-- 12 — PROOF: three live deployments -->
+  <section class="slide media">
+    <video class="bg" src="presentation-assets/presis-vikafjellet.mp4" muted loop playsinline preload="auto"></video>
+    <div class="scrim"></div>
+    <div class="slide-inner"><span class="eyebrow">Already in production</span><div class="msg">Vikafjellet. Yara. Feiring.</div><div class="sub" style="color:var(--ink)">Remote road operation approved by the Ministry of Transport. Fertilizer in one of Europe's harshest plants. A working quarry, every day.</div></div>
+  </section>
+
+  <!-- 13 — ONE MODEL EVERY MACHINE -->
+  <section class="slide">
+    <img class="bg" src="presentation-assets/fleet-lineup.jpg">
+    <div class="scrim"></div>
+    <div class="slide-inner"><div class="msg"><span class="c">One model.</span><br>Every machine.</div></div>
+  </section>
+
+  <!-- 14 — ZERO-EMISSION TIE-BACK -->
+  <section class="slide">
+    <img class="bg" src="presentation-assets/miljo-7.jpg">
+    <div class="scrim"></div>
+    <div class="slide-inner"><span class="eyebrow">The real zero</span><div class="msg">Take the operator <span class="g">out of the cab.</span></div><div class="sub" style="color:var(--ink);font-size:clamp(18px,1.8vw,26px)">Zero exposure to dust, noise and vibration. Electric and autonomous compound: the cleanest machine, run the smartest way.</div></div>
+  </section>
+
+  <!-- 15 — CLOSE -->
+  <section class="slide close">
+    <img class="logo" src="presentation-assets/hive-brand-logos/SVG/Hive_Logo_White_transparent.svg" alt="Hive">
+    <div class="slide-inner">
+      <div class="msg">This isn't coming.<br><span class="c">It's here.</span></div>
+      <div class="sub" style="font-size:clamp(18px,1.8vw,26px);color:var(--ink)">On Volvo machines, in Norway, today.</div>
+      <div class="contacts">
+        <a href="mailto:ronny.liverod@hiveautonomy.no"><span class="ic">@</span><span class="v">ronny.liverod@hiveautonomy.no</span></a>
+        <a href="tel:+4748132299"><span class="ic">☎</span><span class="v">+47 481 32 299</span></a>
+        <a href="https://www.linkedin.com/in/ronny-liveroed/" target="_blank" rel="noopener"><span class="ic">in</span><span class="v">linkedin.com/in/ronny-liveroed</span></a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="banner" id="banner">F for fullscreen · arrow keys to navigate</div>
+<div class="counter"><span id="current">1</span> / <span id="total">15</span></div>
+<div class="nav"><button id="prev">←</button><button id="next">→</button><button id="fs">⛶ Fullscreen</button></div>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+const total=slides.length;
+const cur=document.getElementById('current'), tot=document.getElementById('total'), pf=document.getElementById('progressFill');
+let index=0; tot.textContent=total;
+function show(i){
+  index=Math.max(0,Math.min(total-1,i));
+  slides.forEach((s,n)=>s.classList.toggle('active',n===index));
+  cur.textContent=index+1; pf.style.width=((index+1)/total*100)+'%';
+  slides.forEach((s,n)=>s.querySelectorAll('video').forEach(v=>{
+    if(n===index){ if(v.paused){ v.load(); v.play().catch(()=>{}); } }
+    else { if(!v.paused) v.pause(); }
+  }));
+}
+show(0);
+setTimeout(()=>{const b=document.getElementById('banner');if(b)b.classList.add('fade');},5000);
+document.getElementById('next').addEventListener('click',()=>show(index+1));
+document.getElementById('prev').addEventListener('click',()=>show(index-1));
+document.addEventListener('click',e=>{
+  if(e.target.closest('.nav')||e.target.closest('a')||e.target.closest('button')||e.target.closest('video'))return;
+  const x=e.clientX/window.innerWidth; if(x<0.3)show(index-1); else show(index+1);
+});
+document.getElementById('fs').addEventListener('click',tf);
+function tf(){ if(!document.fullscreenElement){document.documentElement.requestFullscreen().catch(()=>{});} else {document.exitFullscreen();} }
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){show(index+1);e.preventDefault();}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){show(index-1);e.preventDefault();}
+  if(e.key==='Home'){show(0);} if(e.key==='End'){show(total-1);}
+  if(e.key==='f'||e.key==='F'){tf();}
+});
+let tx=null;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>60)show(index+(dx<0?1:-1));tx=null;},{passive:true});
+</script>
+</body>
+</html>
