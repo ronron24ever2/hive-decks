@@ -1,0 +1,828 @@
+<!DOCTYPE html><html lang="en"><head>
+
+
+
+
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HIVE Deck</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./deck-stage.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #111; }
+
+    /* ss03 on for all type — both APK Galeria and IBM Plex Mono */
+    deck-stage section, deck-stage section * {
+      font-feature-settings: 'ss03' on;
+    }
+
+    deck-stage section {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: "APK Galeria", -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    /* surfaces */
+    .dark  { background: #2F3D48; color: #FAFAFB; }
+    .ice   { background: #B8CCDA; color: #2F3D48; }
+
+    /* footer — 52px, always at bottom */
+    .ft {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 52px;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+    }
+    .dark .ft { }
+    .ice  .ft { }
+    .ft-custom-dark { }
+    .ft-custom-ice  { }
+
+    .mono { font-family: "IBM Plex Mono", monospace; font-size: 13px;
+            letter-spacing: 0.10em; text-transform: uppercase; }
+    .mono-sm { font-family: "IBM Plex Mono", monospace; font-size: 11px;
+               letter-spacing: 0.10em; text-transform: uppercase; }
+    .red { color: #FF371C; }
+
+    /* hairline */
+    .hl       { height: 1px; }
+    .dark .hl { background: rgba(250,250,251,0.18); }
+    .ice  .hl { background: rgba(47,61,72,0.20); }
+
+    /* full-bleed image */
+    .bg-img { position: absolute; inset: 0; width: 100%; height: 100%;
+              object-fit: cover; object-position: center; display: block; }
+
+    /* entrance */
+    /* Initial state — elements start at animation's from-state */
+    .a1, .a2, .a3, .a4, .a5 {
+      opacity: 0;
+      transform: translateX(-12px);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      [data-deck-active] .a1,
+      [data-deck-active] .a2,
+      [data-deck-active] .a3,
+      [data-deck-active] .a4,
+      [data-deck-active] .a5 { animation: up .55s cubic-bezier(.2,0,0,1) forwards 0s; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .a1, .a2, .a3, .a4, .a5 { opacity: 1; transform: none; }
+    }
+    @keyframes up {
+      from { opacity: 0; transform: translateX(-12px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+  </style>
+</head>
+
+<template id="__bundler_thumbnail" data-bg-color="#1E2E38">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <!-- HIVE brand mark on dark background -->
+    <rect width="1200" height="800" fill="#1E2E38"/>
+    <!-- Simplified HIVE hexagon logo mark -->
+    <g transform="translate(540,330)">
+      <polygon points="60,0 120,35 120,105 60,140 0,105 0,35" fill="none" stroke="#FAFAFB" stroke-width="3" opacity="0.9"/>
+      <polygon points="60,20 100,42 100,88 60,110 20,88 20,42" fill="none" stroke="#FAFAFB" stroke-width="2" opacity="0.5"/>
+      <circle cx="60" cy="70" r="12" fill="#FF371C"/>
+    </g>
+    <!-- HIVE wordmark -->
+    <text x="600" y="530" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="300" letter-spacing="12" fill="#FAFAFB" opacity="0.85">HIVE</text>
+    <text x="600" y="560" text-anchor="middle" font-family="monospace" font-size="11" letter-spacing="4" fill="#FAFAFB" opacity="0.4">AUTONOMY</text>
+  </svg>
+</template>
+<body style="">
+<deck-stage style="--deck-rail-w: 188px;">
+
+
+<!-- ══ 01 FRONT PAGE ══════════════════════════════════════════ -->
+<section style="background:#1E2E38;">
+
+  <!-- full-bleed video background -->
+  <video autoplay="" muted="" loop="" playsinline="" disablepictureinpicture="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+                object-position:center;display:block;z-index:0;">
+    <source src="https://framerusercontent.com/assets/pV3v01MgbbO23Q5J7CPM9qFo.mp4" type="video/mp4">
+  </video>
+  <!-- gradient overlay: darken left for text legibility -->
+  <div style="position:absolute;inset:0;z-index:1;
+    background:linear-gradient(105deg,rgba(30,46,56,0.75) 0%,rgba(30,46,56,0.40) 50%,rgba(30,46,56,0.10) 80%);"></div>
+
+  <!-- huge lockup top-left — logo lockup -->
+  <div style="position:absolute;top:52px;left:52px;z-index:2;">
+    <svg style="height:220px;width:auto;display:block;" width="380" height="75" viewBox="0 0 380 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#fp_lk2_clip)">
+<path d="M191.765 44.2076H157.236V74.9746H142.273V0H157.236V30.7668H191.765V0H206.727V74.9746H191.765V44.2076Z" fill="#FAFAFB" style="fill:#FAFAFB;fill:color(display-p3 0.9804 0.9804 0.9843);fill-opacity:1;"></path>
+<path d="M221.795 0H236.757V74.9746H221.795V0Z" fill="#FAFAFB" style="fill:#FAFAFB;fill:color(display-p3 0.9804 0.9804 0.9843);fill-opacity:1;"></path>
+<path d="M245.02 0H261.342L280.699 58.3835H281.013L300.265 0H315.96L288.128 74.9746H272.747L245.02 0Z" fill="#FAFAFB" style="fill:#FAFAFB;fill:color(display-p3 0.9804 0.9804 0.9843);fill-opacity:1;"></path>
+<path d="M324.126 0H379.895V12.9158H339.088V30.7668H376.861V43.8927H339.088V61.8489H380V74.9746H324.126V0Z" fill="#FAFAFB" style="fill:#FAFAFB;fill:color(display-p3 0.9804 0.9804 0.9843);fill-opacity:1;"></path>
+<path d="M21.9941 30.7658H79.5076V44.2066H21.9941V30.7658Z" fill="#FAFAFB" style="fill:#FAFAFB;fill:color(display-p3 0.9804 0.9804 0.9843);fill-opacity:1;"></path>
+<path d="M0 44.2068L17.6988 74.9714H37.6836V60.3573H21.9964V44.2068" fill="#FAFAFB" style="fill:#FAFAFB;fill:color(display-p3 0.9804 0.9804 0.9843);fill-opacity:1;"></path>
+<path d="M0 30.7665L17.6987 0.00170898H37.6836V14.6158H21.9964V30.7665" fill="#FAFAFB" style="fill:#FAFAFB;fill:color(display-p3 0.9804 0.9804 0.9843);fill-opacity:1;"></path>
+<path d="M101.501 44.2068L83.8022 74.9714H63.8174V60.3573H79.505V44.2068" fill="#FAFAFB" style="fill:#FAFAFB;fill:color(display-p3 0.9804 0.9804 0.9843);fill-opacity:1;"></path>
+<path d="M101.501 30.7665L83.8022 0.00170898H63.8174V14.6158H79.505V30.7665" fill="#FAFAFB" style="fill:#FAFAFB;fill:color(display-p3 0.9804 0.9804 0.9843);fill-opacity:1;"></path>
+</g>
+<defs>
+<clipPath id="fp_lk2_clip">
+<rect width="380" height="75" fill="white" style="fill:white;fill-opacity:1;"></rect>
+</clipPath>
+</defs>
+</svg>
+  </div>
+
+  <!-- tagline bottom-left -->
+  <div class="a2" style="position:absolute;bottom:80px;left:52px;z-index:2;">
+    <p style="font-size:84px;font-weight:400;line-height:1.05;letter-spacing:-0.02em;
+              color:#FAFAFB;">A new era of work.<br>Limitless.</p>
+  </div>
+
+  <!-- footer -->
+  <div class="ft ft-custom-dark" style="position:absolute;z-index:2;">
+    <img src="./assets/logo-symbol-white.svg" height="24" alt="HIVE">
+    <span class="mono" style="color:#FAFAFB;">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;">
+      <span class="mono" style="color:#FAFAFB;">CONFIDENTIAL</span>
+      <span class="mono" style="color:#FAFAFB;">01|10</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 02 MANUAL LABOUR IS CONSTRAINED ══════════════════════════════════ -->
+<section style="background:#141C22; color:#FAFAFB;">
+
+  <!-- full-bleed background photo — muted, matching original slide -->
+  <img src="./uploads/bilde_hive.jpeg" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 55%; filter:saturate(0.25) brightness(0.40); display:block;">
+  <!-- gradient: transparent top → opaque dark bottom -->
+  <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(20,28,34,0.0) 0%, rgba(20,28,34,0.45) 35%, rgba(20,28,34,0.88) 60%, rgba(20,28,34,1.0) 80%); z-index:1;"></div>
+
+  <!-- content -->
+  <div style="position:absolute; top:210px; left:80px; right:80px; bottom:72px; z-index:2; display:flex; flex-direction:column; gap:26px;">
+
+    <!-- eyebrow -->
+    <div class="a1" style="display:flex; align-items:center; gap:16px;">
+      <div style="width:28px; height:1px; background:rgba(250,250,251,0.45);"></div>
+      <p class="mono-sm" style="color:rgba(250,250,251,0.55); font-size:13px; letter-spacing:0.12em;">THE FORCING FUNCTION</p>
+    </div>
+
+    <!-- title -->
+    <h1 class="a1" style="font-size:96px; font-weight:400; line-height:1.02; letter-spacing:-0.025em; color:#FAFAFB;">
+      Manual labour is <span style="font-weight:600;">constrained.</span>
+    </h1>
+
+    <!-- subtitle -->
+    <p class="a2" style="font-size:27px; line-height:1.45; color:rgba(250,250,251,0.72); max-width:980px;">
+      Automation is no longer optional — the alternative, hiring more operators, is not viable.<br>
+      Three constraints, all structural, all getting worse. Let's use logistics as an example:
+    </p>
+
+    <!-- hairline -->
+    <div style="height:1px; background:rgba(250,250,251,0.16);"></div>
+
+    <!-- 3-col metrics -->
+    <div class="a3" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0 64px; flex:1;">
+
+      <div style="border-top:1px solid rgba(250,250,251,0.22); padding-top:16px;">
+        <p class="mono-sm" style="color:rgba(250,250,251,0.45); margin-bottom:12px; font-size:13px;">SUPPLY</p>
+        <p style="font-size:88px; font-weight:400; line-height:1.0; letter-spacing:-0.04em; color:#FAFAFB;">30–50%</p>
+        <p style="font-size:20px; line-height:1.4; color:rgba(250,250,251,0.50); margin-top:10px;">Annual operator turnover in EU logistics. Workforce shrinking, aging out faster than replaced. Every rotation re-opens a productivity gap.</p>
+      </div>
+
+      <div style="border-top:1px solid rgba(250,250,251,0.22); padding-top:16px;">
+        <p class="mono-sm" style="color:rgba(250,250,251,0.45); margin-bottom:12px; font-size:13px;">COST</p>
+        <p style="font-size:88px; font-weight:400; line-height:1.0; letter-spacing:-0.04em; color:#FAFAFB;">~70%</p>
+        <p style="font-size:20px; line-height:1.4; color:rgba(250,250,251,0.50); margin-top:10px;">Of a 2-shift forklift's loaded TCO is the operator. Wages up 4–7% per year. Shift premiums, sickness cover and onboarding outpace machine cost.</p>
+      </div>
+
+      <div style="border-top:1px solid rgba(250,250,251,0.22); padding-top:16px;">
+        <p class="mono-sm" style="color:rgba(250,250,251,0.45); margin-bottom:12px; font-size:13px;">RELIABILITY</p>
+        <p style="font-size:88px; font-weight:400; line-height:1.0; letter-spacing:-0.04em; color:#FAFAFB;">5×</p>
+        <p style="font-size:20px; line-height:1.4; color:rgba(250,250,251,0.50); margin-top:10px;">Forklift-operator injury rate vs. the average warehouse role. Shifts go uncovered. Safety incidents block throughput. Iron sits idle 34% of the time.</p>
+      </div>
+
+    </div>
+
+    <!-- summary statement -->
+    <p class="a4" style="font-size:30px; line-height:1.4; color:rgba(250,250,251,0.75);">
+      The labour you can hire isn't enough. <strong style="color:#FAFAFB; font-weight:600;">The labour you can't hire is the bottleneck.</strong>
+    </p>
+
+  </div>
+
+  <!-- footer -->
+  <div class="ft ft-custom-dark" style="position:absolute; z-index:3; font-size:14px;">
+    <img src="./assets/logo-symbol-white.svg" height="22" alt="HIVE">
+    <span class="mono" style="color:#FAFAFB; font-size:14px;">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;">
+      <span class="mono" style="color:#FAFAFB; font-size:14px;">CONFIDENTIAL</span>
+      <span class="mono" style="color:#FAFAFB; font-size:14px;">02|10</span>
+    </div>
+  </div>
+
+</section><section style="background:#E1EAED; color:#2F3D48;">
+
+  <!-- outer flex column -->
+  <div style="position:absolute; top:52px; left:52px; right:52px; bottom:160px;
+               display:flex; flex-direction:column; justify-content:space-between;">
+
+    <!-- ① two-col header: headline left, body right -->
+    <div class="a1" style="display:grid; grid-template-columns:1fr 1fr; gap:0 80px; align-items:start;">
+      <h1 style="font-size:80px; font-weight:400; line-height:1.05;
+                 letter-spacing:-0.025em; color:#2F3D48;">
+        Human operation is<br>the bottleneck.
+      </h1>
+      <div style="padding-top:8px;">
+        <p style="font-size:28px; line-height:1.45; color:#4A5C68; margin-bottom:20px;">
+          Physical machines run the world, and every one of them needs a brain to operate it.
+          Today that brain is human: scarce, hard to scale, and stretched thin.
+        </p>
+        <p style="font-size:28px; line-height:1.45; color:#4A5C68;">
+          Multiply the human brain with AI, and the economics flip. Every correction
+          compounds. The cost of industrial work falls immediately, enabling a new
+          industrial productivity revolution.
+        </p>
+      </div>
+    </div>
+
+    <!-- ② infographic: two large cards + arrow + timeline -->
+    <div class="a2">
+
+      <!-- cards row -->
+      <div style="display:grid; grid-template-columns:1fr 64px 1fr; align-items:center; margin-bottom:32px;">
+
+        <!-- TODAY — dark navy -->
+        <div style="background:#2F3D48; padding:36px 44px 32px;">
+          <p class="mono-sm" style="color:rgba(250,250,251,0.50); margin-bottom:20px;">TODAY</p>
+          <p style="font-size:96px; font-weight:400; line-height:1; letter-spacing:-0.03em; color:#FAFAFB;">
+            $40 / hr
+          </p>
+          <p style="font-size:20px; color:rgba(250,250,251,0.50); margin-top:18px;">per machine operator/hour</p>
+        </div>
+
+        <!-- arrow -->
+        <div style="display:flex; justify-content:center; align-items:center;">
+          <span style="font-size:32px; color:#4A5C68; letter-spacing:-0.02em;">→</span>
+        </div>
+
+        <!-- BY 2035 — white ice -->
+        <div style="background:#FAFAFB; padding:36px 44px 32px;">
+          <p class="mono-sm" style="color:#4A5C68; margin-bottom:20px;">BY 2035</p>
+          <p style="font-size:96px; font-weight:400; line-height:1; letter-spacing:-0.03em; color:#2F3D48;">
+            80x cost reduction
+          </p>
+          <p style="font-size:20px; color:#4A5C68; margin-top:18px;">The cost keeps falling, automatically</p>
+        </div>
+
+      </div>
+
+      <!-- timeline: labels → track → years -->
+      <div>
+        <!-- labels above track -->
+        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+          <span class="mono-sm" style="color:#2F3D48;">HUMAN-LED</span>
+          <span class="mono-sm" style="color:#4A5C68;">SILICON SHARE GROWS →</span>
+          <span class="mono-sm" style="color:#2F3D48;">SILICON-LED</span>
+        </div>
+        <!-- track with red progress -->
+        <div style="position:relative; height:3px; background:rgba(47,61,72,0.20); margin-bottom:10px;">
+          <div style="position:absolute; left:0; top:0; width:16.6%; height:100%; background:#FF371C;"></div>
+        </div>
+        <!-- year labels below -->
+        <div style="display:flex; justify-content:space-between;">
+          <span class="mono-sm" style="color:#4A5C68;">2025</span>
+          <span class="mono-sm" style="color:#4A5C68;">2027</span>
+          <span class="mono-sm" style="color:#4A5C68;">2029</span>
+          <span class="mono-sm" style="color:#4A5C68;">2031</span>
+          <span class="mono-sm" style="color:#4A5C68;">2033</span>
+          <span class="mono-sm" style="color:#4A5C68;">2035</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="ft ft-custom-ice" style="position: absolute; font-size: 14px;">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE">
+    <span class="mono red" style="font-size: 14px;">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display: flex; gap: 48px; font-size: 14px;">
+      <span class="mono" style="color: rgb(47, 61, 72); font-size: 14px;">CONFIDENTIAL</span>
+      <span class="mono" style="color: rgb(47, 61, 72); font-size: 14px;">03|10</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 03 PROBLEM + METRICS ═══════════════════════════════════ -->
+
+
+<!-- ══ 04 THE HIVE SILICON BRAIN ══════════════════════════════════ -->
+<section style="background:#0D1A22;">
+
+  <!-- full-bleed background photo -->
+  <img src="./uploads/hive_2.jpeg" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 60%; display:block;">
+  <!-- gradient overlay: dark at bottom for text legibility -->
+  <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(13,26,34,0.92) 0%, rgba(13,26,34,0.60) 45%, rgba(13,26,34,0.15) 80%); z-index:1;"></div>
+
+  <!-- content — bottom aligned -->
+  <div style="position:absolute; inset:0; z-index:2;
+               display:flex; align-items:flex-end;
+               padding:0 80px 100px;">
+    <div style="max-width:960px;">
+
+      <!-- eyebrow -->
+      <p class="a1 mono-sm" style="color:rgba(250,250,251,0.50); font-size:13px; letter-spacing:0.12em; margin-bottom:24px;">THE HIVE SILICON BRAIN</p>
+
+      <!-- headline -->
+      <h1 class="a1" style="font-size:88px; font-weight:400; line-height:1.05; letter-spacing:-0.025em; color:#FAFAFB; margin-bottom:32px;">
+        The brain is the model.<br><em>The body is the machine.</em>
+      </h1>
+
+      <!-- body -->
+      <p class="a2" style="font-size:28px; line-height:1.5; color:rgba(250,250,251,0.78); max-width:860px;">
+        Not a robot we ship. Not just a retrofit on a machine. A silicon brain that <em>operates</em> the machine, whatever shape that machine takes. One platform for the full fleet of material-handling machines.
+      </p>
+
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="ft ft-custom-dark" style="position:absolute; z-index:3; font-size:14px;">
+    <img src="./assets/logo-symbol-white.svg" height="22" alt="HIVE">
+    <span class="mono" style="color:#FAFAFB; font-size:14px;">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;">
+      <span class="mono" style="color:#FAFAFB; font-size:14px;">CONFIDENTIAL</span>
+      <span class="mono" style="color:#FAFAFB; font-size:14px;">04|10</span>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ══ 05 PROOF FROM THE FIELD ══════════════════════════════════ -->
+<section style="background:#E1EAED; color:#2F3D48;">
+
+  <div style="position:absolute; top:52px; left:52px; right:52px; bottom:72px;
+               display:flex; flex-direction:column; gap:28px;">
+
+    <!-- header -->
+    <div>
+      <p class="a1 mono-sm" style="color:#4A5C68; font-size:13px; letter-spacing:0.12em; margin-bottom:14px;">PROOF FROM THE FIELD</p>
+      <h1 class="a1" style="font-size:56px; font-weight:400; line-height:1.1; letter-spacing:-0.02em; color:#2F3D48; max-width:1200px;">
+        Four selected live deployments. Real customers. Real production. Real operational data.
+      </h1>
+    </div>
+
+    <!-- 4-column video grid -->
+    <div class="a2" style="flex: 1 1 0%; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; min-height: 0px; height: 360px; padding: 128px 0px 0px;">
+
+      <!-- Card 1 — Yara -->
+      <div style="position:relative; overflow:hidden; background:#2F3D48; height:360px;">
+        <video autoplay="" muted="" loop="" playsinline="" disablepictureinpicture="" style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;">
+          <source src="./uploads/yara.mp4" type="video/mp4">
+        </video>
+        <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(47,61,72,0.88) 0%, rgba(47,61,72,0.20) 55%, transparent 80%); height: 50px"></div>
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:24px 20px;">
+          <p class="mono-sm" style="color:rgba(250,250,251,0.60); font-size:11px; letter-spacing:0.12em; margin-bottom:8px;">FEEDING THE WORLD</p>
+          <p style="font-size:28px; font-weight:400; color:#FAFAFB; line-height:1.2;">Yara</p>
+        </div>
+      </div>
+
+      <!-- Card 2 — Veidekke -->
+      <div style="position:relative; overflow:hidden; background:#2F3D48; height:360px;">
+        <video autoplay="" muted="" loop="" playsinline="" disablepictureinpicture="" style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;">
+          <source src="./uploads/veidekke.mp4" type="video/mp4">
+        </video>
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(47,61,72,0.88) 0%, rgba(47,61,72,0.20) 55%, transparent 80%);"></div>
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:24px 20px;">
+          <p class="mono-sm" style="color:rgba(250,250,251,0.60); font-size:11px; letter-spacing:0.12em; margin-bottom:8px;">BUILDING CRITICAL INFRASTRUCTURE</p>
+          <p style="font-size:28px; font-weight:400; color:#FAFAFB; line-height:1.2;">Veidekke</p>
+        </div>
+      </div>
+
+      <!-- Card 3 — Optimera / Saint Gobain -->
+      <div style="position:relative; overflow:hidden; background:#2F3D48; height:360px;">
+        <video autoplay="" muted="" loop="" playsinline="" disablepictureinpicture="" style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;">
+          <source src="./uploads/optimera-small.mp4" type="video/mp4">
+        </video>
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(47,61,72,0.88) 0%, rgba(47,61,72,0.20) 55%, transparent 80%);"></div>
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:24px 20px;">
+          <p class="mono-sm" style="color:rgba(250,250,251,0.60); font-size:11px; letter-spacing:0.12em; margin-bottom:8px;">MOVING THE WORLD'S GOODS</p>
+          <p style="font-size:28px; font-weight:400; color:#FAFAFB; line-height:1.2;">Optimera · Saint Gobain</p>
+        </div>
+      </div>
+
+      <!-- Card 4 — Stena Recycling -->
+      <div style="position:relative; overflow:hidden; background:#2F3D48; height:360px;">
+        <video autoplay="" muted="" loop="" playsinline="" disablepictureinpicture="" style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;">
+          <source src="./uploads/stena-small.mp4" type="video/mp4">
+        </video>
+        <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(47,61,72,0.88) 0%, rgba(47,61,72,0.20) 55%, transparent 80%);"></div>
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:24px 20px;">
+          <p class="mono-sm" style="color:rgba(250,250,251,0.60); font-size:11px; letter-spacing:0.12em; margin-bottom:8px;">HANDLING THE WORLD'S WASTE</p>
+          <p style="font-size:28px; font-weight:400; color:#FAFAFB; line-height:1.2;">Stena Recycling</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- footer -->
+  <div class="ft" style="position:absolute; left:0; right:0; bottom:0; padding:0 52px;">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE">
+    <span class="mono red" style="font-size:14px;">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;">
+      <span class="mono" style="color:#2F3D48; font-size:14px;">CONFIDENTIAL</span>
+      <span class="mono" style="color:#2F3D48; font-size:14px;">05|10</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══ 06 ODIN OVERVIEW ══════════════════════════════════ -->
+<section style="background:#E1EAED; color:#2F3D48;">
+
+  <div style="position:absolute; top:52px; left:52px; right:52px; bottom:52px;
+               display:flex; flex-direction:column; justify-content:space-between;">
+
+    <!-- top: headline + sub -->
+    <div>
+      <h1 class="a2" style="font-size:72px; font-weight:400; line-height:1.05;
+                             letter-spacing:-0.025em; color:#2F3D48; margin-bottom:28px;">
+        One model. Every industrial machine.
+      </h1>
+      <p class="a3" style="font-size:26px; line-height:1.5; color:#4A5C68; max-width:900px;">
+        ODIN is trained on real-world industrial operations. It generalizes across machine
+        types and is deployed machine-by-machine as capability matures.
+      </p>
+    </div>
+
+    <!-- bottom: three cards + arrows -->
+    <div class="a4" style="display:grid; grid-template-columns:1fr 52px 1fr 52px 1fr; align-items:center; gap:0; padding:0 0 128px;">
+
+      <!-- Card 1 — INPUT -->
+      <div style="background:#FAFAFB; padding:32px 36px; border:1px solid rgba(47,61,72,0.12);">
+        <p class="mono-sm" style="color:#FF371C; margin-bottom:16px;">INPUT</p>
+        <p style="font-size:40px; font-weight:400; line-height:1.1; color:#2F3D48; margin-bottom:20px;">
+          Industry datasets
+        </p>
+        <p style="font-size:18px; line-height:1.7; color:#4A5C68;">
+          Logistics · Aggregates<br>
+          Warehousing · Construction<br>
+          Manufacturing
+        </p>
+      </div>
+
+      <!-- Arrow 1 -->
+      <div style="display:flex; justify-content:center; align-items:center; height:100%;">
+        <span style="font-size:28px; color:#4A5C68;">→</span>
+      </div>
+
+      <!-- Card 2 — FOUNDATION MODEL -->
+      <div style="background:#2F3D48; padding:32px 36px;">
+        <p class="mono-sm" style="color:rgba(250,250,251,0.55); margin-bottom:16px;">FOUNDATION MODEL</p>
+        <p style="font-size:88px; font-weight:400; line-height:1.0; letter-spacing:-0.03em;
+                  color:#FAFAFB; margin-bottom:16px;">ODIN</p>
+        <p class="mono-sm" style="color:rgba(250,250,251,0.55); line-height:1.7;">
+          Hive foundation model<br>for industrial Physical AI
+        </p>
+      </div>
+
+      <!-- Arrow 2 -->
+      <div style="display:flex; justify-content:center; align-items:center; height:100%;">
+        <span style="font-size:28px; color:#4A5C68;">→</span>
+      </div>
+
+      <!-- Card 3 — OUTPUT -->
+      <div style="background:#1E2E38; padding:32px 36px;">
+        <p class="mono-sm" style="color:rgba(250,250,251,0.55); margin-bottom:16px;">OUTPUT</p>
+        <p style="font-size:40px; font-weight:400; line-height:1.1; color:#FAFAFB; margin-bottom:20px;">
+          Autonomous machines
+        </p>
+        <p style="font-size:18px; line-height:1.7; color:rgba(250,250,251,0.65);">
+          One model, every machine<br>
+          Cross-task generalization
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="ft" style="position:absolute; left:0; right:0; bottom:0; padding:0 52px;">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE">
+    <span class="mono red" style="font-size:14px;">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;">
+      <span class="mono" style="color:#2F3D48; font-size:14px;">CONFIDENTIAL</span>
+      <span class="mono" style="color:#2F3D48; font-size:14px;">06|10</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 06 ODIN COMPOSITION ══════════════════════════════════ -->
+<section style="background:#E1EAED; color:#2F3D48;">
+
+  <div style="position: absolute; top: 52px; left: 52px; right: 52px; bottom: 52px; display: flex; flex-direction: column; justify-content: space-between; padding: 0px 0px 128px">
+
+    <!-- header -->
+    <div>
+      
+      <h1 class="a2" style="font-size:72px; font-weight:400; line-height:1.05;
+                             letter-spacing:-0.025em; color:#2F3D48;">
+        Two components becoming one silicon brain.
+      </h1>
+    </div>
+
+    <!-- diagram -->
+    <div class="a3" style="display:flex; align-items:stretch; gap:0;">
+
+      <!-- left: stacked input cards -->
+      <div style="display:flex; flex-direction:column; gap:10px; width:240px; flex-shrink:0; justify-content:center;">
+        <div style="background:#FAFAFB; padding:20px 24px; border:1px solid rgba(47,61,72,0.12);">
+          <p class="mono-sm" style="color:#4A5C68; margin-bottom:10px;">TEXT INPUT</p>
+          <p style="font-size:18px; line-height:1.5; color:#4A5C68; font-style:italic;">
+            "Please pick the pallet and move it to the loading bay."
+          </p>
+        </div>
+        <div style="background:#FAFAFB; padding:20px 24px; border:1px solid rgba(47,61,72,0.12);">
+          <p class="mono-sm" style="color:#4A5C68; margin-bottom:10px;">MACHINE STATE</p>
+          <p style="font-size:18px; line-height:1.6; color:#4A5C68;">Camera feeds · lidar · joint positions · velocity</p>
+        </div>
+      </div>
+
+      <!-- arrow -->
+      <div style="display:flex; align-items:center; padding:0 28px; flex-shrink:0;">
+        <span style="font-size:28px; color:#4A5C68;">→</span>
+      </div>
+
+      <!-- center: Huginn + Muninn side by side -->
+      <div style="display:grid; grid-template-columns:1fr 1px 1fr; flex:1;">
+        <!-- Huginn -->
+        <div style="background:#2F3D48; padding:32px 36px;">
+          <p style="font-size:16px; color:rgba(250,250,251,0.50); margin-bottom:20px; letter-spacing:0.04em;">Huginn · thought</p>
+          <p style="font-size:48px; font-weight:400; line-height:1.05; letter-spacing:-0.02em; color:#FAFAFB; margin-bottom:16px;">Perception &amp;<br>Understanding</p>
+          <p style="font-size:18px; color:rgba(250,250,251,0.65); margin-bottom:16px;">Sees and understands</p>
+          <p class="mono-sm" style="color:rgba(250,250,251,0.45); line-height:1.7;">Vision + Language<br>+ Fusion</p>
+        </div>
+        <!-- divider -->
+        <div style="background:rgba(250,250,251,0.12);"></div>
+        <!-- Muninn -->
+        <div style="background:#1E2E38; padding:32px 36px;">
+          <p style="font-size:16px; color:rgba(250,250,251,0.50); margin-bottom:20px; letter-spacing:0.04em;">Muninn · memory</p>
+          <p style="font-size:48px; font-weight:400; line-height:1.05; letter-spacing:-0.02em; color:#FAFAFB; margin-bottom:16px;">Action &amp;<br>Memory</p>
+          <p style="font-size:18px; color:rgba(250,250,251,0.65); margin-bottom:16px;">Acts and remembers</p>
+          <p class="mono-sm" style="color:rgba(250,250,251,0.45); line-height:1.7;">Policy + Diffusion<br>+ Execution</p>
+        </div>
+      </div>
+
+      <!-- arrow -->
+      <div style="display:flex; align-items:center; padding:0 28px; flex-shrink:0;">
+        <span style="font-size:28px; color:#4A5C68;">→</span>
+      </div>
+
+      <!-- right: output card -->
+      <div style="width:200px; flex-shrink:0; background:#2F3D48; padding:24px; display:flex; flex-direction:column; justify-content:center;">
+        <p class="mono-sm" style="color:rgba(250,250,251,0.50); margin-bottom:14px;">MACHINE CONTROL</p>
+        <p style="font-size:18px; line-height:1.6; color:rgba(250,250,251,0.80);">Continuous trajectories, drive, lift, navigate, adapt.</p>
+      </div>
+
+    </div>
+
+    <!-- bottom attribution -->
+    <p class="a4" style="font-size:20px; line-height:1.6; color:#4A5C68; font-style:italic;">
+      Named after Odin's two ravens in Norse mythology, <strong style="font-style:normal; color:#2F3D48;">Huginn</strong> (thought) and <strong style="font-style:normal; color:#2F3D48;">Muninn</strong> (memory), who fly across the world each day and return with what must be remembered.
+    </p>
+
+  </div>
+
+  <div class="ft" style="position:absolute; left:0; right:0; bottom:0; padding:0 52px;">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE">
+    <span class="mono red">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;">
+      <span class="mono" style="color:#2F3D48;">CONFIDENTIAL</span>
+      <span class="mono" style="color:#2F3D48;">07|10</span>
+    </div>
+  </div>
+</section>
+<!-- ══ 09 THE HORIZON ══════════════════════════════════ -->
+<section style="background:#E1EAED; color:#2F3D48;">
+
+  <div style="position:absolute; top:52px; left:52px; right:52px; bottom:52px;
+               display:flex; flex-direction:column; justify-content:space-between;">
+
+    <!-- header -->
+    <div>
+      <h1 class="a2" style="font-size:72px; font-weight:400; line-height:1.05;
+                             letter-spacing:-0.025em; color:#2F3D48; margin-bottom:20px;">
+        HIVE, your <span style="color:#4A5C68;">end-to-end physical AI partner</span>
+      </h1>
+      <p class="a3" style="font-size:26px; line-height:1.45; color:#4A5C68;">
+        Every machine you run supported by the same system.
+      </p>
+    </div>
+
+    <!-- three cards -->
+    <div class="a4" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0 20px;">
+
+      <!-- Card 01 -->
+      <div style="background:#FAFAFB; display:flex; flex-direction:column; overflow:hidden;">
+        <div style="height:240px; overflow:hidden; flex-shrink:0;">
+          <img src="./uploads/DSC09755.jpg" alt="" style="width:100%; height:100%; object-fit:cover; object-position:center;">
+        </div>
+        <div style="padding:24px 28px 28px; flex:1;">
+          <p class="mono-sm" style="color:#4A5C68; margin-bottom:12px;">01</p>
+          <p style="font-size:28px; font-weight:400; line-height:1.2; color:#2F3D48; margin-bottom:14px;">Selected machines</p>
+          <p style="font-size:18px; line-height:1.6; color:#4A5C68;">
+            Supervised-autonomy across selected volume-oriented machine types and brands.
+            Supporting logistics, industrial production, and construction operations.
+          </p>
+        </div>
+      </div>
+
+      <!-- Card 02 -->
+      <div style="background:#FAFAFB; display:flex; flex-direction:column; overflow:hidden;">
+        <div style="height:240px; overflow:hidden; flex-shrink:0;">
+          <img src="./uploads/smallDSC08994nologo.jpg" alt="" style="width:100%; height:100%; object-fit:cover; object-position:20% center;">
+        </div>
+        <div style="padding:24px 28px 28px; flex:1;">
+          <p class="mono-sm" style="color:#4A5C68; margin-bottom:12px;">02</p>
+          <p style="font-size:28px; font-weight:400; line-height:1.2; color:#2F3D48; margin-bottom:14px;">Full fleet of material handling equipment</p>
+          <p style="font-size:18px; line-height:1.6; color:#4A5C68;">
+            Autonomy extending across every class and brand in your operation.
+            Enabling end-to-end material handling operations.
+          </p>
+        </div>
+      </div>
+
+      <!-- Card 03 -->
+      <div style="background:#FAFAFB; display:flex; flex-direction:column; overflow:hidden;">
+        <div style="height:240px; overflow:hidden; flex-shrink:0;">
+          <img src="./uploads/Skjermbilde 2026-06-10 kl. 12.33.22.png" alt="" style="width:100%; height:100%; object-fit:cover; object-position:80% center;">
+        </div>
+        <div style="padding:24px 28px 28px; flex:1;">
+          <p class="mono-sm" style="color:#4A5C68; margin-bottom:12px;">03</p>
+          <p style="font-size:28px; font-weight:400; line-height:1.2; color:#2F3D48; margin-bottom:14px;">New robots entering the market</p>
+          <p style="font-size:18px; line-height:1.6; color:#4A5C68;">
+            As humanoids and inspection robots reach the market, the Hive platform is ready
+            to support them end-to-end, using the same interface and operating system.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- timeline -->
+    <div class="a5" style="padding:0 0 128px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; position:relative; margin-bottom:10px;">
+        <div style="position:absolute; top:6px; left:calc(16.67%); right:calc(16.67%); height:1px; background:rgba(47,61,72,0.25);"></div>
+        <div style="display:flex; justify-content:center;">
+          <div style="width:13px; height:13px; background:#2F3D48; border-radius:50%; position:relative; z-index:1;"></div>
+        </div>
+        <div style="display:flex; justify-content:center;">
+          <div style="width:13px; height:13px; background:#2F3D48; border-radius:50%; position:relative; z-index:1; opacity:0.55;"></div>
+        </div>
+        <div style="display:flex; justify-content:center;">
+          <div style="width:13px; height:13px; background:#2F3D48; border-radius:50%; position:relative; z-index:1; opacity:0.30;"></div>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; text-align:center;">
+        <div><p class="mono-sm" style="color:#2F3D48;">TODAY</p><p style="font-size:16px; color:#4A5C68; margin-top:4px;">Selected machines in customer operations</p></div>
+        <div><p class="mono-sm" style="color:#4A5C68;">SHORT-TERM</p><p style="font-size:16px; color:#4A5C68; margin-top:4px;">Full material handling fleet</p></div>
+        <div><p class="mono-sm" style="color:#4A5C68;">MID-TERM</p><p style="font-size:16px; color:#4A5C68; margin-top:4px;">End-to-end physical AI partner</p></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- footer -->
+  <div class="ft" style="position:absolute; left:0; right:0; bottom:0; padding:0 52px;">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE">
+    <span class="mono red" style="font-size:14px;">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;">
+      <span class="mono" style="color:#2F3D48; font-size:14px;">CONFIDENTIAL</span>
+      <span class="mono" style="color:#2F3D48; font-size:14px;">08|10</span>
+    </div>
+  </div>
+</section><section style="background:#0D1A22;">
+
+  <!-- full-bleed background photo -->
+  <img src="./uploads/hive-3-1a15c8cb.jpeg" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block;">
+  <!-- dark overlay -->
+  <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(13,26,34,0.92) 0%, rgba(13,26,34,0.70) 50%, rgba(13,26,34,0.30) 85%); z-index:1;"></div>
+
+  <!-- content — bottom aligned -->
+  <div style="position:absolute; inset:0; z-index:2;
+               display:flex; align-items:flex-end;
+               padding:0 80px 100px;">
+    <div style="max-width:1000px;">
+
+      <!-- eyebrow -->
+      <p class="a1 mono-sm" style="color:rgba(250,250,251,0.50); font-size:13px; letter-spacing:0.12em; margin-bottom:24px;">THE BUSINESS MODEL</p>
+
+      <!-- headline -->
+      <h1 class="a1" style="font-size:80px; font-weight:400; line-height:1.05; letter-spacing:-0.025em; color:#FAFAFB; margin-bottom:36px;">
+        A full shift of work, delivered at a substantially lower cost.<br><em>Supervised from the Hive operation center.</em>
+      </h1>
+
+      <!-- body -->
+      <div class="a2" style="display:flex; flex-direction:column; gap:16px;">
+        <p style="font-size:26px; line-height:1.5; color:rgba(250,250,251,0.75);">
+          Today, one operator supervises two to three machines.
+        </p>
+        <p style="font-size:26px; line-height:1.5; color:rgba(250,250,251,0.60);">
+          As ODIN improves — each deployment feeding the next model — that ratio scales: one operator to four, to six, to dozens of machines across sites.
+        </p>
+        <p style="font-size:26px; line-height:1.5; color:#B8CCDA; margin-top:8px;">
+          Productivity made limitless. Decoupled from the human hour.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="ft ft-custom-dark" style="position:absolute; z-index:3; font-size:14px;">
+    <img src="./assets/logo-symbol-white.svg" height="22" alt="HIVE">
+    <span class="mono" style="color:#FAFAFB; font-size:14px;">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;">
+      <span class="mono" style="color:#FAFAFB; font-size:14px;">CONFIDENTIAL</span>
+      <span class="mono" style="color:#FAFAFB; font-size:14px;">09|10</span>
+    </div>
+  </div>
+
+</section>
+<!-- ══ 08 FOUR DEPLOYMENTS ══════════════════════════════════ -->
+
+
+
+
+<!-- ══ 09 YOUR FULL FLEET ══════════════════════════════════ -->
+
+<!-- ══ 10 BUILT WHERE WORK IS HARD ══════════════════════════════════ -->
+<section style="background:#2A3840;" data-deck-last-visible="">
+
+  <!-- full-bleed video -->
+  <video autoplay="" muted="" loop="" playsinline="" disablepictureinpicture="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+                object-position:center;display:block;z-index:0;">
+    <source src="./uploads/hive location.mp4" type="video/mp4">
+  </video>
+  <!-- dark overlay -->
+  <div style="position:absolute;inset:0;z-index:1;
+    background:linear-gradient(105deg,rgba(30,42,52,0.65) 0%,rgba(30,42,52,0.45) 60%,rgba(30,42,52,0.30) 100%);"></div>
+
+  <!-- content — two col, vertically centred -->
+  <div style="position:absolute;inset:0;z-index:2;
+               display:flex; align-items:center;
+               padding:0 52px 52px;">
+    <div style="display:grid; grid-template-columns:5fr 7fr; gap:0 80px; width:100%;">
+
+      <!-- left: headline -->
+      <h1 class="a1" style="font-size:88px; font-weight:400; line-height:1.05;
+                             letter-spacing:-0.025em; color:#FAFAFB;">
+        Built where<br>work is hard.
+      </h1>
+
+      <!-- right: body -->
+      <p class="a2" style="font-size:28px; line-height:1.5; color:rgba(250,250,251,0.85);
+                            padding-top:8px;">
+        HIVE was founded in Norway, by a team that understands industrial
+        operations from the inside. The platform was built in the field, in tunnels,
+        on snowfields, at ports, not in a lab or a pitch deck. Today HIVE
+        coordinates industrial fleets across construction, mining and logistics,
+        and the ambition doesn't stop at the horizon.
+      </p>
+
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="ft ft-custom-dark" style="position:absolute;z-index:2;">
+    <img src="./assets/logo-symbol-white.svg" height="22" alt="HIVE">
+    <span class="mono" style="color:#FAFAFB;">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;">
+      <span class="mono" style="color:#FAFAFB;">CONFIDENTIAL</span>
+      <span class="mono" style="color:#FAFAFB;">10|10</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 11 HIVE END-TO-END PARTNER ══════════════════════════════════ -->
+
+</deck-stage>
+
+
+
+<style id="__om-edit-overrides">
+[data-om-id="452a83df:55"] { width: 904px !important }
+[data-om-id="452a83df:55"] { width: 941px !important }
+[data-om-id="452a83df:55"] { width: 1200px !important }
+[data-om-id="452a83df:55"] { width: 1203px !important }
+</style>
+</body></html>

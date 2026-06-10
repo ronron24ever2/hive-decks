@@ -1,0 +1,64 @@
+/* ============================================================
+   HIVE — Spacing, radius, borders, shadow, layout
+   The system is built on multiples of 4. Layouts use 4 / 8 / 12
+   / 16 column grids. Corners are SHARP — the brand is rectilinear
+   and hard-edged. Elevation is communicated by surface color and
+   hairline borders, not by soft drop shadows.
+   ============================================================ */
+
+:root {
+  /* ---- Spacing scale (base 4) ------------------------------ */
+  --space-0:   0px;
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   20px;
+  --space-6:   24px;
+  --space-8:   32px;
+  --space-10:  40px;
+  --space-12:  48px;
+  --space-16:  64px;
+  --space-20:  80px;
+  --space-24:  96px;
+  --space-32:  128px;
+
+  /* ---- Radius — sharp by default --------------------------- */
+  --radius-none: 0px;     /* the HIVE default                    */
+  --radius-sm:   2px;     /* rare softening on small controls    */
+  --radius-pill: 999px;   /* only for status dots / toggles      */
+
+  /* ---- Borders --------------------------------------------- */
+  --border-hair:   1px;
+  --border-thick:  2px;
+  --border-spine:  2px;   /* the off-centre vertical spine       */
+
+  /* ---- Elevation — flat. Borders over shadows. ------------- */
+  --shadow-none:  none;
+  --shadow-tile:  0 1px 0 0 var(--border);          /* subtle seam */
+  --shadow-pop:   0 16px 40px -16px rgba(31,38,45,0.28); /* dialogs */
+
+  /* ---- Layout grid ----------------------------------------- */
+  /* Canvas: 1920×1080px. 12 cols, 48px margin, 24px gutter.    */
+  /* Col width: (1920 - 48×2 - 24×11) / 12 = 130px              */
+  --cols:        12; /* @kind other */
+  --col-width:   130px;
+  --gutter:      24px;           /* between columns              */
+  --margin-page: 48px;           /* left/right edge margin       */
+  --canvas-w:    1920px;
+  --canvas-h:    1080px;
+
+  /* Grid template helpers */
+  --col-4:   repeat(4, 1fr);  /* @kind other */
+  --col-8:   repeat(8, 1fr);  /* @kind other */
+  --col-12:  repeat(12, 1fr); /* @kind other */
+  --col-16:  repeat(16, 1fr); /* @kind other */
+
+  /* ---- Motion ---------------------------------------------- */
+  /* Precise, mechanical. Quick, no bounce. */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);  /* @kind other */
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  --dur-fast:   120ms; /* @kind other */
+  --dur-base:   200ms; /* @kind other */
+  --dur-slow:   320ms; /* @kind other */
+}
