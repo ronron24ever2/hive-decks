@@ -4,435 +4,276 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hive Autonomy — Terms &amp; Conditions</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --navy:        oklch(30% 0.06 245);
-  --navy-deep:   oklch(15% 0.04 245);
-  --navy-mid:    oklch(22% 0.05 245);
-  --cyan:        oklch(68% 0.12 245);
-  --cyan-soft:   oklch(78% 0.08 245);
-  --yellow:      oklch(86% 0.16 95);
-  --yellow-soft: oklch(92% 0.08 95);
-  --paper:       oklch(98% 0.004 245);
-  --ink:         oklch(18% 0.01 245);
-  --line-d:      oklch(100% 0 0 / 0.10);
-  --line-d2:     oklch(100% 0 0 / 0.18);
-  --serif:       'Fraunces', 'Times New Roman', Georgia, serif;
-  --sans:        'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --mono:        'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-  --ease:        cubic-bezier(0.16, 1, 0.3, 1);
-}
+  :root {
+    --ink:   #000;
+    --muted: #333;
+    --rule:  #000;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: Arial, Helvetica, "Liberation Sans", sans-serif;
+    color: var(--ink);
+    background: #f3f3f3;
+    margin: 0;
+    line-height: 1.4;
+  }
+  /* A page-like sheet, mirroring the Word/PDF look */
+  .page {
+    background: #fff;
+    max-width: 816px;            /* ~ US Letter width at 96dpi */
+    margin: 28px auto;
+    padding: 64px 72px 80px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.18);
+  }
+  @media (max-width: 720px) {
+    .page { padding: 40px 24px 56px; margin: 0; box-shadow: none; }
+  }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+  h1 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 6px;
+  }
+  .org {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0 0 4px;
+  }
+  .org a { color: var(--muted); text-decoration: none; }
+  .meta {
+    font-size: 11px;
+    color: var(--muted);
+    margin: 0 0 20px;
+  }
+  hr.top {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 0 0 22px;
+  }
 
-html, body {
-  font-family: var(--sans);
-  background: var(--navy-deep);
-  color: #fff;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  font-feature-settings: "ss01", "cv11";
-}
+  /* === Two-column newspaper flow for the whole body === */
+  .cols {
+    column-count: 2;
+    column-gap: 32px;
+    column-fill: balance;
+  }
+  section { margin: 0 0 14px; }
+  h2 {
+    font-size: 13px;
+    font-weight: 700;
+    margin: 0 0 6px;
+    break-after: avoid;
+  }
+  h2 .num { display: inline-block; min-width: 22px; }
+  p {
+    font-size: 12px;
+    text-align: justify;
+    margin: 0 0 9px;
+    color: var(--ink);
+  }
+  p:last-child { margin-bottom: 0; }
+  .lead { font-weight: 700; }
+  p.caps { }
 
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 40% at 20% 0%, oklch(68% 0.12 245 / 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse 40% 30% at 100% 100%, oklch(86% 0.16 95 / 0.06) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: 0;
-}
+  ol.alpha {
+    font-size: 12px;
+    margin: 4px 0 9px;
+    padding-left: 26px;
+    list-style: none;
+  }
+  ol.alpha li { margin: 0 0 3px; text-align: justify; }
+  ol.alpha li .mk { display: inline-block; min-width: 20px; }
 
-main {
-  position: relative;
-  z-index: 1;
-  max-width: 880px;
-  margin: 0 auto;
-  padding: clamp(40px, 6vh, 72px) clamp(24px, 4vw, 56px) 96px;
-}
+  /* === Definitions: full width, as in the Word document (term | definition rows) === */
+  h2.defs-title { margin-top: 24px; }
+  .defs-intro { font-size: 12px; margin: 0 0 12px; }
+  dl.defs { margin: 0; }
+  .def {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    column-gap: 28px;
+    padding: 7px 0;
+  }
+  .def dt { font-weight: 700; font-size: 12px; }
+  .def dd { margin: 0; font-size: 12px; text-align: justify; }
+  @media (max-width: 600px) {
+    .def { grid-template-columns: 1fr; row-gap: 2px; }
+  }
 
-/* === HEADER === */
-.head {
-  padding-bottom: clamp(36px, 5vh, 52px);
-  border-bottom: 1px solid var(--line-d);
-  margin-bottom: clamp(40px, 5vh, 60px);
-}
-.head-mark {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--yellow);
-  margin-bottom: 18px;
-}
-.head-title {
-  font-family: var(--serif);
-  font-weight: 300;
-  font-size: clamp(40px, 5.4vw, 64px);
-  line-height: 1.05;
-  letter-spacing: -0.028em;
-  margin-bottom: 22px;
-}
-.head-org {
-  font-size: 15px;
-  line-height: 1.7;
-  color: rgba(255,255,255,0.7);
-}
-.head-org a { color: var(--cyan-soft); text-decoration: none; }
-.head-org a:hover { color: var(--cyan); }
-.head-meta {
-  margin-top: 24px;
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
-  display: flex;
-  gap: 28px;
-  flex-wrap: wrap;
-}
-.head-meta .v { color: rgba(255,255,255,0.85); }
+  footer {
+    margin-top: 34px;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  footer a { color: var(--muted); text-decoration: none; }
 
-/* === SECTIONS === */
-.clause {
-  margin-bottom: clamp(30px, 4vh, 44px);
-  scroll-margin-top: 24px;
-}
-.clause-head {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-  margin-bottom: 14px;
-}
-.clause-num {
-  font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  color: var(--cyan);
-  flex: none;
-  width: 28px;
-  padding-top: 3px;
-}
-.clause-title {
-  font-family: var(--serif);
-  font-size: clamp(22px, 2.2vw, 28px);
-  font-weight: 500;
-  line-height: 1.18;
-  letter-spacing: -0.012em;
-  color: #fff;
-}
-.clause-body { padding-left: 44px; }
-.clause-body p {
-  font-size: 15.5px;
-  line-height: 1.72;
-  color: rgba(255,255,255,0.78);
-  margin-bottom: 14px;
-  max-width: 68ch;
-}
-.clause-body p:last-child { margin-bottom: 0; }
-.clause-body p .lead { color: #fff; font-weight: 600; }
-.clause-body p.caps {
-  font-size: 13.5px;
-  letter-spacing: 0.01em;
-  color: rgba(255,255,255,0.82);
-}
-.clause-body ol.alpha {
-  list-style: none;
-  margin: 4px 0 14px;
-  padding: 0;
-  max-width: 68ch;
-}
-.clause-body ol.alpha li {
-  font-size: 15.5px;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.78);
-  padding: 5px 0 5px 36px;
-  position: relative;
-}
-.clause-body ol.alpha li .mk {
-  position: absolute;
-  left: 0;
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--yellow);
-}
-
-@media (max-width: 640px) {
-  .clause-body { padding-left: 0; }
-  .clause-head { gap: 10px; }
-}
-
-/* === DEFINITIONS === */
-.defs-mark {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--cyan);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.defs-mark::before { content: ''; width: 24px; height: 1px; background: var(--cyan); }
-.defs-intro {
-  font-size: 15.5px;
-  line-height: 1.7;
-  color: rgba(255,255,255,0.78);
-  margin-bottom: 26px;
-  max-width: 68ch;
-}
-.defs {
-  display: grid;
-  gap: 1px;
-  background: var(--line-d);
-  border: 1px solid var(--line-d);
-}
-.def {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: clamp(16px, 2vw, 28px);
-  padding: clamp(16px, 2vh, 20px) clamp(18px, 2vw, 26px);
-  background: var(--navy-deep);
-}
-.def dt {
-  font-family: var(--serif);
-  font-size: 17px;
-  font-weight: 500;
-  color: var(--yellow-soft);
-  line-height: 1.35;
-}
-.def dd {
-  font-size: 14.5px;
-  line-height: 1.65;
-  color: rgba(255,255,255,0.74);
-}
-@media (max-width: 640px) {
-  .def { grid-template-columns: 1fr; gap: 6px; }
-}
-
-/* === FOOT === */
-.foot {
-  margin-top: clamp(56px, 8vh, 88px);
-  padding-top: clamp(26px, 3.4vh, 36px);
-  border-top: 1px solid var(--line-d);
-  font-size: 13px;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.45);
-}
-.foot strong { color: rgba(255,255,255,0.7); }
-.foot a { color: rgba(255,255,255,0.65); text-decoration: none; }
-.foot a:hover { color: var(--yellow); }
+  @media print {
+    body { background: #fff; }
+    .page { box-shadow: none; margin: 0; max-width: none; padding: 0; }
+  }
 </style>
 </head>
 <body>
+<div class="page">
 
-<main>
-  <header class="head">
-    <div class="head-mark">Hive Autonomy</div>
-    <h1 class="head-title">Terms &amp; Conditions</h1>
-    <div class="head-org">
-      Hive Autonomy Inc&nbsp;&nbsp;|&nbsp;&nbsp;630 Cowper St, Palo Alto, CA 94301, USA<br>
-      <a href="mailto:sales@hiveautonomy.no">sales@hiveautonomy.no</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://www.hiveautonomy.com">www.hiveautonomy.com</a>
-    </div>
-    <div class="head-meta">
-      <div>Jurisdiction <span class="v">United States</span></div>
-      <div>Version <span class="v">2026-06-12</span></div>
-    </div>
-  </header>
+  <h1>Terms &amp; Conditions</h1>
+  <p class="org">
+    Hive Autonomy Inc&nbsp;&nbsp;|&nbsp;&nbsp;630 Cowper St, Palo Alto, CA 94301, USA<br>
+    <a href="mailto:sales@hiveautonomy.no">sales@hiveautonomy.no</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://www.hiveautonomy.com">www.hiveautonomy.com</a>
+  </p>
+  <p class="meta">Jurisdiction: United States&nbsp;&nbsp;&middot;&nbsp;&nbsp;Version: 2026-06-12</p>
+  <hr class="top">
 
-  <article>
+  <div class="cols">
 
-    <section class="clause" id="validity">
-      <div class="clause-head"><div class="clause-num">1</div><h2 class="clause-title">Validity</h2></div>
-      <div class="clause-body">
-        <p>The following documents shall apply in the order given for assignments and services carried out by Hive Autonomy Inc (&ldquo;Hive&rdquo;):</p>
-        <ol class="alpha">
-          <li><span class="mk">a)</span>These Terms &amp; Conditions (this document, &ldquo;T&amp;C&rdquo;)</li>
-          <li><span class="mk">b)</span>Any executed Change Orders</li>
-          <li><span class="mk">c)</span>The applicable Term Sheet (&ldquo;Term Sheet&rdquo;)</li>
-          <li><span class="mk">d)</span>The applicable Statement(s) of Work ("SOW")</li>
-          <li><span class="mk">e)</span>The applicable Service Level Agreement ("SLA") (if any) collectively, the &ldquo;Agreement.&rdquo;</li>
-        </ol>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">1</span>Validity</h2>
+    <p>The following documents shall apply in the order given for assignments and services carried out by Hive Autonomy Inc (&ldquo;Hive&rdquo;):</p>
+    <ol class="alpha">
+      <li><span class="mk">a)</span>These Terms &amp; Conditions (this document, &ldquo;T&amp;C&rdquo;)</li>
+      <li><span class="mk">b)</span>Any executed Change Orders</li>
+      <li><span class="mk">c)</span>The applicable Term Sheet (&ldquo;Term Sheet&rdquo;)</li>
+      <li><span class="mk">d)</span>The applicable Statement(s) of Work (&quot;SOW&quot;)</li>
+      <li><span class="mk">e)</span>The applicable Service Level Agreement (&quot;SLA&quot;) (if any) collectively, the &ldquo;Agreement.&rdquo;</li>
+    </ol>
+  </section>
 
-    <section class="clause" id="scope">
-      <div class="clause-head"><div class="clause-num">2</div><h2 class="clause-title">Scope of Services</h2></div>
-      <div class="clause-body">
-        <p>Services shall be provided only pursuant to a mutually executed Statement of Work. Hive shall have no obligation to perform any services or deliver any items not expressly described in a mutually agreed and signed SOW. Any change to scope of an SOW requires a written change order signed by both Parties.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">2</span>Scope of Services</h2>
+    <p>Services shall be provided only pursuant to a mutually executed Statement of Work. Hive shall have no obligation to perform any services or deliver any items not expressly described in a mutually agreed and signed SOW. Any change to scope of an SOW requires a written change order signed by both Parties.</p>
+  </section>
 
-    <section class="clause" id="customer-obligations">
-      <div class="clause-head"><div class="clause-num">3</div><h2 class="clause-title">Customer Obligations</h2></div>
-      <div class="clause-body">
-        <p>The Customer shall comply with all applicable laws and safety standards, ensure site readiness and connectivity as specified by Hive, ensure only trained and authorized personnel operate the systems, perform routine maintenance per Hive documentation, and promptly notify Hive of any issues. The Customer shall not reverse-engineer, modify, or disassemble any part of the Hive system.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">3</span>Customer Obligations</h2>
+    <p>The Customer shall comply with all applicable laws and safety standards, ensure site readiness and connectivity as specified by Hive, ensure only trained and authorized personnel operate the systems, perform routine maintenance per Hive documentation, and promptly notify Hive of any issues. The Customer shall not reverse-engineer, modify, or disassemble any part of the Hive system.</p>
+  </section>
 
-    <section class="clause" id="fees">
-      <div class="clause-head"><div class="clause-num">4</div><h2 class="clause-title">Fees and Payment</h2></div>
-      <div class="clause-body">
-        <p>Fees are defined in the applicable Term Sheet and/or SOW. All amounts are stated and payable in US Dollars (USD). Billing cycle, invoicing frequency, and payment terms are as specified in the applicable Term Sheet and/or SOW. Unless otherwise specified in the applicable Term Sheet or SOW, all invoices are payable within thirty (30) days of the invoice date. All prices are exclusive of, and Customer shall be responsible for, all applicable taxes, duties and other governmental charges other than income taxes on Hive. Hive may suspend access if payment is overdue by more than fifteen (15) days. Interest on overdue amounts accrues at the lesser of one and one-half percent (1.5%) per month or the maximum rate permitted by applicable law.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">4</span>Fees and Payment</h2>
+    <p>Fees are defined in the applicable Term Sheet and/or SOW. All amounts are stated and payable in US Dollars (USD). Billing cycle, invoicing frequency, and payment terms are as specified in the applicable Term Sheet and/or SOW. Unless otherwise specified in the applicable Term Sheet or SOW, all invoices are payable within thirty (30) days of the invoice date. All prices are exclusive of, and Customer shall be responsible for, all applicable taxes, duties and other governmental charges other than income taxes on Hive. Hive may suspend access if payment is overdue by more than fifteen (15) days. Interest on overdue amounts accrues at the lesser of one and one-half percent (1.5%) per month or the maximum rate permitted by applicable law.</p>
+  </section>
 
-    <section class="clause" id="indexation">
-      <div class="clause-head"><div class="clause-num">5</div><h2 class="clause-title">Annual Indexation</h2></div>
-      <div class="clause-body">
-        <p>The monthly service fee is adjusted annually in line with the Consumer Price Index for All Urban Consumers (CPI-U) published by the U.S. Bureau of Labor Statistics (BLS), with the first adjustment following the expiration of the Minimum Term. No other indexation mechanisms apply unless otherwise agreed in writing.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">5</span>Annual Indexation</h2>
+    <p>The monthly service fee is adjusted annually in line with the Consumer Price Index for All Urban Consumers (CPI-U) published by the U.S. Bureau of Labor Statistics (BLS), with the first adjustment following the expiration of the Minimum Term. No other indexation mechanisms apply unless otherwise agreed in writing.</p>
+  </section>
 
-    <section class="clause" id="ip">
-      <div class="clause-head"><div class="clause-num">6</div><h2 class="clause-title">Intellectual Property</h2></div>
-      <div class="clause-body">
-        <p>All rights, title and interest in the Hive System and Platform and any Hive software, hardware designs, technology, and documentation (and all intellectual property rights therein) remain the exclusive property of Hive. Nothing in this Agreement entails transfer of intellectual property to the Customer. Feedback provided by the Customer may be used freely by Hive.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">6</span>Intellectual Property</h2>
+    <p>All rights, title and interest in the Hive System and Platform and any Hive software, hardware designs, technology, and documentation (and all intellectual property rights therein) remain the exclusive property of Hive. Nothing in this Agreement entails transfer of intellectual property to the Customer. Feedback provided by the Customer may be used freely by Hive.</p>
+  </section>
 
-    <section class="clause" id="confidentiality">
-      <div class="clause-head"><div class="clause-num">7</div><h2 class="clause-title">Confidentiality</h2></div>
-      <div class="clause-body">
-        <p>Each Party shall keep confidential all confidential information received from the other Party in connection with this Agreement and shall not disclose it to third parties without prior consent or use it for any purpose outside of the purpose of this Agreement. The confidentiality obligation survives for five (5) years after expiration of this Agreement.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">7</span>Confidentiality</h2>
+    <p>Each Party shall keep confidential all confidential information received from the other Party in connection with this Agreement and shall not disclose it to third parties without prior consent or use it for any purpose outside of the purpose of this Agreement. The confidentiality obligation survives for five (5) years after expiration of this Agreement.</p>
+  </section>
 
-    <section class="clause" id="data">
-      <div class="clause-head"><div class="clause-num">8</div><h2 class="clause-title">Data Collection</h2></div>
-      <div class="clause-body">
-        <p>Hive may collect operational data generated by the Customer&rsquo;s use of the Hive System and Platform. Hive owns all rights to such data and may use it for service improvement and product development. Hive shall process data in a manner that does not enable identification of the Customer and shall take reasonable measures to anonymize any personal data.</p>
-        <p>To the extent Hive processes personal data on behalf of the Customer, the Parties shall enter into a Data Processing Agreement.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">8</span>Data Collection</h2>
+    <p>Hive may collect operational data generated by the Customer&rsquo;s use of the Hive System and Platform. Hive owns all rights to such data and may use it for service improvement and product development. Hive shall process data in a manner that does not enable identification of the Customer and shall take reasonable measures to anonymize any personal data.</p>
+    <p>To the extent Hive processes personal data on behalf of the Customer, the Parties shall enter into a Data Processing Agreement.</p>
+  </section>
 
-    <section class="clause" id="safety">
-      <div class="clause-head"><div class="clause-num">9</div><h2 class="clause-title">Safety</h2></div>
-      <div class="clause-body">
-        <p><span class="lead">Safety Analysis as a precondition.</span> The Service shall be provided only within the operational envelope set out in the Safety Analysis. The Service shall not commence at any site, and any change to the operational envelope shall not take effect, until the Parties have approved the Safety Analysis (or the relevant amendment) in writing. Neither Party shall require the other to operate outside that envelope without a written amendment to the Safety Analysis.</p>
-        <p><span class="lead">Allocation of safety responsibility.</span> The Customer is responsible for site control, traffic management, exclusion zones, signage, lock-out/tag-out procedures, and the safety of all of the Customer&rsquo;s personnel and third parties on the site, and shall conduct site induction for Hive personnel attending site. Hive is responsible for the safe design, operation and supervision of the Hive Equipment and Hive&rsquo;s remote operators within the operational envelope set in the Safety Analysis.</p>
-        <p><span class="lead">Incident reporting.</span> Each Party shall notify the other without undue delay (and in any event within 24 hours) of any incident involving (i) injury, (ii) damage to equipment or property, or (iii) an unauthorized or uncontrolled movement of a Hive machine, and shall cooperate in good faith in any investigation.</p>
-        <p><span class="lead">Suspension.</span> Either Party may suspend the Service immediately on written notice if it reasonably considers that continued operation poses an imminent risk of injury or material property damage. Suspension shall last only as long as the risk persists, the suspending Party shall promptly engage to restore the Service, and a suspension under this clause shall not constitute a breach by either Party.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">9</span>Safety</h2>
+    <p><span class="lead">Safety Analysis as a precondition.</span> The Service shall be provided only within the operational envelope set out in the Safety Analysis. The Service shall not commence at any site, and any change to the operational envelope shall not take effect, until the Parties have approved the Safety Analysis (or the relevant amendment) in writing. Neither Party shall require the other to operate outside that envelope without a written amendment to the Safety Analysis.</p>
+    <p><span class="lead">Allocation of safety responsibility.</span> The Customer is responsible for site control, traffic management, exclusion zones, signage, lock-out/tag-out procedures, and the safety of all of the Customer&rsquo;s personnel and third parties on the site, and shall conduct site induction for Hive personnel attending site. Hive is responsible for the safe design, operation and supervision of the Hive Equipment and Hive&rsquo;s remote operators within the operational envelope set in the Safety Analysis.</p>
+    <p><span class="lead">Incident reporting.</span> Each Party shall notify the other without undue delay (and in any event within 24 hours) of any incident involving (i) injury, (ii) damage to equipment or property, or (iii) an unauthorized or uncontrolled movement of a Hive machine, and shall cooperate in good faith in any investigation.</p>
+    <p><span class="lead">Suspension.</span> Either Party may suspend the Service immediately on written notice if it reasonably considers that continued operation poses an imminent risk of injury or material property damage. Suspension shall last only as long as the risk persists, the suspending Party shall promptly engage to restore the Service, and a suspension under this clause shall not constitute a breach by either Party.</p>
+  </section>
 
-    <section class="clause" id="equipment">
-      <div class="clause-head"><div class="clause-num">10</div><h2 class="clause-title">Equipment on the Customer&rsquo;s Site</h2></div>
-      <div class="clause-body">
-        <p><span class="lead">Title and risk.</span> Title to and risk in (i) the Hive Machines and (ii) the Hive System (whether installed on a Hive Machine or a Customer Machine) remain with Hive at all times. Title to and risk in any Customer Machine remain with the Customer. The Customer acquires no right, title or interest in any Hive Machine or in any Hive System by virtue of this Agreement, the SOW, or the payment of any fee.</p>
-        <p><span class="lead">Care of equipment on site.</span> The Customer shall take reasonable care of the Hive Equipment while it is at the Customer&rsquo;s site, shall not move, modify, repair or interfere with any Hive Equipment except with Hive&rsquo;s prior written consent, and shall promptly notify Hive of any loss of, damage to, or interference with Hive Equipment. The Customer is responsible for loss of or damage to Hive Equipment caused by the Customer or its personnel, save for fair wear and tear and save to the extent caused by the negligence of Hive.</p>
-        <p><span class="lead">Access and exclusive use.</span> The Customer shall provide Hive with safe access to the Hive Equipment and the relevant areas of the site at all reasonable times for installation, operation, maintenance, recovery and removal. The Hive Equipment shall be used solely to deliver the Service; the Customer shall not permit any third party to operate or use any Hive Equipment.</p>
-        <p><span class="lead">Third-party dependencies.</span> The Service depends on third-party telecommunications and cloud services. Hive shall not be liable for any failure or degradation of the Service to the extent caused by any of those third-party dependencies, except where Hive has selected and contracted directly with the relevant provider as part of the Service.</p>
-        <p><span class="lead">Enhancement reversibility.</span> Where the Service has been delivered on a Customer Machine, on termination Hive shall remove the Hive System and reasonably reinstate the Customer Machine to full operational condition. The Parties acknowledge that the cosmetic aspects of the enhancement cannot always be fully reversed, and that reasonable residual cosmetic marks (including at mounting points, wiring runs, paint and minor cosmetic features) may remain. The Customer&rsquo;s sole remedy in respect of such residual cosmetic changes is the agreed exit procedure under the SOW.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">10</span>Equipment on the Customer&rsquo;s Site</h2>
+    <p><span class="lead">Title and risk.</span> Title to and risk in (i) the Hive Machines and (ii) the Hive System (whether installed on a Hive Machine or a Customer Machine) remain with Hive at all times. Title to and risk in any Customer Machine remain with the Customer. The Customer acquires no right, title or interest in any Hive Machine or in any Hive System by virtue of this Agreement, the SOW, or the payment of any fee.</p>
+    <p><span class="lead">Care of equipment on site.</span> The Customer shall take reasonable care of the Hive Equipment while it is at the Customer&rsquo;s site, shall not move, modify, repair or interfere with any Hive Equipment except with Hive&rsquo;s prior written consent, and shall promptly notify Hive of any loss of, damage to, or interference with Hive Equipment. The Customer is responsible for loss of or damage to Hive Equipment caused by the Customer or its personnel, save for fair wear and tear and save to the extent caused by the negligence of Hive.</p>
+    <p><span class="lead">Access and exclusive use.</span> The Customer shall provide Hive with safe access to the Hive Equipment and the relevant areas of the site at all reasonable times for installation, operation, maintenance, recovery and removal. The Hive Equipment shall be used solely to deliver the Service; the Customer shall not permit any third party to operate or use any Hive Equipment.</p>
+    <p><span class="lead">Third-party dependencies.</span> The Service depends on third-party telecommunications and cloud services. Hive shall not be liable for any failure or degradation of the Service to the extent caused by any of those third-party dependencies, except where Hive has selected and contracted directly with the relevant provider as part of the Service.</p>
+    <p><span class="lead">Enhancement reversibility.</span> Where the Service has been delivered on a Customer Machine, on termination Hive shall remove the Hive System and reasonably reinstate the Customer Machine to full operational condition. The Parties acknowledge that the cosmetic aspects of the enhancement cannot always be fully reversed, and that reasonable residual cosmetic marks (including at mounting points, wiring runs, paint and minor cosmetic features) may remain. The Customer&rsquo;s sole remedy in respect of such residual cosmetic changes is the agreed exit procedure under the SOW.</p>
+  </section>
 
-    <section class="clause" id="insurance">
-      <div class="clause-head"><div class="clause-num">11</div><h2 class="clause-title">Insurance</h2></div>
-      <div class="clause-body">
-        <p>Hive shall maintain, throughout the term of this Agreement, appropriate insurance cover with reputable insurers in respect of its obligations under this Agreement, and shall provide evidence of such cover on reasonable written request.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">11</span>Insurance</h2>
+    <p>Hive shall maintain, throughout the term of this Agreement, appropriate insurance cover with reputable insurers in respect of its obligations under this Agreement, and shall provide evidence of such cover on reasonable written request.</p>
+  </section>
 
-    <section class="clause" id="updates">
-      <div class="clause-head"><div class="clause-num">12</div><h2 class="clause-title">System Updates</h2></div>
-      <div class="clause-body">
-        <p>Hive may at any time update, upgrade, replace, or maintain any part of the Hive System, including for wear and tear, safety, or technological improvements. The Customer shall provide reasonable access to the machine and Customer&rsquo;s site.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">12</span>System Updates</h2>
+    <p>Hive may at any time update, upgrade, replace, or maintain any part of the Hive System, including for wear and tear, safety, or technological improvements. The Customer shall provide reasonable access to the machine and Customer&rsquo;s site.</p>
+  </section>
 
-    <section class="clause" id="liability">
-      <div class="clause-head"><div class="clause-num">13</div><h2 class="clause-title">Liability and Limits</h2></div>
-      <div class="clause-body">
-        <p>Neither Party shall be liable for any indirect, incidental, special, or consequential damages, including lost profits, business interruption, or loss of use, regardless of the form of action or theory of liability. Each Party&rsquo;s total aggregate liability for any and all claims arising under or in connection with this Agreement shall not exceed the total fees paid or payable by Customer to Hive in the twelve (12) months preceding the event giving rise to the claim. These limitations and exclusions do not apply in cases of gross negligence, willful misconduct, breach of confidentiality obligations or violations of intellectual property rights.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">13</span>Liability and Limits</h2>
+    <p>Neither Party shall be liable for any indirect, incidental, special, or consequential damages, including lost profits, business interruption, or loss of use, regardless of the form of action or theory of liability. Each Party&rsquo;s total aggregate liability for any and all claims arising under or in connection with this Agreement shall not exceed the total fees paid or payable by Customer to Hive in the twelve (12) months preceding the event giving rise to the claim. These limitations and exclusions do not apply in cases of gross negligence, willful misconduct, breach of confidentiality obligations or violations of intellectual property rights.</p>
+  </section>
 
-    <section class="clause" id="disclaimer">
-      <div class="clause-head"><div class="clause-num">14</div><h2 class="clause-title">Disclaimer</h2></div>
-      <div class="clause-body">
-        <p class="caps">EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, THE HIVE SYSTEM AND PLATFORM ARE PROVIDED &ldquo;AS IS&rdquo; AND HIVE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">14</span>Disclaimer</h2>
+    <p class="caps">EXCEPT AS EXPRESSLY SET FORTH IN THIS AGREEMENT, THE HIVE SYSTEM AND PLATFORM ARE PROVIDED &ldquo;AS IS&rdquo; AND HIVE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.</p>
+  </section>
 
-    <section class="clause" id="term">
-      <div class="clause-head"><div class="clause-num">15</div><h2 class="clause-title">Term and Termination</h2></div>
-      <div class="clause-body">
-        <p><span class="lead">Minimum Term:</span> Unless otherwise stated in the Term Sheet between Parties, the initial term of this Agreement is thirty-six (36) months from the Commercial Start Date per machine (the &ldquo;Minimum Term&rdquo;).</p>
-        <p><span class="lead">Termination for Cause:</span> Either Party may terminate immediately for material breach not cured within fourteen (14) days of written notice specifying the breach.</p>
-        <p><span class="lead">Termination Fee:</span> If the Customer terminates during the Minimum Term for reasons other than Hive&rsquo;s material breach or persistent underperformance under the applicable SLA, a termination fee equivalent to two (2) months&rsquo; service fee per terminated machine shall apply. The fee covers Hive&rsquo;s costs for decommissioning, removal of the Hive System, and reversal of the retrofit.</p>
-        <p><span class="lead">Termination After Minimum Term:</span> After the Minimum Term, either Party may terminate with three (3) months&rsquo; written notice. Termination does not affect accrued payment obligations.</p>
-        <p><span class="lead">Effect of Termination:</span> Upon termination, the Customer shall cease use of the Service; Hive shall deactivate the Service and remove Hive equipment in accordance with the agreed exit procedure. Customer shall allow for the removal of the System within a reasonable timeline after termination.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">15</span>Term and Termination</h2>
+    <p><span class="lead">Minimum Term:</span> Unless otherwise stated in the Term Sheet between Parties, the initial term of this Agreement is thirty-six (36) months from the Commercial Start Date per machine (the &ldquo;Minimum Term&rdquo;).</p>
+    <p><span class="lead">Termination for Cause:</span> Either Party may terminate immediately for material breach not cured within fourteen (14) days of written notice specifying the breach.</p>
+    <p><span class="lead">Termination Fee:</span> If the Customer terminates during the Minimum Term for reasons other than Hive&rsquo;s material breach or persistent underperformance under the applicable SLA, a termination fee equivalent to two (2) months&rsquo; service fee per terminated machine shall apply. The fee covers Hive&rsquo;s costs for decommissioning, removal of the Hive System, and reversal of the retrofit.</p>
+    <p><span class="lead">Termination After Minimum Term:</span> After the Minimum Term, either Party may terminate with three (3) months&rsquo; written notice. Termination does not affect accrued payment obligations.</p>
+    <p><span class="lead">Effect of Termination:</span> Upon termination, the Customer shall cease use of the Service; Hive shall deactivate the Service and remove Hive equipment in accordance with the agreed exit procedure. Customer shall allow for the removal of the System within a reasonable timeline after termination.</p>
+  </section>
 
-    <section class="clause" id="force-majeure">
-      <div class="clause-head"><div class="clause-num">16</div><h2 class="clause-title">Force Majeure</h2></div>
-      <div class="clause-body">
-        <p>Neither Party shall be liable for failure to perform due to force majeure. If a force majeure event persists for more than 90 days, either Party may terminate with 15 days' notice.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">16</span>Force Majeure</h2>
+    <p>Neither Party shall be liable for failure to perform due to force majeure. If a force majeure event persists for more than 90 days, either Party may terminate with 15 days&apos; notice.</p>
+  </section>
 
-    <section class="clause" id="assignment">
-      <div class="clause-head"><div class="clause-num">17</div><h2 class="clause-title">Assignment</h2></div>
-      <div class="clause-body">
-        <p>Hive may assign this Agreement to affiliates or successors in connection with a change of control, merger, reorganization or sale of all or substantially all of the assets of Hive. The Customer may not assign without Hive's prior written consent, except in connection with a change of control, merger, reorganization or sale of all or substantially all assets of Customer provided that such assignee or new controller is not a direct or indirect competitor of Hive.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">17</span>Assignment</h2>
+    <p>Hive may assign this Agreement to affiliates or successors in connection with a change of control, merger, reorganization or sale of all or substantially all of the assets of Hive. The Customer may not assign without Hive&apos;s prior written consent, except in connection with a change of control, merger, reorganization or sale of all or substantially all assets of Customer provided that such assignee or new controller is not a direct or indirect competitor of Hive.</p>
+  </section>
 
-    <section class="clause" id="insolvency">
-      <div class="clause-head"><div class="clause-num">18</div><h2 class="clause-title">Insolvency</h2></div>
-      <div class="clause-body">
-        <p>If the Customer becomes insolvent, enters bankruptcy or winding-up proceedings, or has a receiver appointed, Hive may terminate immediately, suspend the Service, and enter the Customer&rsquo;s site to retrieve all Hive Equipment. All outstanding fees become immediately due. The Hive System shall not form part of the Customer's estate. Hive&rsquo;s rights under this clause are subject to applicable bankruptcy law, including any automatic stay; in such circumstances Hive shall promptly seek relief from the automatic stay to enforce its rights hereunder.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">18</span>Insolvency</h2>
+    <p>If the Customer becomes insolvent, enters bankruptcy or winding-up proceedings, or has a receiver appointed, Hive may terminate immediately, suspend the Service, and enter the Customer&rsquo;s site to retrieve all Hive Equipment. All outstanding fees become immediately due. The Hive System shall not form part of the Customer&apos;s estate. Hive&rsquo;s rights under this clause are subject to applicable bankruptcy law, including any automatic stay; in such circumstances Hive shall promptly seek relief from the automatic stay to enforce its rights hereunder.</p>
+  </section>
 
-    <section class="clause" id="governing-law">
-      <div class="clause-head"><div class="clause-num">19</div><h2 class="clause-title">Governing Law and Disputes</h2></div>
-      <div class="clause-body">
-        <p>This Agreement is governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict-of-laws principles. Disputes shall first be resolved through good-faith negotiations between senior executives. If unresolved within thirty (30) days, disputes shall be finally settled by binding arbitration administered by the American Arbitration Association (AAA) under its Commercial Arbitration Rules, seated in New York, New York, before a single arbitrator. The arbitration shall be conducted in English and proceedings shall be confidential. Each Party irrevocably waives any right to trial by jury.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">19</span>Governing Law and Disputes</h2>
+    <p>This Agreement is governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict-of-laws principles. Disputes shall first be resolved through good-faith negotiations between senior executives. If unresolved within thirty (30) days, disputes shall be finally settled by binding arbitration administered by the American Arbitration Association (AAA) under its Commercial Arbitration Rules, seated in New York, New York, before a single arbitrator. The arbitration shall be conducted in English and proceedings shall be confidential. Each Party irrevocably waives any right to trial by jury.</p>
+  </section>
 
-    <section class="clause" id="general">
-      <div class="clause-head"><div class="clause-num">20</div><h2 class="clause-title">General Provisions</h2></div>
-      <div class="clause-body">
-        <p><span class="lead">Severability:</span> If any provision is held unenforceable, the remaining provisions shall continue in full force and effect.</p>
-        <p><span class="lead">Entire Agreement:</span> This Agreement, together with all Term Sheets, SOWs, SLAs, and Change Orders, constitute the entire agreement between the Parties and supersedes all prior negotiations, representations, and agreements relating to its subject matter.</p>
-        <p><span class="lead">Third Party Rights:</span> No person who is not a party to this Agreement shall have any rights to enforce any term of this Agreement.</p>
-      </div>
-    </section>
+  <section>
+    <h2><span class="num">20</span>General Provisions</h2>
+    <p><span class="lead">Severability:</span> If any provision is held unenforceable, the remaining provisions shall continue in full force and effect.</p>
+    <p><span class="lead">Entire Agreement:</span> This Agreement, together with all Term Sheets, SOWs, SLAs, and Change Orders, constitute the entire agreement between the Parties and supersedes all prior negotiations, representations, and agreements relating to its subject matter.</p>
+    <p><span class="lead">Third Party Rights:</span> No person who is not a party to this Agreement shall have any rights to enforce any term of this Agreement.</p>
+  </section>
 
-    <section class="clause" id="definitions">
-      <div class="defs-mark">Definitions</div>
-      <p class="defs-intro">The following terms shall have the meanings set out below when used in this Agreement.</p>
-      <dl class="defs">
-        <div class="def"><dt>The Service</dt><dd>The continuous operational service delivered by Hive under an applicable Statement of Work, including supervised autonomy, remote operation, and remote control of the Machines, which may be Hive Machines, Customer Machines, or a mix. The Service is not a product sale, system delivery, or software license.</dd></div>
-        <div class="def"><dt>Platform</dt><dd>The Hive Autonomy Platform, comprising all cloud services, edge computing software, control systems, and monitoring interfaces provided by Hive to enable and operate the Service.</dd></div>
-        <div class="def"><dt>Hive System</dt><dd>All hardware, software, sensors, communication equipment, and other components installed or provided by Hive in connection with the Service.</dd></div>
-        <div class="def"><dt>Commercial Start Date</dt><dd>The date on which the Service enters operational use at the Customer&rsquo;s site and billing commences, as mutually confirmed by the Parties in writing upon completion of commissioning (Milestone M4).</dd></div>
-        <div class="def"><dt>Safety Analysis</dt><dd>The joint risk and safety assessment to be conducted by both Parties prior to operational deployment, covering hazard identification, risk mitigation measures, emergency procedures, and operational boundaries. The Safety Analysis must be approved in writing by both Parties before the Service may commence.</dd></div>
-        <div class="def"><dt>Statement of Work (SOW)</dt><dd>A document executed by both Parties that defines the specific scope, machines, tasks, commercial terms, deployment plan, and service level for a particular engagement under this Agreement.</dd></div>
-        <div class="def"><dt>Machines</dt><dd>The machines deployed under the applicable Statement of Work, which may be (i) provided by Hive (&ldquo;Hive Machines&rdquo;) or (ii) owned by the Customer with the Hive System installed by Hive (&ldquo;Customer Machines&rdquo;), or a combination of both.</dd></div>
-        <div class="def"><dt>Hive Equipment</dt><dd>The Hive Machines and the Hive System, in each case wherever located.</dd></div>
-        <div class="def"><dt>Change Order</dt><dd>A written document with changes or modifications to any SOW or Term Sheet.</dd></div>
-      </dl>
-    </section>
+  </div><!-- /.cols -->
 
-  </article>
+  <h2 class="defs-title">Definitions</h2>
+  <p class="defs-intro">The following terms shall have the meanings set out below when used in this Agreement.</p>
+  <dl class="defs">
+    <div class="def"><dt>The Service</dt><dd>The continuous operational service delivered by Hive under an applicable Statement of Work, including supervised autonomy, remote operation, and remote control of the Machines, which may be Hive Machines, Customer Machines, or a mix. The Service is not a product sale, system delivery, or software license.</dd></div>
+    <div class="def"><dt>Platform</dt><dd>The Hive Autonomy Platform, comprising all cloud services, edge computing software, control systems, and monitoring interfaces provided by Hive to enable and operate the Service.</dd></div>
+    <div class="def"><dt>Hive System</dt><dd>All hardware, software, sensors, communication equipment, and other components installed or provided by Hive in connection with the Service.</dd></div>
+    <div class="def"><dt>Commercial Start Date</dt><dd>The date on which the Service enters operational use at the Customer&rsquo;s site and billing commences, as mutually confirmed by the Parties in writing upon completion of commissioning (Milestone M4).</dd></div>
+    <div class="def"><dt>Safety Analysis</dt><dd>The joint risk and safety assessment to be conducted by both Parties prior to operational deployment, covering hazard identification, risk mitigation measures, emergency procedures, and operational boundaries. The Safety Analysis must be approved in writing by both Parties before the Service may commence.</dd></div>
+    <div class="def"><dt>Statement of Work (SOW)</dt><dd>A document executed by both Parties that defines the specific scope, machines, tasks, commercial terms, deployment plan, and service level for a particular engagement under this Agreement.</dd></div>
+    <div class="def"><dt>Machines</dt><dd>The machines deployed under the applicable Statement of Work, which may be (i) provided by Hive (&ldquo;Hive Machines&rdquo;) or (ii) owned by the Customer with the Hive System installed by Hive (&ldquo;Customer Machines&rdquo;), or a combination of both.</dd></div>
+    <div class="def"><dt>Hive Equipment</dt><dd>The Hive Machines and the Hive System, in each case wherever located.</dd></div>
+    <div class="def"><dt>Change Order</dt><dd>A written document with changes or modifications to any SOW or Term Sheet.</dd></div>
+  </dl>
 
-  <footer class="foot">
-    <strong>Hive Autonomy Inc</strong> · 630 Cowper St, Palo Alto, CA 94301, USA · <a href="https://www.hiveautonomy.com">hiveautonomy.com</a><br>
+  <footer>
+    <strong>Hive Autonomy Inc</strong> &middot; 630 Cowper St, Palo Alto, CA 94301, USA &middot; <a href="https://www.hiveautonomy.com">hiveautonomy.com</a><br>
     Confidential. These Terms &amp; Conditions form part of the Agreement as defined above.
   </footer>
-</main>
 
+</div>
 </body>
 </html>
