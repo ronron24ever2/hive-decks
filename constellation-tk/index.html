@@ -1,0 +1,1102 @@
+<!-- @template name="HIVE — Slide Layouts" description="Eight production-accurate slide layouts matching the HIVE pitch deck: Front Page, Dark Statement, Problem+Metrics, Comparison Table, Three-Step, Data Table, Proof, Vision/Closing" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HIVE Deck</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./deck-stage.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #111; }
+
+    /* ss03 on for all type — both APK Galeria and IBM Plex Mono */
+    deck-stage section, deck-stage section * {
+      font-feature-settings: 'ss03' on;
+    }
+
+    deck-stage section {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: "APK Galeria", -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    /* surfaces */
+    .dark  { background: #2F3D48; color: #FAFAFB; }
+    .ice   { background: #B8CCDA; color: #2F3D48; }
+
+    /* footer — 52px, always at bottom */
+    .ft {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 52px;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+    }
+    .dark .ft { }
+    .ice  .ft { }
+    .ft-custom-dark { }
+    .ft-custom-ice  { }
+
+    .mono { font-family: "IBM Plex Mono", monospace; font-size: 13px;
+            letter-spacing: 0.10em; text-transform: uppercase; }
+    .mono-sm { font-family: "IBM Plex Mono", monospace; font-size: 11px;
+               letter-spacing: 0.10em; text-transform: uppercase; }
+    .red { color: #FF371C; }
+
+    /* hairline */
+    .hl       { height: 1px; }
+    .dark .hl { background: rgba(250,250,251,0.18); }
+    .ice  .hl { background: rgba(47,61,72,0.20); }
+
+    /* full-bleed image */
+    .bg-img { position: absolute; inset: 0; width: 100%; height: 100%;
+              object-fit: cover; object-position: center; display: block; }
+
+    /* entrance */
+    /* Initial state — elements start at animation's from-state */
+    .a1, .a2, .a3, .a4, .a5 {
+      opacity: 0;
+      transform: translateX(-12px);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      [data-deck-active] .a1,
+      [data-deck-active] .a2,
+      [data-deck-active] .a3,
+      [data-deck-active] .a4,
+      [data-deck-active] .a5 { animation: up .55s cubic-bezier(.2,0,0,1) forwards 0s; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .a1, .a2, .a3, .a4, .a5 { opacity: 1; transform: none; }
+    }
+    @keyframes up {
+      from { opacity: 0; transform: translateX(-12px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+<deck-stage data-om-id="f2fb3562:5" data-cc-id="cc-1" style="--deck-rail-w: 188px;">
+
+
+<!-- ══ 01 FRONT PAGE ══════════════════════════════════════════ -->
+<section data-screen-label="01 Front Page" style="background:#1E2E38;" data-om-id="f2fb3562:6" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="0">
+
+  <!-- full-bleed video background -->
+  <video autoplay="" muted="" loop="" playsinline="" disablepictureinpicture="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+                object-position:center;display:block;z-index:0;" data-om-id="f2fb3562:7">
+    <source src="https://framerusercontent.com/assets/pV3v01MgbbO23Q5J7CPM9qFo.mp4" type="video/mp4" data-om-id="f2fb3562:8">
+  </video>
+  <!-- gradient overlay: darken left for text legibility -->
+  <div style="position:absolute;inset:0;z-index:1;
+    background:linear-gradient(105deg,rgba(30,46,56,0.75) 0%,rgba(30,46,56,0.40) 50%,rgba(30,46,56,0.10) 80%);" data-om-id="f2fb3562:9"></div>
+
+  <!-- huge lockup top-left — logo lockup -->
+  <div style="position:absolute;top:52px;left:52px;z-index:2;" data-om-id="f2fb3562:10">
+    <svg style="height:220px;width:auto;display:block;" width="380" height="75" viewBox="0 0 380 75" fill="none" xmlns="http://www.w3.org/2000/svg" data-om-id="f2fb3562:11">
+<g clip-path="url(#fp_lk2_clip)" data-om-id="f2fb3562:12">
+<path d="M191.765 44.2076H157.236V74.9746H142.273V0H157.236V30.7668H191.765V0H206.727V74.9746H191.765V44.2076Z" fill="#FAFAFB" style="fill:#FAFAFB;fill:color(display-p3 0.9804 0.9804 0.9843);fill-opacity:1;" data-om-id="f2fb3562:13"></path>
+<path d="M221.795 0H236.757V74.9746H221.795V0Z" fill="#FAFAFB" style="fill:#FAFAFB;fill:color(display-p3 0.9804 0.9804 0.9843);fill-opacity:1;" data-om-id="f2fb3562:14"></path>
+<path d="M245.02 0H261.342L280.699 58.3835H281.013L300.265 0H315.96L288.128 74.9746H272.747L245.02 0Z" fill="#FAFAFB" style="fill:#FAFAFB;fill:color(display-p3 0.9804 0.9804 0.9843);fill-opacity:1;" data-om-id="f2fb3562:15"></path>
+<path d="M324.126 0H379.895V12.9158H339.088V30.7668H376.861V43.8927H339.088V61.8489H380V74.9746H324.126V0Z" fill="#FAFAFB" style="fill:#FAFAFB;fill:color(display-p3 0.9804 0.9804 0.9843);fill-opacity:1;" data-om-id="f2fb3562:16"></path>
+<path d="M21.9941 30.7658H79.5076V44.2066H21.9941V30.7658Z" fill="#FAFAFB" style="fill:#FAFAFB;fill:color(display-p3 0.9804 0.9804 0.9843);fill-opacity:1;" data-om-id="f2fb3562:17"></path>
+<path d="M0 44.2068L17.6988 74.9714H37.6836V60.3573H21.9964V44.2068" fill="#FAFAFB" style="fill:#FAFAFB;fill:color(display-p3 0.9804 0.9804 0.9843);fill-opacity:1;" data-om-id="f2fb3562:18"></path>
+<path d="M0 30.7665L17.6987 0.00170898H37.6836V14.6158H21.9964V30.7665" fill="#FAFAFB" style="fill:#FAFAFB;fill:color(display-p3 0.9804 0.9804 0.9843);fill-opacity:1;" data-om-id="f2fb3562:19"></path>
+<path d="M101.501 44.2068L83.8022 74.9714H63.8174V60.3573H79.505V44.2068" fill="#FAFAFB" style="fill:#FAFAFB;fill:color(display-p3 0.9804 0.9804 0.9843);fill-opacity:1;" data-om-id="f2fb3562:20"></path>
+<path d="M101.501 30.7665L83.8022 0.00170898H63.8174V14.6158H79.505V30.7665" fill="#FAFAFB" style="fill:#FAFAFB;fill:color(display-p3 0.9804 0.9804 0.9843);fill-opacity:1;" data-om-id="f2fb3562:21"></path>
+</g>
+<defs data-om-id="f2fb3562:22">
+<clipPath id="fp_lk2_clip" data-om-id="f2fb3562:23">
+<rect width="380" height="75" fill="white" style="fill:white;fill-opacity:1;" data-om-id="f2fb3562:24"></rect>
+</clipPath>
+</defs>
+</svg>
+  </div>
+
+  <!-- tagline bottom-left -->
+  <div class="a2" style="position:absolute;bottom:80px;left:52px;z-index:2;" data-om-id="f2fb3562:25">
+    <p style="font-size:84px;font-weight:400;line-height:1.05;letter-spacing:-0.02em;
+              color:#FAFAFB;" data-om-id="f2fb3562:26">A new era of work.<br data-om-id="f2fb3562:27">Limitless.</p>
+  </div>
+
+  <!-- footer -->
+  <div class="ft ft-custom-dark" style="position:absolute;z-index:2;" data-om-id="f2fb3562:28">
+    <img src="./assets/logo-symbol-white.svg" height="24" alt="HIVE" data-om-id="f2fb3562:29">
+    <span class="mono" style="color:#FAFAFB;" data-om-id="f2fb3562:30">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;" data-om-id="f2fb3562:31">
+      <span class="mono" style="color:#FAFAFB;" data-om-id="f2fb3562:32">CONFIDENTIAL</span>
+      <span class="mono" style="color:#FAFAFB;" data-om-id="f2fb3562:33">01|11</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 02 THE BRAIN IS THE BOTTLENECK ══════════════════════════════════ -->
+<section data-screen-label="02 Problem + Metrics" style="background:#E1EAED; color:#2F3D48;" data-om-id="f2fb3562:74" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="1">
+
+  <div style="position:absolute; top:52px; left:52px; right:52px; bottom:52px;
+               display:flex; flex-direction:column;" data-om-id="f2fb3562:75">
+
+    <!-- headline — full width -->
+    <h1 class="a1" style="font-size:72px; font-weight:400; line-height:1.05;
+                           letter-spacing:-0.025em; color:#2F3D48;" data-om-id="f2fb3562:76">
+      Manual labour is constrained. Automation is no longer
+      optional. The alternative, hiring more operators, is not viable.
+    </h1>
+
+    <!-- sub-text — left col -->
+    <p class="a2" style="font-size:26px; line-height:1.45; color:#4A5C68;
+                          max-width:440px; margin-top:28px;" data-om-id="f2fb3562:77">
+      Three constraints, all structural,<br data-om-id="f2fb3562:78">all getting worse. Let's use
+      logistics as an example:
+    </p>
+
+    <div style="flex:1;" data-om-id="f2fb3562:79"></div>
+
+    <!-- 3-col metrics with individual hairlines -->
+    <div class="a3" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0 64px;" data-om-id="f2fb3562:80">
+
+      <div style="border-top:1px solid rgba(47,61,72,0.22); padding-top:18px;" data-om-id="f2fb3562:81">
+        <p class="mono-sm" style="color:#4A5C68; margin-bottom:14px;" data-om-id="f2fb3562:82">SUPPLY</p>
+        <p style="font-size:120px; font-weight:400; line-height:1.0;
+                  letter-spacing:-0.04em; color:#2F3D48;" data-om-id="f2fb3562:83">30–50%</p>
+        <p style="font-size:20px; line-height:1.5; color:#4A5C68; margin-top:14px;" data-om-id="f2fb3562:84">
+          Annual operator turnover in EU logistics. Workforce shrinking, aging out faster than replaced. Every rotation re-opens a productivity gap.</p>
+      </div>
+
+      <div style="border-top:1px solid rgba(47,61,72,0.22); padding-top:18px;" data-om-id="f2fb3562:85">
+        <p class="mono-sm" style="color:#4A5C68; margin-bottom:14px;" data-om-id="f2fb3562:86">COST</p>
+        <p style="font-size:120px; font-weight:400; line-height:1.0;
+                  letter-spacing:-0.04em; color:#2F3D48;" data-om-id="f2fb3562:87">~70%</p>
+        <p style="font-size:20px; line-height:1.5; color:#4A5C68; margin-top:14px;" data-om-id="f2fb3562:88">
+          Of a 2-shift forklift's loaded TCO is the operator. Wages up 4–7% per year. Shift premiums, sickness cover and onboarding outpace machine cost.</p>
+      </div>
+
+      <div style="border-top:1px solid rgba(47,61,72,0.22); padding-top:18px;" data-om-id="f2fb3562:89">
+        <p class="mono-sm" style="color:#4A5C68; margin-bottom:14px;" data-om-id="f2fb3562:90">RELIABILITY</p>
+        <p style="font-size:120px; font-weight:400; line-height:1.0;
+                  letter-spacing:-0.04em; color:#2F3D48;" data-om-id="f2fb3562:91">5x</p>
+        <p style="font-size:20px; line-height:1.5; color:#4A5C68; margin-top:14px;" data-om-id="f2fb3562:92">
+          Forklift-operator injury rate vs. the average warehouse role. Shifts go uncovered. Safety incidents block throughput. Iron sits idle 34% of the time.</p>
+      </div>
+
+    </div>
+
+    <!-- summary — spans cols 2–3 -->
+    <div class="a4" style="display:grid; grid-template-columns:1fr 2fr; gap:0 64px; margin-top:36px;" data-om-id="f2fb3562:93">
+      <div data-om-id="f2fb3562:94"></div>
+      <p style="font-size:28px; line-height:1.45; color:#2F3D48;" data-om-id="f2fb3562:95">
+        The labour you can hire isn't enough. The labour you can't hire is what holds you back.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- footer -->
+  <div class="ft" style="position:absolute; left:0; right:0; bottom:0; padding:0 52px;" data-om-id="f2fb3562:96">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE" data-om-id="f2fb3562:97">
+    <span class="mono red" data-om-id="f2fb3562:98">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;" data-om-id="f2fb3562:99">
+      <span class="mono" style="color:#2F3D48;" data-om-id="f2fb3562:100">CONFIDENTIAL</span>
+      <span class="mono" style="color:#2F3D48;" data-om-id="f2fb3562:101">03|11</span>
+    </div>
+  </div>
+</section><section data-screen-label="03 Brain Bottleneck" style="background:#E1EAED; color:#2F3D48;" data-om-id="f2fb3562:34" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="2">
+
+  <!-- outer flex column -->
+  <div style="position:absolute; top:52px; left:52px; right:52px; bottom:160px;
+               display:flex; flex-direction:column; justify-content:space-between;" data-om-id="f2fb3562:35">
+
+    <!-- ① two-col header: headline left, body right -->
+    <div class="a1" style="display:grid; grid-template-columns:1fr 1fr; gap:0 80px; align-items:start;" data-om-id="f2fb3562:36">
+      <h1 style="font-size:80px; font-weight:400; line-height:1.05;
+                 letter-spacing:-0.025em; color:#2F3D48;" data-om-id="f2fb3562:37">
+        Human operation is<br data-om-id="f2fb3562:38">the bottleneck.
+      </h1>
+      <div style="padding-top:8px;" data-om-id="f2fb3562:39">
+        <p style="font-size:28px; line-height:1.45; color:#4A5C68; margin-bottom:20px;" data-om-id="f2fb3562:40">
+          Physical machines run the world, and every one of them needs a brain to operate it.
+          Today that brain is human: scarce, hard to scale, and stretched thin.
+        </p>
+        <p style="font-size:28px; line-height:1.45; color:#4A5C68;" data-om-id="f2fb3562:41">
+          Multiply the human brain with AI, and the economics flip. Every correction
+          compounds. The cost of industrial work falls immediately, enabling a new
+          industrial productivity revolution.
+        </p>
+      </div>
+    </div>
+
+    <!-- ③ second header: headline left, body right -->
+    <div class="a3" style="display:grid; grid-template-columns:1fr 1fr; gap:0 80px; align-items:start;" data-om-id="f2fb3562:90">
+      <h1 style="font-size:80px; font-weight:400; line-height:1.05;
+                 letter-spacing:-0.025em; color:#2F3D48;" data-om-id="f2fb3562:91">
+        Current automation<br data-om-id="f2fb3562:92">is insufficient.
+      </h1>
+      <div style="padding-top:8px;" data-om-id="f2fb3562:93">
+        <p style="font-size:28px; line-height:1.45; color:#4A5C68;" data-om-id="f2fb3562:94">
+          The objective is to keep throughput at a much lower cost. Make automation work
+          across the full workflow range without reconfiguration and reimplementation.
+        </p>
+      </div>
+    </div>
+
+    <!-- ② infographic: two large cards + arrow + timeline -->
+    <div class="a2" data-om-id="f2fb3562:42">
+
+      <!-- cards row -->
+      <div style="display:grid; grid-template-columns:1fr 64px 1fr; align-items:center; margin-bottom:32px;" data-om-id="f2fb3562:43">
+
+        <!-- TODAY — dark navy -->
+        <div style="background:#2F3D48; padding:36px 44px 32px;" data-om-id="f2fb3562:44">
+          <p class="mono-sm" style="color:rgba(250,250,251,0.50); margin-bottom:20px;" data-om-id="f2fb3562:45">TODAY</p>
+          <p style="font-size:96px; font-weight:400; line-height:1; letter-spacing:-0.03em; color:#FAFAFB;" data-om-id="f2fb3562:46">
+            $40 / hr
+          </p>
+          <p style="font-size:20px; color:rgba(250,250,251,0.50); margin-top:18px;" data-om-id="f2fb3562:47">per machine operator/hour</p>
+        </div>
+
+        <!-- arrow -->
+        <div style="display:flex; justify-content:center; align-items:center;" data-om-id="f2fb3562:48">
+          <span style="font-size:32px; color:#4A5C68; letter-spacing:-0.02em;" data-om-id="f2fb3562:49">→</span>
+        </div>
+
+        <!-- BY 2035 — white ice -->
+        <div style="background:#FAFAFB; padding:36px 44px 32px;" data-om-id="f2fb3562:50">
+          <p class="mono-sm" style="color:#4A5C68; margin-bottom:20px;" data-om-id="f2fb3562:51">BY 2035</p>
+          <p style="font-size:96px; font-weight:400; line-height:1; letter-spacing:-0.03em; color:#2F3D48;" data-om-id="f2fb3562:52">
+            80%
+          </p>
+          <p style="font-size:20px; color:#4A5C68; margin-top:18px;" data-om-id="f2fb3562:53">labour cost reduction</p>
+        </div>
+
+      </div>
+
+      <!-- timeline: labels → track → years -->
+      <div data-om-id="f2fb3562:54">
+        <!-- labels above track -->
+        <div style="display:flex; justify-content:space-between; margin-bottom:10px;" data-om-id="f2fb3562:55">
+          <span class="mono-sm" style="color:#2F3D48;" data-om-id="f2fb3562:56">HUMAN-LED</span>
+          <span class="mono-sm" style="color:#4A5C68;" data-om-id="f2fb3562:57">SILICON SHARE GROWS →</span>
+          <span class="mono-sm" style="color:#2F3D48;" data-om-id="f2fb3562:58">SILICON-LED</span>
+        </div>
+        <!-- track with red progress -->
+        <div style="position:relative; height:3px; background:rgba(47,61,72,0.20); margin-bottom:10px;" data-om-id="f2fb3562:59">
+          <div style="position:absolute; left:0; top:0; width:16.6%; height:100%; background:#FF371C;" data-om-id="f2fb3562:60"></div>
+        </div>
+        <!-- year labels below -->
+        <div style="display:flex; justify-content:space-between;" data-om-id="f2fb3562:61">
+          <span class="mono-sm" style="color:#4A5C68;" data-om-id="f2fb3562:62">2025</span>
+          <span class="mono-sm" style="color:#4A5C68;" data-om-id="f2fb3562:63">2027</span>
+          <span class="mono-sm" style="color:#4A5C68;" data-om-id="f2fb3562:64">2029</span>
+          <span class="mono-sm" style="color:#4A5C68;" data-om-id="f2fb3562:65">2031</span>
+          <span class="mono-sm" style="color:#4A5C68;" data-om-id="f2fb3562:66">2033</span>
+          <span class="mono-sm" style="color:#4A5C68;" data-om-id="f2fb3562:67">2035</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- footer -->
+  <div class="ft ft-custom-ice" style="position:absolute;" data-om-id="f2fb3562:68">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE" data-om-id="f2fb3562:69">
+    <span class="mono red" data-om-id="f2fb3562:70">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;" data-om-id="f2fb3562:71">
+      <span class="mono" style="color:#2F3D48;" data-om-id="f2fb3562:72">CONFIDENTIAL</span>
+      <span class="mono" style="color:#2F3D48;" data-om-id="f2fb3562:73">02|11</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 03 PROBLEM + METRICS ═══════════════════════════════════ -->
+
+
+<!-- ══ 04 SILICON BRAIN ══════════════════════════════════ -->
+<section data-screen-label="04 Silicon Brain" style="background:#0D1A22;" data-om-id="a3a334ec:102" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="3">
+
+  <!-- full-bleed background image -->
+  <img src="./uploads/silicon brain bg.png" alt="" class="bg-img" style="object-position:center; opacity:1;" data-om-id="a3a334ec:103">
+  <!-- subtle darkening overlay — image is already dark -->
+  <div style="position:absolute;inset:0;background:rgba(10,18,24,0.25);z-index:1;" data-om-id="a3a334ec:104"></div>
+
+  <!-- content — two col, vertically centred, shifted slightly up -->
+  <div style="position:absolute;inset:0;z-index:2;
+               display:flex; align-items:center;
+               padding:0 52px 80px;" data-om-id="a3a334ec:105">
+    <div style="display:grid; grid-template-columns:5fr 7fr; gap:0 80px; width:100%;" data-om-id="a3a334ec:106">
+
+      <!-- left: headline -->
+      <h1 class="a1" style="font-size:88px; font-weight:400; line-height:1.05;
+                             letter-spacing:-0.025em; color:#FAFAFB;" data-om-id="a3a334ec:107">
+        The HIVE<br data-om-id="a3a334ec:108">silicon brain
+      </h1>
+
+      <!-- right: body -->
+      <p class="a2" style="font-size:28px; line-height:1.5; color:rgb(250,250,251); padding-top:8px;" data-om-id="a3a334ec:109">
+        The brain is the model. The body is the machine.
+        Not a robot we ship. Not just a retrofit on a machine. A silicon brain
+        that operates the machine, whatever shape that machine takes.
+        One platform for the full fleet of material-handling machines,
+        and the ambition doesn't stop at the horizon.
+      </p>
+
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="ft ft-custom-dark" style="position:absolute;z-index:2;" data-om-id="a3a334ec:110">
+    <img src="./assets/logo-symbol-white.svg" height="22" alt="HIVE" data-om-id="a3a334ec:111">
+    <span class="mono" style="color:#FAFAFB;" data-om-id="a3a334ec:112">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;" data-om-id="a3a334ec:113">
+      <span class="mono" style="color:#FAFAFB;" data-om-id="a3a334ec:114">CONFIDENTIAL</span>
+      <span class="mono" style="color:#FAFAFB;" data-om-id="a3a334ec:115">04|11</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 05 ODIN COMPOSITION ══════════════════════════════════ -->
+<section data-screen-label="06 ODIN Composition" style="background:#E1EAED; color:#2F3D48;" data-om-id="a3a334ec:151" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="5">
+
+  <div style="position: absolute; top: 52px; left: 52px; right: 52px; bottom: 52px; display: flex; flex-direction: column; justify-content: space-between; padding: 0px 0px 128px" data-om-id="a3a334ec:152">
+
+    <!-- header -->
+    <div data-om-id="a3a334ec:153">
+
+      <h1 class="a2" style="font-size:72px; font-weight:400; line-height:1.05;
+                             letter-spacing:-0.025em; color:#2F3D48; margin-bottom:20px;" data-om-id="a3a334ec:122">
+        One model. Every industrial machine.
+      </h1>
+      <h2 class="a2" style="font-size:40px; font-weight:400; line-height:1.1;
+                             letter-spacing:-0.02em; color:#4A5C68;" data-om-id="a3a334ec:157">
+        Two components becoming one silicon brain.
+      </h2>
+    </div>
+
+    <!-- diagram -->
+    <div class="a3" style="display:flex; align-items:stretch; gap:0;" data-om-id="a3a334ec:158">
+
+      <!-- left: stacked input cards -->
+      <div style="display:flex; flex-direction:column; gap:10px; width:240px; flex-shrink:0; justify-content:center;" data-om-id="a3a334ec:159">
+        <div style="background:#FAFAFB; padding:20px 24px; border:1px solid rgba(47,61,72,0.12);" data-om-id="a3a334ec:160">
+          <p class="mono-sm" style="color:#4A5C68; margin-bottom:10px;" data-om-id="a3a334ec:161">TEXT INPUT</p>
+          <p style="font-size:18px; line-height:1.5; color:#4A5C68; font-style:italic;" data-om-id="a3a334ec:162">
+            "Please pick the pallet and move it to the loading bay."
+          </p>
+        </div>
+        <div style="background:#FAFAFB; padding:20px 24px; border:1px solid rgba(47,61,72,0.12);" data-om-id="a3a334ec:163">
+          <p class="mono-sm" style="color:#4A5C68; margin-bottom:10px;" data-om-id="a3a334ec:164">MACHINE STATE</p>
+          <p style="font-size:18px; line-height:1.6; color:#4A5C68;" data-om-id="a3a334ec:165">Camera feeds · lidar · joint positions · velocity</p>
+        </div>
+      </div>
+
+      <!-- arrow -->
+      <div style="display:flex; align-items:center; padding:0 28px; flex-shrink:0;" data-om-id="a3a334ec:166">
+        <span style="font-size:28px; color:#4A5C68;" data-om-id="a3a334ec:167">→</span>
+      </div>
+
+      <!-- center: Huginn + Muninn side by side -->
+      <div style="display:grid; grid-template-columns:1fr 1px 1fr; flex:1;" data-om-id="a3a334ec:168">
+        <!-- Huginn -->
+        <div style="background:#2F3D48; padding:32px 36px;" data-om-id="a3a334ec:169">
+          <p style="font-size:16px; color:rgba(250,250,251,0.50); margin-bottom:20px; letter-spacing:0.04em;" data-om-id="a3a334ec:170">Huginn · thought</p>
+          <p style="font-size:48px; font-weight:400; line-height:1.05; letter-spacing:-0.02em; color:#FAFAFB; margin-bottom:16px;" data-om-id="a3a334ec:171">Perception &amp;<br data-om-id="a3a334ec:172">Understanding</p>
+          <p style="font-size:18px; color:rgba(250,250,251,0.65); margin-bottom:16px;" data-om-id="a3a334ec:173">Sees and understands</p>
+          <p class="mono-sm" style="color:rgba(250,250,251,0.45); line-height:1.7;" data-om-id="a3a334ec:174">Vision + Language<br data-om-id="a3a334ec:175">+ Fusion</p>
+        </div>
+        <!-- divider -->
+        <div style="background:rgba(250,250,251,0.12);" data-om-id="a3a334ec:176"></div>
+        <!-- Muninn -->
+        <div style="background:#1E2E38; padding:32px 36px;" data-om-id="a3a334ec:177">
+          <p style="font-size:16px; color:rgba(250,250,251,0.50); margin-bottom:20px; letter-spacing:0.04em;" data-om-id="a3a334ec:178">Muninn · memory</p>
+          <p style="font-size:48px; font-weight:400; line-height:1.05; letter-spacing:-0.02em; color:#FAFAFB; margin-bottom:16px;" data-om-id="a3a334ec:179">Action &amp;<br data-om-id="a3a334ec:180">Memory</p>
+          <p style="font-size:18px; color:rgba(250,250,251,0.65); margin-bottom:16px;" data-om-id="a3a334ec:181">Acts and remembers</p>
+          <p class="mono-sm" style="color:rgba(250,250,251,0.45); line-height:1.7;" data-om-id="a3a334ec:182">Policy + Diffusion<br data-om-id="a3a334ec:183">+ Execution</p>
+        </div>
+      </div>
+
+      <!-- arrow -->
+      <div style="display:flex; align-items:center; padding:0 28px; flex-shrink:0;" data-om-id="a3a334ec:184">
+        <span style="font-size:28px; color:#4A5C68;" data-om-id="a3a334ec:185">→</span>
+      </div>
+
+      <!-- right: output card -->
+      <div style="width:200px; flex-shrink:0; background:#2F3D48; padding:24px; display:flex; flex-direction:column; justify-content:center;" data-om-id="a3a334ec:186">
+        <p class="mono-sm" style="color:rgba(250,250,251,0.50); margin-bottom:14px;" data-om-id="a3a334ec:187">MACHINE CONTROL</p>
+        <p style="font-size:18px; line-height:1.6; color:rgba(250,250,251,0.80);" data-om-id="a3a334ec:188">Continuous trajectories, drive, lift, navigate, adapt.</p>
+      </div>
+
+    </div>
+
+    <!-- bottom attribution -->
+    <p class="a4" style="font-size:20px; line-height:1.6; color:#4A5C68; font-style:italic;" data-om-id="a3a334ec:189">
+      Named after Odin's two ravens in Norse mythology, <strong style="font-style:normal; color:#2F3D48;" data-om-id="a3a334ec:190">Huginn</strong> (thought) and <strong style="font-style:normal; color:#2F3D48;" data-om-id="a3a334ec:191">Muninn</strong> (memory), who fly across the world each day and return with what must be remembered.
+    </p>
+
+  </div>
+
+  <div class="ft" style="position:absolute; left:0; right:0; bottom:0; padding:0 52px;" data-om-id="a3a334ec:192">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE" data-om-id="a3a334ec:193">
+    <span class="mono red" data-om-id="a3a334ec:194">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;" data-om-id="a3a334ec:195">
+      <span class="mono" style="color:#2F3D48;" data-om-id="a3a334ec:196">CONFIDENTIAL</span>
+      <span class="mono" style="color:#2F3D48;" data-om-id="a3a334ec:197">05|11</span>
+    </div>
+  </div>
+</section>
+<!-- ══ 07 BUSINESS MODEL ══════════════════════════════════ -->
+<section data-screen-label="07 Business Model" style="background:#0B1A2C; color:#FAFAFB;" data-om-id="a3a334ec:198" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="6">
+
+  <!-- background: Hive operation-center photo -->
+  <img src="./assets/forklift-5.jpg" alt="Operator supervising an autonomous forklift from the Hive operation center"
+       style="position:absolute; inset:0; z-index:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block;" data-om-id="a3a334ec:199a">
+
+  <!-- legibility overlay — darken the left where the text sits -->
+  <div style="position:absolute; inset:0; z-index:1;
+              background:linear-gradient(105deg, rgba(8,18,30,0.92) 0%, rgba(8,18,30,0.70) 46%, rgba(8,18,30,0.32) 82%);" data-om-id="a3a334ec:199b"></div>
+
+  <!-- content — left column, vertically centred -->
+  <div style="position:absolute; inset:0; z-index:2; display:flex; align-items:center;
+              padding:0 52px 40px;" data-om-id="a3a334ec:199">
+    <div style="max-width:1180px;" data-om-id="a3a334ec:202">
+
+      <h1 class="a1" style="font-size:68px; font-weight:400; line-height:1.06;
+                             letter-spacing:-0.025em; color:#FAFAFB; margin-bottom:40px; max-width:1140px;" data-om-id="a3a334ec:200">
+        A full shift of work, delivered at a substantially lower cost.
+        <span style="font-style:italic;" data-om-id="a3a334ec:201">Supervised from the Hive operation center.</span>
+      </h1>
+
+      <div class="a2" style="max-width:1000px;" data-om-id="a3a334ec:203">
+        <p style="font-size:26px; line-height:1.5; color:rgba(250,250,251,0.85); margin-bottom:22px;" data-om-id="a3a334ec:204">
+          Today, one operator supervises two to three machines.
+        </p>
+        <p style="font-size:26px; line-height:1.5; color:rgba(250,250,251,0.85); margin-bottom:30px;" data-om-id="a3a334ec:205">
+          As ODIN improves — each deployment feeding the next model — that ratio scales:
+          one operator to four, to six, to dozens of machines across sites.
+        </p>
+        <p style="font-size:26px; line-height:1.4; color:#FAFAFB;" data-om-id="a3a334ec:207">
+          Productivity made limitless. Decoupled from the human hour.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="ft ft-custom-dark" style="position:absolute; z-index:3;" data-om-id="a3a334ec:209">
+    <img src="./assets/logo-symbol-white.svg" height="22" alt="HIVE" data-om-id="a3a334ec:210">
+    <span class="mono" style="color:#FAFAFB;" data-om-id="a3a334ec:211">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;" data-om-id="a3a334ec:212">
+      <span class="mono" style="color:#FAFAFB;" data-om-id="a3a334ec:213">CONFIDENTIAL</span>
+      <span class="mono" style="color:#FAFAFB;" data-om-id="a3a334ec:214">06|11</span>
+    </div>
+  </div>
+</section>
+<section data-screen-label="09 Your Full Fleet" style="background:#E1EAED; color:#2F3D48;" data-om-id="a3a334ec:267" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="8" data-cc-id="cc-3" data-deck-active="">
+
+  <div style="position:absolute; top:52px; left:52px; right:52px; bottom:52px;
+               display:flex; flex-direction:column; justify-content:space-between;" data-om-id="a3a334ec:268">
+
+    <!-- header -->
+    <div data-om-id="a3a334ec:269">
+      
+      <h1 class="a2" style="font-size:72px; font-weight:400; line-height:1.05;
+                             letter-spacing:-0.025em; color:#2F3D48; margin-bottom:20px;" data-om-id="a3a334ec:273">
+        HIVE, your <span style="color:#4A5C68;" data-om-id="a3a334ec:274">end-to-end physical AI partner</span>
+      </h1>
+      <p class="a3" style="font-size:26px; line-height:1.45; color:#4A5C68;" data-om-id="a3a334ec:275">
+        Every machine you run supported by the same system.
+      </p>
+    </div>
+
+    <!-- three cards -->
+    <div class="a4" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0 20px;" data-om-id="a3a334ec:276">
+
+      <!-- Card 01 -->
+      <div style="background:#FAFAFB; display:flex; flex-direction:column; overflow:hidden;" data-om-id="a3a334ec:277">
+        <div style="height:240px; overflow:hidden; flex-shrink:0;" data-om-id="a3a334ec:278">
+          <img src="./uploads/DSC09755.jpg" alt="" style="width:100%; height:100%; object-fit:cover; object-position:center;" data-om-id="a3a334ec:279">
+        </div>
+        <div style="padding:24px 28px 28px; flex:1;" data-om-id="a3a334ec:280">
+          <p class="mono-sm" style="color:#4A5C68; margin-bottom:12px;" data-om-id="a3a334ec:281">01</p>
+          <p style="font-size:28px; font-weight:400; line-height:1.2; color:#2F3D48; margin-bottom:14px;" data-om-id="a3a334ec:282">Selected machines</p>
+          <p style="font-size:18px; line-height:1.6; color:#4A5C68;" data-om-id="a3a334ec:283">
+            Supervised-autonomy across selected volume-oriented machine types and brands.
+            Supporting logistics, industrial production, and construction operations.
+          </p>
+        </div>
+      </div>
+
+      <!-- Card 02 -->
+      <div style="background:#FAFAFB; display:flex; flex-direction:column; overflow:hidden;" data-om-id="a3a334ec:284">
+        <div style="height:240px; overflow:hidden; flex-shrink:0;" data-om-id="a3a334ec:285">
+          <img src="./uploads/smallDSC08994nologo.jpg" alt="" style="width:100%; height:100%; object-fit:cover; object-position:20% center;" data-om-id="a3a334ec:286">
+        </div>
+        <div style="padding:24px 28px 28px; flex:1;" data-om-id="a3a334ec:287">
+          <p class="mono-sm" style="color:#4A5C68; margin-bottom:12px;" data-om-id="a3a334ec:288">02</p>
+          <p style="font-size:28px; font-weight:400; line-height:1.2; color:#2F3D48; margin-bottom:14px;" data-om-id="a3a334ec:289">Full fleet of material handling equipment</p>
+          <p style="font-size:18px; line-height:1.6; color:#4A5C68;" data-om-id="a3a334ec:290">
+            Autonomy extending across every class and brand in your operation.
+            Enabling end-to-end material handling operations.
+          </p>
+        </div>
+      </div>
+
+      <!-- Card 03 -->
+      <div style="background:#FAFAFB; display:flex; flex-direction:column; overflow:hidden;" data-om-id="a3a334ec:291">
+        <div style="height:240px; overflow:hidden; flex-shrink:0;" data-om-id="a3a334ec:292">
+          <img src="./uploads/Skjermbilde 2026-06-10 kl. 12.33.22.png" alt="" style="width:100%; height:100%; object-fit:cover; object-position:80% center;" data-om-id="a3a334ec:293">
+        </div>
+        <div style="padding:24px 28px 28px; flex:1;" data-om-id="a3a334ec:294">
+          <p class="mono-sm" style="color:#4A5C68; margin-bottom:12px;" data-om-id="a3a334ec:295">03</p>
+          <p style="font-size:28px; font-weight:400; line-height:1.2; color:#2F3D48; margin-bottom:14px;" data-om-id="a3a334ec:296">New robots entering the market</p>
+          <p style="font-size:18px; line-height:1.6; color:#4A5C68;" data-om-id="a3a334ec:297">
+            As humanoids and inspection robots reach the market, the Hive platform is ready
+            to support them end-to-end, using the same interface and operating system.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- timeline -->
+    <div class="a5" data-om-id="a3a334ec:298" data-cc-id="cc-2" style="padding: 0px 0px 128px;">
+      <!-- dots + line -->
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; position:relative; margin-bottom:10px;" data-om-id="a3a334ec:299">
+        <!-- connecting line -->
+        <div style="position:absolute; top:6px; left:calc(16.67%); right:calc(16.67%); height:1px; background:rgba(47,61,72,0.25);" data-om-id="a3a334ec:300"></div>
+        <!-- dots -->
+        <div style="display:flex; justify-content:center;" data-om-id="a3a334ec:301">
+          <div style="width:13px; height:13px; background:#2F3D48; border-radius:50%; position:relative; z-index:1;" data-om-id="a3a334ec:302"></div>
+        </div>
+        <div style="display:flex; justify-content:center;" data-om-id="a3a334ec:303">
+          <div style="width:13px; height:13px; background:#2F3D48; border-radius:50%; position:relative; z-index:1; opacity:0.55;" data-om-id="a3a334ec:304"></div>
+        </div>
+        <div style="display:flex; justify-content:center;" data-om-id="a3a334ec:305">
+          <div style="width:13px; height:13px; background:#2F3D48; border-radius:50%; position:relative; z-index:1; opacity:0.30;" data-om-id="a3a334ec:306"></div>
+        </div>
+      </div>
+      <!-- labels -->
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; text-align:center;" data-om-id="a3a334ec:307">
+        <div data-om-id="a3a334ec:308"><p class="mono-sm" style="color:#2F3D48;" data-om-id="a3a334ec:309">TODAY</p><p style="font-size:16px; color:#4A5C68; margin-top:4px;" data-om-id="a3a334ec:310">Selected machines in customer operations</p></div>
+        <div data-om-id="a3a334ec:311"><p class="mono-sm" style="color:#4A5C68;" data-om-id="a3a334ec:312">SHORT-TERM</p><p style="font-size:16px; color:#4A5C68; margin-top:4px;" data-om-id="a3a334ec:313">Full material handling fleet</p></div>
+        <div data-om-id="a3a334ec:314"><p class="mono-sm" style="color:#4A5C68;" data-om-id="a3a334ec:315">MID-TERM</p><p style="font-size:16px; color:#4A5C68; margin-top:4px;" data-om-id="a3a334ec:316">End-to-end physical AI partner</p></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ft" style="position:absolute; left:0; right:0; bottom:0; padding:0 52px;" data-om-id="a3a334ec:317">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE" data-om-id="a3a334ec:318">
+    <span class="mono red" data-om-id="a3a334ec:319">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;" data-om-id="a3a334ec:320">
+      <span class="mono" style="color:#2F3D48;" data-om-id="a3a334ec:321">CONFIDENTIAL</span>
+      <span class="mono" style="color:#2F3D48;" data-om-id="a3a334ec:322">07|11</span>
+    </div>
+  </div>
+</section>
+<!-- ══ 08 FOUR DEPLOYMENTS ══════════════════════════════════ -->
+<section data-screen-label="08 Deployments" style="background:#E1EAED; color:#2F3D48;" data-om-id="a3a334ec:215" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="7">
+
+  <!-- flex column: headline top, tiles fill below -->
+  <div style="position:absolute; top:52px; left:52px; right:52px; bottom:52px;
+               display:flex; flex-direction:column;" data-om-id="a3a334ec:216">
+
+    <div class="a1" data-om-id="a3a334ec:217">
+      <p class="mono" style="color:#4A5C68; margin-bottom:22px;" data-om-id="a3a334ec:217c">PROOF FROM THE FIELD</p>
+      <h1 style="font-size:58px; font-weight:400; line-height:1.1;
+                 letter-spacing:-0.025em; color:#2F3D48; max-width:1520px;" data-om-id="a3a334ec:217a">
+        Four selected live deployments. Real customers. Real production. Real operational data.
+      </h1>
+    </div>
+
+  <!-- tiles — landscape video tiles with the customer name overlaid -->
+  <div style="flex:1; display:flex; align-items:center; padding:44px 0 8px;" data-om-id="a3a334ec:218">
+  <div class="a2" style="width:100%; display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:0 24px;" data-om-id="a3a334ec:219">
+
+    <!-- Tile 1 — Yara -->
+    <div style="position:relative; height:360px; overflow:hidden; background:#1E2E38;" data-om-id="a3a334ec:220">
+      <video autoplay="" muted="" loop="" playsinline="" disablepictureinpicture="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block;" data-om-id="a3a334ec:222">
+        <source src="./uploads/yara.mp4" type="video/mp4" data-om-id="a3a334ec:223">
+      </video>
+      <div style="position:absolute; left:0; right:0; bottom:0; height:140px; background:linear-gradient(to top, rgba(11,26,44,0.90) 0%, rgba(11,26,44,0) 100%);" data-om-id="a3a334ec:221"></div>
+      <div style="position:absolute; left:26px; bottom:24px; display:flex; align-items:center; gap:11px;" data-om-id="a3a334ec:225">
+        <svg width="18" height="12" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;" data-om-id="a3a334ec:226"><path d="M0 5L2.88675 -3.18218e-07H11.8025L14.6892 5L11.8025 10H2.88675L0 5Z" fill="#FF371C" data-om-id="a3a334ec:227"></path></svg>
+        <span style="font-size:28px; font-weight:400; line-height:1.1; color:#FAFAFB;" data-om-id="a3a334ec:228">Yara</span>
+      </div>
+    </div>
+
+    <!-- Tile 2 — Veidekke -->
+    <div style="position:relative; height:360px; overflow:hidden; background:#1E2E38;" data-om-id="a3a334ec:230">
+      <video autoplay="" muted="" loop="" playsinline="" disablepictureinpicture="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block;" data-om-id="a3a334ec:232">
+        <source src="./uploads/veidekke.mp4" type="video/mp4" data-om-id="a3a334ec:233">
+      </video>
+      <div style="position:absolute; left:0; right:0; bottom:0; height:140px; background:linear-gradient(to top, rgba(11,26,44,0.90) 0%, rgba(11,26,44,0) 100%);" data-om-id="a3a334ec:231"></div>
+      <div style="position:absolute; left:26px; bottom:24px; display:flex; align-items:center; gap:11px;" data-om-id="a3a334ec:235">
+        <svg width="18" height="12" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;" data-om-id="a3a334ec:236"><path d="M0 5L2.88675 -3.18218e-07H11.8025L14.6892 5L11.8025 10H2.88675L0 5Z" fill="#FF371C" data-om-id="a3a334ec:237"></path></svg>
+        <span style="font-size:28px; font-weight:400; line-height:1.1; color:#FAFAFB;" data-om-id="a3a334ec:238">Veidekke</span>
+      </div>
+    </div>
+
+    <!-- Tile 3 — Optimera / Saint Gobain -->
+    <div style="position:relative; height:360px; overflow:hidden; background:#1E2E38;" data-om-id="a3a334ec:241">
+      <video autoplay="" muted="" loop="" playsinline="" disablepictureinpicture="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block;" data-om-id="a3a334ec:243">
+        <source src="./uploads/optimera-small.mp4" type="video/mp4" data-om-id="a3a334ec:244">
+      </video>
+      <div style="position:absolute; left:0; right:0; bottom:0; height:140px; background:linear-gradient(to top, rgba(11,26,44,0.90) 0%, rgba(11,26,44,0) 100%);" data-om-id="a3a334ec:242"></div>
+      <div style="position:absolute; left:26px; bottom:24px; display:flex; align-items:center; gap:11px;" data-om-id="a3a334ec:246">
+        <svg width="18" height="12" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;" data-om-id="a3a334ec:247"><path d="M0 5L2.88675 -3.18218e-07H11.8025L14.6892 5L11.8025 10H2.88675L0 5Z" fill="#FF371C" data-om-id="a3a334ec:248"></path></svg>
+        <span style="font-size:28px; font-weight:400; line-height:1.1; color:#FAFAFB;" data-om-id="a3a334ec:249">Optimera · Saint Gobain</span>
+      </div>
+    </div>
+
+    <!-- Tile 4 — Stena Recycling -->
+    <div style="position:relative; height:360px; overflow:hidden; background:#1E2E38;" data-om-id="a3a334ec:251">
+      <video autoplay="" muted="" loop="" playsinline="" disablepictureinpicture="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block;" data-om-id="a3a334ec:253">
+        <source src="./uploads/stena-small.mp4" type="video/mp4" data-om-id="a3a334ec:254">
+      </video>
+      <div style="position:absolute; left:0; right:0; bottom:0; height:140px; background:linear-gradient(to top, rgba(11,26,44,0.90) 0%, rgba(11,26,44,0) 100%);" data-om-id="a3a334ec:252"></div>
+      <div style="position:absolute; left:26px; bottom:24px; display:flex; align-items:center; gap:11px;" data-om-id="a3a334ec:256">
+        <svg width="18" height="12" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;" data-om-id="a3a334ec:257"><path d="M0 5L2.88675 -3.18218e-07H11.8025L14.6892 5L11.8025 10H2.88675L0 5Z" fill="#FF371C" data-om-id="a3a334ec:258"></path></svg>
+        <span style="font-size:28px; font-weight:400; line-height:1.1; color:#FAFAFB;" data-om-id="a3a334ec:259">Stena Recycling</span>
+      </div>
+    </div>
+
+  </div><!-- end tiles grid -->
+  </div><!-- end tiles wrapper -->
+
+  </div><!-- end flex column -->
+
+  <!-- footer -->
+  <div class="ft ft-custom-ice" style="position:absolute;" data-om-id="a3a334ec:261">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE" data-om-id="a3a334ec:262">
+    <span class="mono red" style="font-size: 14px; letter-spacing: 1px" data-om-id="a3a334ec:263">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;" data-om-id="a3a334ec:264">
+      <span class="mono" style="color: #2F3D48; letter-spacing: 0px; font-size: 14px" data-om-id="a3a334ec:265">CONFIDENTIAL</span>
+      <span class="mono" style="color: #2F3D48; letter-spacing: 0px; font-size: 14px" data-om-id="a3a334ec:266">08|11</span>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ══ 09 YOUR FULL FLEET ══════════════════════════════════ -->
+
+<!-- ══ 09 STEP INTO HIVE — FULL ONE-PAGER (two-column split) ══════════════ -->
+<section data-screen-label="10 Step Into Hive" style="background:#2F3D48;" data-om-id="step2:1" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text">
+
+  <!-- navy title bar -->
+  <div style="position:absolute; top:0; left:0; right:0; height:140px; z-index:2;
+              background:#2F3D48; display:flex; align-items:center; justify-content:space-between;
+              padding:0 52px;" data-om-id="step2:2">
+    <h1 class="a1" style="font-size:52px; font-weight:400; line-height:1.05; letter-spacing:-0.025em;
+                          color:#FAFAFB; margin:0;" data-om-id="step2:3">
+      Step into Hive: Our top offering for Warehouse and Yard
+    </h1>
+    <div style="display:flex; align-items:center; gap:32px; flex-shrink:0;" data-om-id="step2:4">
+      <span class="mono" style="color:rgba(250,250,251,0.60);" data-om-id="step2:5">09|11</span>
+      <img src="./assets/logo-symbol-white.svg" height="28" alt="HIVE" data-om-id="step2:6">
+    </div>
+  </div>
+
+  <!-- reflowed columns cut from the high-res one-pager (2000x4000), merged with no gaps. width 892, k=0.446 -->
+  <div style="position:absolute; top:140px; left:52px; right:52px; bottom:20px; z-index:1;
+              display:flex; gap:28px; align-items:flex-start; justify-content:center; padding-top:18px;" data-om-id="step2:7">
+
+    <!-- LEFT column: logo + material/racking + WHY HIVE, then Toyota quote (no gaps) -->
+    <div style="display:flex; flex-direction:column; gap:0;" data-om-id="step2:8">
+      <div style="position:relative; width:892px; height:67px; overflow:hidden; background:#FFFFFF;" data-om-id="step2:8a1">
+        <img src="./assets/onepager-170626-upd.png" alt="" style="position:absolute; left:0; top:0px; width:892px; display:block;" data-om-id="step2:9a1">
+      </div>
+      <div style="position:relative; width:892px; height:430px; overflow:hidden; background:#FFFFFF;" data-om-id="step2:8a2">
+        <img src="./assets/onepager-170626-upd.png" alt="" style="position:absolute; left:0; top:-330px; width:892px; display:block;" data-om-id="step2:9a2">
+      </div>
+      <div style="position:relative; width:892px; height:167px; overflow:hidden; background:#FFFFFF;" data-om-id="step2:8b">
+        <img src="./assets/onepager-170626-upd.png" alt="" style="position:absolute; left:0; top:-1271px; width:892px; display:block;" data-om-id="step2:9b">
+      </div>
+    </div>
+
+    <!-- RIGHT column: forklift + OUTPUT, then WHERE HIVE OPERATES, then Live (shifted down to align with left's material section, below the logo block) -->
+    <div style="display:flex; flex-direction:column; gap:0; margin-top:67px;" data-om-id="step2:10">
+      <div style="display:flex; flex-direction:column;" data-om-id="step2:10a">
+        <div style="position:relative; width:892px; height:491px; overflow:hidden; background:#FAFAFB;" data-om-id="step2:10a1">
+          <img src="./assets/onepager-170626-upd.png" alt="" style="position:absolute; left:0; top:-761px; width:892px; display:block;" data-om-id="step2:11a">
+        </div>
+        <div style="width:892px; height:26px; background:#FAFAFB;" data-om-id="step2:11a2"></div>
+      </div>
+      <div style="position:relative; width:892px; height:154px; overflow:hidden; background:#FFFFFF;" data-om-id="step2:10b">
+        <img src="./assets/onepager-170626-upd.png" alt="" style="position:absolute; left:0; top:-1441px; width:892px; display:block;" data-om-id="step2:11b">
+      </div>
+      <div style="display:flex; flex-direction:column;" data-om-id="step2:10c">
+        <div style="position:relative; width:892px; height:88px; overflow:hidden; background:#CDDDE6;" data-om-id="step2:10c1">
+          <img src="./assets/onepager-170626-upd.png" alt="" style="position:absolute; left:0; top:-1594px; width:892px; display:block;" data-om-id="step2:11c">
+        </div>
+        <div style="width:892px; height:26px; background:#CDDDE6;" data-om-id="step2:11c2"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- bottom-left callout -->
+  <div style="position:absolute; left:52px; bottom:64px; max-width:880px; z-index:2;
+              font-size:30px; line-height:1.4; letter-spacing:-0.01em; color:#FAFAFB;" data-om-id="step2:30">
+    <span style="font-weight:600;">Zooming in on the Hard Parts:</span>
+    trailer loading/unloading, indoor/outdoor operation, operating at heights;
+    operating shuttle systems; operating in the Freezer.
+    <span style="color:rgba(250,250,251,0.65);">All at 90–100% human speed after initial ramp-up.</span>
+  </div>
+</section>
+
+<!-- ══ 10 BUILT WHERE WORK IS HARD ══════════════════════════════════ -->
+<section data-screen-label="10 Built Where" style="background:#2A3840;" data-om-id="a3a334ec:323" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text" data-deck-slide="9" data-deck-last-visible="">
+
+  <!-- full-bleed video -->
+  <video autoplay="" muted="" loop="" playsinline="" disablepictureinpicture="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+                object-position:center;display:block;z-index:0;" data-om-id="a3a334ec:324">
+    <source src="./uploads/hive location.mp4" type="video/mp4" data-om-id="a3a334ec:325">
+  </video>
+  <!-- dark overlay -->
+  <div style="position:absolute;inset:0;z-index:1;
+    background:linear-gradient(105deg,rgba(30,42,52,0.65) 0%,rgba(30,42,52,0.45) 60%,rgba(30,42,52,0.30) 100%);" data-om-id="a3a334ec:326"></div>
+
+  <!-- content — two col, vertically centred -->
+  <div style="position:absolute;inset:0;z-index:2;
+               display:flex; align-items:center;
+               padding:0 52px 52px;" data-om-id="a3a334ec:327">
+    <div style="display:grid; grid-template-columns:5fr 7fr; gap:0 80px; width:100%;" data-om-id="a3a334ec:328">
+
+      <!-- left: headline -->
+      <h1 class="a1" style="font-size:88px; font-weight:400; line-height:1.05;
+                             letter-spacing:-0.025em; color:#FAFAFB;" data-om-id="a3a334ec:329">
+        Built where<br data-om-id="a3a334ec:330">work is hard.
+      </h1>
+
+      <!-- right: body -->
+      <p class="a2" style="font-size:28px; line-height:1.5; color:rgba(250,250,251,0.85);
+                            padding-top:8px;" data-om-id="a3a334ec:331">
+        HIVE was founded in Norway, by a team that understands industrial
+        operations from the inside. The platform was built in the field, in tunnels,
+        on snowfields, at ports, not in a lab or a pitch deck. Today HIVE
+        coordinates industrial fleets across construction, mining and logistics,
+        and the ambition doesn't stop at the horizon.
+      </p>
+
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="ft ft-custom-dark" style="position:absolute;z-index:2;" data-om-id="a3a334ec:332">
+    <img src="./assets/logo-symbol-white.svg" height="22" alt="HIVE" data-om-id="a3a334ec:333">
+    <span class="mono" style="color:#FAFAFB;" data-om-id="a3a334ec:334">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;" data-om-id="a3a334ec:335">
+      <span class="mono" style="color:#FAFAFB;" data-om-id="a3a334ec:336">CONFIDENTIAL</span>
+      <span class="mono" style="color:#FAFAFB;" data-om-id="a3a334ec:337">10|11</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 11 FROZEN OPERATIONS ══════════════════════════════════ -->
+<section data-screen-label="11 Frozen Operations" style="background:#E1EAED; color:#2F3D48;" data-om-id="frozen:1" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text">
+
+  <div style="position:absolute; top:52px; left:52px; right:52px; bottom:52px;
+               display:flex; flex-direction:column;" data-om-id="frozen:2">
+
+    <!-- header -->
+    <div class="a1" data-om-id="frozen:3">
+      <p class="mono red" style="margin-bottom:20px;" data-om-id="frozen:4">EXTREME ENVIRONMENTS · FROZEN OPERATIONS</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0 80px; align-items:start;" data-om-id="frozen:5">
+        <h1 style="font-size:64px; font-weight:400; line-height:1.05;
+                   letter-spacing:-0.025em; color:#2F3D48;" data-om-id="frozen:6">
+          Engineered to keep<br data-om-id="frozen:7">working at &minus;20&thinsp;&deg;C.
+        </h1>
+        <p style="font-size:24px; line-height:1.45; color:#4A5C68; padding-top:8px;" data-om-id="frozen:8">
+          Cold doesn't pause operations &mdash; it removes the people who run them. HIVE hardens
+          every layer of the machine so autonomy holds where a human shift can't.
+        </p>
+      </div>
+    </div>
+
+    <!-- body: hero image left, component adaptations right -->
+    <div class="a2" style="flex:1; display:grid; grid-template-columns:1fr 1fr; gap:0 64px;
+                            align-items:center; padding:24px 0;" data-om-id="frozen:9">
+
+      <!-- forklift with labelled components -->
+      <div style="width:100%;" data-om-id="frozen:10">
+        <img src="./assets/Artboard_2__1__png-trim.jpg" alt="HIVE-enhanced forklift with labelled cameras, lidar and control cabinet"
+             style="width:100%; height:auto; display:block;" data-om-id="frozen:11">
+      </div>
+
+      <!-- adaptations grid -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:30px 44px;" data-om-id="frozen:12">
+
+        <div data-om-id="frozen:16">
+          <p class="mono-sm red" style="margin-bottom:10px;" data-om-id="frozen:17">SENSORS &amp; PERCEPTION</p>
+          <p style="font-size:18px; line-height:1.5; color:#4A5C68;" data-om-id="frozen:18">
+            Heated lidars and sensors are Industrial grade IP 67-69 to beat the fogging and condensation of freezer transitions, and are specified to &minus;40&thinsp;&deg;C.</p>
+        </div>
+
+        <div data-om-id="frozen:19">
+          <p class="mono-sm red" style="margin-bottom:10px;" data-om-id="frozen:20">COMPUTE &amp; ELECTRONICS</p>
+          <p style="font-size:18px; line-height:1.5; color:#4A5C68;" data-om-id="frozen:21">
+            Temperature controlled enclosures keep compute in range with a fully encapsulated cabinet.</p>
+        </div>
+
+
+        <div data-om-id="frozen:25">
+          <p class="mono-sm red" style="margin-bottom:10px;" data-om-id="frozen:26">NAVIGATION &amp; SAFETY</p>
+          <p style="font-size:18px; line-height:1.5; color:#4A5C68;" data-om-id="frozen:27">
+            Point-cloud tuning for reflective floors; localisation and braking models account for ice, slip and longer stops.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- insight strip -->
+    <div class="a4" style="border-top:1px solid rgba(47,61,72,0.22); padding-top:20px;
+                            display:grid; grid-template-columns:1fr 2fr; gap:0 64px;" data-om-id="frozen:31">
+      <p class="mono-sm" style="color:#2F3D48;" data-om-id="frozen:32">THE TRANSITION PROBLEM</p>
+      <p style="font-size:24px; line-height:1.4; color:#2F3D48;" data-om-id="frozen:33">
+        The hardest problem isn't the cold &mdash; it's the boundary. Every pass between ambient
+        and &minus;20&thinsp;&deg;C drives condensation, thermal shock and fog. Hive has been tested
+        in the Transition zone to build up a robust operational Best Practice for the transition.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- footer -->
+  <div class="ft" style="position:absolute; left:0; right:0; bottom:0; padding:0 52px;" data-om-id="frozen:34">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE" data-om-id="frozen:35">
+    <span class="mono red" data-om-id="frozen:36">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;" data-om-id="frozen:37">
+      <span class="mono" style="color:#2F3D48;" data-om-id="frozen:38">CONFIDENTIAL</span>
+      <span class="mono" style="color:#2F3D48;" data-om-id="frozen:39">11|11</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 12 WINTER HARDWARE ════════════════════════════════════════════ -->
+<section data-screen-label="12 Winter Hardware" style="background:#E1EAED; color:#2F3D48;" data-om-id="winter:1" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text">
+
+  <div style="position:absolute; top:52px; left:52px; right:52px; bottom:52px;
+               display:flex; flex-direction:column;" data-om-id="winter:2">
+
+    <!-- header -->
+    <div data-om-id="winter:3">
+      <p class="mono red" style="margin-bottom:20px;" data-om-id="winter:4">EXTREME ENVIRONMENTS · WINTER HARDWARE</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0 80px; align-items:start;" data-om-id="winter:5">
+        <div data-om-id="winter:6w">
+          <h1 style="font-size:64px; font-weight:400; line-height:1.05;
+                     letter-spacing:-0.025em; color:#2F3D48;" data-om-id="winter:6">
+            Close up on the Hive winter kit
+          </h1>
+          <p style="font-size:30px; font-weight:400; line-height:1.2; letter-spacing:-0.01em;
+                    color:#4A5C68; margin-top:14px;" data-om-id="winter:7">
+            Running at &minus;20&thinsp;&deg;C &mdash; with the lenses kept clear.
+          </p>
+        </div>
+        <p style="font-size:24px; line-height:1.45; color:#4A5C68; padding-top:8px;" data-om-id="winter:8">
+          Outdoor cold fogs and ices the optics autonomy depends on. Our winter hardware kit
+          keeps the camera lenses clean and clear of fog and condensation, shift after shift.
+        </p>
+      </div>
+    </div>
+
+    <!-- body: video left, hardware-kit photo right -->
+    <div style="flex:1; display:grid; grid-template-columns:1fr 1fr; gap:0 64px;
+                 align-items:center; padding:24px 0;" data-om-id="winter:9">
+
+      <!-- video: machine operating at -20 outside -->
+      <div data-om-id="winter:10">
+        <div style="width:100%; height:600px; overflow:hidden; background:#0B1A2C;" data-om-id="winter:11">
+          <video autoplay="" muted="" loop="" playsinline="" disablepictureinpicture=""
+                 style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;" data-om-id="winter:12">
+            <source src="./assets/IMG_0850.MOV" type="video/mp4" data-om-id="winter:13">
+          </video>
+        </div>
+        <p class="mono-sm red" style="margin-top:16px;" data-om-id="winter:14">IN OPERATION</p>
+        <p style="font-size:18px; line-height:1.5; color:#4A5C68; margin-top:8px;" data-om-id="winter:15">
+          A Hive-enhanced machine operating outdoors at sub-zero.</p>
+      </div>
+
+      <!-- hardware kit photo -->
+      <div data-om-id="winter:16">
+        <div style="width:100%; height:600px; overflow:hidden; background:#FAFAFB;
+                    display:flex; align-items:center; justify-content:center;" data-om-id="winter:17">
+          <img src="./assets/image%20(1).png" alt="HIVE winter hardware kit &mdash; heated, sealed camera enclosure that keeps the lens clear of fog and condensation"
+               style="max-width:100%; max-height:100%; object-fit:contain; display:block;" data-om-id="winter:18">
+        </div>
+        <p class="mono-sm red" style="margin-top:16px;" data-om-id="winter:19">WINTER HARDWARE KIT</p>
+        <p style="font-size:18px; line-height:1.5; color:#4A5C68; margin-top:8px;" data-om-id="winter:20">
+          A heated, sealed camera enclosure that keeps the lens clean and clear of fog and condensation.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- footer -->
+  <div class="ft" style="position:absolute; left:0; right:0; bottom:0; padding:0 52px;" data-om-id="winter:21">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE" data-om-id="winter:22">
+    <span class="mono red" data-om-id="winter:23">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;" data-om-id="winter:24">
+      <span class="mono" style="color:#2F3D48;" data-om-id="winter:25">CONFIDENTIAL</span>
+      <span class="mono" style="color:#2F3D48;" data-om-id="winter:26">12|12</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 13 VALIDATION TERMS ═══════════════════════════════════════════ -->
+<section data-screen-label="13 Current Process" style="background:#E1EAED; color:#2F3D48;" data-om-id="trial:1" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text">
+
+  <div style="position:absolute; top:52px; left:52px; right:52px; bottom:52px;
+               display:flex; flex-direction:column;" data-om-id="trial:2">
+
+    <!-- header -->
+    <div data-om-id="trial:3">
+      <p class="mono red" style="font-size:16px; margin-bottom:24px;" data-om-id="trial:4">COLD CHAIN TRIAL · TERMS</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0 80px; align-items:start;" data-om-id="trial:5">
+        <h1 style="font-size:88px; font-weight:400; line-height:1;
+                   letter-spacing:-0.03em; color:#2F3D48;" data-om-id="trial:6">
+          Current process
+        </h1>
+        <p style="font-size:28px; line-height:1.5; color:#4A5C68; padding-top:72px;" data-om-id="trial:7">
+          A 4-week validation period measuring reliable workflow execution and throughput,
+          while the customer trials Hive at their cold-chain facility.
+        </p>
+      </div>
+    </div>
+
+    <!-- divider -->
+    <div style="height:1px; background:rgba(47,61,72,0.20); margin:44px 0 0;" data-om-id="trial:7b"></div>
+
+    <!-- body: three columns, vertically centred in remaining space -->
+    <div style="flex:1; display:flex; align-items:center;" data-om-id="trial:8">
+      <div style="width:100%; display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:0 64px;
+                  align-items:start;" data-om-id="trial:8b">
+
+        <!-- workflows -->
+        <div data-om-id="trial:9">
+          <p class="mono-sm red" style="font-size:16px; margin-bottom:28px;" data-om-id="trial:10">WORKFLOWS IN SCOPE</p>
+
+          <div style="display:flex; gap:22px; margin-bottom:26px;" data-om-id="trial:11">
+            <p style="font-size:28px; color:#9AAAB5; line-height:1.25; flex-shrink:0;" data-om-id="trial:12">01</p>
+            <p style="font-size:28px; line-height:1.25; color:#2F3D48;" data-om-id="trial:13">Receiving</p>
+          </div>
+          <div style="display:flex; gap:22px; margin-bottom:26px;" data-om-id="trial:14">
+            <p style="font-size:28px; color:#9AAAB5; line-height:1.25; flex-shrink:0;" data-om-id="trial:15">02</p>
+            <p style="font-size:28px; line-height:1.25; color:#2F3D48;" data-om-id="trial:16">Emptying the tunnel &mdash; route to palletiser</p>
+          </div>
+          <div style="display:flex; gap:22px;" data-om-id="trial:17">
+            <p style="font-size:28px; color:#9AAAB5; line-height:1.25; flex-shrink:0;" data-om-id="trial:18">03</p>
+            <p style="font-size:28px; line-height:1.25; color:#2F3D48;" data-om-id="trial:19">Trial palletiser-to-storage route</p>
+          </div>
+        </div>
+
+        <!-- throughput targets -->
+        <div data-om-id="trial:20">
+          <p class="mono-sm red" style="font-size:16px; margin-bottom:28px;" data-om-id="trial:21">THROUGHPUT TARGETS</p>
+
+          <div style="margin-bottom:34px;" data-om-id="trial:22">
+            <p style="font-size:62px; font-weight:400; line-height:1; letter-spacing:-0.02em; color:#2F3D48;" data-om-id="trial:23">
+              60<span style="font-size:24px; color:#4A5C68; letter-spacing:0;" data-om-id="trial:24"> pallets / hr</span>
+            </p>
+            <p style="font-size:22px; line-height:1.5; color:#4A5C68; margin-top:12px;" data-om-id="trial:25">
+              Pallet sorting (goods reception)</p>
+          </div>
+
+          <div data-om-id="trial:26">
+            <p style="font-size:62px; font-weight:400; line-height:1; letter-spacing:-0.02em; color:#2F3D48;" data-om-id="trial:27">
+              45<span style="font-size:24px; color:#4A5C68; letter-spacing:0;" data-om-id="trial:28"> pallets / hr</span>
+            </p>
+            <p style="font-size:22px; line-height:1.5; color:#4A5C68; margin-top:12px;" data-om-id="trial:29">
+              Tunnel unloading &mdash; target to increase to 50+&thinsp;/&thinsp;hr</p>
+          </div>
+        </div>
+
+        <!-- cadence -->
+        <div data-om-id="trial:30">
+          <p class="mono-sm red" style="font-size:16px; margin-bottom:28px;" data-om-id="trial:31">CADENCE</p>
+
+          <div style="margin-bottom:30px;" data-om-id="trial:32">
+            <p style="font-size:28px; line-height:1.25; color:#2F3D48;" data-om-id="trial:33">Weekly syncs</p>
+            <p style="font-size:22px; line-height:1.5; color:#4A5C68; margin-top:10px;" data-om-id="trial:34">
+              Tønsberg team with Ops and Commercial.</p>
+          </div>
+          <div data-om-id="trial:35">
+            <p style="font-size:28px; line-height:1.25; color:#2F3D48;" data-om-id="trial:36">Weekly KPI measurement</p>
+            <p style="font-size:22px; line-height:1.5; color:#4A5C68; margin-top:10px;" data-om-id="trial:37">
+              Tracking ramp-up across the four weeks.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- footer -->
+  <div class="ft" style="position:absolute; left:0; right:0; bottom:0; padding:0 52px;" data-om-id="trial:38">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE" data-om-id="trial:39">
+    <span class="mono red" data-om-id="trial:40">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;" data-om-id="trial:41">
+      <span class="mono" style="color:#2F3D48;" data-om-id="trial:42">CONFIDENTIAL</span>
+      <span class="mono" style="color:#2F3D48;" data-om-id="trial:43">13|13</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 14 CLOSE ══════════════════════════════════════════════════════ -->
+<section data-screen-label="14 Close" style="background:#1E252C; color:#FAFAFB;" data-om-id="close:1" data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text">
+
+  <!-- full-bleed background video -->
+  <video autoplay="" muted="" loop="" playsinline="" disablepictureinpicture=""
+         style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; z-index:0;" data-om-id="close:2">
+    <source src="./assets/close-bg.mp4" type="video/mp4" data-om-id="close:3">
+  </video>
+
+  <!-- darkening gradient -->
+  <div style="position:absolute; inset:0; z-index:1;
+              background:linear-gradient(180deg, rgba(30,37,44,0.25) 0%, rgba(30,37,44,0.18) 45%, rgba(30,37,44,0.72) 100%);" data-om-id="close:4"></div>
+
+  <!-- HIVE wordmark — top right -->
+  <div style="position:absolute; top:72px; right:140px; z-index:2;
+              color:#FAFAFB; filter:drop-shadow(0 2px 18px rgba(30,37,44,0.45));" data-om-id="close:5">
+    <svg viewBox="0 0 164 33" width="300" height="60" fill="none" data-om-id="close:6"><path d="M82.4384 18.9358H67.5958V32.1143H61.1641V0.000154495H67.5958V13.1786H82.4384V0.000154495H88.8703V32.1143H82.4384V18.9358Z" fill="currentColor"/><path d="M95.3438 0H101.775V32.1141H95.3438V0Z" fill="currentColor"/><path d="M105.328 0H112.345L120.666 25.0077H120.8L129.076 0H135.823L123.859 32.1141H117.247L105.328 0Z" fill="currentColor"/><path d="M139.333 0H163.306V5.53229H145.764V13.1785H162.001V18.8008H145.764V26.492H163.351V32.1141H139.333V0Z" fill="currentColor"/><path d="M9.45605 13.1786H34.1789V18.9357H9.45605V13.1786Z" fill="currentColor"/><path d="M0 18.9358L7.60803 32.1134H16.1988V25.8536H9.45545V18.9358" fill="currentColor"/><path d="M0 13.1787L7.60803 0.00113869H16.1988V6.26089H9.45545V13.1787" fill="currentColor"/><path d="M43.6333 18.9358L36.0253 32.1134H27.4346V25.8536H34.1779V18.9358" fill="currentColor"/><path d="M43.6333 13.1787L36.0253 0.00107002H27.4346V6.26082H34.1779V13.1787" fill="currentColor"/></svg>
+  </div>
+
+  <!-- closing text, bottom-left -->
+  <div style="position:absolute; left:140px; top:56%; transform:translateY(-50%); z-index:2;" data-om-id="close:7">
+    <h1 style="font-size:82px; font-weight:400; line-height:1.08; letter-spacing:-0.025em; color:#FAFAFB;" data-om-id="close:8">
+      Next steps for keeping in touch?
+    </h1>
+    <ul style="list-style:none; margin-top:28px; padding:0;" data-om-id="close:8b">
+      <li style="font-size:36px; font-weight:300; line-height:1.35; color:#FAFAFB; padding-left:38px; position:relative;" data-om-id="close:8c">
+        <span style="position:absolute; left:0; color:#4A90D9;">&bull;</span>Cadence of information updates
+      </li>
+      <li style="font-size:36px; font-weight:300; line-height:1.35; color:#FAFAFB; padding-left:38px; position:relative; margin-top:10px;" data-om-id="close:8d">
+        <span style="position:absolute; left:0; color:#4A90D9;">&bull;</span>Add value to wider Constellation facilities
+      </li>
+    </ul>
+    <p style="font-size:50px; font-weight:300; line-height:1.1; color:#AEBBC3; margin-top:18px;" data-om-id="close:9">
+      Any questions?
+    </p>
+  </div>
+</section>
+
+</deck-stage>
+</body>
+</html>
+
+<style id="__om-edit-overrides">
+[data-om-id="452a83df:55"] { width: 904px !important }
+[data-om-id="452a83df:55"] { width: 941px !important }
+[data-om-id="452a83df:55"] { width: 1200px !important }
+[data-om-id="452a83df:55"] { width: 1203px !important }
+</style>
