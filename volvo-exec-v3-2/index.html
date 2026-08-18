@@ -1,0 +1,687 @@
+<!-- HIVE — Volvo CE Executive Summary · new design (brand system v2)
+     Content carried over verbatim from /volvo-exec-v3/ (16.04.2026).
+     Heavy media is referenced from the v3 deck folder to avoid duplication:
+     ../volvo-exec-v3/presentation-assets/ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HIVE — Volvo CE Executive Summary</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./deck-stage.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #111; }
+
+    /* ss03 on for all type — both APK Galeria and IBM Plex Mono */
+    deck-stage section, deck-stage section * { font-feature-settings: 'ss03' on; }
+
+    deck-stage section {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: "APK Galeria", -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 400;
+    }
+
+    /* surfaces — a slide commits fully to light or dark */
+    .dark { background: #2F3D48; color: #FAFAFB; }
+    .ice  { background: #E1EAED; color: #2F3D48; }
+
+    /* footer — glyph left, stamp centre, counter right */
+    .ft {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      height: 52px; display: flex; align-items: center;
+      justify-content: space-between; padding: 0 52px;
+    }
+
+    .mono { font-family: "IBM Plex Mono", monospace; font-size: 13px;
+            letter-spacing: 0.10em; text-transform: uppercase; }
+    .mono-sm { font-family: "IBM Plex Mono", monospace; font-size: 11px;
+               letter-spacing: 0.10em; text-transform: uppercase; }
+    .red { color: #FF371C; }
+
+    /* type roles */
+    .h1 { font-size: 80px; line-height: 1.05; letter-spacing: -0.025em; }
+    .h2 { font-size: 72px; line-height: 1.05; letter-spacing: -0.025em; }
+    .lead { font-size: 26px; line-height: 1.45; color: #4A5C68; }
+    .lead-d { font-size: 26px; line-height: 1.45; color: rgba(250,250,251,0.78); }
+    .body { font-size: 18px; line-height: 1.55; color: #4A5C68; }
+
+    /* hairline */
+    .hl-t { border-top: 1px solid rgba(47,61,72,0.22); }
+    .hl-t-d { border-top: 1px solid rgba(250,250,251,0.20); }
+
+    /* panels — elevation is a step UP the Ice ramp, never a shadow */
+    .card { background: #FAFAFB; }
+
+    /* full-bleed media */
+    .bg-media { position: absolute; inset: 0; width: 100%; height: 100%;
+                object-fit: cover; object-position: center; display: block; z-index: 0; }
+
+    /* entrance */
+    .a1, .a2, .a3, .a4, .a5 { opacity: 0; transform: translateX(-12px); }
+    @media (prefers-reduced-motion: no-preference) {
+      [data-deck-active] .a1 { animation: up .55s cubic-bezier(.2,0,0,1) forwards 0s; }
+      [data-deck-active] .a2 { animation: up .55s cubic-bezier(.2,0,0,1) forwards .07s; }
+      [data-deck-active] .a3 { animation: up .55s cubic-bezier(.2,0,0,1) forwards .14s; }
+      [data-deck-active] .a4 { animation: up .55s cubic-bezier(.2,0,0,1) forwards .21s; }
+      [data-deck-active] .a5 { animation: up .55s cubic-bezier(.2,0,0,1) forwards .28s; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .a1, .a2, .a3, .a4, .a5 { opacity: 1; transform: none; }
+    }
+    @keyframes up {
+      from { opacity: 0; transform: translateX(-12px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+<deck-stage style="--deck-rail-w: 188px;">
+
+<!-- ══ 01 FRONT PAGE — dark, full-bleed field footage ═════════════════════ -->
+<section data-screen-label="01 Front Page" style="background:#1E2E38;" data-deck-slide="0">
+
+  <video autoplay muted loop playsinline disablepictureinpicture class="bg-media"
+         poster="../volvo-exec-v3/presentation-assets/volvo/feiring-poster.jpg">
+    <source src="../volvo-exec-v3/presentation-assets/volvo/feiring-quarry.mp4" type="video/mp4">
+  </video>
+  <div style="position:absolute; inset:0; z-index:1;
+    background:linear-gradient(to top, rgba(30,46,56,0.86) 0%, rgba(30,46,56,0.55) 34%, rgba(30,46,56,0.10) 62%),
+               linear-gradient(100deg, rgba(30,46,56,0.90) 0%, rgba(30,46,56,0.62) 42%, rgba(30,46,56,0.18) 78%, rgba(30,46,56,0.06) 100%);"></div>
+
+  <!-- lockup top-left -->
+  <div style="position:absolute; top:56px; left:52px; z-index:2;">
+    <svg style="height:104px; width:auto; display:block;" viewBox="0 0 380 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M191.765 44.2076H157.236V74.9746H142.273V0H157.236V30.7668H191.765V0H206.727V74.9746H191.765V44.2076Z" fill="#FAFAFB"/>
+      <path d="M221.795 0H236.757V74.9746H221.795V0Z" fill="#FAFAFB"/>
+      <path d="M245.02 0H261.342L280.699 58.3835H281.013L300.265 0H315.96L288.128 74.9746H272.747L245.02 0Z" fill="#FAFAFB"/>
+      <path d="M324.126 0H379.895V12.9158H339.088V30.7668H376.861V43.8927H339.088V61.8489H380V74.9746H324.126V0Z" fill="#FAFAFB"/>
+      <path d="M21.9941 30.7658H79.5076V44.2066H21.9941V30.7658Z" fill="#FAFAFB"/>
+      <path d="M0 44.2068L17.6988 74.9714H37.6836V60.3573H21.9964V44.2068" fill="#FAFAFB"/>
+      <path d="M0 30.7665L17.6987 0.00170898H37.6836V14.6158H21.9964V30.7665" fill="#FAFAFB"/>
+      <path d="M101.501 44.2068L83.8022 74.9714H63.8174V60.3573H79.505V44.2068" fill="#FAFAFB"/>
+      <path d="M101.501 30.7665L83.8022 0.00170898H63.8174V14.6158H79.505V30.7665" fill="#FAFAFB"/>
+    </svg>
+  </div>
+
+  <!-- headline + body, lower left -->
+  <div style="position:absolute; left:52px; right:52px; bottom:214px; z-index:2;">
+    <h1 class="a1" style="font-size:96px; line-height:1.02; letter-spacing:-0.03em; color:#FAFAFB; max-width:1180px;">
+      Physical AI, deployed<br>through your brand.
+    </h1>
+    <p class="a2 mono" style="color:rgba(250,250,251,0.72); margin-top:26px;">
+      HIVE &times; VOLVO CE &nbsp;·&nbsp; EXECUTIVE SUMMARY &nbsp;·&nbsp; V3 &nbsp;·&nbsp; 16.04.2026
+    </p>
+    <p class="a2" style="font-size:24px; line-height:1.5; color:rgba(250,250,251,0.85); max-width:1080px; margin-top:22px;">
+      Hive is building a general-purpose AI model that learns to operate any industrial machine.
+      A single intelligence layer trained across machine types, sites and conditions. Four live
+      deployments on Volvo L-series wheel loaders today. Not a concept. Not a roadmap.
+    </p>
+  </div>
+
+  <!-- pillar row pinned above footer -->
+  <div class="a3" style="position:absolute; left:52px; right:52px; bottom:96px; z-index:2;
+              display:grid; grid-template-columns:repeat(4,1fr); gap:0 40px;">
+    <div class="hl-t-d" style="padding-top:16px;">
+      <p class="mono-sm" style="color:rgba(250,250,251,0.55); margin-bottom:8px;">01</p>
+      <p style="font-size:22px; line-height:1.25; color:#FAFAFB;">One model, every machine</p>
+    </div>
+    <div class="hl-t-d" style="padding-top:16px;">
+      <p class="mono-sm" style="color:rgba(250,250,251,0.55); margin-bottom:8px;">02</p>
+      <p style="font-size:22px; line-height:1.25; color:#FAFAFB;">Fully packaged service</p>
+    </div>
+    <div class="hl-t-d" style="padding-top:16px;">
+      <p class="mono-sm" style="color:rgba(250,250,251,0.55); margin-bottom:8px;">03</p>
+      <p style="font-size:22px; line-height:1.25; color:#FAFAFB;">Human-in-the-loop</p>
+    </div>
+    <div class="hl-t-d" style="padding-top:16px;">
+      <p class="mono-sm" style="color:rgba(250,250,251,0.55); margin-bottom:8px;">04</p>
+      <p style="font-size:22px; line-height:1.25; color:#FAFAFB;">Retrofit, not replacement</p>
+    </div>
+  </div>
+
+  <div class="ft" style="z-index:2;">
+    <img src="./assets/logo-symbol-white.svg" height="22" alt="HIVE">
+    <span class="mono" style="color:#FAFAFB;">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;">
+      <span class="mono" style="color:#FAFAFB;">CONFIDENTIAL</span>
+      <span class="mono" style="color:#FAFAFB;">01|08</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 02 COMPETITIVE PRESSURE — light, comparison table ═════════════════ -->
+<section data-screen-label="02 Others Are Pulling Ahead" class="ice" data-deck-slide="1">
+
+  <div style="position:absolute; top:56px; left:52px; right:52px; bottom:72px;
+              display:flex; flex-direction:column;">
+
+    <!-- header: headline left, body right -->
+    <div class="a1" style="display:grid; grid-template-columns:1.15fr 1fr; gap:0 80px; align-items:start;">
+      <div>
+        <h1 class="h1" style="color:#2F3D48;">Others are<br>pulling ahead.</h1>
+        <div style="margin-top:34px;">
+          <div style="width:120px; height:1px; background:rgba(47,61,72,0.35);"></div>
+          <p class="mono" style="color:#4A5C68; margin-top:14px;">WHY THIS CONVERSATION. NOW.</p>
+        </div>
+      </div>
+      <div style="padding-top:10px;">
+        <p class="lead">
+          Every major competitor has moved from pilot to scale in the last 24 months. Volvo CE's
+          in-house effort is still the HX hauler concept from 2016. The gap is visible.
+        </p>
+      </div>
+    </div>
+
+    <div style="flex:1;"></div>
+
+    <!-- table: five competitors, then Volvo CE raised on the Ice ramp -->
+    <div class="a2" style="display:flex; flex-direction:column;">
+
+      <div class="hl-t" style="display:grid; grid-template-columns:360px 1fr; gap:0 48px; padding:22px 0;">
+        <p style="font-size:30px; line-height:1.2; color:#2F3D48;">Caterpillar</p>
+        <p style="font-size:21px; line-height:1.45; color:#4A5C68;">11B+ tonnes hauled autonomously · target 2,000+ autonomous trucks by 2040 · CES 2026 headline</p>
+      </div>
+
+      <div class="hl-t" style="display:grid; grid-template-columns:360px 1fr; gap:0 48px; padding:22px 0;">
+        <p style="font-size:30px; line-height:1.2; color:#2F3D48;">Komatsu</p>
+        <p style="font-size:21px; line-height:1.45; color:#4A5C68;">~500 autonomous haul trucks deployed on mining sites worldwide</p>
+      </div>
+
+      <div class="hl-t" style="display:grid; grid-template-columns:360px 1fr; gap:0 48px; padding:22px 0;">
+        <p style="font-size:30px; line-height:1.2; color:#2F3D48;">Develon + Hitachi</p>
+        <p style="font-size:21px; line-height:1.45; color:#4A5C68;">Both OEMs running autonomous excavator programs with Gravis Robotics across multiple sites</p>
+      </div>
+
+      <div class="hl-t" style="display:grid; grid-template-columns:360px 1fr; gap:0 48px; padding:22px 0;">
+        <p style="font-size:30px; line-height:1.2; color:#2F3D48;">Pronto &times; Heidelberg</p>
+        <p style="font-size:21px; line-height:1.45; color:#4A5C68;">Autonomy software retrofit on 100+ Cat and Bell haul trucks · rolling out NA/EU/APAC</p>
+      </div>
+
+      <div class="hl-t" style="display:grid; grid-template-columns:360px 1fr; gap:0 48px; padding:22px 0;">
+        <p style="font-size:30px; line-height:1.2; color:#2F3D48;">Chinese software autonomy</p>
+        <p style="font-size:21px; line-height:1.45; color:#4A5C68;">Heavy deployments in China · already targeting European fleets with retrofit offers</p>
+      </div>
+
+      <div class="card" style="display:grid; grid-template-columns:328px 1fr; gap:0 48px;
+                  padding:26px 32px; margin-top:14px; align-items:start;">
+        <div>
+          <p style="font-size:30px; line-height:1.2; color:#2F3D48;">Volvo CE</p>
+          <p class="mono-sm" style="color:#4A5C68; margin-top:10px;">IN-HOUSE EFFORT</p>
+        </div>
+        <p style="font-size:21px; line-height:1.45; color:#2F3D48;">
+          In-house autonomy effort: the HX electric hauler concept from 2016. Still a concept.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="ft">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE">
+    <span class="mono red">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;">
+      <span class="mono" style="color:#2F3D48;">CONFIDENTIAL</span>
+      <span class="mono" style="color:#2F3D48;">02|08</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 03 WHAT MAKES HIVE DIFFERENT — light, four columns ════════════════ -->
+<section data-screen-label="03 What Makes Hive Different" class="ice" data-deck-slide="2">
+
+  <div style="position:absolute; top:56px; left:52px; right:52px; bottom:72px;
+              display:flex; flex-direction:column;">
+
+    <div class="a1" style="display:grid; grid-template-columns:1.15fr 1fr; gap:0 80px; align-items:start;">
+      <h1 style="font-size:64px; line-height:1.06; letter-spacing:-0.025em; color:#2F3D48;">The physical AI company for industrial machinery.</h1>
+      <p class="lead" style="padding-top:10px;">
+        Hive is building a general-purpose AI model that learns to operate any industrial machine.
+        Not automation scripts per task. Not remote control. A single intelligence layer trained
+        across machine types, sites and conditions, enabling all industrial machines to operate
+        with supervised physical AI.
+      </p>
+    </div>
+
+    <div style="flex:1; display:flex; align-items:center; padding:40px 0 8px;">
+    <div class="a2" style="width:100%; display:grid; grid-template-columns:repeat(4,1fr); gap:0 24px;">
+
+      <div class="card" style="padding:30px 30px 32px;">
+        <p class="mono-sm" style="color:#4A5C68; margin-bottom:18px;">01</p>
+        <p style="font-size:30px; line-height:1.15; letter-spacing:-0.015em; color:#2F3D48; margin-bottom:12px;">One model, every machine</p>
+        <p style="font-size:19px; line-height:1.4; color:#2F3D48; margin-bottom:16px;">A generic AI model supporting the whole machinery fleet.</p>
+        <p class="body">Not a separate integration per machine type. Hive trains one model that generalizes across wheel loaders, haulers, excavators and forklifts. The same intelligence layer adapts to new tasks and new iron without starting from scratch.</p>
+      </div>
+
+      <div class="card" style="padding:30px 30px 32px;">
+        <p class="mono-sm" style="color:#4A5C68; margin-bottom:18px;">02</p>
+        <p style="font-size:30px; line-height:1.15; letter-spacing:-0.015em; color:#2F3D48; margin-bottom:12px;">Fully packaged service</p>
+        <p style="font-size:19px; line-height:1.4; color:#2F3D48; margin-bottom:16px;">Ops center, trained operators, 24/7 coverage as one service.</p>
+        <p class="body">Hive is not software you install. It is a packaged service. Operations center in Kristiansand, trained remote operators, redundant connectivity, 24/7 coverage. Nothing Volvo needs to replicate internally.</p>
+      </div>
+
+      <div class="card" style="padding:30px 30px 32px;">
+        <p class="mono-sm" style="color:#4A5C68; margin-bottom:18px;">03</p>
+        <p style="font-size:30px; line-height:1.15; letter-spacing:-0.015em; color:#2F3D48; margin-bottom:12px;">Human-in-the-loop by design</p>
+        <p style="font-size:19px; line-height:1.4; color:#2F3D48; margin-bottom:16px;">Operators in the loop, not stripped out of the system.</p>
+        <p class="body">When the AI hesitates, a trained remote operator takes over instantly. Supervised physical AI is the product, not a fallback. Customers never see an unplanned stop.</p>
+      </div>
+
+      <div class="card" style="padding:30px 30px 32px;">
+        <p class="mono-sm" style="color:#4A5C68; margin-bottom:18px;">04</p>
+        <p style="font-size:30px; line-height:1.15; letter-spacing:-0.015em; color:#2F3D48; margin-bottom:12px;">Retrofit, not replacement</p>
+        <p style="font-size:19px; line-height:1.4; color:#2F3D48; margin-bottom:16px;">Runs on machines your customers already own.</p>
+        <p class="body">Volvo L60 to L350 wheel loaders (MY 2018+) supported today, phasing to full Volvo CE portfolio. Dealer-installed kit. Fleet goes from standard to supervised physical AI in days, not quarters.</p>
+      </div>
+
+    </div>
+    </div>
+  </div>
+
+  <div class="ft">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE">
+    <span class="mono red">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;">
+      <span class="mono" style="color:#2F3D48;">CONFIDENTIAL</span>
+      <span class="mono" style="color:#2F3D48;">03|08</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 04 PROOF FROM THE FIELD — light, four live deployments ════════════ -->
+<section data-screen-label="04 Proven In The Field" class="ice" data-deck-slide="3">
+
+  <div style="position:absolute; top:56px; left:52px; right:52px; bottom:72px;
+              display:flex; flex-direction:column;">
+
+    <div class="a1" style="display:grid; grid-template-columns:1.15fr 1fr; gap:0 80px; align-items:start;">
+      <h1 style="font-size:56px; line-height:1.08; letter-spacing:-0.025em; color:#2F3D48;">
+        Hive and Volvo machines are already moving the world together.
+      </h1>
+      <p class="lead" style="padding-top:10px;">
+        Four live operations on Volvo L-series wheel loaders, under named customer contracts.
+        Running today. Not slideware, not a roadmap.
+      </p>
+    </div>
+
+    <div style="flex:1; display:flex; align-items:center; padding:36px 0 0;">
+      <div class="a2" style="width:100%; display:grid; grid-template-columns:repeat(4,1fr); gap:0 24px;">
+
+        <div>
+          <div style="position:relative; height:250px; overflow:hidden; background:#1E2E38;">
+            <video autoplay muted loop playsinline disablepictureinpicture
+                   style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
+              <source src="../volvo-exec-v3/presentation-assets/volvo/yara-bulk.mp4" type="video/mp4">
+            </video>
+            <div style="position:absolute; left:0; right:0; bottom:0; height:120px;
+                        background:linear-gradient(to top, rgba(30,46,56,0.90) 0%, rgba(30,46,56,0) 100%);"></div>
+            <div style="position:absolute; left:22px; bottom:20px; display:flex; align-items:center; gap:11px;">
+              <svg width="17" height="11" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M0 5L2.88675 0H11.8025L14.6892 5L11.8025 10H2.88675L0 5Z" fill="#FF371C"/></svg>
+              <span style="font-size:26px; line-height:1.1; color:#FAFAFB;">Yara &middot; Her&oslash;ya</span>
+            </div>
+          </div>
+          <p style="font-size:26px; line-height:1.2; color:#2F3D48; margin-top:20px;">Feeding the world</p>
+          <p class="body" style="margin-top:12px;">Supervised physical AI wheel loaders moving fertilizer inside one of Europe's largest ammonia facilities. Hardware proven in extreme industrial environment for 18+ months.</p>
+        </div>
+
+        <div>
+          <div style="position:relative; height:250px; overflow:hidden; background:#1E2E38;">
+            <video autoplay muted loop playsinline disablepictureinpicture
+                   style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
+              <source src="../volvo-exec-v3/presentation-assets/volvo/presis-vikafjellet.mp4" type="video/mp4">
+            </video>
+            <div style="position:absolute; left:0; right:0; bottom:0; height:120px;
+                        background:linear-gradient(to top, rgba(30,46,56,0.90) 0%, rgba(30,46,56,0) 100%);"></div>
+            <div style="position:absolute; left:22px; bottom:20px; display:flex; align-items:center; gap:11px;">
+              <svg width="17" height="11" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M0 5L2.88675 0H11.8025L14.6892 5L11.8025 10H2.88675L0 5Z" fill="#FF371C"/></svg>
+              <span style="font-size:26px; line-height:1.1; color:#FAFAFB;">Presis &middot; Vikafjellet</span>
+            </div>
+          </div>
+          <p style="font-size:26px; line-height:1.2; color:#2F3D48; margin-top:20px;">Keeping passes open</p>
+          <p class="body" style="margin-top:12px;">Remote snow clearing in avalanche zones under Norwegian Public Roads Administration contract. Why: operators removed from life-threatening hazard zones.</p>
+        </div>
+
+        <div>
+          <div style="position:relative; height:250px; overflow:hidden; background:#1E2E38;">
+            <video autoplay muted loop playsinline disablepictureinpicture
+                   poster="../volvo-exec-v3/presentation-assets/volvo/feiring-poster.jpg"
+                   style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
+              <source src="../volvo-exec-v3/presentation-assets/volvo/feiring-quarry.mp4" type="video/mp4">
+            </video>
+            <div style="position:absolute; left:0; right:0; bottom:0; height:120px;
+                        background:linear-gradient(to top, rgba(30,46,56,0.90) 0%, rgba(30,46,56,0) 100%);"></div>
+            <div style="position:absolute; left:22px; bottom:20px; display:flex; align-items:center; gap:11px;">
+              <svg width="17" height="11" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M0 5L2.88675 0H11.8025L14.6892 5L11.8025 10H2.88675L0 5Z" fill="#FF371C"/></svg>
+              <span style="font-size:26px; line-height:1.1; color:#FAFAFB;">Hamar Pukk</span>
+            </div>
+          </div>
+          <p style="font-size:26px; line-height:1.2; color:#2F3D48; margin-top:20px;">Powering quarries</p>
+          <p class="body" style="margin-top:12px;">Autonomous wheel loader loading trucks in a live Nordic aggregate operation. Why: continuous production without operator shift gaps.</p>
+        </div>
+
+        <div>
+          <div style="position:relative; height:250px; overflow:hidden; background:#1E2E38;">
+            <video autoplay muted loop playsinline disablepictureinpicture
+                   style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;">
+              <source src="../volvo-exec-v3/presentation-assets/volvo/veidekke-tunnel.mp4" type="video/mp4">
+            </video>
+            <div style="position:absolute; left:0; right:0; bottom:0; height:120px;
+                        background:linear-gradient(to top, rgba(30,46,56,0.90) 0%, rgba(30,46,56,0) 100%);"></div>
+            <div style="position:absolute; left:22px; bottom:20px; display:flex; align-items:center; gap:11px;">
+              <svg width="17" height="11" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><path d="M0 5L2.88675 0H11.8025L14.6892 5L11.8025 10H2.88675L0 5Z" fill="#FF371C"/></svg>
+              <span style="font-size:26px; line-height:1.1; color:#FAFAFB;">Veidekke &middot; Telia 5G</span>
+            </div>
+          </div>
+          <p style="font-size:26px; line-height:1.2; color:#2F3D48; margin-top:20px;">Building tunnels</p>
+          <p class="body" style="margin-top:12px;">Europe's first industrial 5G teleoperation trial, with Hive wheel loaders alongside Boston Dynamics robots. Why: multi-vendor interoperability in confined spaces.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="a3" style="display:grid; grid-template-columns:1fr 2fr; gap:0 64px; margin-top:26px;">
+      <div></div>
+      <p style="font-size:24px; line-height:1.4; color:#2F3D48;">
+        All four deployments running on Volvo L-series wheel loaders. Volvo's strongest physical AI
+        story in market today already has your brand on the machine and Hive on the intelligence layer.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="ft">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE">
+    <span class="mono red">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;">
+      <span class="mono" style="color:#2F3D48;">CONFIDENTIAL</span>
+      <span class="mono" style="color:#2F3D48;">04|08</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 05 THE COMMERCIAL MODEL — light, three pillars ════════════════════ -->
+<section data-screen-label="05 The Commercial Model" class="ice" data-deck-slide="4">
+
+  <div style="position:absolute; top:56px; left:52px; right:52px; bottom:72px;
+              display:flex; flex-direction:column; justify-content:space-between;">
+
+    <div class="a1" style="display:grid; grid-template-columns:1.15fr 1fr; gap:0 80px; align-items:start;">
+      <div>
+        <h1 style="font-size:54px; line-height:1.08; letter-spacing:-0.025em; color:#2F3D48;">Three pillars. One structure that plugs into how Volvo already operates.</h1>
+        <div style="margin-top:34px;">
+          <div style="width:120px; height:1px; background:rgba(47,61,72,0.35);"></div>
+          <p class="mono" style="color:#4A5C68; margin-top:14px;">THE COMMERCIAL MODEL</p>
+        </div>
+      </div>
+      <div style="padding-top:10px;">
+        <p class="lead">
+          A preferred partnership built on recurring revenue, shared data, and joint market
+          expansion. Running through the dealer network you already have.
+        </p>
+      </div>
+    </div>
+
+    <div class="a2" style="display:grid; grid-template-columns:repeat(3,1fr); gap:0 64px;">
+      <div class="hl-t" style="padding-top:22px;">
+        <p class="mono-sm" style="color:#4A5C68; margin-bottom:16px;">PILLAR 01</p>
+        <p style="font-size:40px; line-height:1.12; letter-spacing:-0.02em; color:#2F3D48; margin-bottom:18px;">Shared recurring revenue</p>
+        <p style="font-size:21px; line-height:1.5; color:#4A5C68;">20% of every Hive physical AI subscription on any Volvo-sold machine, not just new sales. Paid continuously. A new recurring revenue line for Volvo CE on new machines, and for dealers on retrofit of the existing installed base.</p>
+      </div>
+      <div class="hl-t" style="padding-top:22px;">
+        <p class="mono-sm" style="color:#4A5C68; margin-bottom:16px;">PILLAR 02</p>
+        <p style="font-size:40px; line-height:1.12; letter-spacing:-0.02em; color:#2F3D48; margin-bottom:18px;">Operational data sharing</p>
+        <p style="font-size:21px; line-height:1.5; color:#4A5C68;">Raw operational telemetry from every Hive-equipped Volvo-sold machine, flowing to Volvo R&amp;D, product development, and service optimization. Unmatched real-world fleet visibility, governed by clear data agreements.</p>
+      </div>
+      <div class="hl-t" style="padding-top:22px;">
+        <p class="mono-sm" style="color:#4A5C68; margin-bottom:16px;">PILLAR 03</p>
+        <p style="font-size:40px; line-height:1.12; letter-spacing:-0.02em; color:#2F3D48; margin-bottom:18px;">Increased market share</p>
+        <p style="font-size:21px; line-height:1.5; color:#4A5C68;">Physical AI becomes the reason customers choose Volvo over Cat, Komatsu, or any mid-segment alternative. Deployed through the local dealership, with Hive doing the commercial work alongside your team.</p>
+      </div>
+    </div>
+
+    <div class="a3" style="display:grid; grid-template-columns:1fr 2fr; gap:0 64px; margin-top:40px;">
+      <div></div>
+      <p style="font-size:26px; line-height:1.4; color:#2F3D48;">
+        Two revenue streams, one partnership. Volvo CE captures margin on new-machine sales with
+        physical AI factored in. Dealers capture margin on retrofit across the installed base.
+        Both compound over time.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="ft">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE">
+    <span class="mono red">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;">
+      <span class="mono" style="color:#2F3D48;">CONFIDENTIAL</span>
+      <span class="mono" style="color:#2F3D48;">05|08</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 06 HOW WE SCALE OPERATIONALLY — light, three steps ═══════════════ -->
+<section data-screen-label="06 How We Scale Operationally" class="ice" data-deck-slide="5">
+
+  <div style="position:absolute; top:56px; left:52px; right:52px; bottom:72px;
+              display:flex; flex-direction:column; justify-content:space-between;">
+
+    <div class="a1" style="display:grid; grid-template-columns:1.15fr 1fr; gap:0 80px; align-items:start;">
+      <h1 style="font-size:60px; line-height:1.06; letter-spacing:-0.025em; color:#2F3D48;">Hive trains the trainers. Volvo unlocks the distribution.</h1>
+      <p class="lead" style="padding-top:10px;">
+        A partnership is only worth as much as the motion around it. Here is how Hive equips
+        Volvo's existing sales, service and dealer organization to sell, install and support
+        supervised physical AI at scale, and how Hive reciprocates with engineering and account
+        support when Volvo opens a door.
+      </p>
+    </div>
+
+    <div class="a2" style="display:grid; grid-template-columns:1fr 64px 1fr 64px 1fr; align-items:stretch;">
+
+      <div class="card" style="padding:34px 34px 36px;">
+        <p class="mono-sm" style="color:#4A5C68; margin-bottom:18px;">STEP 01</p>
+        <p style="font-size:38px; line-height:1.12; letter-spacing:-0.02em; color:#2F3D48; margin-bottom:14px;">Train Volvo sales</p>
+        <p style="font-size:20px; line-height:1.4; color:#2F3D48; margin-bottom:18px;">Position physical AI in the customer dialogue.</p>
+        <p style="font-size:19px; line-height:1.5; color:#4A5C68;">Joint training for Volvo account managers: how to qualify physical AI opportunities, how to run an ICP-aligned discovery, how to hand off to Hive at the right moment. Joint call templates, objection handling, and shared CRM visibility.</p>
+      </div>
+
+      <div style="display:flex; align-items:center; justify-content:center;">
+        <span style="font-size:32px; color:#4A5C68;">&rarr;</span>
+      </div>
+
+      <div class="card" style="padding:34px 34px 36px;">
+        <p class="mono-sm" style="color:#4A5C68; margin-bottom:18px;">STEP 02</p>
+        <p style="font-size:38px; line-height:1.12; letter-spacing:-0.02em; color:#2F3D48; margin-bottom:14px;">Train Volvo service</p>
+        <p style="font-size:20px; line-height:1.4; color:#2F3D48; margin-bottom:18px;">Install and maintain retrofit kits.</p>
+        <p style="font-size:19px; line-height:1.5; color:#4A5C68;">Hive certifies dealer technicians to install the retrofit kit, run calibration, and perform first-line service. Level 2 support stays with Hive. The dealer keeps the customer relationship and the service revenue.</p>
+      </div>
+
+      <div style="display:flex; align-items:center; justify-content:center;">
+        <span style="font-size:32px; color:#4A5C68;">&rarr;</span>
+      </div>
+
+      <div class="card" style="padding:34px 34px 36px;">
+        <p class="mono-sm" style="color:#4A5C68; margin-bottom:18px;">STEP 03</p>
+        <p style="font-size:38px; line-height:1.12; letter-spacing:-0.02em; color:#2F3D48; margin-bottom:14px;">Hive joins your calls</p>
+        <p style="font-size:20px; line-height:1.4; color:#2F3D48; margin-bottom:18px;">Reciprocity. Not a one-way enablement.</p>
+        <p style="font-size:19px; line-height:1.5; color:#4A5C68;">When a Volvo account manager opens a door on a qualified physical AI opportunity, Hive brings engineers, demo capacity, and account support to the table. This is a two-way commercial motion, not a dealer program Hive throws over the wall.</p>
+      </div>
+
+    </div>
+
+    <div class="a3" style="display:grid; grid-template-columns:1fr 2fr; gap:0 64px; margin-top:40px;">
+      <div></div>
+      <p style="font-size:26px; line-height:1.4; color:#2F3D48;">
+        Zero new headcount for Volvo. Real capacity from Hive on demand. The partnership runs on
+        Volvo's existing commercial and service footprint, and on Hive's technical bench when you need it.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="ft">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE">
+    <span class="mono red">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;">
+      <span class="mono" style="color:#2F3D48;">CONFIDENTIAL</span>
+      <span class="mono" style="color:#2F3D48;">06|08</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 07 THE BUSINESS CASE — dark, the signal moment ════════════════════ -->
+<section data-screen-label="07 The Business Case" class="dark" data-deck-slide="6">
+
+  <div style="position:absolute; top:56px; left:52px; right:52px; bottom:88px;
+              display:flex; flex-direction:column; justify-content:space-between;">
+
+    <div class="a1" style="display:grid; grid-template-columns:1.15fr 1fr; gap:0 80px; align-items:start;">
+      <div>
+        <h1 style="font-size:64px; line-height:1.06; letter-spacing:-0.025em; color:#FAFAFB;">Physical AI becomes the reason customers choose Volvo.</h1>
+        <div style="margin-top:34px;">
+          <div style="width:120px; height:1px; background:rgba(250,250,251,0.35);"></div>
+          <p class="mono" style="color:rgba(250,250,251,0.62); margin-top:14px;">THE BUSINESS CASE</p>
+        </div>
+      </div>
+      <div style="padding-top:10px;">
+        <p class="lead-d">
+          Two ways this partnership grows your market. One makes you sell more machines.
+          The other opens a market you have never had access to.
+        </p>
+      </div>
+    </div>
+
+    <div class="a2" style="display:grid; grid-template-columns:1fr 1fr; gap:0 80px;">
+      <div class="hl-t-d" style="padding-top:22px;">
+        <p class="mono-sm" style="color:rgba(250,250,251,0.55); margin-bottom:16px;">01</p>
+        <p style="font-size:40px; line-height:1.12; letter-spacing:-0.02em; color:#FAFAFB; margin-bottom:16px;">Sell more machines</p>
+        <p style="font-size:22px; line-height:1.4; color:#FAFAFB; margin-bottom:16px;">Physical AI makes Volvo the profitable choice.</p>
+        <p style="font-size:20px; line-height:1.5; color:rgba(250,250,251,0.72);">The Volvo dealer puts supervised physical AI on the table. A differentiator no competitor can match on spec alone. For electric machines (50-75% price premium), physical AI increases utilization and compresses operating cost, making the economics of electric work. Two strategic priorities at once.</p>
+      </div>
+      <div class="hl-t-d" style="padding-top:22px;">
+        <p class="mono-sm" style="color:rgba(250,250,251,0.55); margin-bottom:16px;">02</p>
+        <p style="font-size:40px; line-height:1.12; letter-spacing:-0.02em; color:#FAFAFB; margin-bottom:16px;">Enter the labor market</p>
+        <p style="font-size:22px; line-height:1.4; color:#FAFAFB; margin-bottom:16px;">A new revenue stream 2-3x larger than machine sales.</p>
+        <p style="font-size:20px; line-height:1.5; color:rgba(250,250,251,0.72);">Volvo CE generates ~$8.5B per year selling machines. The operator labor market for those same machines is $17-25B per year. Through Hive, Volvo takes a direct share of that cashflow. Yearly recurring revenue that compounds as the installed base grows.</p>
+      </div>
+    </div>
+
+    <div class="a3" style="display:grid; grid-template-columns:1fr 96px 1fr 1fr; align-items:end; margin-top:40px;">
+      <div>
+        <p style="font-size:96px; line-height:1; letter-spacing:-0.04em; color:#FAFAFB;">$8.5B</p>
+        <p class="mono-sm" style="color:rgba(250,250,251,0.55); margin-top:16px;">VOLVO CE REVENUE TODAY</p>
+      </div>
+      <div style="display:flex; justify-content:center; padding-bottom:52px;">
+        <span style="font-size:36px; color:rgba(250,250,251,0.65);">&rarr;</span>
+      </div>
+      <div>
+        <p style="font-size:96px; line-height:1; letter-spacing:-0.04em; color:#FAFAFB;">$17-25B</p>
+        <p class="mono-sm" style="color:rgba(250,250,251,0.55); margin-top:16px;">OPERATOR LABOR MARKET · VOLVO MACHINE FLEET</p>
+      </div>
+      <div style="padding-left:64px;">
+        <p style="font-size:26px; line-height:1.35; color:#FAFAFB;">Hive gives Volvo direct access to this market.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ft">
+    <img src="./assets/logo-symbol-white.svg" height="22" alt="HIVE">
+    <span class="mono" style="color:#FAFAFB;">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;">
+      <span class="mono" style="color:#FAFAFB;">CONFIDENTIAL</span>
+      <span class="mono" style="color:#FAFAFB;">07|08</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 08 PROPOSED NEXT STEPS — light, closing ═══════════════════════════ -->
+<section data-screen-label="08 Proposed Next Steps" class="ice" data-deck-slide="7" data-deck-last-visible>
+
+  <div style="position:absolute; top:56px; left:52px; right:52px; bottom:72px;
+              display:flex; flex-direction:column; justify-content:space-between;">
+
+    <div class="a1">
+      <h1 style="font-size:58px; line-height:1.1; letter-spacing:-0.025em; color:#2F3D48; max-width:1500px;">
+        To get this partnership up and running from Q3, we need a signed term sheet before end of May.
+      </h1>
+      <p class="lead" style="margin-top:24px; max-width:1100px;">
+        Volvo has signalled they want this operational from Q3 2026. Here is the shortest path to
+        make that happen.
+      </p>
+      <div style="margin-top:30px;">
+        <div style="width:120px; height:1px; background:rgba(47,61,72,0.35);"></div>
+        <p class="mono" style="color:#4A5C68; margin-top:14px;">PROPOSED NEXT STEPS</p>
+      </div>
+    </div>
+
+    <div class="a2" style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:0 24px;">
+      <div class="hl-t" style="padding-top:20px;">
+        <p class="mono-sm" style="color:#4A5C68; margin-bottom:14px;">01</p>
+        <p style="font-size:30px; line-height:1.15; letter-spacing:-0.015em; color:#2F3D48; margin-bottom:14px;">Executive alignment session</p>
+        <p class="body">60 minutes, Hive founders and Volvo CE leadership. Confirm appetite for a preferred partnership and agree on scope.</p>
+      </div>
+      <div class="hl-t" style="padding-top:20px;">
+        <p class="mono-sm" style="color:#4A5C68; margin-bottom:14px;">02</p>
+        <p style="font-size:30px; line-height:1.15; letter-spacing:-0.015em; color:#2F3D48; margin-bottom:14px;">Term sheet</p>
+        <p class="body">Agree commercial terms for the partnership. Target: signed before end of May.</p>
+      </div>
+      <div class="hl-t" style="padding-top:20px;">
+        <p class="mono-sm" style="color:#4A5C68; margin-bottom:14px;">03</p>
+        <p style="font-size:30px; line-height:1.15; letter-spacing:-0.015em; color:#2F3D48; margin-bottom:14px;">Eskilstuna showcase</p>
+        <p class="body">Deploy a Hive physical AI kit on a Volvo reference machine. Make the capability visible to Volvo customers visiting Eskilstuna.</p>
+      </div>
+      <div class="hl-t" style="padding-top:20px;">
+        <p class="mono-sm" style="color:#4A5C68; margin-bottom:14px;">04</p>
+        <p style="font-size:30px; line-height:1.15; letter-spacing:-0.015em; color:#2F3D48; margin-bottom:14px;">Joint pilot selection</p>
+        <p class="body">Pick 2-3 customers from Volvo's own base in the Nordics. Test the joint sales structure. Define joint KPIs.</p>
+      </div>
+    </div>
+
+    <div class="a3 card" style="margin-top:48px; padding:34px 40px; display:grid;
+                grid-template-columns:1fr 1fr 1fr 1fr; gap:0 40px; align-items:end;">
+      <div>
+        <p class="mono-sm" style="color:#4A5C68; margin-bottom:14px;">HIVE AUTONOMY</p>
+        <p style="font-size:22px; line-height:1.3; color:#2F3D48;">Kristiansand. Oslo. London</p>
+        <p class="mono-sm" style="color:#4A5C68; margin-top:10px;">HIVEAUTONOMY.NO</p>
+      </div>
+      <div>
+        <p style="font-size:26px; line-height:1.2; color:#2F3D48;">Christoffer Jorgenvag</p>
+        <p class="body" style="margin-top:8px;">Co-founder. CEO</p>
+      </div>
+      <div>
+        <p style="font-size:26px; line-height:1.2; color:#2F3D48;">Fredrik Bringager</p>
+        <p class="body" style="margin-top:8px;">Co-founder. CCO</p>
+      </div>
+      <div>
+        <p style="font-size:26px; line-height:1.2; color:#2F3D48;">Ronny Azimi Liverod</p>
+        <p class="body" style="margin-top:8px;">VP Heavy Machinery</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ft">
+    <img src="./assets/logo-symbol-navy.svg" height="22" alt="HIVE">
+    <span class="mono red">[INDUSTRIAL MACHINE INTELLIGENCE]</span>
+    <div style="display:flex; gap:48px;">
+      <span class="mono" style="color:#2F3D48;">CONFIDENTIAL</span>
+      <span class="mono" style="color:#2F3D48;">08|08</span>
+    </div>
+  </div>
+</section>
+
+</deck-stage>
+</body>
+</html>

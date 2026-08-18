@@ -1,0 +1,80 @@
+/* ============================================================
+   HIVE — Color tokens
+   Monochrome: one navy anchor, an "Ice" ramp, one red accent.
+   Rule: a surface is EITHER light (Ice ramp) OR dark (Navy) —
+   never split, never mixed.
+   Rule: red never appears on dark backgrounds.
+   ============================================================ */
+
+:root {
+  /* ---- Base palette ---------------------------------------- */
+  --navy:            #2F3D48; /* Pantone 7546 C · primary anchor   */
+  --navy-deep:       #1E2E38; /* deeper navy · photo/video bgs     */
+  --navy-deeper:     #1A2830; /* darkest navy · tunnel, proof bgs  */
+  --ink:             #1F262D; /* near-black ink · max contrast     */
+
+  --slide-ice:       #B8CCDA; /* slide surface · mid blue-gray     */
+  --blue-ice:        #E1EAED; /* Pantone 649 C · primary light bg  */
+  --light-blue-ice:  #EEF3F6; /* lighter ice · panels, step slides */
+  --white-ice:       #FAFAFB; /* near-white · base light surface   */
+  --dark-blue-ice:   #CDDDE6; /* muted ice · borders, fills        */
+
+  --red:             #FF371C; /* Bright Red C · light-surface only */
+  --red-pale:        #FFB0B0; /* pale red · diagram guides         */
+
+  --white:           #FFFFFF;
+  --black:           #000000;
+
+  /* ---- Semantic — LIGHT surface (default) ------------------ */
+  --surface:         var(--white-ice);
+  --surface-raised:  var(--light-blue-ice);
+  --surface-sunken:  var(--blue-ice);
+  --surface-inverse: var(--navy);
+
+  --text:            var(--navy);
+  --text-muted:      #4A5C68;  /* secondary text — updated from slides */
+  --text-faint:      #8A99A3;  /* tertiary / disabled                  */
+  --text-inverse:    var(--white-ice);
+  --text-accent:     var(--red); /* labels & markers on LIGHT surfaces */
+
+  --border:          var(--dark-blue-ice);
+  --border-strong:   var(--navy);
+
+  --accent:          var(--red);
+  --accent-contrast: var(--white-ice);
+
+  /* ---- Focus / interaction --------------------------------- */
+  --focus-ring: var(--red);
+
+  /* ---- Functional status ----------------------------------- */
+  --status-ok:          oklch(0.62 0.10 175);
+  --status-ok-bg:       oklch(0.95 0.03 175);
+  --status-warn:        oklch(0.70 0.12  75);
+  --status-warn-bg:     oklch(0.95 0.05  85);
+  --status-critical:    var(--red);
+  --status-critical-bg: oklch(0.94 0.04  25);
+  --status-idle:        var(--text-faint);
+  --status-idle-bg:     var(--surface-sunken);
+}
+
+/* ---- Semantic — DARK surface ------------------------------- */
+/* Apply [data-surface="dark"] to flip. Red is NOT used as an   */
+/* accent here — it has insufficient contrast and is reserved   */
+/* for light surfaces only.                                      */
+[data-surface="dark"] {
+  --surface:         var(--navy);
+  --surface-raised:  #38454F;
+  --surface-sunken:  var(--navy-deep);
+  --surface-inverse: var(--white-ice);
+
+  --text:            var(--white-ice);
+  --text-muted:      #A9B7BF;
+  --text-faint:      #738089;
+  --text-inverse:    var(--navy);
+  --text-accent:     var(--white-ice); /* NO red on dark — use white */
+
+  --border:          #46535D;
+  --border-strong:   var(--white-ice);
+
+  --accent-contrast: var(--white-ice);
+}
