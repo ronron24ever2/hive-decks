@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>HIVE — Clearing avalanches with Statens Vegvesen</title>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/colors.css">
+<link rel="stylesheet" href="assets/css/typography.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{font-feature-settings:'ss03' on}
+  body{background:#0D1418;font-family:var(--font-display);color:var(--navy);
+       -webkit-font-smoothing:antialiased;padding:40px 0}
+
+  .spread{width:1600px;height:900px;margin:0 auto 34px;display:grid;
+          grid-template-columns:1fr 2px 1fr;background:var(--white-ice);position:relative;overflow:hidden}
+  .spread.single{grid-template-columns:1fr}
+  .spread[data-surface="dark"]{background:var(--navy);color:var(--white-ice)}
+  .gutter{background:var(--dark-blue-ice)}
+  .spread[data-surface="dark"] .gutter{background:#46535D}
+  .pg{position:relative;padding:56px 60px 52px;display:flex;flex-direction:column;overflow:hidden}
+  .pg.media{padding:0}
+
+  .label{font-family:var(--font-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-faint)}
+  [data-surface="dark"] .label{color:#738089}
+  .pnum{position:absolute;bottom:30px;font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;color:var(--text-faint)}
+  .pg:first-of-type .pnum{left:60px}
+  .pg:last-of-type .pnum{right:60px}
+  .stamp{position:absolute;bottom:30px;font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;
+         text-transform:uppercase;color:var(--red)}
+  [data-surface="dark"] .stamp{color:var(--white-ice)}
+  .pg:first-of-type .stamp{right:60px}
+
+  h1{font-size:70px;line-height:1.02;font-weight:400;letter-spacing:-.02em;max-width:14ch}
+  h2{font-size:40px;line-height:1.06;font-weight:400;letter-spacing:-.015em;max-width:17ch}
+  p{font-size:15.5px;line-height:1.25;max-width:52ch;margin-bottom:16px}
+  [data-surface="dark"] p{color:var(--white-ice)}
+  .lede{font-size:20px;line-height:1.28;max-width:42ch}
+  .muted{color:var(--text-muted)}
+  [data-surface="dark"] .muted{color:#A9B7BF}
+
+  .pg.media img,.pg.media video{width:100%;height:100%;object-fit:cover;display:block}
+  .cap{position:absolute;left:32px;bottom:24px;font-family:var(--font-mono);font-size:9px;
+       letter-spacing:.16em;text-transform:uppercase;color:var(--white-ice);
+       background:rgba(31,38,45,.72);padding:7px 12px}
+  .cap.top{top:24px;bottom:auto}
+
+  .metrics{display:flex;gap:56px;margin-top:auto;padding-top:30px}
+  .metrics .n{font-size:60px;line-height:1;letter-spacing:-.02em;display:block}
+  .metrics .c{font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+              color:var(--text-faint);margin-top:10px;display:block;max-width:18ch;line-height:1.5}
+
+  .rows{border-top:1px solid var(--border);margin-top:24px}
+  [data-surface="dark"] .rows{border-color:#46535D}
+  .row{display:grid;grid-template-columns:132px 1fr;gap:26px;padding:13px 0;border-bottom:1px solid var(--border)}
+  [data-surface="dark"] .row{border-color:#46535D}
+  .row .k{font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+          color:var(--text-faint);padding-top:2px}
+  .row .v{font-size:14.5px;line-height:1.25}
+
+  .q{margin-top:26px;max-width:44ch}
+  .q .t{font-size:24px;line-height:1.22}
+  .q .a{font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+        color:var(--text-faint);margin-top:14px;display:block;line-height:1.7}
+  [data-surface="dark"] .q .a{color:#738089}
+
+  .adv{border-top:1px solid var(--border);margin-top:26px}
+  .adv .item{padding:20px 0;border-bottom:1px solid var(--border)}
+  .adv h3{font-size:19px;font-weight:400;margin-bottom:7px}
+  .adv p{font-size:14px;margin:0;max-width:48ch}
+  [data-surface="dark"] .adv{border-color:#46535D}
+  [data-surface="dark"] .adv .item{border-color:#46535D}
+  .adv--tight{margin-top:20px}
+  .adv--tight .item{padding:13px 0}
+  .adv--tight h3{font-size:16px;margin-bottom:5px}
+  .adv--tight p{font-size:12.5px;line-height:1.42;max-width:52ch}
+  .adv--tight h3.logo-head{display:flex;align-items:center;min-height:38px;margin-bottom:9px}
+  .adv--tight h3.logo-head img{height:38px;max-width:200px;object-fit:contain;display:block}
+  .adv--tight h3.logo-head img.mono-logo{filter:brightness(0) invert(1)}
+
+  .refrain{font-size:28px;line-height:1.15;max-width:20ch;margin-top:auto}
+  .dot{display:inline-block;width:7px;height:7px;background:var(--red);vertical-align:middle;margin-right:9px}
+
+  .quote-media{position:relative}
+  .quote-media .scrim{position:absolute;left:0;right:0;bottom:0;padding:36px 40px 64px;
+       background:linear-gradient(to top, rgba(30,46,56,.95) 0%, rgba(30,46,56,.82) 45%, rgba(30,46,56,0) 100%)}
+  .quote-media .scrim .t{font-size:22px;line-height:1.25;max-width:34ch;color:var(--white-ice);margin:0}
+  .quote-media .scrim .a{font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+       color:#A9B7BF;margin-top:16px;display:block;line-height:1.6}
+  .quote-media .pnum{color:#A9B7BF}
+
+  .hero-video{position:absolute;background:var(--navy-deep);overflow:hidden}
+  .hero-video video{width:100%;height:100%;object-fit:cover;display:block}
+  .hero-video .cap{left:16px;bottom:16px}
+
+  .letterbox-media{background:var(--navy-deep);display:flex;align-items:center;justify-content:center}
+  .pg.media.letterbox-media video,.pg.media.letterbox-media img{width:100%;height:100%;object-fit:contain}
+
+</style>
+</head>
+<body>
+
+<!-- 1 · COVER -->
+<section class="spread single" data-surface="dark">
+  <div class="pg" style="justify-content:center">
+    <span class="label" style="margin-left:3px">Customer story</span>
+    <h1 style="margin-top:26px;max-width:520px">Clearing avalanches with Statens Vegvesen.</h1>
+    <p class="lede muted" style="margin-top:30px;max-width:480px">Vikafjellet, Norway. A wheel loader running the Hive Silicon Brain, commanded from a control room while the pass is closed.</p>
+    <div class="rows" style="margin-top:34px;max-width:440px">
+      <div class="row"><span class="k">Contractor</span><span class="v">Presis Vegdrift</span></div>
+      <div class="row"><span class="k">Road authority</span><span class="v">Statens Vegvesen</span></div>
+      <div class="row"><span class="k">Agreement</span><span class="v">02.10.2025</span></div>
+    </div>
+    <div class="hero-video" id="cover-hero" style="top:143px;right:60px;width:618px;height:618px">
+      <video src="assets/img/hero-clip.mp4" autoplay muted loop playsinline></video>
+      <span class="cap">Vikafjellet · Riksvei 13, Vestland</span>
+    </div>
+    <span class="stamp">[Industrial machine intelligence]</span>
+    <span class="pnum" style="color:#738089">01</span>
+  </div>
+</section>
+
+<!-- 2 · THE PROBLEM -->
+<section class="spread">
+  <div class="pg">
+    <span class="label">Safety limits halt the work</span>
+    <h2 style="margin-top:22px">The road cannot reopen until a person is allowed under the slope.</h2>
+    <p style="margin-top:26px">Vikafjellet is a mountain pass on Riksvei 13 in Vestland. It averages <span style="border-bottom:1px solid var(--dark-blue-ice)">44 days of closure per year</span> because of severe weather and avalanche risk. For critical infrastructure of this kind, winter operations have historically been static and dangerous.</p>
+    <p>When an avalanche occurs, snowplow crews cannot simply begin clearing. They must wait, often several hours, until a geologist arrives on site and declares the area safe for human entry. That mandatory waiting period forces long operational delays while traffic stands on both sides of the mountain.</p>
+    <p>Even once clearing begins, the work remains hazardous. Snowplows have been struck by avalanches during cleanup.</p>
+    <p>Throughput and machine availability were capped entirely by human safety limits, not by the machine or the weather window.</p>
+    <div class="metrics">
+      <div><span class="n">44</span><span class="c">Days closed per year, average</span></div>
+      <div><span class="n">Hours</span><span class="c">Waiting on a geologist before clearing starts</span></div>
+    </div>
+    <span class="pnum">02</span>
+  </div>
+  <div class="gutter"></div>
+  <div class="pg media">
+    <img src="assets/img/vikafjellet-frame.jpg" alt="Avalanche debris blocking the road at Vikafjellet">
+    <span class="cap top">Statens Vegvesen · the pass under clearing</span>
+  </div>
+</section>
+
+<!-- 3 · WHAT WE INSTALLED -->
+<section class="spread">
+  <div class="pg media">
+    <img src="assets/img/sensor-kit-labeled.jpg" alt="Wheel loader with the Hive sensor kit, labelled" style="object-fit:contain;background:var(--navy-deep)">
+    <span class="cap">Cameras · lidar · control cabinet</span>
+  </div>
+  <div class="gutter"></div>
+  <div class="pg">
+    <span class="label">The Hive Silicon Brain</span>
+    <h2 style="margin-top:22px">We did not engineer a concept vehicle. We enhanced the existing fleet.</h2>
+    <p style="margin-top:26px">Autonomy only creates value when it fits the reality of the operation. Presis Vegdrift did not need a new machine or a specialised winter fleet. They needed the loader they already run to work in conditions that normally stop everything.</p>
+    <p>Hive took a standard wheel loader and retrofitted it with sensor and camera technology, turning it into a remote-supervised machine running the Hive Silicon Brain. No new vehicle investment. The contractor's existing machinery now performs under conditions that would previously have forced work to a complete stop.</p>
+    <p>Below the cab, a compact control cabinet houses the computing power and adds no volume to the machine's original footprint. It connects directly to the machine's existing electrical interface, so all original functionality and safety systems remain intact. The system can be switched off at any point, returning the machine to ordinary manual operation.</p>
+    <div class="rows">
+      <div class="row"><span class="k">Machine</span><span class="v">Volvo L110H, contractor owned</span></div>
+      <div class="row"><span class="k">Implement</span><span class="v">Øveraasen snow plough</span></div>
+      <div class="row"><span class="k">Platform</span><span class="v">Hive Silicon Brain, ODIN foundation model</span></div>
+      <div class="row"><span class="k">Capability</span><span class="v">Supervised-autonomous and remote operation</span></div>
+      <div class="row"><span class="k">Reversible</span><span class="v">System switches off, machine returns to manual</span></div>
+    </div>
+    <span class="pnum">03</span>
+  </div>
+</section>
+
+<!-- 4 · THE OPERATOR VIEW -->
+<section class="spread">
+  <div class="pg">
+    <span class="label">Sensor placement</span>
+    <h2 style="margin-top:22px">Tuned with the operators, not shipped as a default.</h2>
+    <p style="margin-top:26px">Sensor placement is set in close collaboration with the people who drive the machine, so the remote seat replicates the situational awareness of sitting in the cab. On Vikafjellet the camera coverage gives the operator the same view they would have had from inside the machine.</p>
+    <p>That took iteration. Camera view feedback ran as its own work package during the build, with the layout revised against what the operators actually needed in the conditions they actually work in.</p>
+    <p>The result is a seat that experienced drivers recognise immediately rather than one they have to be retrained into.</p>
+    <div class="q">
+      <p class="t">“Almost like sitting at home and gaming.”</p>
+      <span class="a">Anders Liljedahl<br>Snowplow driver</span>
+    </div>
+    <span class="pnum">04</span>
+  </div>
+  <div class="gutter"></div>
+  <div class="pg media">
+    <img src="assets/img/operator-station.jpg" alt="Hive operation station">
+    <span class="cap">Hive operation station</span>
+  </div>
+</section>
+
+<!-- 5 · ZERO CREWS IN HARM'S WAY -->
+<section class="spread" data-surface="dark">
+  <div class="pg media letterbox-media">
+    <video src="assets/img/ravi-clip.mp4" autoplay muted loop playsinline controls></video>
+    <span class="cap">In operation · closed road</span>
+  </div>
+  <div class="gutter"></div>
+  <div class="pg" style="justify-content:center">
+    <span class="label">The new era of work</span>
+    <h2 style="margin-top:22px">Zero crews in harm's way.</h2>
+    <p style="margin-top:26px">A dangerous, weather-dependent operation becomes a response system. Instead of sitting inside a vulnerable cab in avalanche terrain, the operator commands the wheel loader from a safe supervisor room.</p>
+    <p>A single operator can supervise several machines at once from an office-based control centre, instead of being sent one person per machine into avalanche-prone areas.</p>
+    <div class="q">
+      <p class="t">“If an avalanche comes, no one is in the machine. Then you can clear without putting anyone in danger.”</p>
+      <span class="a">Ravi Kumar<br>Test lead, Hive Autonomy</span>
+    </div>
+    <span class="stamp">[Industrial machine intelligence]</span>
+    <span class="pnum" style="color:#738089">05</span>
+  </div>
+</section>
+
+<!-- 6 · THE LIMITLESS ADVANTAGE -->
+<section class="spread">
+  <div class="pg">
+    <span class="label">The limitless advantage</span>
+    <h2 style="margin-top:22px">What changed on the pass.</h2>
+    <div class="adv">
+      <div class="item">
+        <h3>Immediate deployment</h3>
+        <p>The remote-controlled machine can be sent out to clear snow immediately, saving the hours previously lost waiting for a geologist to arrive on site.</p>
+      </div>
+      <div class="item">
+        <h3>Year-round asset utilisation</h3>
+        <p>The system is elastic across seasons. With a side-tip bucket fitted, the same machine clears rock and landslides through the summer.</p>
+      </div>
+      <div class="item">
+        <h3>Scalable infrastructure protection</h3>
+        <p>Following a successful testing period, Statens Vegvesen hopes to scale the Hive Silicon Brain to other highly exposed, avalanche-prone stretches across the country.</p>
+      </div>
+      <div class="item">
+        <h3>One control centre, national reach</h3>
+        <p>The long-term vision is a centralised control centre managing all of Presis Vegdrift's national operations.</p>
+      </div>
+    </div>
+    <span class="pnum">06</span>
+  </div>
+  <div class="gutter"></div>
+  <div class="pg media quote-media">
+    <img src="assets/img/geir-ove-engebo.jpg" alt="Geir Ove Engebø, project manager at Statens Vegvesen, interviewed at the avalanche site">
+    <div class="scrim">
+      <p class="t">“The remote-controlled machine can be sent out to clear snow immediately, saving the hours previously lost waiting for a geologist.”</p>
+      <span class="a">Geir Ove Engebø<br>Project manager, Statens Vegvesen</span>
+    </div>
+    <span class="pnum">07</span>
+  </div>
+</section>
+
+<!-- 7 · THE PARTNERSHIP -->
+<section class="spread">
+  <div class="pg media">
+    <img src="assets/img/machine-salt-hall.jpg" alt="Volvo L110H fitted with Hive hardware">
+    <span class="cap">Presis Vegdrift · Hive fitted</span>
+  </div>
+  <div class="gutter"></div>
+  <div class="pg">
+    <span class="label">The partnership</span>
+    <h2 style="margin-top:22px">Three parties, one agreement.</h2>
+    <p style="margin-top:26px">On 2 October 2025, Hive Autonomy, Presis Vegdrift and Statens Vegvesen entered into an agreement to deploy Hive's platform on Presis Vegdrift's wheel loaders, bringing AI-operated heavy machinery to demanding Nordic conditions.</p>
+    <div class="q" style="margin-top:22px">
+      <p class="t" style="font-size:18px">“Hive's Physical AI supports our strategy of combining innovation in AI and autonomy with deep operational expertise in road and infrastructure maintenance. It ensures our preparedness has the best tools to protect people, infrastructure and the environment.”</p>
+      <span class="a">Ove Sending<br>Presis Vegdrift</span>
+    </div>
+    <div class="q" style="margin-top:22px">
+      <p class="t" style="font-size:18px">“Hive's Physical AI technology is an important step in realizing our vision of a more efficient, safe and sustainable transport system. It supports our strategic goals of digitalization and automation.”</p>
+      <span class="a">Geir Ove Engebø<br>Statens Vegvesen</span>
+    </div>
+    <span class="pnum">08</span>
+  </div>
+</section>
+
+<!-- 9 · THE PARTNERS -->
+<section class="spread single">
+  <div class="pg" style="justify-content:center">
+    <span class="label">Vikafjellet</span>
+    <p class="refrain" style="margin-top:22px;margin-bottom:0;max-width:none">Built for the moon. Proven on Earth. Limitless.</p>
+    <div class="adv adv--tight" style="max-width:540px">
+      <div class="item">
+        <h3 class="logo-head"><img src="assets/img/hive-logo.png" alt="HIVE" style="width:73px;height:auto"></h3>
+        <p>HIVE builds the Silicon Brain for industrial operations. Its foundation model, ODIN, operates a wide range of machines, from forklifts to wheel loaders, enabling supervised-autonomous fleets that raise productivity, reduce operational risk and protect people.</p>
+      </div>
+      <div class="item">
+        <h3 class="logo-head"><img src="assets/img/statens-vegvesen-logo.png" alt="Statens Vegvesen"></h3>
+        <p>Statens Vegvesen, the Norwegian Public Roads Administration, is the national government agency responsible for planning, building and operating Norway's road network. It reports to the Ministry of Transport and Communications and has kept the country connected since 1864, through conditions as severe as the avalanche-prone pass at Vikafjellet.</p>
+      </div>
+      <div class="item">
+        <h3 class="logo-head"><img src="assets/img/presis-vegdrift-logo.png" alt="Presis Vegdrift"></h3>
+        <p>Presis Vegdrift AS is a Norwegian contractor specialising in the operation and maintenance of public roads, working primarily for Statens Vegvesen and regional county authorities. Headquartered in Nesttun, Bergen, it holds 32 maintenance contracts spanning Norway from Nordkapp to Lindesnes, covering winter and summer road operations, tunnel upkeep and emergency preparedness.</p>
+      </div>
+    </div>
+    <div class="hero-video" id="partners-hero" style="top:155px;right:60px;width:580px;height:580px">
+      <video src="assets/img/vikafjellet.mp4" autoplay muted loop playsinline></video>
+    </div>
+    <span class="pnum">09</span>
+  </div>
+</section>
+
+</body>
+</html>

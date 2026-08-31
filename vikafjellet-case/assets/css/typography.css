@@ -1,0 +1,68 @@
+/* ============================================================
+   HIVE — Typography tokens
+   Two families only.
+
+   APK Galeria  : display, headings, body.
+                  Default: Regular (400) — aim for this always.
+                  Medium (500): use sparingly — some H4s, tight
+                  UI labels where Regular feels too light.
+                  Semibold (600): available but NOT in system use.
+                  font-feature-settings: 'ss03' on — always.
+
+   IBM Plex Mono: labels, captions, data, technical annotations.
+                  UPPERCASE ONLY — never sentence or title case.
+                  Tracked, often [bracketed].
+                  font-feature-settings: 'ss03' on — always.
+   ============================================================ */
+
+:root {
+  /* ---- Families -------------------------------------------- */
+  --font-display: "APK Galeria", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-body:    "APK Galeria", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* ---- Feature settings — mandatory on all HIVE type -------- */
+  /* Set globally via styles.css; never disable per-element.     */
+  --font-features: 'ss03' on;
+
+  /* ---- Weights --------------------------------------------- */
+  /* APK Galeria weight rules:                                   */
+  /*   Regular (400) — default for all text. Aim here always.   */
+  /*   Medium  (500) — use sparingly: some H4s, tight UI labels  */
+  /*                   where Regular reads as too thin.          */
+  /*   Semibold(600) — in font files but NOT in system use.      */
+  /* IBM Plex Mono — always Regular (400), always UPPERCASE.     */
+  --weight-regular:  400; /* default — use for almost everything */
+  --weight-medium:   500; /* H4 / tight UI labels — sparingly    */
+  --weight-semibold: 600; /* NOT in system use                   */
+
+  /* ---- Type scale (px) ------------------------------------- */
+  /* Slide scale (established from the HIVE pitch deck):        */
+  --text-hero:     168px; /* full-bleed mega statement (vision) */
+  --text-stat:     120px; /* display metric / stat number       */
+  --text-display:   88px; /* hero wordmark-scale statements     */
+  --text-h1:        80px; /* primary slide headline             */
+  --text-h2:        72px; /* secondary slide headline           */
+  --text-h3:        32px; /* section label / sub-heading        */
+  --text-h4:        24px; /* card / row heading                 */
+
+  /* Product / body scale:                                       */
+  --text-body-lg:   28px; /* slide body copy / sub paragraphs   */
+  --text-lg:        20px; /* product UI lead text               */
+  --text-base:      16px; /* product UI body                    */
+  --text-sm:        13px; /* mono footer labels                 */
+  --text-xs:        11px; /* mono-sm · small captions           */
+
+  /* ---- Line heights ---------------------------------------- */
+  --leading-tight:   1.0;   /* display / hero                  */
+  --leading-snug:    1.05;  /* slide headlines                 */
+  --leading-normal:   1.25;  /* body copy                       */
+  --leading-mono:    1.7;   /* uppercase mono blocks           */
+
+  /* ---- Letter spacing -------------------------------------- */
+  --tracking-display:    -0.025em; /* slide headlines           */
+  --tracking-hero:       -0.035em; /* mega / vision headline    */
+  --tracking-normal:      0;
+  --tracking-label:       0.10em;  /* uppercase mono labels     */
+  --tracking-label-wide:  0.14em;  /* widest mono captions      */
+}
