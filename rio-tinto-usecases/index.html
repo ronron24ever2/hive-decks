@@ -35,7 +35,9 @@
 
   .spread.cover{grid-template-columns:1fr}
   .cover-pg{padding:0;align-items:center;justify-content:center;position:relative}
-  .cover-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .cover-fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+              filter:blur(34px) saturate(.85);transform:scale(1.12)}
+  .cover-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
   .cover-mark{position:relative;width:620px;max-width:62%;display:block}
   .cover-sub{position:relative;margin-top:38px;font-family:var(--font-mono);font-size:11px;
              letter-spacing:.3em;text-transform:uppercase;color:var(--navy)}
@@ -65,6 +67,11 @@
   .next .n{font-size:26px;line-height:1.1;display:block;letter-spacing:-.015em}
   .next .c{font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
            color:var(--text-faint);margin-top:12px;display:block;line-height:1.7;max-width:26ch}
+  .playfull{position:absolute;right:24px;bottom:22px;display:flex;align-items:center;gap:8px;
+            font-family:var(--font-mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+            color:var(--white-ice);background:rgba(31,38,45,.74);border:0;padding:9px 14px 9px 11px;
+            cursor:pointer}
+  .playfull:hover{background:var(--red)}
   .cap{position:absolute;left:28px;bottom:22px;font-family:var(--font-mono);font-size:9px;
        letter-spacing:.16em;text-transform:uppercase;color:var(--white-ice);
        background:rgba(31,38,45,.74);padding:7px 12px}
@@ -74,10 +81,10 @@
 
 <section class="spread cover">
   <div class="pg cover-pg">
-    <img class="cover-bg" src="assets/img/cover-snow.png" alt="">
+    <img class="cover-fill" src="assets/img/cover-snow.jpg" alt="" aria-hidden="true">
+    <img class="cover-bg" src="assets/img/cover-snow.jpg" alt="">
     <img class="cover-mark" src="assets/img/lockup-dark-navy.svg" alt="Hive Autonomy">
     <span class="cover-sub">Use cases</span>
-    <span class="cover-cap">Vikafjellet, Riksvei 13</span>
   </div>
 </section>
 
@@ -174,15 +181,18 @@
       <div class="row"><span class="k">Network</span><span class="v">Telia 5G</span></div>
       <div class="row"><span class="k">Operator</span><span class="v">90 km away, at Ulven</span></div>
       <div class="row"><span class="k">Status</span><span class="v">Demonstration, run with Veidekke and Telia</span></div>
-      <div class="row"><span class="k">Full video</span><span class="v"><a href="https://www.youtube.com/watch?v=yeT7_XHc6C0" target="_blank" rel="noopener">youtube.com/watch?v=yeT7_XHc6C0</a></span></div>
     </div>
     <span class="pnum">04</span>
     <span class="stamp">[Industrial machine intelligence]</span>
   </div>
   <div class="gutter"></div>
-  <div class="pg media">
+  <div class="pg media" id="veidekke-pane">
     <video src="assets/img/veidekke.mp4" poster="assets/img/veidekke-still.jpg" autoplay muted loop playsinline></video>
     <span class="cap">Veidekke · Telia · Hive</span>
+    <button class="playfull" onclick="playFull()" aria-label="Play the full video">
+      <svg viewBox="0 0 24 24" width="17" height="17"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+      <span>Full video</span>
+    </button>
   </div>
 </section>
 
@@ -199,5 +209,13 @@
   </div>
 </section>
 
+<script>
+function playFull(){
+  var p=document.getElementById('veidekke-pane');
+  p.innerHTML='<iframe src="https://www.youtube.com/embed/yeT7_XHc6C0?autoplay=1&rel=0&modestbranding=1" '+
+              'frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen '+
+              'style="width:100%;height:100%;border:0;display:block;background:#000"></iframe>';
+}
+</script>
 </body>
 </html>
