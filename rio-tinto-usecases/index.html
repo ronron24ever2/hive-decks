@@ -34,12 +34,16 @@
 
 
   .spread.cover{grid-template-columns:1fr}
-  .cover-pg{padding:0;align-items:center;justify-content:center;position:relative}
+  .cover-pg{padding:0 0 168px;align-items:center;justify-content:center;position:relative}
   .cover-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
             object-position:center 42%}
   .cover-mark{position:relative;width:620px;max-width:62%;display:block}
-  .cover-sub{position:relative;margin-top:38px;font-family:var(--font-mono);font-size:11px;
-             letter-spacing:.3em;text-transform:uppercase;color:var(--navy)}
+  .cover-band{position:absolute;left:0;right:0;bottom:0;height:168px;background:var(--navy);
+              display:flex;align-items:center;justify-content:space-between;padding:0 60px}
+  .cover-band .t{font-size:44px;line-height:1.05;letter-spacing:-.018em;color:var(--white-ice)}
+  .cover-band .t .dot{width:11px;height:11px;margin-right:18px}
+  .cover-band .s{font-family:var(--font-mono);font-size:9px;letter-spacing:.18em;
+                 text-transform:uppercase;color:var(--white-ice);opacity:.62}
   .cover-cap{position:absolute;left:40px;bottom:30px;font-family:var(--font-mono);font-size:9px;
              letter-spacing:.18em;text-transform:uppercase;color:var(--navy);opacity:.55}
   .row .v a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--red);
@@ -82,7 +86,10 @@
   <div class="pg cover-pg">
     <img class="cover-bg" src="assets/img/cover-snow.jpg" alt="">
     <img class="cover-mark" src="assets/img/lockup-dark-navy.svg" alt="Hive Autonomy">
-    <span class="cover-sub">Use cases</span>
+    <div class="cover-band">
+      <span class="t"><span class="dot"></span>Use cases for wheel loader</span>
+      <span class="s">[Industrial machine intelligence]</span>
+    </div>
   </div>
 </section>
 
