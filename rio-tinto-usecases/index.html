@@ -35,9 +35,8 @@
 
   .spread.cover{grid-template-columns:1fr}
   .cover-pg{padding:0;align-items:center;justify-content:center;position:relative}
-  .cover-fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-              filter:blur(34px) saturate(.85);transform:scale(1.12)}
-  .cover-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+  .cover-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+            object-position:center 42%}
   .cover-mark{position:relative;width:620px;max-width:62%;display:block}
   .cover-sub{position:relative;margin-top:38px;font-family:var(--font-mono);font-size:11px;
              letter-spacing:.3em;text-transform:uppercase;color:var(--navy)}
@@ -81,7 +80,6 @@
 
 <section class="spread cover">
   <div class="pg cover-pg">
-    <img class="cover-fill" src="assets/img/cover-snow.jpg" alt="" aria-hidden="true">
     <img class="cover-bg" src="assets/img/cover-snow.jpg" alt="">
     <img class="cover-mark" src="assets/img/lockup-dark-navy.svg" alt="Hive Autonomy">
     <span class="cover-sub">Use cases</span>
