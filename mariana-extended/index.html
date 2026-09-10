@@ -2933,7 +2933,7 @@ body.static .slide.active {
           <div class="trole2" style="margin-bottom: 14px;">HEAVY MACHINERY</div>
 
           <div class="video-grid-2">
-            <div class="vgcell playable" onclick="openVideo('yara-bulk.mp4','Yara · Herøya','Wheel loader on a regulated chemical plant.')" tabindex="0" role="button" aria-label="Play Yara video"
+            <div class="vgcell playable" onclick="openVideo('yara.mp4','Yara · Herøya','Wheel loader on a regulated chemical plant.')" tabindex="0" role="button" aria-label="Play Yara video"
                  style="background-image: url('../shared-assets/yara-still.jpg');">
               <span class="vgcell-tag">Bulk handling</span>
               <span class="vgcell-play" aria-hidden="true">▶</span>
@@ -2956,7 +2956,7 @@ body.static .slide.active {
                 <div class="vgcell-why">Autonomy cleared on a live mountain pass.</div>
               </div>
             </div>
-            <div class="vgcell playable" onclick="openVideo('veidekke-tunnel.mp4','Veidekke','Confined-space loading on private 5G inside a railway tunnel.')" tabindex="0" role="button" aria-label="Play Veidekke video"
+            <div class="vgcell playable" onclick="openVideo('tunnel.mp4','Veidekke','Confined-space loading on private 5G inside a railway tunnel.')" tabindex="0" role="button" aria-label="Play Veidekke video"
                  style="background-image: url('../shared-assets/tunnel-still.jpg');">
               <span class="vgcell-tag">5G tunnel</span>
               <span class="vgcell-play" aria-hidden="true">▶</span>
@@ -2982,7 +2982,7 @@ body.static .slide.active {
               </div>
             </div>
             <!-- Row 2: Saint-Gobain video + Stena video -->
-            <div class="vgcell playable" onclick="openVideo('stgobain-warehouse.mp4','Optimera · Saint-Gobain','Palletised goods, yard-to-warehouse, stack 5 high.','customers')" tabindex="0" role="button" aria-label="Play Saint-Gobain video"
+            <div class="vgcell playable" onclick="openVideo('optimera-small.mp4','Optimera · Saint-Gobain','Palletised goods, yard-to-warehouse, stack 5 high.','customers')" tabindex="0" role="button" aria-label="Play Saint-Gobain video"
                  style="background-image: url('../mariana-minerals-followup/presentation-assets/customers/stgobain-warehouse-still.jpg');">
               <span class="vgcell-tag">Palletised</span>
               <span class="vgcell-play" aria-hidden="true">▶</span>
@@ -2991,7 +2991,7 @@ body.static .slide.active {
                 <div class="vgcell-why">Indoor-outdoor pallet stacking.</div>
               </div>
             </div>
-            <div class="vgcell playable" onclick="openVideo('stena-recycling.mp4','Stena Recycling','Brownfield narrow-aisle recycling autonomy.','customers')" tabindex="0" role="button" aria-label="Play Stena Recycling video"
+            <div class="vgcell playable" onclick="openVideo('stena-small.mp4','Stena Recycling','Brownfield narrow-aisle recycling autonomy.','customers')" tabindex="0" role="button" aria-label="Play Stena Recycling video"
                  style="background-image: url('../mariana-minerals-followup/presentation-assets/customers/stena-recycling-still.jpg');">
               <span class="vgcell-tag">Recycling</span>
               <span class="vgcell-play" aria-hidden="true">▶</span>
@@ -3140,7 +3140,7 @@ function openVideo(filename, title, subtitle, folder) {
   const video = document.getElementById('modalVideo');
   document.getElementById('vmTitle').textContent = title || '';
   document.getElementById('vmSub').textContent = subtitle || '';
-  const base = folder ? '../mariana-minerals-followup/presentation-assets/' + folder + '/' : '../mariana-minerals-followup/presentation-assets/mariana/';
+  const base = '../shared-assets/';
   video.src = base + filename;
   modal.classList.add('open');
   video.load();

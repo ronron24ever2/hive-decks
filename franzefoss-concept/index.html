@@ -1714,7 +1714,7 @@ function openVideo(filename, title, subtitle) {
   const video = document.getElementById('modalVideo');
   document.getElementById('vmTitle').textContent = title || '';
   document.getElementById('vmSub').textContent = subtitle || '';
-  video.src = 'presentation-assets/' + filename;
+  video.src = '../shared-assets/' + filename;
   modal.classList.add('open');
   video.load();
   video.play().catch(() => {});

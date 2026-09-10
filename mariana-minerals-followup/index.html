@@ -1291,28 +1291,28 @@ body.static .slide.active {
       <div class="close-stack">
 
         <div class="customer-grid">
-          <div class="customer-row" onclick="openVideo('yara-bulk.mp4','Yara · Herøya','Industrial bulk handling at a regulated chemical plant.')" tabindex="0" role="button" aria-label="Play Yara video">
+          <div class="customer-row" onclick="openVideo('yara.mp4','Yara · Herøya','Industrial bulk handling at a regulated chemical plant.')" tabindex="0" role="button" aria-label="Play Yara video">
             <div class="customer-thumb" style="background-image: url('../shared-assets/yara-still.jpg');"><div class="play-overlay">▶</div></div>
             <div class="customer-meta">
               <strong>Yara · Herøya</strong>
               <span>Industrial bulk handling at a regulated chemical plant. The safety case we'd anchor Copper One against.</span>
             </div>
           </div>
-          <div class="customer-row" onclick="openVideo('veidekke-tunnel.mp4','Veidekke · Railway tunneling','Confined-space loading inside a railway tunnel on private 5G.')" tabindex="0" role="button" aria-label="Play Veidekke video">
+          <div class="customer-row" onclick="openVideo('tunnel.mp4','Veidekke · Railway tunneling','Confined-space loading inside a railway tunnel on private 5G.')" tabindex="0" role="button" aria-label="Play Veidekke video">
             <div class="customer-thumb" style="background-image: url('../shared-assets/tunnel-still.jpg');"><div class="play-overlay">▶</div></div>
             <div class="customer-meta">
               <strong>Veidekke · Railway tunneling</strong>
               <span>Confined-space loading on a railway tunnel project, running on private 5G inside the tunnel. The network conditions are physically harsher than your open pit.</span>
             </div>
           </div>
-          <div class="customer-row" onclick="openVideo('feiring-quarry.mp4','Hamar Pukk · Loading trucks','Continuous shift-cycle truck loading on a Volvo L-series.')" tabindex="0" role="button" aria-label="Play Hamar Pukk video">
+          <div class="customer-row" onclick="openVideo('quarry.mp4','Hamar Pukk · Loading trucks','Continuous shift-cycle truck loading on a Volvo L-series.')" tabindex="0" role="button" aria-label="Play Hamar Pukk video">
             <div class="customer-thumb" style="background-image: url('../shared-assets/quarry-still.jpg');"><div class="play-overlay">▶</div></div>
             <div class="customer-meta">
               <strong>Hamar Pukk · Loading trucks</strong>
               <span>Continuous shift-cycle truck loading on a Volvo L-series at an aggregate quarry. The closest cycle analog we run today to copper re-handling.</span>
             </div>
           </div>
-          <div class="customer-row" onclick="openVideo('presis-vikafjellet.mp4','Statens Vegvesen · Vikafjellet','Autonomous operation on a live Norwegian mountain pass.')" tabindex="0" role="button" aria-label="Play Vikafjellet video">
+          <div class="customer-row" onclick="openVideo('vegvesen.mp4','Statens Vegvesen · Vikafjellet','Autonomous operation on a live Norwegian mountain pass.')" tabindex="0" role="button" aria-label="Play Vikafjellet video">
             <div class="customer-thumb" style="background-image: url('../shared-assets/vegvesen-still.jpg');"><div class="play-overlay">▶</div></div>
             <div class="customer-meta">
               <strong>Statens Vegvesen · Vikafjellet</strong>
@@ -1439,7 +1439,7 @@ function openVideo(filename, title, subtitle) {
   const video = document.getElementById('modalVideo');
   document.getElementById('vmTitle').textContent = title || '';
   document.getElementById('vmSub').textContent = subtitle || '';
-  video.src = 'presentation-assets/mariana/' + filename;
+  video.src = '../shared-assets/' + filename;
   modal.classList.add('open');
   video.load();
   video.play().catch(() => {});
