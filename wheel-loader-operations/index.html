@@ -16,7 +16,6 @@
        -webkit-font-smoothing:antialiased}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 
-  /* ---- layout: doc with side rail ---- */
   .frame{display:grid;grid-template-columns:1fr;gap:0}
   @media (min-width:1100px){.frame{grid-template-columns:260px minmax(0,1fr)}}
   .rail{display:none}
@@ -25,7 +24,7 @@
           background:var(--light-blue-ice)}
   }
   .rail .mark{width:150px;display:block;margin-bottom:34px}
-  .rail ol{list-style:none;counter-reset:ch}
+  .rail ol{list-style:none}
   .rail li{margin:0 0 9px}
   .rail a{color:var(--text-muted);text-decoration:none;font-size:14px;line-height:1.35;display:block;padding:3px 0 3px 12px;
           border-left:2px solid transparent}
@@ -40,9 +39,8 @@
   .topbar img{width:120px}
   .topbar select{font:inherit;font-size:14px;color:var(--navy);background:var(--white-ice);border:1px solid var(--border);padding:6px 10px;max-width:60vw}
 
-  /* ---- hero ---- */
   .hero{position:relative;background:var(--navy-deep);color:var(--white-ice);min-height:min(78vh,720px);display:flex;align-items:flex-end;overflow:hidden}
-  .hero video,.hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72}
+  .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72}
   .hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,46,56,.05) 30%,rgba(30,46,56,.92) 100%)}
   .hero .inner{position:relative;padding:60px var(--gutter) 44px;max-width:1100px}
   .hero h1{font-weight:400;font-size:clamp(30px,4.6vw,58px);line-height:1.04;letter-spacing:-.02em;max-width:22ch}
@@ -50,7 +48,6 @@
   .hero .ver{margin-top:30px;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#A9B7BF;line-height:1.9}
   .hero .cap{position:absolute;right:var(--gutter);bottom:18px;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#A9B7BF}
 
-  /* ---- chapters ---- */
   .ch{padding:72px var(--gutter) 40px;border-bottom:1px solid var(--border)}
   .ch:last-of-type{border-bottom:none}
   .ch>header{max-width:var(--measure)}
@@ -68,9 +65,8 @@
   .src{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--text-faint)}
   .gap{background:var(--blue-ice);border-left:3px solid var(--red);padding:10px 14px;margin:14px 0;font-size:15px;line-height:1.4;max-width:var(--measure)}
   .gap b{font-weight:500}
-  .wide{max-width:1200px;margin-top:28px}
+  .note{border-left:3px solid var(--dark-blue-ice);padding:10px 14px;margin:14px 0;font-size:15px;line-height:1.4;max-width:var(--measure);color:var(--text-muted)}
 
-  /* ---- reading map ---- */
   .map{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;border:1px solid var(--border);margin-top:30px;max-width:1000px}
   .map a{display:block;padding:20px 22px;text-decoration:none;border-right:1px solid var(--border)}
   .map a:last-child{border-right:none}
@@ -79,7 +75,6 @@
   .map .go{display:block;margin-top:8px;font-size:18px;line-height:1.25}
   @media (max-width:700px){.map a{border-right:none;border-bottom:1px solid var(--border)}.map a:last-child{border-bottom:none}}
 
-  /* ---- level 2: drill ---- */
   details.drill{border-top:1px solid var(--border);max-width:1200px}
   details.drill:last-of-type{border-bottom:1px solid var(--border)}
   details.drill>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline;padding:18px 0}
@@ -98,43 +93,44 @@
                 background:none;border:1px solid var(--border);padding:8px 12px;cursor:pointer}
   .tools button:hover{border-color:var(--navy)}
 
-  /* ---- media ---- */
   figure.media{margin-top:28px;max-width:1200px;background:var(--navy-deep);position:relative}
   figure.media video,figure.media img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;max-height:640px}
+  figure.media img.tall{aspect-ratio:4/3}
   figure.media figcaption{position:absolute;left:18px;bottom:16px;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;
-                          text-transform:uppercase;color:var(--white-ice);background:rgba(31,38,45,.74);padding:7px 11px}
+                          text-transform:uppercase;color:var(--white-ice);background:rgba(31,38,45,.74);padding:7px 11px;max-width:70%}
   figure.media .play{position:absolute;right:18px;bottom:16px;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
                      color:var(--white-ice);background:rgba(31,38,45,.74);border:0;padding:8px 12px;cursor:pointer}
   figure.media .play:hover{background:var(--red)}
   .two{display:grid;grid-template-columns:1fr;gap:22px;max-width:1200px;margin-top:28px}
   @media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
   .two figure.media{margin-top:0}
+  .three{display:grid;grid-template-columns:1fr;gap:22px;max-width:1200px;margin-top:28px}
+  @media (min-width:900px){.three{grid-template-columns:1fr 1fr 1fr}}
+  .three figure.media{margin-top:0}
 
-  /* ---- tables ---- */
   .tbl{overflow-x:auto;max-width:1200px;margin-top:22px}
   table{border-collapse:collapse;width:100%;font-size:15px;line-height:1.35}
   th{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);text-align:left;
      padding:10px 14px 10px 0;border-bottom:1px solid var(--navy);font-weight:400;vertical-align:bottom}
   td{padding:11px 14px 11px 0;border-bottom:1px solid var(--border);vertical-align:top}
   td:first-child{font-weight:500}
-  tr:last-child td{border-bottom:1px solid var(--border)}
   .num{font-family:var(--font-mono);font-size:14px;white-space:nowrap}
+  td.fill{font-family:var(--font-mono);font-size:13px;color:var(--red)}
 
-  /* ---- the cycle (the one repeated notation) ---- */
   .cycle{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;max-width:1200px;margin-top:30px;background:var(--dark-blue-ice)}
-  .cycle .ph{background:var(--white-ice);padding:18px 16px 16px;min-height:150px;display:flex;flex-direction:column;position:relative}
+  .cycle .ph{background:var(--white-ice);padding:18px 16px 16px;min-height:170px;display:flex;flex-direction:column;position:relative}
   .cycle .ph .n{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint)}
   .cycle .ph .name{font-size:19px;line-height:1.15;margin-top:8px}
-  .cycle .ph .sec{margin-top:auto;font-family:var(--font-mono);font-size:22px;letter-spacing:-.02em;padding-top:14px}
+  .cycle .ph .what{font-size:13.5px;line-height:1.35;color:var(--text-muted);margin-top:8px}
+  .cycle .ph .sec{margin-top:auto;font-family:var(--font-mono);font-size:20px;letter-spacing:-.02em;padding-top:14px}
   .cycle .ph .sec small{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);margin-top:4px}
   .cycle .ph.hive{background:var(--light-blue-ice)}
   .cycle .ph.hive::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--red)}
-  .cycle-legend{max-width:1200px;margin-top:10px;display:flex;gap:22px;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint)}
+  .cycle-legend{max-width:1200px;margin-top:10px;display:flex;gap:22px;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);line-height:1.7}
   .cycle-legend .k{display:inline-block;width:14px;height:3px;background:var(--red);vertical-align:middle;margin-right:8px}
   @media (max-width:820px){.cycle{grid-template-columns:repeat(3,1fr)}}
   @media (max-width:480px){.cycle{grid-template-columns:repeat(2,1fr)}}
 
-  /* ---- personas ---- */
   .people{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;background:var(--dark-blue-ice);max-width:1200px;margin-top:30px}
   .people .p{background:var(--white-ice);padding:20px 18px 22px}
   .people .p.hive{background:var(--light-blue-ice)}
@@ -143,7 +139,6 @@
   .people .cares{margin-top:14px;font-size:14.5px;line-height:1.4;color:var(--text-muted)}
   .people .cares b{color:var(--navy);font-weight:500}
 
-  /* ---- swimlane (service blueprint) ---- */
   .lanes{max-width:1200px;margin-top:26px;overflow-x:auto}
   .lanes .grid{display:grid;grid-template-columns:150px repeat(6,minmax(150px,1fr));gap:2px;background:var(--dark-blue-ice);min-width:1050px}
   .lanes .c{background:var(--white-ice);padding:12px 12px 14px;font-size:14px;line-height:1.35;min-height:76px}
@@ -155,7 +150,6 @@
   .lanes .c .via{display:block;margin-top:6px;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint)}
   .lanes .c.empty{background:var(--white-ice);opacity:.5}
 
-  /* ---- opportunity tree ---- */
   .tree{max-width:var(--measure);margin-top:20px}
   .tree .out{font-size:22px;line-height:1.2;padding:16px 0;border-top:1px solid var(--navy);border-bottom:1px solid var(--border)}
   .tree .opp{padding:14px 0 14px 22px;border-left:2px solid var(--dark-blue-ice);margin-top:14px}
@@ -164,7 +158,6 @@
   .tree .opp ul{margin:10px 0 0 18px;font-size:15px;color:var(--text-muted)}
   .tree .opp li{margin-bottom:5px}
 
-  /* ---- glossary / log ---- */
   dl{max-width:var(--measure);margin-top:22px}
   dl div{display:grid;grid-template-columns:200px 1fr;gap:16px;padding:10px 0;border-bottom:1px solid var(--border)}
   dt{font-weight:500}
@@ -193,7 +186,7 @@
     <li><a href="#glossary">11. Glossary</a></li>
     <li><a href="#log">12. Change log</a></li>
   </ol>
-  <div class="meta">Version 0.1<br>Updated 11 Sep 2026<br>Owner Ronny Liverød<br>Internal. Do not forward.</div>
+  <div class="meta">Version 0.2<br>Updated 11 Sep 2026<br>Owner Ronny Liverød<br>Internal. Do not forward.</div>
 </nav>
 
 <main>
@@ -224,7 +217,7 @@
     <div class="inner">
       <h1>A wheel loader in a quarry, and the people around it.</h1>
       <p class="sub">How the operation runs today, what the customer measures us on, and where Hive stands. Written for engineering and product, and for whoever joins next.</p>
-      <div class="ver">Version 0.1 draft · updated 11 September 2026 · owner Ronny Liverød, VP Heavy Machinery<br>Base case for the project meeting 18 September. Numbers carry their source in brackets. Open items are marked in red.</div>
+      <div class="ver">Version 0.2 draft · updated 11 September 2026 · owner Ronny Liverød, VP Heavy Machinery<br>Base case for the project meeting 18 September. Every number carries its source in brackets. Open items are marked in red.</div>
     </div>
     <span class="cap">Feiring Bruk, Hadeland. Nobody in the cab.</span>
   </section>
@@ -238,16 +231,16 @@
     </header>
     <div class="prose">
       <h3>The problem we are paid to solve</h3>
-      <p>A quarry, a recycling plant or an asphalt plant is a production unit. Material has to move every hour the plant runs. The wheel loader is the machine that keeps the crusher fed, the stockpiles in order and the trucks loaded. When it stops, the plant stops.</p>
-      <p>Today one person sits in that cab all shift. The site manager calls that person and says what to do for the next two to four hours. There is no system in between. <span class="src">[Ronny, 11 Sep 2026]</span></p>
+      <p>A quarry, a recycling plant or an asphalt plant is a production unit. Material has to move every hour the plant runs. The wheel loader keeps the crusher fed, the stockpiles in order and the trucks loaded. When it stops, the plant stops.</p>
+      <p>Today one person sits in that cab all shift. The site manager calls that person and says what to do for the next two to four hours. There is no system in between. <span class="src">[Ronny to Mykhaylo, 11 Sep 2026]</span></p>
       <h3>Who it is for</h3>
       <p>The site manager or production lead who owns the tonnage number. Behind them: the plant owner who signs, HSE who sets the rules around the machine, and the operators who work next to it.</p>
       <h3>What the customer does today, without us</h3>
-      <p>Hires and rosters operators. Assigns work by phone or WhatsApp. Tracks tonnes through the weighbridge and the crusher. Accepts that a machine with no operator is a machine that does nothing.</p>
+      <p>Hires and rosters operators. Assigns work by phone, radio or WhatsApp. Tracks tonnes through the weighbridge and the crusher. Accepts that a machine with no operator is a machine that does nothing.</p>
       <h3>What Hive does, in one sentence</h3>
-      <p>We take charge of the machine in operation. A retrofitted Volvo wheel loader is run from our operations centre in Kristiansand, under supervised autonomy, with a person in the loop who takes the site manager's call exactly as the cab operator did. The customer keeps their system. <span class="src">[terminology memo, 2026]</span></p>
+      <p>We take charge of the machine in operation. A retrofitted Volvo wheel loader is run from our operations centre in Kristiansand under supervised autonomy, with a person in the loop who takes the site manager's call exactly as the cab operator did. The customer keeps their system. <span class="src">[terminology memo, 2026]</span></p>
       <h3>Why now</h3>
-      <p>Sites in Wales, Belgium, Germany, Sweden and western Norway are being commissioned this year, plus an asphalt plant in the UK, a recycling facility in Norway and a mine in the United States. <span class="src">[use-case deck, Sep 2026]</span> The infrastructure being built now decides what those sites can get later. Requirements have to be written down with real values before the architecture hardens.</p>
+      <p>One machine is in validation at Feiring Bruk, one has run 18 months at Yara. Behind the next signatures sit fleets: NCC with about 300 own wheel loaders, SigmaRoc with 150 plus sites, Norsk Gjenvinning planning 20 machines by 2028, and a strategic partner MOU covering 90 quarry and aggregate sites. <span class="src">[pipeline timeline 1 Sep 2026; all-hands 3 Sep 2026]</span> The infrastructure being built now decides what those sites can get later. Requirements have to be written down with real values before the architecture hardens.</p>
     </div>
     <div class="map" aria-label="Reading map">
       <a href="#quarry"><span class="who">New to Hive</span><span class="go">Start at chapter 2 and read forward.</span></a>
@@ -264,27 +257,28 @@
       <p class="lede">Rock is blasted from the face, crushed, screened into sizes, stockpiled, and sold by the tonne over a weighbridge. The wheel loader touches almost every step.</p>
     </header>
     <figure class="media">
-      <img src="../shared-assets/quarry-hero.jpg" alt="A Volvo L110H wheel loader with Hive kit next to a Veidekke articulated hauler at a quarry face" loading="lazy">
-      <figcaption>Loader and hauler at the face</figcaption>
+      <img src="assets/hadeland-1916.jpg" alt="Quarry face and stockpiles at Hadeland, a wheel loader small in the frame" loading="lazy">
+      <figcaption>Hadeland, August 2026. Face, piles, one machine.</figcaption>
     </figure>
     <div class="prose">
       <h3>The material flow</h3>
       <ol>
-        <li><b>Blast.</b> The face is drilled and blasted on a schedule, typically weekly or less. Everything stops and everyone leaves the zone while it happens.</li>
-        <li><b>Muck out.</b> Blasted rock (the muckpile) is loaded by excavator or wheel loader into haulers, or moved straight to the primary crusher.</li>
+        <li><b>Blast.</b> The face is drilled and blasted on a schedule. Everything stops and everyone leaves the zone while it happens.</li>
+        <li><b>Muck out.</b> Blasted rock is loaded by excavator or wheel loader into haulers, or moved straight to the primary crusher. Norwegian sites call the heap "salve" or "røys".</li>
         <li><b>Crush and screen.</b> Primary, then secondary and tertiary crushers reduce the rock. Screens sort it into fractions. Conveyors drop each fraction onto its own stockpile.</li>
-        <li><b>Stockpile management.</b> The wheel loader keeps the piles clear of the conveyor drop, blends fractions when a product needs it, and moves material between piles.</li>
-        <li><b>Load out.</b> Customer trucks arrive, the weighbridge issues a ticket, the loader fills the truck, the truck weighs out. This is where the quarry gets paid.</li>
+        <li><b>Stockpile management.</b> The loader keeps the piles clear of the conveyor drop, blends fractions when a product needs it, moves material between piles.</li>
+        <li><b>Load out.</b> Customer trucks arrive, the weighbridge opens a ticket, the loader fills the truck, the truck weighs out. This is where the quarry gets paid.</li>
       </ol>
       <p>The loader has three jobs in this chain: feed the crusher, keep the piles right, load the trucks. Which one dominates depends on the site, and that decides what "good" means for the machine.</p>
-      <h3>One number to hold on to</h3>
-      <p>A bucket on an L180-class loader is around 6 tonnes. A site running continuous load-out can move around 600 tonnes an hour with one machine. That is one bucket every 35 to 40 seconds, all shift. It varies a lot between sites. <span class="src">[Ronny, 11 Sep 2026, example figure]</span></p>
+      <h3>Numbers to hold on to</h3>
+      <p>A bucket on an L180-class loader is around 6 tonnes. A site on continuous load-out can move around 600 tonnes an hour with one machine. <span class="src">[Ronny, 11 Sep 2026, illustrative]</span> A four-axle Norwegian truck takes 17 to 18 tonnes, three buckets. <span class="src">[Feiring deal page]</span> Where the loader feeds a mobile crusher, the crusher sets the pace: about 650 t/h on a single 0/150 product, 500 on 0/32, and 300 plus 150 plus 150 when three fractions run at once. <span class="src">[NCC site walk, 21 Aug 2026, crusher capacity, not a requirement on Hive]</span></p>
+      <p>Labour is a small share of the cost in this world. At NCC's mobile crushing setup it is 2 to 3 percent, diesel is 20 to 25 percent, and the rest is the machines. <span class="src">[NCC site walk, 21 Aug 2026]</span> That is why the metrics chapter asks engineering to log fuel per tonne from day one, not only tonnes and uptime.</p>
     </div>
 
     <div class="tools"><button type="button" data-toggle="quarry-drills">Open all in this chapter</button></div>
     <div class="drills" id="quarry-drills">
       <details class="drill" id="seg-quarry">
-        <summary><div><div class="t">Quarry and aggregates. Where most of our machines are.</div><div class="h">Feiring Bruk at Hadeland, Hamar Pukk at Sørli, and the sites being commissioned across Europe.</div></div><span class="tog"></span></summary>
+        <summary><div><div class="t">Quarry and aggregates. Where most of our machines are.</div><div class="h">Feiring Bruk at Hadeland, Hamar Pukk at Sørli, SigmaRoc at Bolton Hill, NCC's mobile crushing, and the sites being commissioned across Europe.</div></div><span class="tog"></span></summary>
         <div class="body">
           <div class="two">
             <figure class="media">
@@ -297,49 +291,78 @@
             </figure>
           </div>
           <div class="prose">
-            <p><b>Feiring Bruk, Hadeland.</b> Volvo L180H, retrofitted. Runs remote from our control centre three hours away. Today: blending material and clearing away from the crusher. Next: moving blasted rock to a temporary stockpile. Then: loading customer lorries once the bucket scale is integrated. Cycle time under remote operation measured at 23 seconds scoop to dump, and the site judged the loads inside their commercial window. <span class="src">[use-case deck, Sep 2026]</span></p>
-            <p><b>Hamar Pukk og Grus, Sørli.</b> Volvo L-series with our kit, run with Veidekke Infrastruktur and Telia under their remote and autonomous machinery programme. Autonomous wheel loader in quarry work, loading and moving material. <span class="src">[use-case deck, Sep 2026]</span></p>
-            <p><b>What "customer happy" means here.</b> The crusher never waits for material. The piles do not bury the conveyor. Trucks are loaded inside the weighbridge window. Nobody walks into the machine's area unannounced.</p>
-            <div class="gap"><b>To fill:</b> per-site table of machine, bucket size, dominant task, hours per day, tonnes per hour for Feiring, Hamar Pukk, Franzefoss, Brønnøy Kalk and the SigmaRoc sites. Source: contracts and site data in SharePoint.</div>
+            <p><b>Feiring Bruk, Hadeland.</b> Volvo L180H, retrofitted, run remote from Kristiansand about 370 km away. Today: blending material and clearing away from the crusher. Next: moving blasted rock to a temporary stockpile. Then: loading customer trucks once the bucket scale is integrated. Hadeland is a self-loading site, so there is no operator cost to replace; the case rests on the machine doing work nobody does today. Roar Aaserud's three acceptance criteria for load-out: flow, right tonnage, centred loads. <span class="src">[use-case deck Sep 2026; Feiring deal page 30 Aug 2026]</span></p>
+            <p><b>Hamar Pukk og Grus, Sørli.</b> Volvo L-series with our kit, run with Veidekke Infrastruktur and Telia in June 2025 under their remote and autonomous machinery programme. The task was move gravel from pick-up to drop-off, fill a container, travel back. <span class="src">[Veidekke test project summary]</span></p>
+            <p><b>SigmaRoc, Bolton Hill, Wales.</b> A quarry operator's day as Gareth described it: loading the wash plant, hauling away from the wash plant, loading HGVs, dressing roads and stockpiles, loading from several piles. The pilot machine, a Volvo L150, covers 10 to 20 percent of that operator's tasks. Throughput baseline discussed at 45 t/h. <span class="src">[SigmaRoc deal page; CQG term sheet v3]</span></p>
+            <p><b>NCC, mobile crushing, Ubbarp, Sweden.</b> A different rhythm. Volvo L220 with a 6 m3 bucket feeding a mobile crusher inside a subcontractor crew. Ten to twelve hour shifts, about 50 production hours a week, breaks when the operator decides. Only 80 m3 of buffer under the belts, so the loader is on the critical path more often than the average suggests. Haul distance 60 to 150 m. One to three oversize stones per bucket. The crusher itself moves 5 to 10 m sideways daily. A second shift is blocked by the noise permit, roughly 07:00 to 18:00, not by staffing. Campaigns run 2 to 6 months, about four site moves a year. <span class="src">[NCC site walk, 21 Aug 2026]</span></p>
+            <p><b>Veidekke Geomaterialer.</b> Customers drive in, the loader follows them to the right pile and loads. About 5 minutes of driving plus 20 seconds of digging per customer. No work-order system, a physical note. The crusher is the bottleneck. Fine piles, 0 to 0.8 mm, collapse. Private customers on site is the safety issue. <span class="src">[site visit 18 Mar 2026]</span></p>
+            <p><b>Wergeland, Sløvåg.</b> Aggregates with ship loading. Site throughput 1,500 to 2,000 t/h when a ship is at the quay. First machine a Volvo L350, the biggest we have taken on. <span class="src">[Wergeland term sheet v2]</span></p>
+            <p><b>What "customer happy" means here.</b> The crusher never waits for material. The piles do not bury the conveyor. Trucks leave inside the weighbridge window. Nobody walks into the machine's area unannounced.</p>
+          </div>
+          <div class="three">
+            <figure class="media"><img src="assets/hadeland-1897.jpg" alt="Volvo L180 digging into a stockpile" loading="lazy"><figcaption>Dig</figcaption></figure>
+            <figure class="media"><img src="assets/hadeland-1928.jpg" alt="Volvo L180 travelling with a full bucket" loading="lazy"><figcaption>Travel</figcaption></figure>
+            <figure class="media"><img src="assets/hadeland-1946.jpg" alt="Volvo L180 dumping into a Scania truck" loading="lazy"><figcaption>Dump</figcaption></figure>
           </div>
         </div>
       </details>
 
       <details class="drill" id="seg-recycling">
-        <summary><div><div class="t">Recycling. Feeding a line, indoors and out.</div><div class="h">Two wheel loaders and two forklifts feeding a paper line in Norway. Starting now.</div></div><span class="tog"></span></summary>
+        <summary><div><div class="t">Recycling. Feeding a line, indoors and out.</div><div class="h">Norsk Gjenvinning at Alna: two Volvo L90H and two Linde forklifts feeding the paper line. Go-live week 39.</div></div><span class="tog"></span></summary>
         <div class="body"><div class="prose">
-          <p>The material is lighter, dirtier and less predictable than rock. The loader feeds a hopper or a conveyor that must not run empty, and moves bales and loose material between bays. Much of the work happens under a roof, with people and forklifts closer than in a quarry. <span class="src">[use-case deck: recycling facility, Norway, two wheel loaders and two forklifts feeding the paper line]</span></p>
-          <div class="gap"><b>To fill:</b> site name, machine class, shift pattern, hopper feed rate, indoor/outdoor split. No video of recycling operations exists in our library yet.</div>
+          <p>The material is lighter, dirtier and less predictable than rock. The loader feeds a hopper or a conveyor that must not run empty, and moves bales and loose material between bays. Much of it happens under a roof, with people and forklifts closer than in a quarry.</p>
+          <p><b>Norsk Gjenvinning, Alna.</b> Reception runs three shifts with five operators, the paper line two shifts with eight. Machine utilisation on the paper line is about 40 percent. Seventy percent of deliveries arrive between 08:00 and 16:00. One machine plus operator costs about 3.5 MNOK a year. NG plans 10 machines in 2027 and 20 from 2028, and insources four wheel loader contracts from July 2027. <span class="src">[NG deal page; NG business case Dec 2025; pipeline timeline]</span></p>
+          <div class="gap"><b>To fill:</b> the reception hall walkthrough and forklift bale-handling videos exist on SharePoint (NG intro og prosess, 3 Sep 2026) but are portrait phone clips. Decide whether to embed or reshoot.</div>
         </div></div>
       </details>
 
       <details class="drill" id="seg-asphalt">
-        <summary><div><div class="t">Asphalt plant. Cold feed bins on a clock.</div><div class="h">One site in the United Kingdom being commissioned this year.</div></div><span class="tog"></span></summary>
+        <summary><div><div class="t">Asphalt plant. Cold feed bins on a clock.</div><div class="h">Eurovia at Thurrock, UK. Peab's Swedish eco-site as the reference pattern.</div></div><span class="tog"></span></summary>
         <div class="body"><div class="prose">
-          <p>An asphalt plant draws aggregate fractions from cold feed bins in a fixed recipe. The loader keeps each bin topped up from its stockpile. Miss a bin and the mix is off spec or the plant stops. The pattern repeats, the distances are short, and the timing is set by the plant, not the loader. <span class="src">[use-case deck: asphalt plant, United Kingdom]</span></p>
-          <div class="gap"><b>To fill:</b> site, plant output in tonnes per hour, number of bins, distance from stockpile to bins, operating hours. No video yet.</div>
+          <p>An asphalt plant draws aggregate fractions from cold feed bins in a fixed recipe. The loader keeps each bin topped up from its bay. Miss a bin and the mix goes off spec or the plant stops. Distances are short, the pattern repeats, and the pace is set by the plant.</p>
+          <p><b>Eurovia, Thurrock.</b> Six feeders and ten bays in pilot scope, a second area with ten feeders and sixteen bays out of scope. The customer's own KPI framework references plant demand around 100 plus t/h and a diesel loader burning 160 to 180 litres over a 6 to 7 hour shift. The bin auto-stop signal is a build dependency: primary option is the plant PLC, fallback is our vision. <span class="src">[Vinci SOW v5; Eurovia KPI framework Jun 2026; workflow naming concept]</span></p>
+          <p><b>Peab, Swedish eco-site.</b> About 50 t/h, five stockpiles plus two supply points into one hopper. <span class="src">[Peab deal page]</span></p>
+          <div class="gap"><b>To fill:</b> no video of an asphalt plant operation exists in our library.</div>
         </div></div>
       </details>
 
       <details class="drill" id="seg-industrial">
-        <summary><div><div class="t">Industrial plant. Fixed surroundings, high stakes.</div><div class="h">Yara at Herøya, our first larger customer. 18 months under contract.</div></div><span class="tog"></span></summary>
+        <summary><div><div class="t">Industrial plant. Fixed surroundings, high stakes.</div><div class="h">Yara at Herøya, our first larger customer. 18 months under contract, autonomy in production from October 2026.</div></div><span class="tog"></span></summary>
         <div class="body">
-          <figure class="media">
-            <video preload="none" poster="../shared-assets/yara-still.jpg" muted loop playsinline data-src="../shared-assets/yara.mp4"></video>
-            <figcaption>Yara, Herøya</figcaption><button class="play" type="button">Play</button>
-          </figure>
+          <div class="two">
+            <figure class="media">
+              <video preload="none" poster="../shared-assets/yara-still.jpg" muted loop playsinline data-src="../shared-assets/yara.mp4"></video>
+              <figcaption>Yara, Herøya</figcaption><button class="play" type="button">Play</button>
+            </figure>
+            <figure class="media"><img class="tall" src="assets/yara-l120h-hall.jpg" alt="Volvo L120H inside the Yara packing hall next to a fertilizer pile" loading="lazy"><figcaption>L120H in the hall</figcaption></figure>
+          </div>
           <div class="prose">
-            <p>Wheel loaders in the 18 tonne class moving fertilizer inside one of Europe's largest ammonia facilities. Pile to hopper, fixed surroundings. Started on tele-remote; the site has since asked for more autonomy in the cycle, and autonomy in production is planned from October 2026. Safety is a light barrier around the area: the machine stops if the beam is broken. <span class="src">[use-case deck, Sep 2026]</span></p>
+            <p>A Volvo L120H moving fertilizer inside one of Europe's largest ammonia facilities. Pile to hopper, fixed surroundings. Started on tele-remote; the site has asked for more autonomy in the cycle since. Safety is a light barrier around the area: the machine stops if the beam is broken. <span class="src">[use-case deck; Yara deal page]</span></p>
+            <p><b>The shift, as Yara specified it.</b> Eight hours. Drive from parking to the bin area through mixed traffic once, in the morning. Then 200 cycles: drive to bin, fill about 4 tonnes, drive to the unloading area, wait until it is ready, unload left, middle or right. Each step about half a minute. Maximum emptying rate 1.6 tonnes a minute, so the loader waits on the plant, not the other way round. Bucket change once a day, or up to ten times an hour when two products alternate. Three evenings a month a special product: 65 cycles in mixed traffic, press a button and wait for the silo. Waste runs seven times a day. Fuel once a day, ten minutes. <span class="src">[Yara Appendix 1, Requirements Rev.2]</span></p>
+            <p><b>Where it stands.</b> Load-and-carry cycle averages 2 min 30 s. Hive was at 8 percent of the volume when the operation paused in August 2025. Yara's gate for the restart: one week of stable remote operation with no loss of volume. <span class="src">[Yara deal page, 12 Aug 2026]</span></p>
           </div>
         </div>
       </details>
 
       <details class="drill" id="seg-mine">
-        <summary><div><div class="t">Mine. The orchestration layer arrives.</div><div class="h">Mariana Minerals in the United States is building the system that will send us tasks.</div></div><span class="tog"></span></summary>
+        <summary><div><div class="t">Mine. The orchestration layer arrives.</div><div class="h">Mariana Minerals in Utah is building the system that will send us tasks. Brønnøy Kalk shows what a fully autonomous site already looks like.</div></div><span class="tog"></span></summary>
+        <div class="body">
+          <figure class="media">
+            <video preload="none" poster="assets/blasted-rock-vla-still.jpg" muted loop playsinline data-src="assets/blasted-rock-vla.mp4"></video>
+            <figcaption>VLA policy on blasted rock, Hadeland, September 2026</figcaption><button class="play" type="button">Play</button>
+          </figure>
+          <div class="prose">
+            <p><b>Mariana Minerals, Copper One, Utah.</b> Two CAT 992 loaders in the 100 tonne class, three times the Feiring machine, running 24/7. A dozer and an excavator on 12/7. The haulers are already 100 percent autonomous through Pronto. Mariana plans the whole operation and gives us work packages as polygons: dig here for three hours, then move there. The operator station stands on their site on a private 5G network, so the latency questions we carry elsewhere fall away. <span class="src">[Mariana deal page; KPI prep 2 Sep 2026; Ronny 11 Sep 2026]</span></p>
+            <p>Two things follow. It is the most demanding integration we have: a CAT machine we have never integrated, a customer that stops the whole mine during retrofit, and a truck-loading task we have not run under autonomy. And it is the product we want to sell everyone else eventually: an orchestration layer that controls our machines and, later, other vendors' machines on the same site.</p>
+            <p><b>Brønnøy Kalk, Velfjord.</b> About 2 Mt a year of calcite marble. Nine autonomous Volvo FH trucks on a 5 km route, safety driver removed in August 2023, over 1 Mt and 220,000 km driven. One Volvo L350 is the only manned machine inside the autonomous zone. <span class="src">[research note 15 Jun 2026]</span> That loader is the shape of the opportunity.</p>
+          </div>
+        </div>
+      </details>
+
+      <details class="drill" id="seg-snow">
+        <summary><div><div class="t">Outside the pattern: snow clearing on Vikafjellet.</div><div class="h">Not a production site, but the same machine, the same station, and a case customers ask about.</div></div><span class="tog"></span></summary>
         <div class="body"><div class="prose">
-          <p>Most customers give the machine manual instructions: go and dig that part, move this to there. Mariana is different. They are building an orchestration layer that plans the whole operation and will send commands into our system to execute, including shape files that define which polygons to take out. <span class="src">[Ronny, 11 Sep 2026]</span></p>
-          <p>This matters for the roadmap in two ways. It is the most demanding integration we have, and it needs things no other customer needs yet. It is also the product we want to sell everyone else eventually: an orchestration layer that controls our machines and, later, other vendors' autonomous machines on the same site.</p>
-          <div class="gap"><b>To fill:</b> link to the Mariana interface notes and the v8 issues table in output/. Decide with Dmitrii how much Mariana-specific work goes into the shared backlog versus a separate track.</div>
+          <p>Riksvei 13 in Vestland closes for avalanche risk, 44 closure days in a season. A wheel loader with an Øveraasen plough clears it during the closure, run from a control room, for Presis Vegdrift under contract to Statens Vegvesen. <span class="src">[use-case deck]</span></p>
         </div></div>
       </details>
     </div>
@@ -354,10 +377,10 @@
     </header>
     <div class="people">
       <div class="p"><div class="role">Site manager, production lead</div><div class="of">Customer</div><div class="cares">Owns the tonnage and the cost per tonne. Decides what the loader does next. <b>Cares about:</b> the plant never waiting, no surprises, one phone number that answers.</div></div>
-      <div class="p"><div class="role">Cab operator</div><div class="of">Customer, today</div><div class="cares">Sits in the machine all shift. Knows the piles, the trucks and the crusher by sound. <b>Cares about:</b> a clear job, a safe area, not being blamed when the plant stops.</div></div>
-      <div class="p"><div class="role">Weighbridge operator</div><div class="of">Customer</div><div class="cares">Issues the ticket, tells the loader which product and how much, weighs the truck out. <b>Cares about:</b> the right material in the right truck, fast turnaround, a ticket that matches the load.</div></div>
-      <div class="p hive"><div class="role">Remote operator</div><div class="of">Hive, Kristiansand</div><div class="cares">Drives or supervises the machine from the operations centre. <b>Cares about:</b> latency, camera coverage, knowing what the machine will do next, a stop that always works.</div></div>
-      <div class="p hive"><div class="role">Task coordinator</div><div class="of">Hive</div><div class="cares">Takes the site manager's call, exactly as the cab operator did, and turns it into work for the machine. <b>Cares about:</b> understanding the site's language, a record of what was asked, handing over cleanly.</div></div>
+      <div class="p"><div class="role">Cab operator</div><div class="of">Customer, today</div><div class="cares">Sits in the machine all shift. Knows the piles, the trucks and the crusher by sound. Decides when to take a break. <b>Cares about:</b> a clear job, a safe area, not being blamed when the plant stops.</div></div>
+      <div class="p"><div class="role">Weighbridge operator</div><div class="of">Customer</div><div class="cares">Opens the ticket, tells the loader which product and how much, weighs the truck out. <b>Cares about:</b> the right material in the right truck, fast turnaround, a ticket that matches the load.</div></div>
+      <div class="p hive"><div class="role">Remote operator</div><div class="of">Hive, Kristiansand</div><div class="cares">Drives or supervises the machine from the operations centre. Part of the customer's crew: follows the foreman and the site's HSE rules, on push-to-talk over 5G with a dedicated phone. <b>Cares about:</b> latency, camera coverage, brake feel, a stop that always works.</div></div>
+      <div class="p hive"><div class="role">Task coordinator</div><div class="of">Hive</div><div class="cares">Takes the site manager's call, exactly as the cab operator did, and turns it into work for the machine. <b>Cares about:</b> understanding the site's language, a record of what was asked, a clean handover.</div></div>
     </div>
     <figure class="media">
       <img src="../shared-assets/slide11-operator-chair.jpg" alt="A Hive remote operator in the operator chair with joysticks, a colleague standing behind" loading="lazy">
@@ -370,7 +393,7 @@
         <summary><div><div class="t">A day in the life: site manager at a quarry.</div><div class="h">Draft from Ronny's ten years as a site manager. To be validated against Feiring and Franzefoss.</div></div><span class="tog"></span></summary>
         <div class="body"><div class="tbl"><table>
           <tr><th>Time</th><th>What happens</th><th>Channel</th></tr>
-          <tr><td class="num">06:30</td><td>Walks the plant. Checks which piles are low, which conveyor drop is getting buried, what the day's truck orders look like.</td><td>Eyes, weighbridge order list</td></tr>
+          <tr><td class="num">06:30</td><td>Walks the plant. Checks which piles are low, which conveyor drop is getting buried, what the day's truck orders look like. Feiring runs 06:30 to 17:00.</td><td>Eyes, weighbridge order list</td></tr>
           <tr><td class="num">07:00</td><td>Tells the loader operator the plan for the morning: clear under the 0-4 drop, then blend 8-16 for the afternoon order.</td><td>Phone call or face to face</td></tr>
           <tr><td class="num">09:30</td><td>A truck arrives early for a product nobody expected. Calls the operator to switch.</td><td>Phone, sometimes WhatsApp</td></tr>
           <tr><td class="num">11:00</td><td>Crusher stops on a blockage. Loader is redirected to load trucks until it restarts.</td><td>Phone</td></tr>
@@ -381,10 +404,19 @@
         </div>
       </details>
       <details class="drill" id="day-remote">
-        <summary><div><div class="t">A day in the life: Hive remote operator and task coordinator.</div><div class="h">How the same day looks from Kristiansand.</div></div><span class="tog"></span></summary>
-        <div class="body"><div class="prose">
-          <div class="gap"><b>To fill with operations:</b> shift start checklist, how a task arrives (call, message), how it is logged, how the machine is started and stopped, handover between operators, what happens at lunch and shift end, how many machines one operator watches today. Ask Eivind or the operations lead for a real shift log.</div>
-        </div></div>
+        <summary><div><div class="t">A day in the life: Hive remote operator.</div><div class="h">Built from the Yara start-up procedure and the human-factors observation at Sørli. The task-coordinator half is still missing.</div></div><span class="tog"></span></summary>
+        <div class="body"><div class="tbl"><table>
+          <tr><th>Step</th><th>What happens</th><th>Source</th></tr>
+          <tr><td>On the machine, before start</td><td>Someone on site walks the 15-point check: position and cleanliness of the front, rear and back cameras and the camera under the bucket, both lidars, the antenna, cables into the cabinet, cabinet locked and sealed.</td><td class="src">Yara operating procedures Rev.03</td></tr>
+          <tr><td>At the station</td><td>Authenticate into the room. Check power and connectivity. Power the station. Rotate the chair 90 degrees, adjust seat, pedals and backrest from the armrest panels. Turn the key on the left armrest.</td><td class="src">same</td></tr>
+          <tr><td>Before taking control</td><td>Verify all six camera streams on the curved screen: front, left, right, back, lower back, under the bucket. Verify the touchpad shows Equipment Manager, Remote Control Manager, Autonomy Manager.</td><td class="src">same</td></tr>
+          <tr><td>Taking the machine</td><td>Select the machine in Equipment Manager; a blue light comes on. Press Hive Mode ON. Choose Mode Remote or Mode Autonomy. Brake before selecting. In autonomy, pick a zone: the machine starts moving the moment the zone button is pressed. Abort is always one press away.</td><td class="src">same</td></tr>
+          <tr><td>Emergency stop</td><td>Button on the right armrest. Machine brakes and stops at once. Red blinking light so every other station in the room sees it. Pull the button up, then Clear Error on the touchpad before the machine returns to operational mode.</td><td class="src">same</td></tr>
+          <tr><td>During the shift</td><td>A 194 cm operator reported shoulder stiffness after about three hours, missing forearm support, and glare from a window behind the screen. The e-stop was tested at 10 km/h and worked.</td><td class="src">Human factors observation, Sørli, Jun 2025</td></tr>
+          <tr><td>Shift end</td><td>Machine to its parking position. The operations centre logs cycles completed, production delivered, interventions, anomalies, uptime, downtime.</td><td class="src">UK pilot SOW template</td></tr>
+        </table></div>
+        <div class="gap"><b>To fill with operations:</b> how a task actually arrives today (call, message), where it is written down, handover between operators, what happens at lunch and shift end, how many machines one operator watches. Ask Eivind, Thomas or Kenneth for a real shift log from Hadeland.</div>
+        </div>
       </details>
     </div>
   </section>
@@ -400,24 +432,24 @@
       <div class="grid">
         <div class="c head"></div><div class="c head">1. Order</div><div class="c head">2. Assign</div><div class="c head">3. Position</div><div class="c head">4. Load</div><div class="c head">5. Confirm</div><div class="c head">6. Next</div>
         <div class="c lane">Customer truck</div>
-        <div class="c">Arrives, stops at weighbridge, states product and quantity.</div>
+        <div class="c">Arrives, stops at the weighbridge, states product and quantity.</div>
         <div class="c empty"></div>
         <div class="c">Drives to the pile indicated.</div>
         <div class="c">Waits while loaded. Driver watches the bucket count.</div>
-        <div class="c">Weighs out. Gets ticket.</div>
+        <div class="c">Weighs out. Gets the ticket.</div>
         <div class="c">Leaves.</div>
         <div class="c lane">Weighbridge</div>
-        <div class="c">Opens ticket. Weighs truck in.<span class="via">Weighbridge system</span></div>
+        <div class="c">Opens the ticket. Weighs the truck in.<span class="via">Weighbridge system</span></div>
         <div class="c">Tells the loader operator: product, pile, roughly how many buckets.<span class="via">Radio or phone</span></div>
         <div class="c empty"></div>
         <div class="c empty"></div>
-        <div class="c">Weighs out, closes ticket. Notes over or under load.</div>
+        <div class="c">Weighs out, closes the ticket. Notes over or under load.</div>
         <div class="c">Next truck in the queue.</div>
         <div class="c lane">Cab operator</div>
         <div class="c empty"></div>
         <div class="c">Hears the call. Finishes the current bucket. Confirms.<span class="via">Radio or phone</span></div>
         <div class="c">Drives to the pile. Positions for the truck.</div>
-        <div class="c">Digs, lifts, dumps. Judges fill by eye and by scale if fitted. Five to seven buckets for a 30 tonne truck.</div>
+        <div class="c">Digs, lifts, dumps. Judges fill by eye, or by scale if fitted. Three buckets for an 18 tonne four-axle truck.</div>
         <div class="c">Signals the driver. Backs off.</div>
         <div class="c">Returns to the interrupted task, or waits for the next call.</div>
         <div class="c lane">Site manager</div>
@@ -438,12 +470,22 @@
     </div>
     <div class="prose">
       <p>Three things to notice. The loader operator is interrupted constantly, and the interruptions arrive by voice. Nothing about the task is recorded except the weighbridge ticket. And the site manager is the scheduler, in their head, all day.</p>
-      <div class="gap"><b>To fill, per customer:</b> Mykhaylo asked for this specifically. For each site: who assigns work, in which channel (phone, WhatsApp, radio, face to face), how far ahead, how changes arrive, and what is written down. Sites to cover: Feiring, Yara, Franzefoss, Brønnøy Kalk, Hamar Pukk, SigmaRoc. Ronny fills this from daily contact; customer calls to confirm are done together and in Norwegian.</div>
     </div>
+    <div class="tbl"><table>
+      <tr><th>Site</th><th>Who assigns work</th><th>Channel</th><th>How far ahead</th><th>Written down</th><th>Source</th></tr>
+      <tr><td>Feiring Bruk, Hadeland</td><td>Site manager to operator</td><td>Phone</td><td>Two to four hours</td><td>No, weighbridge ticket only</td><td class="src">Ronny 11 Sep 2026</td></tr>
+      <tr><td>Veidekke Geomaterialer</td><td>Customer drives in, loader follows</td><td>Face to face, physical note</td><td>Per truck</td><td>Physical note, no work-order system</td><td class="src">site visit 18 Mar 2026</td></tr>
+      <tr><td>Yara, Herøya</td><td>Fixed shift programme from the plant</td><td>Standing plan; button and silo for the special product</td><td>Whole shift</td><td>Yes, in the requirements appendix</td><td class="src">Yara Appendix 1</td></tr>
+      <tr><td>NCC, mobile crushing</td><td>Operator decides pace, breaks and crusher moves</td><td class="fill">to confirm</td><td>Campaign plan, 2 to 6 months</td><td class="fill">to confirm</td><td class="src">NCC site walk 21 Aug 2026</td></tr>
+      <tr><td>Mariana Minerals</td><td>Orchestration layer</td><td>Commands and polygons into our system</td><td>Hours, as work packages</td><td>Yes, machine readable</td><td class="src">KPI prep 2 Sep 2026</td></tr>
+      <tr><td>SigmaRoc, Bolton Hill</td><td class="fill">to confirm</td><td class="fill">to confirm</td><td class="fill">to confirm</td><td class="fill">to confirm</td><td class="src"></td></tr>
+      <tr><td>Franzefoss, Brønnøy Kalk, Wergeland</td><td class="fill">to confirm</td><td class="fill">to confirm</td><td class="fill">to confirm</td><td class="fill">to confirm</td><td class="src"></td></tr>
+    </table></div>
+    <div class="gap"><b>Mykhaylo asked for this table specifically.</b> The blank rows are Ronny's from daily contact; customer calls to confirm are done together and in Norwegian.</div>
     <div class="tools"><button type="button" data-toggle="today-drills">Open all in this chapter</button></div>
     <div class="drills" id="today-drills">
       <details class="drill" id="today-crusher"><summary><div><div class="t">Variant: feeding the crusher.</div><div class="h">Same lanes, different rhythm. The crusher sets the pace and never calls.</div></div><span class="tog"></span></summary>
-        <div class="body"><div class="prose"><div class="gap"><b>To fill:</b> blueprint for crusher feed and for stockpile clearing under the conveyor drop. These two are the tasks Feiring runs today.</div></div></div></details>
+        <div class="body"><div class="prose"><p>At NCC the loader is the only thing between the excavator and the crusher, with 80 m3 of buffer. The operator watches the belt, not a phone. Breakfast at 09:00 and lunch at 13:00 stop the crusher too, because nobody feeds it. <span class="src">[NCC site walk]</span></p><div class="gap"><b>To fill:</b> blueprint for crusher feed and for clearing under the conveyor drop. These two are the tasks Feiring runs today.</div></div></div></details>
       <details class="drill" id="today-blast"><summary><div><div class="t">Variant: blast day.</div><div class="h">Everything stops. Where the machine is parked, who says when it can move again.</div></div><span class="tog"></span></summary>
         <div class="body"><div class="prose"><div class="gap"><b>To fill:</b> the blast clearance procedure at one named quarry, and what it implies for a machine with nobody in it.</div></div></div></details>
     </div>
@@ -465,18 +507,18 @@
         <div class="c same">Unchanged.</div>
         <div class="c chg">Calls the same number as before. It is answered by Hive's task coordinator.<span class="via">Phone, as today</span></div>
         <div class="c empty"></div><div class="c empty"></div>
-        <div class="c same">Unchanged. Later: bucket scale data arrives with the ticket.</div>
+        <div class="c same">Unchanged. Later: bucket scale weight arrives with the ticket.</div>
         <div class="c same">Unchanged.</div>
         <div class="c lane">Task coordinator (Hive)</div>
         <div class="c empty"></div>
-        <div class="c chg">Takes the call, records the task, hands it to the remote operator. Today: verbally. Later: as a structured task in our system.</div>
+        <div class="c chg">Takes the call, records the task, hands it to the remote operator. Today verbally. Later as a structured task in our system.</div>
         <div class="c empty"></div><div class="c empty"></div>
-        <div class="c chg">Logs completion and buckets. This is where reporting to the customer will come from.</div>
+        <div class="c chg">Logs completion and buckets. This is where customer reporting comes from.</div>
         <div class="c chg">Asks the site manager what is next, or holds the standing instruction.</div>
         <div class="c lane">Remote operator (Hive)</div>
         <div class="c empty"></div>
         <div class="c chg">Receives the task. Finishes the current bucket.</div>
-        <div class="c chg">Drives or dispatches the machine to the pile. Cameras and lidar replace the cab window.</div>
+        <div class="c chg">Drives or dispatches the machine to the pile. Six cameras and two lidars replace the cab window.</div>
         <div class="c chg">Digs, lifts, dumps. Manual remote today at most sites, autonomous cycle where enabled. Watches for people.</div>
         <div class="c chg">Signals the driver by light or horn. Backs off.</div>
         <div class="c chg">Returns to the interrupted task.</div>
@@ -487,10 +529,10 @@
         <div class="c same">Reassigns by phone. Mariana model: sends the task into our system directly.</div>
         <div class="c lane">Support</div>
         <div class="c empty"></div><div class="c empty"></div>
-        <div class="c chg">Geofence and sensors enforce the area. Machine stops if someone enters.</div>
-        <div class="c chg">Faults are seen in telemetry before anyone calls.</div>
+        <div class="c chg">Geofence, light barrier or closed working surface. Machine does not move when a person approaches. Wireless e-stop travels with the machine.</div>
+        <div class="c chg">Faults are seen in telemetry before anyone calls. Every e-stop gets a root cause report.</div>
         <div class="c empty"></div>
-        <div class="c chg">Shift plan is ours. One operator can watch more than one machine as autonomy grows.</div>
+        <div class="c chg">Shift plan is ours. One operator to two or three machines is the stated position today; the Feiring agreement targets four to six.</div>
       </div>
     </div>
     <div class="prose">
@@ -501,7 +543,34 @@
         <figcaption>The kit on the machine</figcaption>
       </figure>
       <h3>The machine model</h3>
-      <p>Two phases. In the proof period Hive supplies the machine, our own Volvo L180, run remote, so the customer does not tie up one of theirs. When the operating contract starts, we retrofit one of the customer's own machines, two to three days, non-destructive. The customer owns the machine, Hive supplies the operators. <span class="src">[commercial model memo, Jun 2026]</span></p>
+      <p>Two phases. In the proof period Hive supplies the machine, our own Volvo L180, run remote, so the customer does not tie up one of theirs. When the operating contract starts we retrofit one of the customer's own machines, two to three days, non-destructive. The customer owns the machine, Hive supplies the operators. <span class="src">[commercial model memo, Jun 2026]</span></p>
+      <h3>What the platform is, in five layers</h3>
+      <p>Safety System at the bottom, then Machine Control, Operator Platform, Autonomy, and Physical AI on top, with Connectivity and Data Logging as rails along the side. Each layer depends on the one beneath it; nothing runs unless the safety layer is present and healthy. Teleoperation is the first three layers sold on their own. Autonomy adds the fourth. Physical AI is all five. A closed CAN bus, as on Caterpillar, is a layer-two obstacle and blocks everything above it. <span class="src">[Hive Platform definition, 5 Aug 2026]</span></p>
+    </div>
+    <div class="tools"><button type="button" data-toggle="hive-drills">Open all in this chapter</button></div>
+    <div class="drills" id="hive-drills">
+      <details class="drill" id="hive-gaps"><summary><div><div class="t">What still costs cycle time under remote operation.</div><div class="h">Five gaps found at Hadeland in summer 2026. None of them stop the machine loading. They stop it loading fast.</div></div><span class="tog"></span></summary>
+        <div class="body"><div class="prose">
+          <ol>
+            <li><b>Brake pedal fidelity.</b> Three pedals, two brake. One is so hard the operator avoids it, the other behaves differently from one attempt to the next. Kenneth compensates by driving slowly throughout. Roar's hypothesis: the torque converter cuts on brake instead of keeping drive, which no experienced operator accepts. Cycle times taken with unstable brake behaviour measure the defect, not the capability.</li>
+            <li><b>Depth perception.</b> The operator cannot judge lateral distance to the truck from camera feeds, so loads end up off-centre. The operator brakes to a full stop before lifting, takes the bump, loses a couple of hundred kilos, drives over the spill next pass.</li>
+            <li><b>Fixed geometry beats vision.</b> Front axle to truck is the same distance on every standard L180, and nearly all trucks are about 2.5 m wide. A fixed distance reference to the truck side solves centring without solving depth perception. An open ML problem becomes a bounded sensor-and-UI problem.</li>
+            <li><b>No tilt indication</b> in the operator view. Matters for centring and for tipping safety. Volvo A30 haulers already carry the gyro.</li>
+            <li><b>Uncommanded e-stops break flow, and the log lies.</b> Every stop restarts the cycle. The log reported one e-stop as a station button press that never happened, so root-causing cannot rely on it until fixed. Network drops under the rock face on the upper bench look the same in the field.</li>
+          </ol>
+          <p><span class="src">[remote truck loading application gaps, wiki, 5 Aug 2026; Feiring deal page]</span></p>
+        </div></div></details>
+      <details class="drill" id="hive-vla"><summary><div><div class="t">The autonomy path, honestly.</div><div class="h">Rule-based autonomy runs zones at Yara. The learning-based policy (VLA) works blasted rock on video and is not production-ready.</div></div><span class="tog"></span></summary>
+        <div class="body">
+          <figure class="media">
+            <video preload="none" poster="../wheel-loader-use-cases/assets/img/feiring-vla-still.jpg" muted loop playsinline data-src="../wheel-loader-use-cases/assets/img/feiring-vla.mp4"></video>
+            <figcaption>VLA policy, Hadeland, 30 August 2026</figcaption><button class="play" type="button">Play</button>
+          </figure>
+          <div class="prose">
+            <p>Engineering's own words on 2 September, about the VLA: "very far from anything production-ready. Fine for a demo video, I would not trust it in production." Time to production-ready: "maybe a month, probably not, maybe three, maybe six, maybe a year." The VLA will hurt throughput before it helps. That is why no customer KPI is set on VLA cycle time. <span class="src">[Mariana KPI prep, internal meeting 2 Sep 2026]</span></p>
+            <p>The co-pilot path: teleoperate first, the system learns from every intervention, the autonomy ratio rises, one operator watches more machines. Release 2.3 (new cabinet, harness, camera positions, GMSL cameras) is the hardware baseline for scaling and is slipping. <span class="src">[HM platform roadmap and hardware stability, 28 Aug 2026]</span></p>
+          </div>
+        </div></details>
     </div>
   </section>
 
@@ -510,36 +579,50 @@
     <header>
       <span class="kicker">Chapter 6 · Numbers</span>
       <h2>The cycle and the numbers.</h2>
-      <p class="lede">Everything the customer pays for reduces to this: how many times an hour the bucket goes round, how full it is, and how many hours a day it runs.</p>
+      <p class="lede">Everything the customer pays for reduces to this: how many times an hour the bucket goes round, how full it is, and how many hours a day the machine runs.</p>
     </header>
-    <div class="cycle" role="img" aria-label="One loading cycle in six phases with seconds per phase">
-      <div class="ph"><span class="n">Phase 1</span><span class="name">Approach the pile</span><span class="sec">to fill<small>seconds</small></span></div>
-      <div class="ph hive"><span class="n">Phase 2</span><span class="name">Dig and fill the bucket</span><span class="sec">to fill<small>seconds</small></span></div>
-      <div class="ph"><span class="n">Phase 3</span><span class="name">Lift and reverse</span><span class="sec">to fill<small>seconds</small></span></div>
-      <div class="ph"><span class="n">Phase 4</span><span class="name">Travel to truck or hopper</span><span class="sec">to fill<small>seconds</small></span></div>
-      <div class="ph hive"><span class="n">Phase 5</span><span class="name">Dump</span><span class="sec">to fill<small>seconds</small></span></div>
-      <div class="ph"><span class="n">Phase 6</span><span class="name">Return</span><span class="sec">to fill<small>seconds</small></span></div>
+    <div class="cycle" role="img" aria-label="One loading cycle in six phases">
+      <div class="ph"><span class="n">Phase 1</span><span class="name">Spot</span><span class="what">Approach the pile, square up, lower the bucket.</span><span class="sec">not split<small>seconds</small></span></div>
+      <div class="ph hive"><span class="n">Phase 2</span><span class="name">Fill</span><span class="what">Dig in, curl, break out. Fill factor is decided here.</span><span class="sec">not split<small>seconds</small></span></div>
+      <div class="ph"><span class="n">Phase 3</span><span class="name">Lift and reverse</span><span class="what">Back out with the load, raise to carry height.</span><span class="sec">not split<small>seconds</small></span></div>
+      <div class="ph"><span class="n">Phase 4</span><span class="name">Travel</span><span class="what">To truck, hopper or pile. 60 to 150 m at NCC, a few metres at a truck.</span><span class="sec">not split<small>seconds</small></span></div>
+      <div class="ph hive"><span class="n">Phase 5</span><span class="name">Dump</span><span class="what">Position over the bed, tip, shake out. Centring is decided here.</span><span class="sec">not split<small>seconds</small></span></div>
+      <div class="ph"><span class="n">Phase 6</span><span class="name">Return</span><span class="what">Back to the pile, bucket down.</span><span class="sec">not split<small>seconds</small></span></div>
     </div>
-    <div class="cycle-legend"><span><span class="k"></span>Phases where remote operation is slower than a cab operator today, per Ronny. To verify with telemetry.</span></div>
+    <div class="cycle-legend"><span><span class="k"></span>Phases where remote operation is slower today: brake feel in the fill, depth perception in the dump. Per-phase times are not logged anywhere yet. Only totals exist.</span></div>
+    <div class="tbl"><table>
+      <tr><th>Measurement</th><th>Seconds</th><th>Conditions</th><th>Source</th></tr>
+      <tr><td>Feiring, remote, scoop to dump</td><td class="num">23</td><td>L180H, blending, Hadeland. Site judged loads inside their commercial window.</td><td class="src">use-case deck; CEMEX call 2 Sep 2026</td></tr>
+      <tr><td>Feiring, manual, hardest possible</td><td class="num">24.5</td><td>Standing start, two piles, simulated truck height. Not filmed.</td><td class="src">Mariana deal page, 28 Aug 2026</td></tr>
+      <tr><td>Kristiansand, tele-op, bucket over truck to bucket over truck</td><td class="num">72</td><td>Lukas' measurement from video. Truck loading, not blending.</td><td class="src">Mariana deal page</td></tr>
+      <tr><td>Mariana, manual, CAT 992</td><td class="num">~40</td><td>Their own video, timed in our meeting. Their claim was 25 to 30. Four passes per hauler. 100 tonne machine.</td><td class="src">KPI prep 2 Sep 2026, eyeball measurement</td></tr>
+      <tr><td>Yara, load and carry</td><td class="num">150</td><td>2 min 30 s average. Longer route, waits on the plant at 1.6 t/min.</td><td class="src">Yara deal page</td></tr>
+      <tr><td>Veidekke Geomaterialer, per customer</td><td class="num">~320</td><td>About 5 min driving plus 20 s digging.</td><td class="src">site visit 18 Mar 2026</td></tr>
+      <tr><td>Caterpillar reference, manual basic cycle</td><td class="num">27 to 33</td><td>Competent operator, short cycle.</td><td class="src">Cat wheel loader productivity guide</td></tr>
+      <tr><td>Dadhich 2018, Volvo L180 teleoperated over WiFi</td><td class="num">+70 %</td><td>150 to 250 ms camera latency. 42 percent productivity loss, bucket fill 97 percent of manual.</td><td class="src">teleoperation productivity penalty, wiki</td></tr>
+    </table></div>
     <div class="prose">
-      <p>Feiring measured 23 seconds scoop to dump under remote operation. <span class="src">[use-case deck]</span> Caterpillar quotes 27 to 33 seconds for a basic cycle with a competent operator in the cab, and a bucket fill factor of 60 to 75 percent for poorly blasted rock up to 80 to 95 percent for well blasted rock. <span class="src">[Cat wheel loader productivity guide]</span> Those are the reference points. Our own numbers per site belong in the table below.</p>
+      <p>Read the table with care. The 23 seconds is blending at a pile. The 72 seconds is loading a truck with an unstable brake pedal and no centring aid. They are different tasks and the gap between them is the gaps list in chapter 5, not a law of remote operation. The academic baseline says a teleoperated L180 loses about 40 percent at 150 to 250 ms of latency. Mariana's position is inside 10 percent of their manual cycle, conditional on brake feel being fixed in release 2.3. <span class="src">[KPI prep 2 Sep 2026]</span></p>
     </div>
     <div class="tools"><button type="button" data-toggle="cycle-drills">Open all in this chapter</button></div>
     <div class="drills" id="cycle-drills">
-      <details class="drill" id="cycle-table"><summary><div><div class="t">Per site: bucket, cycles, tonnes, hours.</div><div class="h">Manual versus remote versus what the contract requires.</div></div><span class="tog"></span></summary>
+      <details class="drill" id="cycle-table"><summary><div><div class="t">Per site: machine, bucket, hours, tonnes.</div><div class="h">What each site runs, and what the contract asks for.</div></div><span class="tog"></span></summary>
         <div class="body"><div class="tbl"><table>
-          <tr><th>Site</th><th>Machine</th><th>Bucket, t</th><th>Cycle, s (manual)</th><th>Cycle, s (remote)</th><th>Tonnes/h achieved</th><th>Tonnes/h required</th><th>Hours/day</th><th>Source</th></tr>
-          <tr><td>Feiring Bruk, Hadeland</td><td>Volvo L180H</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">23</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td class="src">use-case deck</td></tr>
-          <tr><td>Yara, Herøya</td><td>18 t class</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td class="src"></td></tr>
-          <tr><td>Hamar Pukk, Sørli</td><td>Volvo L-series</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td class="src"></td></tr>
-          <tr><td>Example site</td><td>L180 class</td><td class="num">~6</td><td class="num"></td><td class="num"></td><td class="num">~600</td><td class="num"></td><td class="num"></td><td class="src">Ronny, 11 Sep 2026, illustrative</td></tr>
-        </table></div>
-        <div class="gap"><b>To fill:</b> Ronny has tonnage tables per site including driving distance. Pull them in here with the contract requirement next to the achieved figure. Add Franzefoss, Brønnøy Kalk and SigmaRoc as they come online.</div>
-        </div></details>
+          <tr><th>Site</th><th>Machine</th><th>Bucket</th><th>Hours</th><th>Throughput reference</th><th>Contract asks</th><th>Source</th></tr>
+          <tr><td>Feiring Bruk, Hadeland</td><td>Volvo L180H</td><td class="num">~6 t</td><td>06:30 to 17:00</td><td>17 to 18 t per four-axle truck; group peak 600 to 700 loadings a day</td><td>95 % uptime in defined windows; correct tonnage on trucks</td><td class="src">Feiring agreement; research Mar 2026</td></tr>
+          <tr><td>Yara, Herøya</td><td>Volvo L120H</td><td class="num">~4 t</td><td>8 h shift</td><td>200 cycles per shift; 1.6 t/min max emptying</td><td>One week stable remote, no volume loss</td><td class="src">Yara Appendix 1; deal page</td></tr>
+          <tr><td>NCC, Ubbarp</td><td>Volvo L220</td><td class="num">6 m3</td><td>10 to 12 h, ~50 h/week, one shift</td><td>Crusher 650 t/h single product</td><td>Hold-up of production ≤ 3 % of scheduled time per month; 0 LTI</td><td class="src">NCC site walk; term sheet v5</td></tr>
+          <tr><td>SigmaRoc, Bolton Hill</td><td>Volvo L150</td><td class="fill">to fill</td><td class="fill">to fill</td><td>45 t/h baseline discussed</td><td>Cost per tonne; delivered hours per shift</td><td class="src">CQG term sheet v3</td></tr>
+          <tr><td>Eurovia, Thurrock</td><td>Volvo L180 (hire)</td><td class="fill">to fill</td><td>3 weeks live pilot</td><td>Plant demand ~100+ t/h (customer reference)</td><td>Cost per tonne at or below manual baseline, target 20 %; volume held vs plant demand</td><td class="src">Vinci term sheet v16; SOW v5</td></tr>
+          <tr><td>Mariana, Utah</td><td>2 × CAT 992</td><td class="num">11.5 to 24.5 m3</td><td>24/7, 8,736 h/yr</td><td>45 t/h baseline in term sheet</td><td>98 % availability, two-week rolling (SLA draft); staged 80 % then 98 %</td><td class="src">term sheet 3 Aug; SLA v1; Staged KPIs</td></tr>
+          <tr><td>Wergeland, Sløvåg</td><td>Volvo L350</td><td class="fill">to fill</td><td>4,000 h/yr basis, min 133 h/month</td><td>Site 1,500 to 2,000 t/h ship loading</td><td>≥ 90 % of ship calls autonomous; &lt; 5 % manual revert; 12 months sustained</td><td class="src">Wergeland term sheet v2</td></tr>
+          <tr><td>Norsk Gjenvinning, Alna</td><td>2 × L90H + 2 forklifts</td><td class="fill">to fill</td><td>3-shift reception, 2-shift paper line</td><td>Utilisation ~40 % on paper line</td><td>System availability ≥ 90 %</td><td class="src">NG term sheet v2; business case</td></tr>
+        </table></div></div></details>
       <details class="drill" id="cycle-hours"><summary><div><div class="t">Hours, not just seconds.</div><div class="h">Availability is where the money is. A fast cycle on a machine that stands still is worth nothing.</div></div><span class="tog"></span></summary>
         <div class="body"><div class="prose">
-          <p>A cab operator works one shift with breaks, and the machine stands still when they do. A remote operated machine can be handed between operators and in principle runs the plant's hours, not the operator's. That is the productivity argument. It only holds if the machine is actually available, which is why availability is the first metric in chapter 8 and the one with a contractual threshold.</p>
-          <p>For calibration: fully autonomous mining fleets report availability in the high eighties to mid nineties, and OEE studies on mobile mining equipment often land far below the manufacturing "world class" figure of 85 percent. Those are dedicated haul trucks on closed roads, not retrofitted loaders on shared sites. Use them as a frame for what to measure, not as a target. <span class="src">[research note 11 Sep 2026, flagged]</span></p>
+          <p>A cab operator works one shift with breaks, and the machine stands still when they do. A remote operated machine can be handed between operators and in principle runs the plant's hours, not the operator's. That is the productivity argument. It only holds if the machine is actually available, which is why availability is the first metric in chapter 8 and the one with contractual thresholds.</p>
+          <p>Duty cycle decides the business case. At Mariana the loaders run 8,736 hours a year and availability pricing wins. A readymix loader at CEMEX runs 1 to 3 hours a day and the same pricing loses against a part-time operator. Below about 0.42 operator FTE per shift, a license priced on availability costs more than the wage it replaces. <span class="src">[availability pricing breaks on low utilisation, wiki, 12 Aug 2026; CEMEX account brief]</span></p>
+          <p>For calibration: fully autonomous mining fleets report availability in the high eighties to mid nineties, and OEE studies on mobile mining equipment often land far below the manufacturing "world class" 85 percent. Those are dedicated haul trucks on closed roads. Use them as a frame for what to measure, not as a target. <span class="src">[research note 11 Sep 2026]</span></p>
         </div></div></details>
     </div>
   </section>
@@ -553,31 +636,35 @@
     </header>
     <div class="tbl"><table>
       <tr><th>Dimension</th><th>Supported today</th><th>Source</th></tr>
-      <tr><td>Machine</td><td>Volvo wheel loaders L60 to L350, model year 2018 and later. Required on the machine: CDC steering with electric joystick on the left armrest, electric lift and tilt joystick (no hydraulic pilot), Optishift with RBB brake valve. Attachment link advance optional for CAN feedback. H-series versus K-series (2026 platform) is a separate check. PIN is not the gate.</td><td class="src">Magnus Kjelland, 24 Aug 2026</td></tr>
-      <tr><td>Site types</td><td>Quarry and aggregates, industrial plant with fixed surroundings, recycling, asphalt plant, mine. Snow clearing on a closed road has been run (Vikafjellet).</td><td class="src">use-case deck</td></tr>
-      <tr><td>Task types</td><td>Blending, clearing under conveyor drop, pile to hopper, moving blasted rock to stockpile. Truck load-out pending bucket scale integration.</td><td class="src">use-case deck</td></tr>
-      <tr><td>People and vehicles</td><td>Defined working area. Light barrier at Yara: machine stops if the beam is broken. Quarry sites: geofence plus site rules.</td><td class="src">use-case deck</td></tr>
-      <tr><td>Network</td><td>Public 5G demonstrated (Telia, tunnel, operator 90 km away). Dedicated network at production sites.</td><td class="src">use-case deck; to confirm per site</td></tr>
-      <tr><td>Weather, light, dust</td><td class="num">to fill</td><td class="src">engineering</td></tr>
-      <tr><td>Slope and surface</td><td class="num">to fill</td><td class="src">engineering</td></tr>
+      <tr><td>Machine</td><td>Volvo wheel loaders, 2018 and later. Required on the machine: CDC steering with electric joystick on the left armrest, electric lift and tilt joystick (no hydraulic pilot), OptiShift with RBB brake valve. Attachment link advance optional for CAN feedback. H-series versus K-series (2026 platform) is a separate check. PIN is not the gate. <b>The size range is not agreed:</b> L60 to L350 in most material, L60 to L220 to one customer, L110 to L250 on the ICP page, L110 to L260 in the SigmaRoc proposal. CAT 992 at Mariana is an exception with its own integration.</td><td class="src">Magnus Kjelland 24 Aug 2026; ICP page</td></tr>
+      <tr><td>Kit</td><td>Yara configuration: 2 lidars (roof and tool tip), 6 wide-angle cameras (4 cab, 1 tool tip, 1 reverse), 6 ultrasonic sensors. Platform definition lists lidar, radar, cameras, GNSS and IMU. Cameras move from Loxone to GMSL in release 2.3.</td><td class="src">Yara Appendix 2 Rev.5; platform definition; roadmap note 28 Aug 2026</td></tr>
+      <tr><td>Site types</td><td>Quarry and aggregates, industrial plant with fixed surroundings, recycling, asphalt plant, mine. Snow clearing on a closed road has been run.</td><td class="src">use-case deck</td></tr>
+      <tr><td>Task types</td><td>Blending, clearing under the conveyor drop, pile to hopper, moving blasted rock to stockpile, zone-to-zone autonomous driving. Truck load-out pending bucket scale integration. Never loaded haulers under autonomy.</td><td class="src">use-case deck; KPI prep</td></tr>
+      <tr><td>People and vehicles</td><td>Phase one is a physically segregated working surface, closed to entry without notification. Light barrier at Yara. While a human supervises, perception is a supplementary system with no safety rating; when supervision is reduced, detection moves to safety-rated sensors at PL d via ISO 3691-4.</td><td class="src">NCC HSE response 4 Sep 2026; physical segregation concept</td></tr>
+      <tr><td>Network</td><td>Floor 40 Mbit/s sustained uplink; UK SOW asks 50 Mbit/s symmetric, latency under 100 ms, jitter under 30 ms, packet loss under 0.5 percent. Volvo's own criteria: about 30 ms one way, hard ceiling near 50. The machine stops if delay exceeds 250 ms. Hadeland's lowest measured point is 42 Mbit/s uplink, with 5G drops under the rock face on the upper bench. Private 5G at Mariana and Carrières du Hainaut.</td><td class="src">connectivity baselines; UK SOW template; Volvo POV criteria; CEMEX call 2 Sep 2026</td></tr>
+      <tr><td>Regulatory</td><td>Machinery Directive 2006/42/EC until 20 January 2027, then Regulation 2023/1230. The remote operator is the driver in law. Heartbeat stop is required. CE marking is per machine; the operational risk analysis is per site, with TÜV involved in approving procedures.</td><td class="src">research 10 Sep 2026; NCC HSE response</td></tr>
+      <tr><td>Weather, light, dust</td><td class="fill">to fill</td><td class="src">engineering</td></tr>
+      <tr><td>Slope and surface</td><td class="fill">to fill</td><td class="src">engineering</td></tr>
     </table></div>
-    <div class="gap"><b>To fill with engineering:</b> the environmental rows are the ones sales cannot answer and customers will ask. Rain, fog, dust on lidar, darkness, ice, ramp gradient, ground bearing. Even "not yet characterised" is a valid entry. It is better than a blank.</div>
+    <div class="gap"><b>Two things for engineering to close:</b> the machine size range, before any more sales material goes out, and the environmental rows. Even "not yet characterised" is a valid entry. It is better than a blank.</div>
 
     <div class="tools"><button type="button" data-toggle="odd-drills">Open all in this chapter</button></div>
     <div class="drills" id="odd-drills">
-      <details class="drill" id="odd-taxonomy"><summary><div><div class="t">Full taxonomy, per site.</div><div class="h">Scenery, environment, dynamic elements, machine state. One column per customer.</div></div><span class="tog"></span></summary>
-        <div class="body"><div class="prose"><div class="gap"><b>To fill:</b> table with rows for scenery (ramp gradient, surface, geofence shape, fixed obstacles), environment (temperature range, precipitation, dust, light), dynamic elements (trucks, haulers, pedestrians, blast schedule), machine state (attachment, bucket scale, tyre type), and columns for Feiring, Yara, Hamar Pukk, and each new site as it is surveyed. This becomes the pre-sales site survey checklist.</div></div></div></details>
-      <details class="drill" id="odd-fail"><summary><div><div class="t">What happens when it breaks.</div><div class="h">Minimal risk condition per failure type. What the machine does, who is told, how work resumes.</div></div><span class="tog"></span></summary>
+      <details class="drill" id="odd-fail"><summary><div><div class="t">What happens when it breaks.</div><div class="h">Minimal risk condition per failure type, as answered to NCC's HSE lead on 4 September.</div></div><span class="tog"></span></summary>
         <div class="body"><div class="tbl"><table>
-          <tr><th>Failure</th><th>Machine does</th><th>Who is told</th><th>Resume</th><th>Status</th></tr>
-          <tr><td>Link lost</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td>engineering to confirm</td></tr>
-          <tr><td>Latency above threshold</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td>threshold not yet defined in writing</td></tr>
-          <tr><td>Person enters the area</td><td>Stops (light barrier at Yara).</td><td class="num">to fill</td><td class="num">to fill</td><td>site specific</td></tr>
-          <tr><td>Sensor fault</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td>engineering to confirm</td></tr>
-          <tr><td>Operator unavailable</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td>operations to confirm</td></tr>
+          <tr><th>Failure</th><th>Machine does</th><th>Who acts</th><th>Resume</th><th>Status</th></tr>
+          <tr><td>Total loss of communication</td><td>Stops and goes to safe state: full brake, park brake engaged, engine off.</td><td>Remote operator sees the loss; site hears the machine stop.</td><td>Link restored, operator re-takes control.</td><td>Answered to NCC</td></tr>
+          <tr><td>Delay above 250 ms</td><td>Stops.</td><td>Remote operator</td><td class="fill">to fill: reset path</td><td>Stated to CEMEX; written threshold to confirm</td></tr>
+          <tr><td>Person approaches</td><td>Does not move. Opening the door is in the e-stop circuit. Two seconds of audible warning before any engine start.</td><td>Anyone on site can stop with the wireless e-stop that travels with the machine; one unit at the secondary crusher at NCC.</td><td>Remote operator confirms on camera that the person has moved clear. No mechanical lockout exists. This is the weakest link today.</td><td>Answered to NCC</td></tr>
+          <tr><td>Emergency stop pressed</td><td>Brakes and stops at once. Red blinking light at every station in the room.</td><td>Operator pulls the button up, presses Clear Error.</td><td>Machine returns to operational mode. Root cause analysis for every e-stop loop trigger, shared with the customer.</td><td>Yara procedure; NCC response</td></tr>
+          <tr><td>False positive on public 5G</td><td>E-stop loop triggers.</td><td>Engineering filters.</td><td>Stated learning; fix expected in release 2.3.</td><td>Open</td></tr>
+          <tr><td>Sensor fault</td><td class="fill">to fill</td><td class="fill">to fill</td><td class="fill">to fill</td><td>Engineering to confirm</td></tr>
+          <tr><td>Operator unavailable</td><td class="fill">to fill</td><td class="fill">to fill</td><td class="fill">to fill</td><td>Operations to confirm</td></tr>
         </table></div>
-        <div class="prose"><p>The safety argument itself lives elsewhere. This table only says what the customer will see, because the site manager will ask exactly this on the first visit.</p>
-        <div class="gap"><b>To fill:</b> link to the safety case or risk assessment document once its location is confirmed.</div></div></div></details>
+        <div class="prose"><p>Safety functions are designed to PL e per ISO 13849, emergency stops to ISO 13850, category 3 architecture on cabling with diagnostic coverage on the safety relay. The AI makes no safety decisions; it chooses the path and where to scoop. Stopping for a person or an object is the separate safety layer. Question 8 in the NCC response, how new AI models and skills are verified, was left blank because there was no answer we could stand behind. <span class="src">[NCC HSE response, 4 Sep 2026]</span></p>
+        <div class="gap"><b>To fill:</b> link to the safety case, HAZOP and FMECA documents once their location is confirmed. Answer to question 8.</div></div></div></details>
+      <details class="drill" id="odd-taxonomy"><summary><div><div class="t">Full taxonomy, per site.</div><div class="h">Scenery, environment, dynamic elements, machine state. One column per customer. Becomes the pre-sales site survey.</div></div><span class="tog"></span></summary>
+        <div class="body"><div class="prose"><div class="gap"><b>To fill:</b> rows for scenery (ramp gradient, surface, geofence shape, fixed obstacles), environment (temperature, precipitation, dust, light), dynamic elements (trucks, haulers, pedestrians, blast schedule), machine state (attachment, bucket scale, tyres); columns for Feiring, Yara, NCC Ubbarp, Bolton Hill, Thurrock, Mariana. The NCC operational risk analysis template on SharePoint is the starting point.</div></div></div></details>
     </div>
   </section>
 
@@ -589,38 +676,59 @@
       <p class="lede">Six numbers decide whether a site stays a customer. Everything else is instrumentation that helps us hit those six.</p>
     </header>
     <div class="tbl"><table>
-      <tr><th>Metric</th><th>Definition we use</th><th>Who cares</th><th>Contracted</th><th>Instrumented today</th><th>Reference</th></tr>
-      <tr><td>Availability</td><td>Share of the site's scheduled operating hours in which the machine was ready to work under our control. Planned maintenance agreed with the site is excluded; everything else counts against us.</td><td>Site manager, owner</td><td>Internal rule: below 70 percent we stop selling and fix. Contract thresholds per site to confirm.</td><td class="num">to fill</td><td class="src">OEE availability; Ronny and Mykhaylo, 11 Sep</td></tr>
-      <tr><td>Tonnes per hour</td><td>Tonnes moved per hour the machine was working, by task. Needs the bucket scale or weighbridge data.</td><td>Site manager</td><td>Required level per site, to confirm</td><td class="num">to fill</td><td class="src">standard quarry KPI</td></tr>
-      <tr><td>Cycle time, remote vs cab</td><td>Seconds from bucket entering the pile to bucket empty at the dump, averaged per task. Reported alongside the site's own manual baseline.</td><td>Site manager, engineering</td><td>No</td><td>Partly (Feiring 23 s)</td><td class="src">Cat: 27 to 33 s basic cycle</td></tr>
-      <tr><td>Interventions per hour</td><td>Times per operating hour a human had to take manual control or stop the machine, for safety or because the system handed back. Counted with the reason. Same spirit as a road disengagement report.</td><td>Engineering, HSE</td><td>No</td><td class="num">to fill</td><td class="src">CA DMV disengagement definition</td></tr>
-      <tr><td>Operators per machine</td><td>Remote operators on shift divided by machines in production. 1:1 today. The whole business case is about this number falling.</td><td>Hive, owner</td><td>No</td><td>Known from rostering</td><td class="src">Sandvik AutoMine publishes 1:1 to several:1 by product level</td></tr>
-      <tr><td>Connection drops</td><td>Count and duration of link losses that stopped the machine, per operating hour.</td><td>Engineering, site manager</td><td>No</td><td class="num">to fill</td><td class="src">teleoperation practice</td></tr>
+      <tr><th>Metric</th><th>Definition we use</th><th>Who cares</th><th>Contracted or promised</th><th>Logged today</th><th>Reference</th></tr>
+      <tr><td>Availability</td><td>Available hours divided by scheduled operating hours in the period. Planned maintenance agreed with the site, customer machine service, fuel, weather outside limits, site network and power, and downstream stoppages excluded from both numerator and denominator.</td><td>Site manager, owner</td><td>Feiring 95 % in defined windows, exit below 80 % two quarters running. Mariana SLA draft 98 % two-week rolling, credit below, escalation below 90 %. NG ≥ 90 %. NCC hold-up ≤ 3 % per month with a 2 h weekly maintenance window. Verbal standard: "100 % uptime, remote operator takes over within 5 s."</td><td>HMI uptime and Hive stop signals are logged. No availability figure is computed. Internal estimate today about 80 %.</td><td class="src">contracts, see drill; KPI prep 2 Sep</td></tr>
+      <tr><td>Tonnes per hour</td><td>Tonnes moved per hour worked, by task, against the site's manual baseline established before we start.</td><td>Site manager</td><td>Mariana and SigmaRoc 45 t/h baseline. Wergeland at or above manual baseline over 20 ship calls. Eurovia volume held vs plant demand.</td><td>Load weight in kg is on the CAN list where the machine provides it. Bucket scale not yet integrated at Feiring.</td><td class="src">term sheets; System Logging Rev.02</td></tr>
+      <tr><td>Cycle time, remote vs cab</td><td>Seconds from bucket entering the pile to bucket empty at the dump, averaged per task, reported next to the site's manual figure.</td><td>Site manager, engineering</td><td>Mariana: within 10 % of their manual capacity, conditional on brake feel. Yara P2: autonomous transport not slower than manual.</td><td>Not computed. Totals measured by hand from video.</td><td class="src">KPI prep; Yara Appendix 1</td></tr>
+      <tr><td>Interventions per hour</td><td>Times per operating hour a human took manual control or stopped the machine, for safety or because the system handed back, counted with the reason.</td><td>Engineering, HSE, Mariana</td><td>Mariana SLA monthly report includes intervention rate. Yara P1: at least 1:1 automatic to manual over two hours.</td><td>Hive stop and Hive mode signals logged. Not aggregated. Kenneth pressed e-stop 30 times in one day on site in September.</td><td class="src">SLA v1; KPI prep</td></tr>
+      <tr><td>Operators per machine</td><td>Remote operators on shift divided by machines in production.</td><td>Hive, owner, Mariana</td><td>Stated position 1:2 to 3. Feiring agreement targets 1:4 to 6. Mariana counted 4.0 supervisor FTE in their own model and priced us 30 % above manual.</td><td>Known from rostering. Open whether 1:2-3 is in production or a design target.</td><td class="src">operator ratio concept; Feiring agreement; Mariana cost model</td></tr>
+      <tr><td>Connection drops</td><td>Count and duration of link losses that stopped the machine, per operating hour. Packet loss and jitter per link per shift.</td><td>Engineering, site manager</td><td>UK SOW thresholds: 100 ms, 30 ms jitter, 0.5 % loss, tested and signed off before live operation.</td><td>Equipment latency (station to machine) and camera latency are logged per session. No published figure.</td><td class="src">UK SOW; System Logging Rev.02</td></tr>
     </table></div>
     <div class="prose">
-      <p><b>How the customer wants it delivered.</b> Today: production continuing at the current level is the requirement, and reporting back to the customer is secondary. Nobody has asked for a live dashboard yet. A monthly or per-request summary with availability and tonnes covers what they ask for. That may change with Mariana and with SigmaRoc. Build the data so a dashboard is possible; do not build the dashboard first. <span class="src">[Ronny, 11 Sep 2026]</span></p>
+      <p><b>The 70 percent rule.</b> Mykhaylo has heard that below 70 percent uptime we stop selling and fix. No contract contains that figure. It is an internal product rule, and the right one to keep internal, since every signed threshold sits between 90 and 98.</p>
+      <p><b>How the customer wants it delivered.</b> Production continuing at the current level is the requirement; reporting back is secondary. Nobody has asked for a live dashboard. What has been asked for: a shift-end log (UK SOW), a monthly report with intervention rate and supervision ratio and a quarterly review (Mariana SLA), monthly access to black box data (NCC), and a ten-sheet shift diary workbook with day and night rows (Eurovia). Build the data so all four can be produced from the same log. Do not build a dashboard first. <span class="src">[Ronny 11 Sep 2026; SOW template; SLA v1; NCC site walk; Eurovia framework]</span></p>
     </div>
     <div class="tools"><button type="button" data-toggle="metrics-drills">Open all in this chapter</button></div>
     <div class="drills" id="metrics-drills">
-      <details class="drill" id="metrics-full"><summary><div><div class="t">Full catalogue for engineering.</div><div class="h">Everything worth instrumenting, with definitions that match what the industry already uses.</div></div><span class="tog"></span></summary>
+      <details class="drill" id="metrics-full"><summary><div><div class="t">Full catalogue for engineering.</div><div class="h">Everything worth instrumenting, with definitions that match what customers and the industry already use.</div></div><span class="tog"></span></summary>
         <div class="body"><div class="tbl"><table>
-          <tr><th>Metric</th><th>Definition</th><th>Why</th><th>Industry reference</th></tr>
-          <tr><td>Utilisation</td><td>Share of available time the machine was moving material.</td><td>Separates "ready" from "working". Idle waiting for a task is a coordination problem, not a machine problem.</td><td class="src">mining AHS reporting</td></tr>
-          <tr><td>MTBF</td><td>Operating hours divided by number of failures that stopped work, hardware and software counted separately.</td><td>Drives maintenance planning and the availability forecast.</td><td class="src">standard reliability metric</td></tr>
-          <tr><td>Bucket fill factor</td><td>Actual payload divided by rated bucket capacity.</td><td>The autonomous dig has to match a good operator or tonnes per hour fall even with equal cycle time.</td><td class="src">Cat: 60 to 95 percent by blast quality</td></tr>
-          <tr><td>Payload per pass</td><td>Tonnes in one bucket. Needs the bucket scale.</td><td>Load-out accuracy and ticket matching.</td><td class="src">quarry practice</td></tr>
-          <tr><td>Glass-to-glass latency</td><td>Camera capture to operator screen, milliseconds.</td><td>What the operator feels. Research puts comfortable teleoperation under about 170 ms and marked degradation above 300 ms.</td><td class="src">teleoperation studies, 2025</td></tr>
-          <tr><td>Motion-to-motion latency</td><td>Joystick input to machine response, milliseconds. Field studies report medians well above glass-to-glass.</td><td>Different number, different fix. Never report "latency" without saying which.</td><td class="src">arXiv 2511.22467</td></tr>
-          <tr><td>Packet loss and jitter</td><td>Per link, per shift.</td><td>Predicts drops before they happen. Site selection input.</td><td class="src">network bonding practice</td></tr>
-          <tr><td>Time to resume after stop</td><td>Seconds from a safety stop to the machine working again.</td><td>A stop that costs ten minutes each time is a production problem the site manager will raise first.</td><td class="src">own definition</td></tr>
-          <tr><td>ODD coverage</td><td>Share of the site's actual conditions that fall inside chapter 7.</td><td>Tells sales what not to promise.</td><td class="src">ISO 34503 idea, adapted</td></tr>
-          <tr><td>OEE</td><td>Availability times performance times quality.</td><td>One number for the owner. Mobile equipment in open sites scores structurally lower than factories; set expectations accordingly.</td><td class="src">OEE mining case studies</td></tr>
-        </table></div></div></details>
-      <details class="drill" id="metrics-contract"><summary><div><div class="t">What the contracts actually say.</div><div class="h">Availability thresholds, the 20 percent guarantee, exit criteria. Quoted, not paraphrased.</div></div><span class="tog"></span></summary>
-        <div class="body"><div class="prose">
-          <p>The commercial promise in our current framing: a two to three week proof, a guaranteed 20 percent reduction in operating cost, and the kit removed if it does not deliver. <span class="src">[terminology memo, 2026]</span> Exit criteria are chosen by the customer, typically uptime, production volume, load weight and HSE. <span class="src">[writing rules, Aug 2026]</span></p>
-          <div class="gap"><b>To fill:</b> verbatim KPI clauses from the Feiring agreement, the Yara contract, the SigmaRoc/CQG term sheet and the Skanska base. Being pulled from SharePoint now.</div>
-        </div></div></details>
+          <tr><th>Metric</th><th>Definition</th><th>Why</th><th>Reference</th></tr>
+          <tr><td>Utilisation</td><td>Active work time divided by available time.</td><td>Separates "ready" from "working". Idle waiting for a task is a coordination problem, not a machine problem. Eurovia's example: 7 of 10 hours is 70 %.</td><td class="src">Eurovia KPI framework</td></tr>
+          <tr><td>Queue and wait time</td><td>Loader waiting for tasks or trucks; trucks or plant waiting for the loader.</td><td>Surfaces scheduling and path planning issues.</td><td class="src">Eurovia</td></tr>
+          <tr><td>Plant feed continuity</td><td>Minutes or share of run time the plant stopped for lack of feed. Minimum hopper level observed.</td><td>The asphalt plant and crusher version of "production continues".</td><td class="src">Eurovia; NCC hold-up</td></tr>
+          <tr><td>MTBF</td><td>Operating hours divided by failures that stopped work, hardware and software counted separately.</td><td>Drives maintenance planning and the availability forecast.</td><td class="src">standard reliability metric</td></tr>
+          <tr><td>Bucket fill factor</td><td>Actual payload divided by rated bucket capacity.</td><td>Dadhich measured 97 % of manual under teleoperation. Mariana wants it but we are not yet agreed whether they mean our bucket or their hauler's load.</td><td class="src">Cat 60 to 95 % by blast quality; KPI prep</td></tr>
+          <tr><td>Passes per truck</td><td>Buckets needed to fill one truck.</td><td>Mariana's "pass match". Four passes per hauler on their video. Follows fill factor mathematically.</td><td class="src">KPI prep</td></tr>
+          <tr><td>Load centring</td><td>Lateral offset of the dumped load on the bed.</td><td>Fredrik Brubakken's objection at Feiring. Solvable with a fixed distance reference.</td><td class="src">application gaps</td></tr>
+          <tr><td>Fuel per tonne</td><td>Litres per tonne moved, by task.</td><td>Diesel is 20 to 25 % of cost at NCC, labour 2 to 3. OptiShift alone saves 15 to 18 %. Current fuel consumption in l/h is already on the CAN list.</td><td class="src">NCC site walk; System Logging Rev.02</td></tr>
+          <tr><td>Glass-to-glass latency</td><td>Camera capture to operator screen, ms.</td><td>What the operator feels. Research puts comfortable teleoperation under about 170 ms and marked degradation above 300 ms. Camera latency is already logged per session.</td><td class="src">teleoperation studies 2025; System Logging</td></tr>
+          <tr><td>Motion-to-motion latency</td><td>Joystick input to machine response, ms.</td><td>Different number, different fix. Never report "latency" without saying which. Equipment latency is logged; whether it covers actuation is to confirm.</td><td class="src">arXiv 2511.22467; System Logging</td></tr>
+          <tr><td>Time to resume after stop</td><td>Seconds from a stop to the machine working again.</td><td>A stop that costs ten minutes each time is what the site manager raises first. Clear Error path exists; duration is not logged.</td><td class="src">own definition</td></tr>
+          <tr><td>Autonomy share</td><td>Time in autonomous mode divided by time under Hive control, per task.</td><td>Yara P1 asked for 1:1 over two hours. Volvo POV asks for a demonstrated increase across tasks. This is the ratio the operator-per-machine number depends on.</td><td class="src">Yara Appendix 1; Volvo POV SOW</td></tr>
+          <tr><td>ODD coverage</td><td>Share of the site's actual conditions inside chapter 7.</td><td>Tells sales what not to promise.</td><td class="src">ISO 34503 idea, adapted</td></tr>
+          <tr><td>OEE</td><td>Availability × performance × quality.</td><td>One number for the owner. Mobile equipment scores structurally lower than factories.</td><td class="src">OEE mining studies</td></tr>
+        </table></div>
+        <div class="note">Already on the machine and station log, per System Logging Rev.02: armrest buttons and joystick axes, HMI uptime, equipment latency, camera latency, Hive mode, Hive stop, steering, throttle and brake commands, six tool axes, park brake, gear, horn; camera, lidar, radar, GNSS, IMU; from CAN: engine speed, machine speed, park brake state, ambient temperature, gear, engine load, alarms, fuel l/h, machine hours, load weight. Tier 1 identifiable data kept 90 days, faces blurred within an hour, Tier 2 anonymised for training.</div>
+        </div></details>
+      <details class="drill" id="metrics-contract"><summary><div><div class="t">What the contracts actually say.</div><div class="h">Quoted, not paraphrased. Signed, offered and drafted are marked.</div></div><span class="tog"></span></summary>
+        <div class="body"><div class="tbl"><table>
+          <tr><th>Document</th><th>Status</th><th>Clause</th></tr>
+          <tr><td>Feiring Bruk Samarbeidsavtale</td><td>Signed 24 and 28 Apr 2026</td><td>"Operasjonell oppetid: løsningen må kunne leveres med forutsigbar tilgjengelighet og med en oppetid på 95% under definerte operasjonell vinduer." · "Lastepresisjon: testmaskinen må kunne laste lastebil med korrekt tonnasje." · "Skaleringsmålet er at én operatør skal kunne overvåke og styre fire til seks maskiner samtidig, og dermed gi minimum 20% kostnadsreduksjon i driftskostnad per maskin fra dag 1. og opp mot 40% etter skalering."</td></tr>
+          <tr><td>Feiring offer, Mar 2026</td><td>Offer</td><td>"Plattform oppetid ≥ 95 % av planlagt driftstid" · "Hvis plattformen leverer under 80 % av avtalt oppetid i 2 sammenhengende kvartaler, kan Feiring avslutte uten kostnad"</td></tr>
+          <tr><td>Mariana SLA v1</td><td>Draft 8 Sep 2026</td><td>"Hive will maintain Availability of at least 98 percent for each machine class in each Measurement Period, measured on a two-week rolling average within the period." · Availability = "Available hours in a Measurement Period, divided by the operating hours for that machine in the same period ... Hours excluded under Section 4 are removed from both the numerator and the denominator." · Credit below 98 percent; escalation level 3 below 90 percent. · "Quarterly review: Joint review of Availability trend, intervention rate, supervision ratio and open actions."</td></tr>
+          <tr><td>Mariana term sheet</td><td>3 Aug 2026, expired unsigned, to be reissued</td><td>"$40 per hour per machine for full 24/7 availability" · "throughput t/hr, baseline ≥ 45 t/hr delivered hours per shift" · stop handling "left to be agreed in writing before Start Date"</td></tr>
+          <tr><td>NCC term sheet v5</td><td>Shared Sep 2026</td><td>"Production hold up ... ≤ 3% of scheduled production time per calendar month" · "0 LTI / 0 proximity events / 0 near-misses" (near-miss becoming a reporting duty per 21 Aug) · "The Rate is set at 80% of the Customer's fully-loaded per-shift operator cost"</td></tr>
+          <tr><td>NCC SOW v13</td><td>May 2026</td><td>"1 standard daily shift (8 hours), weekday." · "At least 1 full crusher-to-stockpile cycle completed under remote supervision without intervention."</td></tr>
+          <tr><td>Vinci Eurovia term sheet v16</td><td>30 Jun 2026</td><td>"GATE: cost per tonne at or below the manual baseline (target 20% reduction); production volume held vs plant demand (set jointly, baseline-anchored)" · SOW v5: "minimum 50 Mbit/s symmetric uplink and downlink" · "End-to-end latency below 100 ms" · "3 weeks of live operations"</td></tr>
+          <tr><td>SigmaRoc CQG term sheet v3</td><td>Sent 19 May 2026</td><td>"GBP per tonne loaded · throughput t/hr (baseline ≥ 45 t/hr discussed 15 April) · delivered hours per shift"</td></tr>
+          <tr><td>Wergeland term sheet v2</td><td>19 Aug 2026</td><td>"Average tonnes per hour loaded per ship call, measured against the manual baseline ... established by measurement over 20 consecutive ship calls" · "Not less than 90 % of ship calls" · "Reverting to manual loading for more than 5 % of loaded tonnage in any single month breaks the run and restarts the twelve-month period." · "Minimum Hours: 133 machine hours per machine per month"</td></tr>
+          <tr><td>Norsk Gjenvinning term sheet v2</td><td>13 May 2026</td><td>"Systemtilgjengelighet: Oppetid fjernstyring + autonome funksjoner ≥ 90 %"</td></tr>
+          <tr><td>Yara Appendix 1 and 5</td><td>2023/24, historic</td><td>"P1: The total manual mode vs automatic mode ratio measured through a two-hour continuous operation in production shall be 1:1 or better." · "P2: Automatic transport shall not take more time than manual operation." · "Free up 50% of the drivers operating time by autonomous point-to-point driving."</td></tr>
+          <tr><td>Volvo POV SOW v2 and customer criteria</td><td>Aug 2026</td><td>"passed when the agreed production and availability targets are met over a continuous measurement period, with zero recordable safety incidents, and with a demonstrated increase in autonomy ratio" · "One-way latency around 30 ms end to end, hard ceiling near 50 ms"</td></tr>
+          <tr><td>Verbal, CEMEX and Mariana Q&amp;A</td><td>Spoken</td><td>"100% uptime guaranteed (remote operator takes over on autonomy failure)" · "Supervising operator takes over inside 5 seconds, downtime sits on Hive's P&amp;L."</td></tr>
+        </table></div>
+        <div class="note">The commercial anchor in every term sheet: the rate is 80 percent of the customer's fully loaded operator cost, a 20 percent reduction from day one, two to three week proof, kit removed if it does not deliver. Exit criteria are chosen by the customer.</div>
+        </div></details>
     </div>
   </section>
 
@@ -635,36 +743,48 @@
       <div class="out">Outcome: production continues at the site's current level, with nobody in the cab.</div>
       <div class="opp">
         <div class="q">"Just call the guy and tell him what to do for the next few hours."</div>
-        <div class="who">Every quarry site manager, paraphrased by Ronny</div>
-        <ul>
-          <li>Possible solution: keep voice as the primary channel, log the task on our side.</li>
-          <li>Possible solution: a lightweight task form the coordinator fills, not the customer.</li>
-          <li>Test: does any site manager actually want to type? Ask three.</li>
-        </ul>
+        <div class="who">Every quarry site manager, paraphrased by Ronny, 11 Sep 2026</div>
+        <ul><li>Keep voice as the primary channel. Log the task on our side, not the customer's.</li><li>Test: does any site manager want to type? Ask three.</li></ul>
+      </div>
+      <div class="opp">
+        <div class="q">Flow, right tonnage, centred loads.</div>
+        <div class="who">Roar Aaserud, Feiring Bruk, acceptance criteria for load-out, Aug 2026</div>
+        <ul><li>Bucket scale into telemetry; payload per pass to the operator and to the ticket. Volvo's onboard scale is trade-approved with the right software (unverified).</li><li>Fixed distance reference to the truck side for centring.</li><li>Test: ticket weight versus summed bucket weights on 50 trucks.</li></ul>
+      </div>
+      <div class="opp">
+        <div class="q">"If I could get more brake feel, it would be no problem to match it, or even faster."</div>
+        <div class="who">Kenneth, remote operator, internal meeting 2 Sep 2026</div>
+        <ul><li>Brake pedal fidelity in release 2.3. Check torque converter behaviour on brake (Roar's hypothesis).</li><li>Overview camera angle like the one in Mariana's video, which the station lacks today.</li><li>Test: repeat the 72 s truck-loading measurement after the fix.</li></ul>
       </div>
       <div class="opp">
         <div class="q">"The site has asked for more autonomy in the cycle since we started on tele-remote."</div>
         <div class="who">Yara, Herøya</div>
-        <ul>
-          <li>Possible solution: autonomous pile-to-hopper cycle with remote supervision, October 2026.</li>
-          <li>Test: cycle time and fill factor against the tele-remote baseline over two weeks.</li>
-        </ul>
+        <ul><li>Autonomous pile-to-hopper cycle with remote supervision, October 2026.</li><li>Test: cycle time and fill factor against the tele-remote baseline over two weeks; the one-week no-volume-loss gate.</li></ul>
       </div>
       <div class="opp">
         <div class="q">"We will send you commands and shape files for which polygons to take out."</div>
         <div class="who">Mariana Minerals</div>
-        <ul>
-          <li>Possible solution: a task API that accepts a polygon and a material target.</li>
-          <li>Question for engineering: what in the infrastructure being built now would make this hard later?</li>
-        </ul>
+        <ul><li>A task interface that accepts a polygon and a material target.</li><li>Question for engineering: what in the infrastructure being built now would make this hard later?</li><li>Mariana also said "you can smash a couple of trucks, progress is what matters." Treat that as mood, not as a contractual tolerance.</li></ul>
       </div>
       <div class="opp">
-        <div class="q">"Loading customer lorries, once the bucket scale is integrated."</div>
-        <div class="who">Feiring Bruk, next step</div>
-        <ul>
-          <li>Possible solution: bucket scale read into telemetry, payload per pass shown to the operator and logged per ticket.</li>
-          <li>Test: ticket weight versus summed bucket weights on 50 trucks.</li>
-        </ul>
+        <div class="q">Labour is 2 to 3 percent of our cost. Diesel is 20 to 25.</div>
+        <div class="who">NCC, site walk 21 Aug 2026</div>
+        <ul><li>Fuel per tonne as a first-class metric from day one. The l/h signal exists on CAN.</li><li>Monthly black box access as standing reporting.</li><li>Start-up has no lockout; the remote operator confirms on camera that the person is clear. Anton raised it. Goes into the risk analysis as its own item.</li></ul>
+      </div>
+      <div class="opp">
+        <div class="q">Cold feed bins must never run empty, and the bin-full signal should stop the loader.</div>
+        <div class="who">Eurovia, Thurrock, KPI framework Jun 2026</div>
+        <ul><li>Plant PLC integration as primary, vision detection as fallback.</li><li>Hopper level variance and feed-related plant downtime as metrics.</li></ul>
+      </div>
+      <div class="opp">
+        <div class="q">Shoulder stiffness after three hours. No forearm support. Glare from the window.</div>
+        <div class="who">Petter Martinsen, operator, Sørli, Jun 2025</div>
+        <ul><li>Station ergonomics for long shifts, before one operator watches three machines.</li></ul>
+      </div>
+      <div class="opp">
+        <div class="q">Private customers drive into the yard. Fine piles collapse.</div>
+        <div class="who">Veidekke Geomaterialer, site visit Mar 2026</div>
+        <ul><li>Mixed traffic with untrained people is out of phase one everywhere. Pile stability is a perception question for autonomy later.</li></ul>
       </div>
       <div class="gap"><b>To add:</b> Mykhaylo's list of what engineering needs to know (due 12 September), and one observation per named site from Ronny's daily contact. Keep the quote, the site and the date on every entry.</div>
     </div>
@@ -679,9 +799,11 @@
     </header>
     <div class="prose">
       <ul>
-        <li>Machines other than Volvo wheel loaders L60 to L350, 2018 and later. Haulers and other brands are a separate track.</li>
+        <li>Machines other than Volvo wheel loaders with the three control interfaces in chapter 7. The CAT 992 at Mariana is a deliberate exception with its own track. Haulers, dozers and excavators are separate tracks.</li>
+        <li>A KPI on VLA cycle time. Too unknown. Agreed internally 2 September.</li>
         <li>A customer-facing live dashboard. Data first, dashboard when a customer asks and pays.</li>
-        <li>Replacing the site's weighbridge, dispatch or ERP systems. We plug in beside them.</li>
+        <li>Replacing the site's weighbridge, dispatch or ERP systems. We plug in beside them. Carrières du Hainaut has asked about IFS integration; parked.</li>
+        <li>Mixed traffic with untrained people inside the working area. Phase one is physically segregated everywhere.</li>
         <li>Customer-specific orchestration beyond Mariana until the shared system is stable.</li>
         <li>The safety case itself. Referenced, not reproduced here.</li>
       </ul>
@@ -696,21 +818,30 @@
       <h2>Glossary.</h2>
     </header>
     <dl>
-      <div><dt>Muckpile</dt><dd>The heap of blasted rock at the face before it is moved. Norwegian sites say "røys" or "salve".</dd></div>
-      <div><dt>Stockpile</dt><dd>A heap of one product fraction, usually under a conveyor drop. "Haug" or "lager".</dd></div>
+      <div><dt>Muckpile</dt><dd>The heap of blasted rock at the face before it is moved. Norwegian: røys, salve.</dd></div>
+      <div><dt>Stockpile</dt><dd>A heap of one product fraction, usually under a conveyor drop. Norwegian: haug, lager.</dd></div>
+      <div><dt>Fraction</dt><dd>A size class of crushed rock, written as smallest/largest in mm: 0/32, 8/16, 0/150.</dd></div>
       <div><dt>Crusher feed</dt><dd>Keeping the primary crusher's hopper supplied. The task that never calls and never waits.</dd></div>
-      <div><dt>Load-out</dt><dd>Filling a customer truck from a stockpile against a weighbridge ticket. "Utlasting".</dd></div>
-      <div><dt>Weighbridge ticket</dt><dd>The record of product, weight in, weight out. The only written trace of a task on most sites. "Vektseddel".</dd></div>
-      <div><dt>Cycle time</dt><dd>Seconds for one bucket: approach, dig, lift, travel, dump, return.</dd></div>
+      <div><dt>Load-out, HGV loading</dt><dd>Filling a customer truck from a stockpile against a weighbridge ticket. Norwegian: utlasting. UK: HGV, heavy goods vehicle.</dd></div>
+      <div><dt>Load and carry</dt><dd>A cycle with a long travel leg, as at Yara: the loader carries the bucket to a hopper some distance away.</dd></div>
+      <div><dt>Weighbridge ticket</dt><dd>The record of product, weight in, weight out. The only written trace of a task on most sites. Norwegian: vektseddel.</dd></div>
+      <div><dt>Cold feed bins</dt><dd>The hoppers at an asphalt plant that hold each aggregate fraction for the mix.</dd></div>
+      <div><dt>Hold-up</dt><dd>NCC's term: production time lost because the Hive-operated machine could not keep up.</dd></div>
+      <div><dt>Cycle time</dt><dd>Seconds for one bucket: spot, fill, lift, travel, dump, return.</dd></div>
       <div><dt>Bucket fill factor</dt><dd>Payload divided by rated bucket capacity.</dd></div>
+      <div><dt>Pass</dt><dd>One bucket into a truck. Passes per truck is Mariana's "pass match".</dd></div>
       <div><dt>Glass-to-glass</dt><dd>Camera to operator screen latency.</dd></div>
       <div><dt>Motion-to-motion</dt><dd>Joystick to machine response latency.</dd></div>
       <div><dt>Geofence</dt><dd>The boundary the machine will not cross, and inside which people are not expected.</dd></div>
       <div><dt>Remote operator</dt><dd>Hive staff in Kristiansand driving or supervising the machine.</dd></div>
       <div><dt>Task coordinator</dt><dd>Hive staff who takes the site's call and turns it into work for the machine.</dd></div>
+      <div><dt>HOS</dt><dd>Hive Operating Station, the operations centre and the physical station. Internal term only. Externally: "operations centre in Kristiansand".</dd></div>
       <div><dt>Supervised autonomy</dt><dd>The machine runs the cycle, a person watches and can take over. Our product category. Not "remote control".</dd></div>
+      <div><dt>VLA</dt><dd>Vision-language-action policy, the learning-based autonomy layer. Works blasted rock on video, not production-ready.</dd></div>
       <div><dt>Retrofit</dt><dd>Fitting our kit to the customer's own machine. Two to three days, non-destructive.</dd></div>
+      <div><dt>OptiShift, CDC, RBB</dt><dd>The three Volvo options that make a loader integrable: OptiShift transmission with the RBB brake valve, Comfort Drive Control steering, and electric lift and tilt.</dd></div>
       <div><dt>ODD</dt><dd>Operational design domain. The conditions the system is built to work in. Chapter 7.</dd></div>
+      <div><dt>PL d, PL e</dt><dd>Performance levels for safety functions under ISO 13849. E-stops and safe state at PL e; person detection at PL d when supervision is reduced.</dd></div>
     </dl>
   </section>
 
@@ -721,6 +852,7 @@
       <h2>Change log.</h2>
     </header>
     <dl>
+      <div><dt>0.2 · 11 Sep 2026</dt><dd>Filled from the material inventory: contract clauses verbatim, Yara shift specification and start-up procedure, NCC site walk and HSE response, Mariana KPI prep, remote loading gaps, platform layers, what is logged today. Hadeland photo series and blasted-rock video added. Per-customer assignment table started. Machine size range flagged as unresolved.</dd></div>
       <div><dt>0.1 · 11 Sep 2026</dt><dd>First structure after the requirements call with Mykhaylo. Facts from the use-case deck, the commercial memos and the call. Open items marked. Not yet reviewed by engineering.</dd></div>
     </dl>
   </section>
@@ -731,7 +863,6 @@
 
 <script>
 (function(){
-  /* open all / close all per chapter */
   document.querySelectorAll('.tools button[data-toggle]').forEach(function(b){
     b.addEventListener('click',function(){
       var box=document.getElementById(b.dataset.toggle); if(!box) return;
@@ -741,7 +872,6 @@
       b.textContent=anyClosed?'Close all in this chapter':'Open all in this chapter';
     });
   });
-  /* deep links open the details they point into */
   function openHash(){
     var h=location.hash; if(!h) return;
     var el=document.querySelector(h); if(!el) return;
@@ -749,7 +879,6 @@
     if(d) d.open=true;
   }
   window.addEventListener('hashchange',openHash); openHash();
-  /* lazy video: load on Play, click video for full screen */
   document.querySelectorAll('figure.media').forEach(function(f){
     var v=f.querySelector('video[data-src]'); var p=f.querySelector('.play'); if(!v||!p) return;
     function load(){ if(!v.src){ v.src=v.dataset.src; } }
@@ -757,7 +886,6 @@
       var fn=v.requestFullscreen||v.webkitRequestFullscreen||v.webkitEnterFullscreen; if(fn){try{fn.call(v)}catch(e){}} });
     v.addEventListener('click',function(){ load(); v.controls=true; v.play().catch(function(){}); });
   });
-  /* rail highlight */
   var links=document.querySelectorAll('.rail a'); var secs=document.querySelectorAll('section.ch');
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)}); } })},{rootMargin:'-30% 0px -60% 0px'});
