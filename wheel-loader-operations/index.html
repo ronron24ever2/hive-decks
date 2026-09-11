@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Wheel loader operations. How a quarry runs, what the customer measures, where Hive stands.</title>
+<link rel="stylesheet" href="../wheel-loader-use-cases/assets/css/fonts.css">
+<link rel="stylesheet" href="../wheel-loader-use-cases/assets/css/colors.css">
+<link rel="stylesheet" href="../wheel-loader-use-cases/assets/css/typography.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:24px}
+  :root{font-feature-settings:'ss03' on;--measure:66ch;--gutter:clamp(16px,4vw,56px)}
+  body{background:var(--white-ice);color:var(--navy);font-family:var(--font-body);font-size:17px;line-height:1.45;
+       -webkit-font-smoothing:antialiased}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+
+  /* ---- layout: doc with side rail ---- */
+  .frame{display:grid;grid-template-columns:1fr;gap:0}
+  @media (min-width:1100px){.frame{grid-template-columns:260px minmax(0,1fr)}}
+  .rail{display:none}
+  @media (min-width:1100px){
+    .rail{display:block;position:sticky;top:0;height:100vh;overflow:auto;padding:36px 28px;border-right:1px solid var(--border);
+          background:var(--light-blue-ice)}
+  }
+  .rail .mark{width:150px;display:block;margin-bottom:34px}
+  .rail ol{list-style:none;counter-reset:ch}
+  .rail li{margin:0 0 9px}
+  .rail a{color:var(--text-muted);text-decoration:none;font-size:14px;line-height:1.35;display:block;padding:3px 0 3px 12px;
+          border-left:2px solid transparent}
+  .rail a:hover,.rail a:focus-visible{color:var(--navy)}
+  .rail a.on{color:var(--navy);border-left-color:var(--red)}
+  .rail .meta{margin-top:30px;padding-top:18px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:10px;
+              letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);line-height:1.8}
+
+  main{min-width:0}
+  .topbar{display:flex;justify-content:space-between;align-items:center;padding:16px var(--gutter);border-bottom:1px solid var(--border)}
+  @media (min-width:1100px){.topbar{display:none}}
+  .topbar img{width:120px}
+  .topbar select{font:inherit;font-size:14px;color:var(--navy);background:var(--white-ice);border:1px solid var(--border);padding:6px 10px;max-width:60vw}
+
+  /* ---- hero ---- */
+  .hero{position:relative;background:var(--navy-deep);color:var(--white-ice);min-height:min(78vh,720px);display:flex;align-items:flex-end;overflow:hidden}
+  .hero video,.hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72}
+  .hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,46,56,.05) 30%,rgba(30,46,56,.92) 100%)}
+  .hero .inner{position:relative;padding:60px var(--gutter) 44px;max-width:1100px}
+  .hero h1{font-weight:400;font-size:clamp(30px,4.6vw,58px);line-height:1.04;letter-spacing:-.02em;max-width:22ch}
+  .hero p.sub{margin-top:18px;font-size:clamp(16px,1.6vw,21px);line-height:1.35;max-width:52ch;color:#D7E1E6}
+  .hero .ver{margin-top:30px;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#A9B7BF;line-height:1.9}
+  .hero .cap{position:absolute;right:var(--gutter);bottom:18px;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#A9B7BF}
+
+  /* ---- chapters ---- */
+  .ch{padding:72px var(--gutter) 40px;border-bottom:1px solid var(--border)}
+  .ch:last-of-type{border-bottom:none}
+  .ch>header{max-width:var(--measure)}
+  .ch .kicker{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-faint)}
+  .ch h2{font-weight:400;font-size:clamp(28px,3.4vw,44px);line-height:1.06;letter-spacing:-.018em;margin-top:10px}
+  .ch .lede{margin-top:16px;font-size:19px;line-height:1.4;color:var(--text-muted)}
+  .prose{max-width:var(--measure);margin-top:26px}
+  .prose p{margin:0 0 14px}
+  .prose ul,.prose ol{margin:0 0 14px 22px}
+  .prose li{margin-bottom:6px}
+  .prose h3{font-weight:400;font-size:24px;line-height:1.15;letter-spacing:-.012em;margin:34px 0 10px}
+  .prose h4{font-weight:500;font-size:17px;margin:22px 0 6px}
+  a{color:var(--navy);text-decoration:underline;text-decoration-color:var(--dark-blue-ice);text-underline-offset:3px}
+  a:hover{text-decoration-color:var(--red)}
+  .src{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--text-faint)}
+  .gap{background:var(--blue-ice);border-left:3px solid var(--red);padding:10px 14px;margin:14px 0;font-size:15px;line-height:1.4;max-width:var(--measure)}
+  .gap b{font-weight:500}
+  .wide{max-width:1200px;margin-top:28px}
+
+  /* ---- reading map ---- */
+  .map{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;border:1px solid var(--border);margin-top:30px;max-width:1000px}
+  .map a{display:block;padding:20px 22px;text-decoration:none;border-right:1px solid var(--border)}
+  .map a:last-child{border-right:none}
+  .map a:hover{background:var(--light-blue-ice)}
+  .map .who{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint)}
+  .map .go{display:block;margin-top:8px;font-size:18px;line-height:1.25}
+  @media (max-width:700px){.map a{border-right:none;border-bottom:1px solid var(--border)}.map a:last-child{border-bottom:none}}
+
+  /* ---- level 2: drill ---- */
+  details.drill{border-top:1px solid var(--border);max-width:1200px}
+  details.drill:last-of-type{border-bottom:1px solid var(--border)}
+  details.drill>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline;padding:18px 0}
+  details.drill>summary::-webkit-details-marker{display:none}
+  details.drill>summary .t{font-size:21px;line-height:1.2;letter-spacing:-.01em}
+  details.drill>summary .h{font-size:14.5px;color:var(--text-muted);margin-top:4px;max-width:70ch}
+  details.drill>summary .tog{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint)}
+  details.drill>summary .tog::before{content:"Open"}
+  details.drill[open]>summary .tog::before{content:"Close"}
+  details.drill>summary:hover .t{color:var(--red)}
+  details.drill>summary:focus-visible{outline:2px solid var(--red);outline-offset:4px}
+  details.drill>.body{padding:4px 0 34px}
+  .drills{margin-top:30px}
+  .tools{display:flex;gap:18px;margin-top:22px}
+  .tools button{font:inherit;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);
+                background:none;border:1px solid var(--border);padding:8px 12px;cursor:pointer}
+  .tools button:hover{border-color:var(--navy)}
+
+  /* ---- media ---- */
+  figure.media{margin-top:28px;max-width:1200px;background:var(--navy-deep);position:relative}
+  figure.media video,figure.media img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;max-height:640px}
+  figure.media figcaption{position:absolute;left:18px;bottom:16px;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;
+                          text-transform:uppercase;color:var(--white-ice);background:rgba(31,38,45,.74);padding:7px 11px}
+  figure.media .play{position:absolute;right:18px;bottom:16px;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+                     color:var(--white-ice);background:rgba(31,38,45,.74);border:0;padding:8px 12px;cursor:pointer}
+  figure.media .play:hover{background:var(--red)}
+  .two{display:grid;grid-template-columns:1fr;gap:22px;max-width:1200px;margin-top:28px}
+  @media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+  .two figure.media{margin-top:0}
+
+  /* ---- tables ---- */
+  .tbl{overflow-x:auto;max-width:1200px;margin-top:22px}
+  table{border-collapse:collapse;width:100%;font-size:15px;line-height:1.35}
+  th{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);text-align:left;
+     padding:10px 14px 10px 0;border-bottom:1px solid var(--navy);font-weight:400;vertical-align:bottom}
+  td{padding:11px 14px 11px 0;border-bottom:1px solid var(--border);vertical-align:top}
+  td:first-child{font-weight:500}
+  tr:last-child td{border-bottom:1px solid var(--border)}
+  .num{font-family:var(--font-mono);font-size:14px;white-space:nowrap}
+
+  /* ---- the cycle (the one repeated notation) ---- */
+  .cycle{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;max-width:1200px;margin-top:30px;background:var(--dark-blue-ice)}
+  .cycle .ph{background:var(--white-ice);padding:18px 16px 16px;min-height:150px;display:flex;flex-direction:column;position:relative}
+  .cycle .ph .n{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint)}
+  .cycle .ph .name{font-size:19px;line-height:1.15;margin-top:8px}
+  .cycle .ph .sec{margin-top:auto;font-family:var(--font-mono);font-size:22px;letter-spacing:-.02em;padding-top:14px}
+  .cycle .ph .sec small{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);margin-top:4px}
+  .cycle .ph.hive{background:var(--light-blue-ice)}
+  .cycle .ph.hive::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--red)}
+  .cycle-legend{max-width:1200px;margin-top:10px;display:flex;gap:22px;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint)}
+  .cycle-legend .k{display:inline-block;width:14px;height:3px;background:var(--red);vertical-align:middle;margin-right:8px}
+  @media (max-width:820px){.cycle{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:480px){.cycle{grid-template-columns:repeat(2,1fr)}}
+
+  /* ---- personas ---- */
+  .people{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;background:var(--dark-blue-ice);max-width:1200px;margin-top:30px}
+  .people .p{background:var(--white-ice);padding:20px 18px 22px}
+  .people .p.hive{background:var(--light-blue-ice)}
+  .people .role{font-size:19px;line-height:1.15}
+  .people .of{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);margin-top:6px}
+  .people .cares{margin-top:14px;font-size:14.5px;line-height:1.4;color:var(--text-muted)}
+  .people .cares b{color:var(--navy);font-weight:500}
+
+  /* ---- swimlane (service blueprint) ---- */
+  .lanes{max-width:1200px;margin-top:26px;overflow-x:auto}
+  .lanes .grid{display:grid;grid-template-columns:150px repeat(6,minmax(150px,1fr));gap:2px;background:var(--dark-blue-ice);min-width:1050px}
+  .lanes .c{background:var(--white-ice);padding:12px 12px 14px;font-size:14px;line-height:1.35;min-height:76px}
+  .lanes .c.head{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);min-height:0;padding:10px 12px}
+  .lanes .c.lane{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);background:var(--light-blue-ice)}
+  .lanes .c.chg{position:relative;background:var(--light-blue-ice)}
+  .lanes .c.chg::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--red)}
+  .lanes .c.same{color:var(--text-muted)}
+  .lanes .c .via{display:block;margin-top:6px;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint)}
+  .lanes .c.empty{background:var(--white-ice);opacity:.5}
+
+  /* ---- opportunity tree ---- */
+  .tree{max-width:var(--measure);margin-top:20px}
+  .tree .out{font-size:22px;line-height:1.2;padding:16px 0;border-top:1px solid var(--navy);border-bottom:1px solid var(--border)}
+  .tree .opp{padding:14px 0 14px 22px;border-left:2px solid var(--dark-blue-ice);margin-top:14px}
+  .tree .opp .q{font-size:17px}
+  .tree .opp .who{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);margin-top:4px}
+  .tree .opp ul{margin:10px 0 0 18px;font-size:15px;color:var(--text-muted)}
+  .tree .opp li{margin-bottom:5px}
+
+  /* ---- glossary / log ---- */
+  dl{max-width:var(--measure);margin-top:22px}
+  dl div{display:grid;grid-template-columns:200px 1fr;gap:16px;padding:10px 0;border-bottom:1px solid var(--border)}
+  dt{font-weight:500}
+  dd{color:var(--text-muted);font-size:15.5px}
+  @media (max-width:600px){dl div{grid-template-columns:1fr;gap:4px}}
+  footer{padding:40px var(--gutter);font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);line-height:1.9;
+         border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+<div class="frame">
+
+<nav class="rail" aria-label="Chapters">
+  <img class="mark" src="../wheel-loader-use-cases/assets/img/lockup-dark-navy.svg" alt="Hive Autonomy">
+  <ol>
+    <li><a href="#why">1. Why this document exists</a></li>
+    <li><a href="#quarry">2. The quarry, from the top</a></li>
+    <li><a href="#people">3. Five people and a phone</a></li>
+    <li><a href="#today">4. How work gets assigned today</a></li>
+    <li><a href="#hive">5. Where Hive plugs in</a></li>
+    <li><a href="#cycle">6. The cycle and the numbers</a></li>
+    <li><a href="#odd">7. What we operate inside</a></li>
+    <li><a href="#metrics">8. What the customer measures us on</a></li>
+    <li><a href="#heard">9. What customers have said</a></li>
+    <li><a href="#notscope">10. Not in scope</a></li>
+    <li><a href="#glossary">11. Glossary</a></li>
+    <li><a href="#log">12. Change log</a></li>
+  </ol>
+  <div class="meta">Version 0.1<br>Updated 11 Sep 2026<br>Owner Ronny Liverød<br>Internal. Do not forward.</div>
+</nav>
+
+<main>
+  <div class="topbar">
+    <img src="../wheel-loader-use-cases/assets/img/lockup-dark-navy.svg" alt="Hive Autonomy">
+    <select aria-label="Go to chapter" onchange="location.hash=this.value">
+      <option value="">Go to chapter</option>
+      <option value="#why">1. Why this document exists</option>
+      <option value="#quarry">2. The quarry, from the top</option>
+      <option value="#people">3. Five people and a phone</option>
+      <option value="#today">4. How work gets assigned today</option>
+      <option value="#hive">5. Where Hive plugs in</option>
+      <option value="#cycle">6. The cycle and the numbers</option>
+      <option value="#odd">7. What we operate inside</option>
+      <option value="#metrics">8. What the customer measures us on</option>
+      <option value="#heard">9. What customers have said</option>
+      <option value="#notscope">10. Not in scope</option>
+      <option value="#glossary">11. Glossary</option>
+      <option value="#log">12. Change log</option>
+    </select>
+  </div>
+
+  <section class="hero" id="top">
+    <video autoplay muted loop playsinline preload="metadata" poster="../wheel-loader-use-cases/assets/img/feiring-remote-still.jpg" aria-hidden="true">
+      <source src="../wheel-loader-use-cases/assets/img/feiring-remote.mp4" type="video/mp4">
+    </video>
+    <div class="veil"></div>
+    <div class="inner">
+      <h1>A wheel loader in a quarry, and the people around it.</h1>
+      <p class="sub">How the operation runs today, what the customer measures us on, and where Hive stands. Written for engineering and product, and for whoever joins next.</p>
+      <div class="ver">Version 0.1 draft · updated 11 September 2026 · owner Ronny Liverød, VP Heavy Machinery<br>Base case for the project meeting 18 September. Numbers carry their source in brackets. Open items are marked in red.</div>
+    </div>
+    <span class="cap">Feiring Bruk, Hadeland. Nobody in the cab.</span>
+  </section>
+
+  <!-- 1 -->
+  <section class="ch" id="why">
+    <header>
+      <span class="kicker">Chapter 1</span>
+      <h2>Why this document exists.</h2>
+      <p class="lede">Engineering is about to set the wheel loader roadmap and build the infrastructure it runs on. Sales talks to the customer every day. This is the handover between the two, kept alive.</p>
+    </header>
+    <div class="prose">
+      <h3>The problem we are paid to solve</h3>
+      <p>A quarry, a recycling plant or an asphalt plant is a production unit. Material has to move every hour the plant runs. The wheel loader is the machine that keeps the crusher fed, the stockpiles in order and the trucks loaded. When it stops, the plant stops.</p>
+      <p>Today one person sits in that cab all shift. The site manager calls that person and says what to do for the next two to four hours. There is no system in between. <span class="src">[Ronny, 11 Sep 2026]</span></p>
+      <h3>Who it is for</h3>
+      <p>The site manager or production lead who owns the tonnage number. Behind them: the plant owner who signs, HSE who sets the rules around the machine, and the operators who work next to it.</p>
+      <h3>What the customer does today, without us</h3>
+      <p>Hires and rosters operators. Assigns work by phone or WhatsApp. Tracks tonnes through the weighbridge and the crusher. Accepts that a machine with no operator is a machine that does nothing.</p>
+      <h3>What Hive does, in one sentence</h3>
+      <p>We take charge of the machine in operation. A retrofitted Volvo wheel loader is run from our operations centre in Kristiansand, under supervised autonomy, with a person in the loop who takes the site manager's call exactly as the cab operator did. The customer keeps their system. <span class="src">[terminology memo, 2026]</span></p>
+      <h3>Why now</h3>
+      <p>Sites in Wales, Belgium, Germany, Sweden and western Norway are being commissioned this year, plus an asphalt plant in the UK, a recycling facility in Norway and a mine in the United States. <span class="src">[use-case deck, Sep 2026]</span> The infrastructure being built now decides what those sites can get later. Requirements have to be written down with real values before the architecture hardens.</p>
+    </div>
+    <div class="map" aria-label="Reading map">
+      <a href="#quarry"><span class="who">New to Hive</span><span class="go">Start at chapter 2 and read forward.</span></a>
+      <a href="#metrics"><span class="who">Building the backlog</span><span class="go">Go to chapters 6, 8 and 9.</span></a>
+      <a href="#odd"><span class="who">Sizing a new site</span><span class="go">Chapter 7 first, then 4.</span></a>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="ch" id="quarry">
+    <header>
+      <span class="kicker">Chapter 2 · Domain primer</span>
+      <h2>The quarry, from the top.</h2>
+      <p class="lede">Rock is blasted from the face, crushed, screened into sizes, stockpiled, and sold by the tonne over a weighbridge. The wheel loader touches almost every step.</p>
+    </header>
+    <figure class="media">
+      <img src="../shared-assets/quarry-hero.jpg" alt="A Volvo L110H wheel loader with Hive kit next to a Veidekke articulated hauler at a quarry face" loading="lazy">
+      <figcaption>Loader and hauler at the face</figcaption>
+    </figure>
+    <div class="prose">
+      <h3>The material flow</h3>
+      <ol>
+        <li><b>Blast.</b> The face is drilled and blasted on a schedule, typically weekly or less. Everything stops and everyone leaves the zone while it happens.</li>
+        <li><b>Muck out.</b> Blasted rock (the muckpile) is loaded by excavator or wheel loader into haulers, or moved straight to the primary crusher.</li>
+        <li><b>Crush and screen.</b> Primary, then secondary and tertiary crushers reduce the rock. Screens sort it into fractions. Conveyors drop each fraction onto its own stockpile.</li>
+        <li><b>Stockpile management.</b> The wheel loader keeps the piles clear of the conveyor drop, blends fractions when a product needs it, and moves material between piles.</li>
+        <li><b>Load out.</b> Customer trucks arrive, the weighbridge issues a ticket, the loader fills the truck, the truck weighs out. This is where the quarry gets paid.</li>
+      </ol>
+      <p>The loader has three jobs in this chain: feed the crusher, keep the piles right, load the trucks. Which one dominates depends on the site, and that decides what "good" means for the machine.</p>
+      <h3>One number to hold on to</h3>
+      <p>A bucket on an L180-class loader is around 6 tonnes. A site running continuous load-out can move around 600 tonnes an hour with one machine. That is one bucket every 35 to 40 seconds, all shift. It varies a lot between sites. <span class="src">[Ronny, 11 Sep 2026, example figure]</span></p>
+    </div>
+
+    <div class="tools"><button type="button" data-toggle="quarry-drills">Open all in this chapter</button></div>
+    <div class="drills" id="quarry-drills">
+      <details class="drill" id="seg-quarry">
+        <summary><div><div class="t">Quarry and aggregates. Where most of our machines are.</div><div class="h">Feiring Bruk at Hadeland, Hamar Pukk at Sørli, and the sites being commissioned across Europe.</div></div><span class="tog"></span></summary>
+        <div class="body">
+          <div class="two">
+            <figure class="media">
+              <video preload="none" poster="../shared-assets/quarry-still.jpg" muted loop playsinline data-src="../shared-assets/quarry.mp4"></video>
+              <figcaption>Feiring Bruk, Hadeland</figcaption><button class="play" type="button">Play</button>
+            </figure>
+            <figure class="media">
+              <video preload="none" poster="../wheel-loader-use-cases-alt/assets/img/sorli-still.jpg" muted loop playsinline data-src="../wheel-loader-use-cases-alt/assets/img/sorli.mp4"></video>
+              <figcaption>Hamar Pukk, Sørli. With Veidekke and Telia</figcaption><button class="play" type="button">Play</button>
+            </figure>
+          </div>
+          <div class="prose">
+            <p><b>Feiring Bruk, Hadeland.</b> Volvo L180H, retrofitted. Runs remote from our control centre three hours away. Today: blending material and clearing away from the crusher. Next: moving blasted rock to a temporary stockpile. Then: loading customer lorries once the bucket scale is integrated. Cycle time under remote operation measured at 23 seconds scoop to dump, and the site judged the loads inside their commercial window. <span class="src">[use-case deck, Sep 2026]</span></p>
+            <p><b>Hamar Pukk og Grus, Sørli.</b> Volvo L-series with our kit, run with Veidekke Infrastruktur and Telia under their remote and autonomous machinery programme. Autonomous wheel loader in quarry work, loading and moving material. <span class="src">[use-case deck, Sep 2026]</span></p>
+            <p><b>What "customer happy" means here.</b> The crusher never waits for material. The piles do not bury the conveyor. Trucks are loaded inside the weighbridge window. Nobody walks into the machine's area unannounced.</p>
+            <div class="gap"><b>To fill:</b> per-site table of machine, bucket size, dominant task, hours per day, tonnes per hour for Feiring, Hamar Pukk, Franzefoss, Brønnøy Kalk and the SigmaRoc sites. Source: contracts and site data in SharePoint.</div>
+          </div>
+        </div>
+      </details>
+
+      <details class="drill" id="seg-recycling">
+        <summary><div><div class="t">Recycling. Feeding a line, indoors and out.</div><div class="h">Two wheel loaders and two forklifts feeding a paper line in Norway. Starting now.</div></div><span class="tog"></span></summary>
+        <div class="body"><div class="prose">
+          <p>The material is lighter, dirtier and less predictable than rock. The loader feeds a hopper or a conveyor that must not run empty, and moves bales and loose material between bays. Much of the work happens under a roof, with people and forklifts closer than in a quarry. <span class="src">[use-case deck: recycling facility, Norway, two wheel loaders and two forklifts feeding the paper line]</span></p>
+          <div class="gap"><b>To fill:</b> site name, machine class, shift pattern, hopper feed rate, indoor/outdoor split. No video of recycling operations exists in our library yet.</div>
+        </div></div>
+      </details>
+
+      <details class="drill" id="seg-asphalt">
+        <summary><div><div class="t">Asphalt plant. Cold feed bins on a clock.</div><div class="h">One site in the United Kingdom being commissioned this year.</div></div><span class="tog"></span></summary>
+        <div class="body"><div class="prose">
+          <p>An asphalt plant draws aggregate fractions from cold feed bins in a fixed recipe. The loader keeps each bin topped up from its stockpile. Miss a bin and the mix is off spec or the plant stops. The pattern repeats, the distances are short, and the timing is set by the plant, not the loader. <span class="src">[use-case deck: asphalt plant, United Kingdom]</span></p>
+          <div class="gap"><b>To fill:</b> site, plant output in tonnes per hour, number of bins, distance from stockpile to bins, operating hours. No video yet.</div>
+        </div></div>
+      </details>
+
+      <details class="drill" id="seg-industrial">
+        <summary><div><div class="t">Industrial plant. Fixed surroundings, high stakes.</div><div class="h">Yara at Herøya, our first larger customer. 18 months under contract.</div></div><span class="tog"></span></summary>
+        <div class="body">
+          <figure class="media">
+            <video preload="none" poster="../shared-assets/yara-still.jpg" muted loop playsinline data-src="../shared-assets/yara.mp4"></video>
+            <figcaption>Yara, Herøya</figcaption><button class="play" type="button">Play</button>
+          </figure>
+          <div class="prose">
+            <p>Wheel loaders in the 18 tonne class moving fertilizer inside one of Europe's largest ammonia facilities. Pile to hopper, fixed surroundings. Started on tele-remote; the site has since asked for more autonomy in the cycle, and autonomy in production is planned from October 2026. Safety is a light barrier around the area: the machine stops if the beam is broken. <span class="src">[use-case deck, Sep 2026]</span></p>
+          </div>
+        </div>
+      </details>
+
+      <details class="drill" id="seg-mine">
+        <summary><div><div class="t">Mine. The orchestration layer arrives.</div><div class="h">Mariana Minerals in the United States is building the system that will send us tasks.</div></div><span class="tog"></span></summary>
+        <div class="body"><div class="prose">
+          <p>Most customers give the machine manual instructions: go and dig that part, move this to there. Mariana is different. They are building an orchestration layer that plans the whole operation and will send commands into our system to execute, including shape files that define which polygons to take out. <span class="src">[Ronny, 11 Sep 2026]</span></p>
+          <p>This matters for the roadmap in two ways. It is the most demanding integration we have, and it needs things no other customer needs yet. It is also the product we want to sell everyone else eventually: an orchestration layer that controls our machines and, later, other vendors' autonomous machines on the same site.</p>
+          <div class="gap"><b>To fill:</b> link to the Mariana interface notes and the v8 issues table in output/. Decide with Dmitrii how much Mariana-specific work goes into the shared backlog versus a separate track.</div>
+        </div></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="ch" id="people">
+    <header>
+      <span class="kicker">Chapter 3 · Personas</span>
+      <h2>Five people and a phone.</h2>
+      <p class="lede">Every task on a site passes through a handful of people. Two of them are ours. Know what each one cares about and most requirements explain themselves.</p>
+    </header>
+    <div class="people">
+      <div class="p"><div class="role">Site manager, production lead</div><div class="of">Customer</div><div class="cares">Owns the tonnage and the cost per tonne. Decides what the loader does next. <b>Cares about:</b> the plant never waiting, no surprises, one phone number that answers.</div></div>
+      <div class="p"><div class="role">Cab operator</div><div class="of">Customer, today</div><div class="cares">Sits in the machine all shift. Knows the piles, the trucks and the crusher by sound. <b>Cares about:</b> a clear job, a safe area, not being blamed when the plant stops.</div></div>
+      <div class="p"><div class="role">Weighbridge operator</div><div class="of">Customer</div><div class="cares">Issues the ticket, tells the loader which product and how much, weighs the truck out. <b>Cares about:</b> the right material in the right truck, fast turnaround, a ticket that matches the load.</div></div>
+      <div class="p hive"><div class="role">Remote operator</div><div class="of">Hive, Kristiansand</div><div class="cares">Drives or supervises the machine from the operations centre. <b>Cares about:</b> latency, camera coverage, knowing what the machine will do next, a stop that always works.</div></div>
+      <div class="p hive"><div class="role">Task coordinator</div><div class="of">Hive</div><div class="cares">Takes the site manager's call, exactly as the cab operator did, and turns it into work for the machine. <b>Cares about:</b> understanding the site's language, a record of what was asked, handing over cleanly.</div></div>
+    </div>
+    <figure class="media">
+      <img src="../shared-assets/slide11-operator-chair.jpg" alt="A Hive remote operator in the operator chair with joysticks, a colleague standing behind" loading="lazy">
+      <figcaption>Operator chair, operations centre</figcaption>
+    </figure>
+
+    <div class="tools"><button type="button" data-toggle="people-drills">Open all in this chapter</button></div>
+    <div class="drills" id="people-drills">
+      <details class="drill" id="day-site-manager">
+        <summary><div><div class="t">A day in the life: site manager at a quarry.</div><div class="h">Draft from Ronny's ten years as a site manager. To be validated against Feiring and Franzefoss.</div></div><span class="tog"></span></summary>
+        <div class="body"><div class="tbl"><table>
+          <tr><th>Time</th><th>What happens</th><th>Channel</th></tr>
+          <tr><td class="num">06:30</td><td>Walks the plant. Checks which piles are low, which conveyor drop is getting buried, what the day's truck orders look like.</td><td>Eyes, weighbridge order list</td></tr>
+          <tr><td class="num">07:00</td><td>Tells the loader operator the plan for the morning: clear under the 0-4 drop, then blend 8-16 for the afternoon order.</td><td>Phone call or face to face</td></tr>
+          <tr><td class="num">09:30</td><td>A truck arrives early for a product nobody expected. Calls the operator to switch.</td><td>Phone, sometimes WhatsApp</td></tr>
+          <tr><td class="num">11:00</td><td>Crusher stops on a blockage. Loader is redirected to load trucks until it restarts.</td><td>Phone</td></tr>
+          <tr><td class="num">13:00</td><td>Blast window planned for tomorrow. Confirms with the shot firer where the loader must not be.</td><td>Meeting, paper plan</td></tr>
+          <tr><td class="num">15:00</td><td>Checks tonnes over the weighbridge against the day's plan. Adjusts tomorrow.</td><td>Weighbridge system</td></tr>
+        </table></div>
+        <div class="gap"><b>Validate:</b> every row above is a typical day, not an observed one. Replace with a real day from one named site before the document goes wider.</div>
+        </div>
+      </details>
+      <details class="drill" id="day-remote">
+        <summary><div><div class="t">A day in the life: Hive remote operator and task coordinator.</div><div class="h">How the same day looks from Kristiansand.</div></div><span class="tog"></span></summary>
+        <div class="body"><div class="prose">
+          <div class="gap"><b>To fill with operations:</b> shift start checklist, how a task arrives (call, message), how it is logged, how the machine is started and stopped, handover between operators, what happens at lunch and shift end, how many machines one operator watches today. Ask Eivind or the operations lead for a real shift log.</div>
+        </div></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="ch" id="today">
+    <header>
+      <span class="kicker">Chapter 4 · Current state</span>
+      <h2>How work gets assigned today.</h2>
+      <p class="lede">Before Hive. One task, from the moment a truck turns in to the moment it leaves, laid out as a service blueprint. This is the process we plug into, so it is drawn without us first.</p>
+    </header>
+    <div class="lanes" role="img" aria-label="Service blueprint of a load-out task without Hive">
+      <div class="grid">
+        <div class="c head"></div><div class="c head">1. Order</div><div class="c head">2. Assign</div><div class="c head">3. Position</div><div class="c head">4. Load</div><div class="c head">5. Confirm</div><div class="c head">6. Next</div>
+        <div class="c lane">Customer truck</div>
+        <div class="c">Arrives, stops at weighbridge, states product and quantity.</div>
+        <div class="c empty"></div>
+        <div class="c">Drives to the pile indicated.</div>
+        <div class="c">Waits while loaded. Driver watches the bucket count.</div>
+        <div class="c">Weighs out. Gets ticket.</div>
+        <div class="c">Leaves.</div>
+        <div class="c lane">Weighbridge</div>
+        <div class="c">Opens ticket. Weighs truck in.<span class="via">Weighbridge system</span></div>
+        <div class="c">Tells the loader operator: product, pile, roughly how many buckets.<span class="via">Radio or phone</span></div>
+        <div class="c empty"></div>
+        <div class="c empty"></div>
+        <div class="c">Weighs out, closes ticket. Notes over or under load.</div>
+        <div class="c">Next truck in the queue.</div>
+        <div class="c lane">Cab operator</div>
+        <div class="c empty"></div>
+        <div class="c">Hears the call. Finishes the current bucket. Confirms.<span class="via">Radio or phone</span></div>
+        <div class="c">Drives to the pile. Positions for the truck.</div>
+        <div class="c">Digs, lifts, dumps. Judges fill by eye and by scale if fitted. Five to seven buckets for a 30 tonne truck.</div>
+        <div class="c">Signals the driver. Backs off.</div>
+        <div class="c">Returns to the interrupted task, or waits for the next call.</div>
+        <div class="c lane">Site manager</div>
+        <div class="c empty"></div>
+        <div class="c">Sets priority when two things collide: truck queue versus crusher feed.<span class="via">Phone</span></div>
+        <div class="c empty"></div>
+        <div class="c empty"></div>
+        <div class="c empty"></div>
+        <div class="c">Reassigns the loader for the next block of hours.<span class="via">Phone, sometimes WhatsApp</span></div>
+        <div class="c lane">Support</div>
+        <div class="c empty"></div>
+        <div class="c empty"></div>
+        <div class="c">HSE: pedestrians and light vehicles kept out of the loading area by site rules.</div>
+        <div class="c">Workshop: machine faults reported by the operator, by phone.</div>
+        <div class="c empty"></div>
+        <div class="c">Shift plan decides who is in the cab tomorrow.</div>
+      </div>
+    </div>
+    <div class="prose">
+      <p>Three things to notice. The loader operator is interrupted constantly, and the interruptions arrive by voice. Nothing about the task is recorded except the weighbridge ticket. And the site manager is the scheduler, in their head, all day.</p>
+      <div class="gap"><b>To fill, per customer:</b> Mykhaylo asked for this specifically. For each site: who assigns work, in which channel (phone, WhatsApp, radio, face to face), how far ahead, how changes arrive, and what is written down. Sites to cover: Feiring, Yara, Franzefoss, Brønnøy Kalk, Hamar Pukk, SigmaRoc. Ronny fills this from daily contact; customer calls to confirm are done together and in Norwegian.</div>
+    </div>
+    <div class="tools"><button type="button" data-toggle="today-drills">Open all in this chapter</button></div>
+    <div class="drills" id="today-drills">
+      <details class="drill" id="today-crusher"><summary><div><div class="t">Variant: feeding the crusher.</div><div class="h">Same lanes, different rhythm. The crusher sets the pace and never calls.</div></div><span class="tog"></span></summary>
+        <div class="body"><div class="prose"><div class="gap"><b>To fill:</b> blueprint for crusher feed and for stockpile clearing under the conveyor drop. These two are the tasks Feiring runs today.</div></div></div></details>
+      <details class="drill" id="today-blast"><summary><div><div class="t">Variant: blast day.</div><div class="h">Everything stops. Where the machine is parked, who says when it can move again.</div></div><span class="tog"></span></summary>
+        <div class="body"><div class="prose"><div class="gap"><b>To fill:</b> the blast clearance procedure at one named quarry, and what it implies for a machine with nobody in it.</div></div></div></details>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="ch" id="hive">
+    <header>
+      <span class="kicker">Chapter 5 · Future state</span>
+      <h2>Where Hive plugs in.</h2>
+      <p class="lede">The same blueprint. Boxes with a red edge change. Everything else stays as the customer has it today, and that is the point of the offer.</p>
+    </header>
+    <div class="lanes" role="img" aria-label="Service blueprint of a load-out task with Hive">
+      <div class="grid">
+        <div class="c head"></div><div class="c head">1. Order</div><div class="c head">2. Assign</div><div class="c head">3. Position</div><div class="c head">4. Load</div><div class="c head">5. Confirm</div><div class="c head">6. Next</div>
+        <div class="c lane">Customer truck</div>
+        <div class="c same">Unchanged.</div><div class="c empty"></div><div class="c same">Unchanged.</div><div class="c same">Unchanged.</div><div class="c same">Unchanged.</div><div class="c same">Unchanged.</div>
+        <div class="c lane">Weighbridge</div>
+        <div class="c same">Unchanged.</div>
+        <div class="c chg">Calls the same number as before. It is answered by Hive's task coordinator.<span class="via">Phone, as today</span></div>
+        <div class="c empty"></div><div class="c empty"></div>
+        <div class="c same">Unchanged. Later: bucket scale data arrives with the ticket.</div>
+        <div class="c same">Unchanged.</div>
+        <div class="c lane">Task coordinator (Hive)</div>
+        <div class="c empty"></div>
+        <div class="c chg">Takes the call, records the task, hands it to the remote operator. Today: verbally. Later: as a structured task in our system.</div>
+        <div class="c empty"></div><div class="c empty"></div>
+        <div class="c chg">Logs completion and buckets. This is where reporting to the customer will come from.</div>
+        <div class="c chg">Asks the site manager what is next, or holds the standing instruction.</div>
+        <div class="c lane">Remote operator (Hive)</div>
+        <div class="c empty"></div>
+        <div class="c chg">Receives the task. Finishes the current bucket.</div>
+        <div class="c chg">Drives or dispatches the machine to the pile. Cameras and lidar replace the cab window.</div>
+        <div class="c chg">Digs, lifts, dumps. Manual remote today at most sites, autonomous cycle where enabled. Watches for people.</div>
+        <div class="c chg">Signals the driver by light or horn. Backs off.</div>
+        <div class="c chg">Returns to the interrupted task.</div>
+        <div class="c lane">Site manager</div>
+        <div class="c empty"></div>
+        <div class="c same">Sets priority as before, by phone. Same conversation, different person answering.</div>
+        <div class="c empty"></div><div class="c empty"></div><div class="c empty"></div>
+        <div class="c same">Reassigns by phone. Mariana model: sends the task into our system directly.</div>
+        <div class="c lane">Support</div>
+        <div class="c empty"></div><div class="c empty"></div>
+        <div class="c chg">Geofence and sensors enforce the area. Machine stops if someone enters.</div>
+        <div class="c chg">Faults are seen in telemetry before anyone calls.</div>
+        <div class="c empty"></div>
+        <div class="c chg">Shift plan is ours. One operator can watch more than one machine as autonomy grows.</div>
+      </div>
+    </div>
+    <div class="prose">
+      <p>Our competitive advantage is in column 2. The customer does not learn a new system. They call the number they always called. A person answers, understands the site, and makes the machine do it. That person is also what de-risks the operation for us while the autonomy matures. <span class="src">[Ronny, 11 Sep 2026]</span></p>
+      <p>Two models sit on this blueprint. <b>Today's model:</b> the task arrives by voice and a coordinator turns it into machine work. <b>The Mariana model:</b> the customer's orchestration layer sends structured commands and polygons straight into our system. The second is where we want every customer to end up. The first is what we sell now.</p>
+      <figure class="media">
+        <img src="../shared-assets/slide12-sensors-labeled.jpg" alt="Retrofitted Volvo wheel loader with cameras, lidar and control cabinet labelled" loading="lazy">
+        <figcaption>The kit on the machine</figcaption>
+      </figure>
+      <h3>The machine model</h3>
+      <p>Two phases. In the proof period Hive supplies the machine, our own Volvo L180, run remote, so the customer does not tie up one of theirs. When the operating contract starts, we retrofit one of the customer's own machines, two to three days, non-destructive. The customer owns the machine, Hive supplies the operators. <span class="src">[commercial model memo, Jun 2026]</span></p>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="ch" id="cycle">
+    <header>
+      <span class="kicker">Chapter 6 · Numbers</span>
+      <h2>The cycle and the numbers.</h2>
+      <p class="lede">Everything the customer pays for reduces to this: how many times an hour the bucket goes round, how full it is, and how many hours a day it runs.</p>
+    </header>
+    <div class="cycle" role="img" aria-label="One loading cycle in six phases with seconds per phase">
+      <div class="ph"><span class="n">Phase 1</span><span class="name">Approach the pile</span><span class="sec">to fill<small>seconds</small></span></div>
+      <div class="ph hive"><span class="n">Phase 2</span><span class="name">Dig and fill the bucket</span><span class="sec">to fill<small>seconds</small></span></div>
+      <div class="ph"><span class="n">Phase 3</span><span class="name">Lift and reverse</span><span class="sec">to fill<small>seconds</small></span></div>
+      <div class="ph"><span class="n">Phase 4</span><span class="name">Travel to truck or hopper</span><span class="sec">to fill<small>seconds</small></span></div>
+      <div class="ph hive"><span class="n">Phase 5</span><span class="name">Dump</span><span class="sec">to fill<small>seconds</small></span></div>
+      <div class="ph"><span class="n">Phase 6</span><span class="name">Return</span><span class="sec">to fill<small>seconds</small></span></div>
+    </div>
+    <div class="cycle-legend"><span><span class="k"></span>Phases where remote operation is slower than a cab operator today, per Ronny. To verify with telemetry.</span></div>
+    <div class="prose">
+      <p>Feiring measured 23 seconds scoop to dump under remote operation. <span class="src">[use-case deck]</span> Caterpillar quotes 27 to 33 seconds for a basic cycle with a competent operator in the cab, and a bucket fill factor of 60 to 75 percent for poorly blasted rock up to 80 to 95 percent for well blasted rock. <span class="src">[Cat wheel loader productivity guide]</span> Those are the reference points. Our own numbers per site belong in the table below.</p>
+    </div>
+    <div class="tools"><button type="button" data-toggle="cycle-drills">Open all in this chapter</button></div>
+    <div class="drills" id="cycle-drills">
+      <details class="drill" id="cycle-table"><summary><div><div class="t">Per site: bucket, cycles, tonnes, hours.</div><div class="h">Manual versus remote versus what the contract requires.</div></div><span class="tog"></span></summary>
+        <div class="body"><div class="tbl"><table>
+          <tr><th>Site</th><th>Machine</th><th>Bucket, t</th><th>Cycle, s (manual)</th><th>Cycle, s (remote)</th><th>Tonnes/h achieved</th><th>Tonnes/h required</th><th>Hours/day</th><th>Source</th></tr>
+          <tr><td>Feiring Bruk, Hadeland</td><td>Volvo L180H</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">23</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td class="src">use-case deck</td></tr>
+          <tr><td>Yara, Herøya</td><td>18 t class</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td class="src"></td></tr>
+          <tr><td>Hamar Pukk, Sørli</td><td>Volvo L-series</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td class="src"></td></tr>
+          <tr><td>Example site</td><td>L180 class</td><td class="num">~6</td><td class="num"></td><td class="num"></td><td class="num">~600</td><td class="num"></td><td class="num"></td><td class="src">Ronny, 11 Sep 2026, illustrative</td></tr>
+        </table></div>
+        <div class="gap"><b>To fill:</b> Ronny has tonnage tables per site including driving distance. Pull them in here with the contract requirement next to the achieved figure. Add Franzefoss, Brønnøy Kalk and SigmaRoc as they come online.</div>
+        </div></details>
+      <details class="drill" id="cycle-hours"><summary><div><div class="t">Hours, not just seconds.</div><div class="h">Availability is where the money is. A fast cycle on a machine that stands still is worth nothing.</div></div><span class="tog"></span></summary>
+        <div class="body"><div class="prose">
+          <p>A cab operator works one shift with breaks, and the machine stands still when they do. A remote operated machine can be handed between operators and in principle runs the plant's hours, not the operator's. That is the productivity argument. It only holds if the machine is actually available, which is why availability is the first metric in chapter 8 and the one with a contractual threshold.</p>
+          <p>For calibration: fully autonomous mining fleets report availability in the high eighties to mid nineties, and OEE studies on mobile mining equipment often land far below the manufacturing "world class" figure of 85 percent. Those are dedicated haul trucks on closed roads, not retrofitted loaders on shared sites. Use them as a frame for what to measure, not as a target. <span class="src">[research note 11 Sep 2026, flagged]</span></p>
+        </div></div></details>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="ch" id="odd">
+    <header>
+      <span class="kicker">Chapter 7 · Operational design domain</span>
+      <h2>What we operate inside.</h2>
+      <p class="lede">The conditions the system is built for, stated so they can be tested. Borrowed from the ODD idea in road autonomy, used here as a working format, not a compliance claim.</p>
+    </header>
+    <div class="tbl"><table>
+      <tr><th>Dimension</th><th>Supported today</th><th>Source</th></tr>
+      <tr><td>Machine</td><td>Volvo wheel loaders L60 to L350, model year 2018 and later. Required on the machine: CDC steering with electric joystick on the left armrest, electric lift and tilt joystick (no hydraulic pilot), Optishift with RBB brake valve. Attachment link advance optional for CAN feedback. H-series versus K-series (2026 platform) is a separate check. PIN is not the gate.</td><td class="src">Magnus Kjelland, 24 Aug 2026</td></tr>
+      <tr><td>Site types</td><td>Quarry and aggregates, industrial plant with fixed surroundings, recycling, asphalt plant, mine. Snow clearing on a closed road has been run (Vikafjellet).</td><td class="src">use-case deck</td></tr>
+      <tr><td>Task types</td><td>Blending, clearing under conveyor drop, pile to hopper, moving blasted rock to stockpile. Truck load-out pending bucket scale integration.</td><td class="src">use-case deck</td></tr>
+      <tr><td>People and vehicles</td><td>Defined working area. Light barrier at Yara: machine stops if the beam is broken. Quarry sites: geofence plus site rules.</td><td class="src">use-case deck</td></tr>
+      <tr><td>Network</td><td>Public 5G demonstrated (Telia, tunnel, operator 90 km away). Dedicated network at production sites.</td><td class="src">use-case deck; to confirm per site</td></tr>
+      <tr><td>Weather, light, dust</td><td class="num">to fill</td><td class="src">engineering</td></tr>
+      <tr><td>Slope and surface</td><td class="num">to fill</td><td class="src">engineering</td></tr>
+    </table></div>
+    <div class="gap"><b>To fill with engineering:</b> the environmental rows are the ones sales cannot answer and customers will ask. Rain, fog, dust on lidar, darkness, ice, ramp gradient, ground bearing. Even "not yet characterised" is a valid entry. It is better than a blank.</div>
+
+    <div class="tools"><button type="button" data-toggle="odd-drills">Open all in this chapter</button></div>
+    <div class="drills" id="odd-drills">
+      <details class="drill" id="odd-taxonomy"><summary><div><div class="t">Full taxonomy, per site.</div><div class="h">Scenery, environment, dynamic elements, machine state. One column per customer.</div></div><span class="tog"></span></summary>
+        <div class="body"><div class="prose"><div class="gap"><b>To fill:</b> table with rows for scenery (ramp gradient, surface, geofence shape, fixed obstacles), environment (temperature range, precipitation, dust, light), dynamic elements (trucks, haulers, pedestrians, blast schedule), machine state (attachment, bucket scale, tyre type), and columns for Feiring, Yara, Hamar Pukk, and each new site as it is surveyed. This becomes the pre-sales site survey checklist.</div></div></div></details>
+      <details class="drill" id="odd-fail"><summary><div><div class="t">What happens when it breaks.</div><div class="h">Minimal risk condition per failure type. What the machine does, who is told, how work resumes.</div></div><span class="tog"></span></summary>
+        <div class="body"><div class="tbl"><table>
+          <tr><th>Failure</th><th>Machine does</th><th>Who is told</th><th>Resume</th><th>Status</th></tr>
+          <tr><td>Link lost</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td>engineering to confirm</td></tr>
+          <tr><td>Latency above threshold</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td>threshold not yet defined in writing</td></tr>
+          <tr><td>Person enters the area</td><td>Stops (light barrier at Yara).</td><td class="num">to fill</td><td class="num">to fill</td><td>site specific</td></tr>
+          <tr><td>Sensor fault</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td>engineering to confirm</td></tr>
+          <tr><td>Operator unavailable</td><td class="num">to fill</td><td class="num">to fill</td><td class="num">to fill</td><td>operations to confirm</td></tr>
+        </table></div>
+        <div class="prose"><p>The safety argument itself lives elsewhere. This table only says what the customer will see, because the site manager will ask exactly this on the first visit.</p>
+        <div class="gap"><b>To fill:</b> link to the safety case or risk assessment document once its location is confirmed.</div></div></div></details>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="ch" id="metrics">
+    <header>
+      <span class="kicker">Chapter 8 · Metrics</span>
+      <h2>What the customer measures us on.</h2>
+      <p class="lede">Six numbers decide whether a site stays a customer. Everything else is instrumentation that helps us hit those six.</p>
+    </header>
+    <div class="tbl"><table>
+      <tr><th>Metric</th><th>Definition we use</th><th>Who cares</th><th>Contracted</th><th>Instrumented today</th><th>Reference</th></tr>
+      <tr><td>Availability</td><td>Share of the site's scheduled operating hours in which the machine was ready to work under our control. Planned maintenance agreed with the site is excluded; everything else counts against us.</td><td>Site manager, owner</td><td>Internal rule: below 70 percent we stop selling and fix. Contract thresholds per site to confirm.</td><td class="num">to fill</td><td class="src">OEE availability; Ronny and Mykhaylo, 11 Sep</td></tr>
+      <tr><td>Tonnes per hour</td><td>Tonnes moved per hour the machine was working, by task. Needs the bucket scale or weighbridge data.</td><td>Site manager</td><td>Required level per site, to confirm</td><td class="num">to fill</td><td class="src">standard quarry KPI</td></tr>
+      <tr><td>Cycle time, remote vs cab</td><td>Seconds from bucket entering the pile to bucket empty at the dump, averaged per task. Reported alongside the site's own manual baseline.</td><td>Site manager, engineering</td><td>No</td><td>Partly (Feiring 23 s)</td><td class="src">Cat: 27 to 33 s basic cycle</td></tr>
+      <tr><td>Interventions per hour</td><td>Times per operating hour a human had to take manual control or stop the machine, for safety or because the system handed back. Counted with the reason. Same spirit as a road disengagement report.</td><td>Engineering, HSE</td><td>No</td><td class="num">to fill</td><td class="src">CA DMV disengagement definition</td></tr>
+      <tr><td>Operators per machine</td><td>Remote operators on shift divided by machines in production. 1:1 today. The whole business case is about this number falling.</td><td>Hive, owner</td><td>No</td><td>Known from rostering</td><td class="src">Sandvik AutoMine publishes 1:1 to several:1 by product level</td></tr>
+      <tr><td>Connection drops</td><td>Count and duration of link losses that stopped the machine, per operating hour.</td><td>Engineering, site manager</td><td>No</td><td class="num">to fill</td><td class="src">teleoperation practice</td></tr>
+    </table></div>
+    <div class="prose">
+      <p><b>How the customer wants it delivered.</b> Today: production continuing at the current level is the requirement, and reporting back to the customer is secondary. Nobody has asked for a live dashboard yet. A monthly or per-request summary with availability and tonnes covers what they ask for. That may change with Mariana and with SigmaRoc. Build the data so a dashboard is possible; do not build the dashboard first. <span class="src">[Ronny, 11 Sep 2026]</span></p>
+    </div>
+    <div class="tools"><button type="button" data-toggle="metrics-drills">Open all in this chapter</button></div>
+    <div class="drills" id="metrics-drills">
+      <details class="drill" id="metrics-full"><summary><div><div class="t">Full catalogue for engineering.</div><div class="h">Everything worth instrumenting, with definitions that match what the industry already uses.</div></div><span class="tog"></span></summary>
+        <div class="body"><div class="tbl"><table>
+          <tr><th>Metric</th><th>Definition</th><th>Why</th><th>Industry reference</th></tr>
+          <tr><td>Utilisation</td><td>Share of available time the machine was moving material.</td><td>Separates "ready" from "working". Idle waiting for a task is a coordination problem, not a machine problem.</td><td class="src">mining AHS reporting</td></tr>
+          <tr><td>MTBF</td><td>Operating hours divided by number of failures that stopped work, hardware and software counted separately.</td><td>Drives maintenance planning and the availability forecast.</td><td class="src">standard reliability metric</td></tr>
+          <tr><td>Bucket fill factor</td><td>Actual payload divided by rated bucket capacity.</td><td>The autonomous dig has to match a good operator or tonnes per hour fall even with equal cycle time.</td><td class="src">Cat: 60 to 95 percent by blast quality</td></tr>
+          <tr><td>Payload per pass</td><td>Tonnes in one bucket. Needs the bucket scale.</td><td>Load-out accuracy and ticket matching.</td><td class="src">quarry practice</td></tr>
+          <tr><td>Glass-to-glass latency</td><td>Camera capture to operator screen, milliseconds.</td><td>What the operator feels. Research puts comfortable teleoperation under about 170 ms and marked degradation above 300 ms.</td><td class="src">teleoperation studies, 2025</td></tr>
+          <tr><td>Motion-to-motion latency</td><td>Joystick input to machine response, milliseconds. Field studies report medians well above glass-to-glass.</td><td>Different number, different fix. Never report "latency" without saying which.</td><td class="src">arXiv 2511.22467</td></tr>
+          <tr><td>Packet loss and jitter</td><td>Per link, per shift.</td><td>Predicts drops before they happen. Site selection input.</td><td class="src">network bonding practice</td></tr>
+          <tr><td>Time to resume after stop</td><td>Seconds from a safety stop to the machine working again.</td><td>A stop that costs ten minutes each time is a production problem the site manager will raise first.</td><td class="src">own definition</td></tr>
+          <tr><td>ODD coverage</td><td>Share of the site's actual conditions that fall inside chapter 7.</td><td>Tells sales what not to promise.</td><td class="src">ISO 34503 idea, adapted</td></tr>
+          <tr><td>OEE</td><td>Availability times performance times quality.</td><td>One number for the owner. Mobile equipment in open sites scores structurally lower than factories; set expectations accordingly.</td><td class="src">OEE mining case studies</td></tr>
+        </table></div></div></details>
+      <details class="drill" id="metrics-contract"><summary><div><div class="t">What the contracts actually say.</div><div class="h">Availability thresholds, the 20 percent guarantee, exit criteria. Quoted, not paraphrased.</div></div><span class="tog"></span></summary>
+        <div class="body"><div class="prose">
+          <p>The commercial promise in our current framing: a two to three week proof, a guaranteed 20 percent reduction in operating cost, and the kit removed if it does not deliver. <span class="src">[terminology memo, 2026]</span> Exit criteria are chosen by the customer, typically uptime, production volume, load weight and HSE. <span class="src">[writing rules, Aug 2026]</span></p>
+          <div class="gap"><b>To fill:</b> verbatim KPI clauses from the Feiring agreement, the Yara contract, the SigmaRoc/CQG term sheet and the Skanska base. Being pulled from SharePoint now.</div>
+        </div></div></details>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="ch" id="heard">
+    <header>
+      <span class="kicker">Chapter 9 · Opportunities</span>
+      <h2>What customers have said, and what we think it means.</h2>
+      <p class="lede">Observations first, solutions second, tests third. This is the entrance to the backlog, not the backlog. Mykhaylo's question list is added here as it arrives.</p>
+    </header>
+    <div class="tree">
+      <div class="out">Outcome: production continues at the site's current level, with nobody in the cab.</div>
+      <div class="opp">
+        <div class="q">"Just call the guy and tell him what to do for the next few hours."</div>
+        <div class="who">Every quarry site manager, paraphrased by Ronny</div>
+        <ul>
+          <li>Possible solution: keep voice as the primary channel, log the task on our side.</li>
+          <li>Possible solution: a lightweight task form the coordinator fills, not the customer.</li>
+          <li>Test: does any site manager actually want to type? Ask three.</li>
+        </ul>
+      </div>
+      <div class="opp">
+        <div class="q">"The site has asked for more autonomy in the cycle since we started on tele-remote."</div>
+        <div class="who">Yara, Herøya</div>
+        <ul>
+          <li>Possible solution: autonomous pile-to-hopper cycle with remote supervision, October 2026.</li>
+          <li>Test: cycle time and fill factor against the tele-remote baseline over two weeks.</li>
+        </ul>
+      </div>
+      <div class="opp">
+        <div class="q">"We will send you commands and shape files for which polygons to take out."</div>
+        <div class="who">Mariana Minerals</div>
+        <ul>
+          <li>Possible solution: a task API that accepts a polygon and a material target.</li>
+          <li>Question for engineering: what in the infrastructure being built now would make this hard later?</li>
+        </ul>
+      </div>
+      <div class="opp">
+        <div class="q">"Loading customer lorries, once the bucket scale is integrated."</div>
+        <div class="who">Feiring Bruk, next step</div>
+        <ul>
+          <li>Possible solution: bucket scale read into telemetry, payload per pass shown to the operator and logged per ticket.</li>
+          <li>Test: ticket weight versus summed bucket weights on 50 trucks.</li>
+        </ul>
+      </div>
+      <div class="gap"><b>To add:</b> Mykhaylo's list of what engineering needs to know (due 12 September), and one observation per named site from Ronny's daily contact. Keep the quote, the site and the date on every entry.</div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="ch" id="notscope">
+    <header>
+      <span class="kicker">Chapter 10</span>
+      <h2>Not in scope.</h2>
+      <p class="lede">Said out loud so it does not creep in.</p>
+    </header>
+    <div class="prose">
+      <ul>
+        <li>Machines other than Volvo wheel loaders L60 to L350, 2018 and later. Haulers and other brands are a separate track.</li>
+        <li>A customer-facing live dashboard. Data first, dashboard when a customer asks and pays.</li>
+        <li>Replacing the site's weighbridge, dispatch or ERP systems. We plug in beside them.</li>
+        <li>Customer-specific orchestration beyond Mariana until the shared system is stable.</li>
+        <li>The safety case itself. Referenced, not reproduced here.</li>
+      </ul>
+      <div class="gap"><b>Confirm with Dmitrii:</b> this list is Ronny's proposal from the sales side. Engineering may want to add or remove.</div>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="ch" id="glossary">
+    <header>
+      <span class="kicker">Chapter 11</span>
+      <h2>Glossary.</h2>
+    </header>
+    <dl>
+      <div><dt>Muckpile</dt><dd>The heap of blasted rock at the face before it is moved. Norwegian sites say "røys" or "salve".</dd></div>
+      <div><dt>Stockpile</dt><dd>A heap of one product fraction, usually under a conveyor drop. "Haug" or "lager".</dd></div>
+      <div><dt>Crusher feed</dt><dd>Keeping the primary crusher's hopper supplied. The task that never calls and never waits.</dd></div>
+      <div><dt>Load-out</dt><dd>Filling a customer truck from a stockpile against a weighbridge ticket. "Utlasting".</dd></div>
+      <div><dt>Weighbridge ticket</dt><dd>The record of product, weight in, weight out. The only written trace of a task on most sites. "Vektseddel".</dd></div>
+      <div><dt>Cycle time</dt><dd>Seconds for one bucket: approach, dig, lift, travel, dump, return.</dd></div>
+      <div><dt>Bucket fill factor</dt><dd>Payload divided by rated bucket capacity.</dd></div>
+      <div><dt>Glass-to-glass</dt><dd>Camera to operator screen latency.</dd></div>
+      <div><dt>Motion-to-motion</dt><dd>Joystick to machine response latency.</dd></div>
+      <div><dt>Geofence</dt><dd>The boundary the machine will not cross, and inside which people are not expected.</dd></div>
+      <div><dt>Remote operator</dt><dd>Hive staff in Kristiansand driving or supervising the machine.</dd></div>
+      <div><dt>Task coordinator</dt><dd>Hive staff who takes the site's call and turns it into work for the machine.</dd></div>
+      <div><dt>Supervised autonomy</dt><dd>The machine runs the cycle, a person watches and can take over. Our product category. Not "remote control".</dd></div>
+      <div><dt>Retrofit</dt><dd>Fitting our kit to the customer's own machine. Two to three days, non-destructive.</dd></div>
+      <div><dt>ODD</dt><dd>Operational design domain. The conditions the system is built to work in. Chapter 7.</dd></div>
+    </dl>
+  </section>
+
+  <!-- 12 -->
+  <section class="ch" id="log">
+    <header>
+      <span class="kicker">Chapter 12</span>
+      <h2>Change log.</h2>
+    </header>
+    <dl>
+      <div><dt>0.1 · 11 Sep 2026</dt><dd>First structure after the requirements call with Mykhaylo. Facts from the use-case deck, the commercial memos and the call. Open items marked. Not yet reviewed by engineering.</dd></div>
+    </dl>
+  </section>
+
+  <footer>Hive Autonomy · internal working document · sources in brackets · open items in red · presentations.hiveautonomy.no/wheel-loader-operations/</footer>
+</main>
+</div>
+
+<script>
+(function(){
+  /* open all / close all per chapter */
+  document.querySelectorAll('.tools button[data-toggle]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var box=document.getElementById(b.dataset.toggle); if(!box) return;
+      var ds=box.querySelectorAll('details.drill');
+      var anyClosed=Array.prototype.some.call(ds,function(d){return !d.open});
+      ds.forEach(function(d){d.open=anyClosed});
+      b.textContent=anyClosed?'Close all in this chapter':'Open all in this chapter';
+    });
+  });
+  /* deep links open the details they point into */
+  function openHash(){
+    var h=location.hash; if(!h) return;
+    var el=document.querySelector(h); if(!el) return;
+    var d=el.closest('details')||(el.tagName==='DETAILS'?el:null);
+    if(d) d.open=true;
+  }
+  window.addEventListener('hashchange',openHash); openHash();
+  /* lazy video: load on Play, click video for full screen */
+  document.querySelectorAll('figure.media').forEach(function(f){
+    var v=f.querySelector('video[data-src]'); var p=f.querySelector('.play'); if(!v||!p) return;
+    function load(){ if(!v.src){ v.src=v.dataset.src; } }
+    p.addEventListener('click',function(){ load(); v.controls=true; v.muted=false; v.loop=false; v.play().catch(function(){}); p.hidden=true;
+      var fn=v.requestFullscreen||v.webkitRequestFullscreen||v.webkitEnterFullscreen; if(fn){try{fn.call(v)}catch(e){}} });
+    v.addEventListener('click',function(){ load(); v.controls=true; v.play().catch(function(){}); });
+  });
+  /* rail highlight */
+  var links=document.querySelectorAll('.rail a'); var secs=document.querySelectorAll('section.ch');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)}); } })},{rootMargin:'-30% 0px -60% 0px'});
+    secs.forEach(function(s){io.observe(s)});
+  }
+})();
+</script>
+</body>
+</html>
