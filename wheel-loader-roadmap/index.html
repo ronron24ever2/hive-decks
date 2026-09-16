@@ -1,0 +1,812 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Product requests. What the sites have asked for, and what each one would take.</title>
+<link rel="stylesheet" href="../wheel-loader-use-cases/assets/css/fonts.css">
+<link rel="stylesheet" href="../wheel-loader-use-cases/assets/css/colors.css">
+<link rel="stylesheet" href="../wheel-loader-use-cases/assets/css/typography.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:24px}
+  :root{font-feature-settings:'ss03' on;--measure:66ch;--gutter:clamp(16px,4vw,56px)}
+  body{background:var(--white-ice);color:var(--navy);font-family:var(--font-body);font-size:17px;line-height:1.45;
+       -webkit-font-smoothing:antialiased}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+
+  .frame{display:grid;grid-template-columns:1fr;gap:0}
+  @media (min-width:1100px){.frame{grid-template-columns:260px minmax(0,1fr)}}
+  .rail{display:none}
+  @media (min-width:1100px){
+    .rail{display:block;position:sticky;top:0;height:100vh;overflow:auto;padding:36px 28px;border-right:1px solid var(--border);
+          background:var(--light-blue-ice)}
+  }
+  .rail .mark{width:150px;display:block;margin-bottom:34px}
+  .rail ol{list-style:none}
+  .rail li{margin:0 0 9px}
+  .rail a{color:var(--text-muted);text-decoration:none;font-size:14px;line-height:1.35;display:block;padding:3px 0 3px 12px;
+          border-left:2px solid transparent}
+  .rail a:hover,.rail a:focus-visible{color:var(--navy)}
+  .rail a.on{color:var(--navy);border-left-color:var(--red)}
+  .rail .part{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);margin:18px 0 8px 12px}
+  .rail .meta{margin-top:30px;padding-top:18px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:10px;
+              letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);line-height:1.8}
+
+  main{min-width:0}
+  .topbar{display:flex;justify-content:space-between;align-items:center;padding:16px var(--gutter);border-bottom:1px solid var(--border)}
+  @media (min-width:1100px){.topbar{display:none}}
+  .topbar img{width:120px}
+  .topbar select{font:inherit;font-size:14px;color:var(--navy);background:var(--white-ice);border:1px solid var(--border);padding:6px 10px;max-width:60vw}
+
+  .hero{position:relative;background:var(--navy-deep);color:var(--white-ice);min-height:min(78vh,720px);display:flex;align-items:flex-end;overflow:hidden}
+  .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72}
+  .hero .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,46,56,.05) 30%,rgba(30,46,56,.92) 100%)}
+  .hero .inner{position:relative;padding:60px var(--gutter) 44px;max-width:1100px}
+  .hero h1{font-weight:400;font-size:clamp(30px,4.6vw,58px);line-height:1.04;letter-spacing:-.02em;max-width:22ch}
+  .hero p.sub{margin-top:18px;font-size:clamp(16px,1.6vw,21px);line-height:1.35;max-width:52ch;color:#D7E1E6}
+  .hero .ver{margin-top:30px;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#A9B7BF;line-height:1.9}
+  .hero .cap{position:absolute;right:var(--gutter);bottom:18px;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#A9B7BF}
+
+  .partbar{padding:56px var(--gutter) 0;font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
+  .ch{padding:56px var(--gutter) 40px;border-bottom:1px solid var(--border)}
+  .ch:last-of-type{border-bottom:none}
+  .ch>header{max-width:var(--measure)}
+  .ch .kicker{font-family:var(--font-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-faint)}
+  .ch h2{font-weight:400;font-size:clamp(28px,3.4vw,44px);line-height:1.06;letter-spacing:-.018em;margin-top:10px}
+  .ch .lede{margin-top:16px;font-size:19px;line-height:1.4;color:var(--text-muted)}
+  .prose{max-width:var(--measure);margin-top:26px}
+  .prose p{margin:0 0 14px}
+  .prose ul,.prose ol{margin:0 0 14px 22px}
+  .prose li{margin-bottom:6px}
+  .prose h3{font-weight:400;font-size:24px;line-height:1.15;letter-spacing:-.012em;margin:34px 0 10px}
+  .prose h4{font-weight:500;font-size:17px;margin:22px 0 6px}
+  a{color:var(--navy);text-decoration:underline;text-decoration-color:var(--dark-blue-ice);text-underline-offset:3px}
+  a:hover{text-decoration-color:var(--red)}
+  .src{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--text-faint)}
+  .gap{background:var(--blue-ice);border-left:3px solid var(--red);padding:10px 14px;margin:14px 0;font-size:15px;line-height:1.4;max-width:var(--measure)}
+  .gap b{font-weight:500}
+  .note{border-left:3px solid var(--dark-blue-ice);padding:10px 14px;margin:14px 0;font-size:15px;line-height:1.4;max-width:var(--measure);color:var(--text-muted)}
+  .walk{max-width:var(--measure);margin-top:22px;counter-reset:w}
+  .walk li{list-style:none;position:relative;padding:8px 0 8px 40px;border-bottom:1px solid var(--border);font-size:15.5px;line-height:1.4}
+  .walk li::before{counter-increment:w;content:counter(w);position:absolute;left:0;top:9px;font-family:var(--font-mono);font-size:11px;color:var(--text-faint)}
+  .walk li b{font-weight:500}
+
+  .words{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2px;background:var(--dark-blue-ice);max-width:1200px;margin-top:26px}
+  .words div{background:var(--white-ice);padding:14px 16px 16px;font-size:14.5px;line-height:1.4;color:var(--text-muted)}
+  .words b{display:block;color:var(--navy);font-weight:500;font-size:16px;margin-bottom:4px}
+
+  .map{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0;border:1px solid var(--border);margin-top:30px;max-width:1000px}
+  .map a{display:block;padding:20px 22px;text-decoration:none;border-right:1px solid var(--border)}
+  .map a:last-child{border-right:none}
+  .map a:hover{background:var(--light-blue-ice)}
+  .map .who{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint)}
+  .map .go{display:block;margin-top:8px;font-size:18px;line-height:1.25}
+  @media (max-width:700px){.map a{border-right:none;border-bottom:1px solid var(--border)}.map a:last-child{border-bottom:none}}
+
+  details.drill{border-top:1px solid var(--border);max-width:1200px}
+  details.drill:last-of-type{border-bottom:1px solid var(--border)}
+  details.drill>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline;padding:18px 0}
+  details.drill>summary::-webkit-details-marker{display:none}
+  details.drill>summary .t{font-size:21px;line-height:1.2;letter-spacing:-.01em}
+  details.drill>summary .h{font-size:14.5px;color:var(--text-muted);margin-top:4px;max-width:70ch}
+  details.drill>summary .tog{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint)}
+  details.drill>summary .tog::before{content:"Open"}
+  details.drill[open]>summary .tog::before{content:"Close"}
+  details.drill>summary:hover .t{color:var(--red)}
+  details.drill>summary:focus-visible{outline:2px solid var(--red);outline-offset:4px}
+  details.drill>.body{padding:4px 0 34px}
+  .drills{margin-top:30px}
+  .tools{display:flex;gap:18px;margin-top:22px}
+  .tools button{font:inherit;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);
+                background:none;border:1px solid var(--border);padding:8px 12px;cursor:pointer}
+  .tools button:hover{border-color:var(--navy)}
+
+  figure.media{margin-top:28px;max-width:1200px;background:var(--navy-deep);position:relative}
+  figure.media video,figure.media img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;max-height:640px}
+  figure.media img.tall{aspect-ratio:4/3}
+  figure.media img.contain{object-fit:contain;background:var(--navy-deep)}
+  figure.media figcaption{position:absolute;left:18px;bottom:16px;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;
+                          text-transform:uppercase;color:var(--white-ice);background:rgba(31,38,45,.74);padding:7px 11px;max-width:70%}
+  figure.media .play{position:absolute;right:18px;bottom:16px;font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+                     color:var(--white-ice);background:rgba(31,38,45,.74);border:0;padding:8px 12px;cursor:pointer}
+  figure.media .play:hover{background:var(--red)}
+  .legend{max-width:1200px;margin-top:8px;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);line-height:1.8}
+  .two{display:grid;grid-template-columns:1fr;gap:22px;max-width:1200px;margin-top:28px}
+  @media (min-width:900px){.two{grid-template-columns:1fr 1fr}}
+  .two figure.media{margin-top:0}
+  .three{display:grid;grid-template-columns:1fr;gap:22px;max-width:1200px;margin-top:28px}
+  @media (min-width:900px){.three{grid-template-columns:1fr 1fr 1fr}}
+  .three figure.media{margin-top:0}
+
+  .tbl{overflow-x:auto;max-width:1200px;margin-top:22px}
+  table{border-collapse:collapse;width:100%;font-size:15px;line-height:1.35}
+  th{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);text-align:left;
+     padding:10px 14px 10px 0;border-bottom:1px solid var(--navy);font-weight:400;vertical-align:bottom}
+  td{padding:11px 14px 11px 0;border-bottom:1px solid var(--border);vertical-align:top}
+  td:first-child{font-weight:500}
+  .num{font-family:var(--font-mono);font-size:14px;white-space:nowrap}
+  td.fill{font-family:var(--font-mono);font-size:13px;color:var(--red)}
+
+  .cycle{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;max-width:1200px;margin-top:30px;background:var(--dark-blue-ice)}
+  .cycle .ph{background:var(--white-ice);padding:18px 16px 16px;min-height:170px;display:flex;flex-direction:column;position:relative}
+  .cycle .ph .n{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint)}
+  .cycle .ph .name{font-size:19px;line-height:1.15;margin-top:8px}
+  .cycle .ph .what{font-size:13.5px;line-height:1.35;color:var(--text-muted);margin-top:8px}
+  .cycle .ph .sec{margin-top:auto;font-family:var(--font-mono);font-size:20px;letter-spacing:-.02em;padding-top:14px}
+  .cycle .ph .sec small{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);margin-top:4px}
+  .cycle .ph.hive{background:var(--light-blue-ice)}
+  .cycle .ph.hive::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--red)}
+  .cycle-legend{max-width:1200px;margin-top:10px;display:flex;gap:22px;font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);line-height:1.7}
+  .cycle-legend .k{display:inline-block;width:14px;height:3px;background:var(--red);vertical-align:middle;margin-right:8px}
+  @media (max-width:820px){.cycle{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:480px){.cycle{grid-template-columns:repeat(2,1fr)}}
+
+  .people{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;background:var(--dark-blue-ice);max-width:1200px;margin-top:30px}
+  .people .p{background:var(--white-ice);padding:20px 18px 22px}
+  .people .p.hive{background:var(--light-blue-ice)}
+  .people .role{font-size:19px;line-height:1.15}
+  .people .of{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);margin-top:6px}
+  .people .cares{margin-top:14px;font-size:14.5px;line-height:1.4;color:var(--text-muted)}
+  .people .cares b{color:var(--navy);font-weight:500}
+
+  .lanes{max-width:1200px;margin-top:26px;overflow-x:auto}
+  .lanes .grid{display:grid;grid-template-columns:150px repeat(6,minmax(150px,1fr));gap:2px;background:var(--dark-blue-ice);min-width:1050px}
+  .lanes .c{background:var(--white-ice);padding:12px 12px 14px;font-size:14px;line-height:1.35;min-height:76px}
+  .lanes .c.head{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);min-height:0;padding:10px 12px}
+  .lanes .c.lane{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);background:var(--light-blue-ice)}
+  .lanes .c.chg{position:relative;background:var(--light-blue-ice)}
+  .lanes .c.chg::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--red)}
+  .lanes .c.same{color:var(--text-muted)}
+  .lanes .c .via{display:block;margin-top:6px;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-faint)}
+  .lanes .c.empty{background:var(--white-ice);opacity:.5}
+
+  .cost{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2px;background:var(--dark-blue-ice);max-width:1200px;margin-top:30px}
+  .cost div{background:var(--white-ice);padding:18px 16px 20px;font-size:14.5px;line-height:1.4;color:var(--text-muted)}
+  .cost div.big{background:var(--light-blue-ice)}
+  .cost .l{display:block;color:var(--navy);font-size:18px;line-height:1.15;margin-bottom:4px}
+  .cost .sh{display:block;font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;color:var(--navy);margin-bottom:10px}
+
+  .tree{max-width:var(--measure);margin-top:20px}
+  .tree .out{font-size:22px;line-height:1.2;padding:16px 0;border-top:1px solid var(--navy);border-bottom:1px solid var(--border)}
+  .tree .opp{padding:14px 0 14px 22px;border-left:2px solid var(--dark-blue-ice);margin-top:14px}
+  .tree .opp .q{font-size:17px}
+  .tree .opp .who{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);margin-top:4px}
+  .tree .opp ul{margin:10px 0 0 18px;font-size:15px;color:var(--text-muted)}
+  .tree .opp li{margin-bottom:5px}
+
+  dl{max-width:var(--measure);margin-top:22px}
+  dl div{display:grid;grid-template-columns:200px 1fr;gap:16px;padding:10px 0;border-bottom:1px solid var(--border)}
+  dt{font-weight:500}
+  dd{color:var(--text-muted);font-size:15.5px}
+  @media (max-width:600px){dl div{grid-template-columns:1fr;gap:4px}}
+  footer{padding:40px var(--gutter);font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);line-height:1.9;
+         border-top:1px solid var(--border)}
+</style>
+<style>
+  .bk{display:inline-block;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+      padding:3px 7px;border:1px solid var(--border);white-space:nowrap;color:var(--text-faint)}
+  .bk.now{border-color:var(--red);color:var(--red)}
+  .bk.next{border-color:var(--navy);color:var(--navy)}
+  .bk.park{border-color:var(--border);color:var(--text-faint)}
+  td.ref{font-family:var(--font-mono);font-size:12px;color:var(--text-faint);font-weight:400;white-space:nowrap}
+  .req{border-top:1px solid var(--border);max-width:1200px;padding:22px 0 26px}
+  .req:last-of-type{border-bottom:1px solid var(--border)}
+  .req .hd{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline}
+  .req .t{font-size:21px;line-height:1.2;letter-spacing:-.01em}
+  .req .who{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);margin-top:6px}
+  .req .body{max-width:var(--measure);margin-top:12px}
+  .req .body p{margin:0 0 10px;font-size:15.5px;line-height:1.45}
+  .req blockquote{margin:12px 0;padding:0 0 0 16px;border-left:2px solid var(--dark-blue-ice);font-size:15px;line-height:1.45;color:var(--text-muted)}
+  .req .verdict{margin-top:12px;font-size:15px;line-height:1.45;background:var(--blue-ice);border-left:3px solid var(--red);padding:10px 14px}
+  .req .verdict b{font-weight:500}
+  .stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2px;background:var(--dark-blue-ice);max-width:1200px;margin-top:28px}
+  .stack div{background:var(--white-ice);padding:18px 16px 20px;font-size:14.5px;line-height:1.4;color:var(--text-muted)}
+  .stack b{display:block;color:var(--navy);font-weight:500;font-size:17px;line-height:1.2;margin-bottom:8px}
+  .stack .n{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-faint);display:block;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="frame">
+
+<nav class="rail" aria-label="Chapters">
+  <img class="mark" src="../wheel-loader-use-cases/assets/img/lockup-dark-navy.svg" alt="Hive Autonomy">
+  <ol>
+    <li><a href="#why">1. Why this document exists</a></li>
+    <div class="part">The register</div>
+    <li><a href="#register">2. Every request in one table</a></li>
+    <li><a href="#now">3. Ship now</a></li>
+    <li><a href="#next">4. Build next</a></li>
+    <li><a href="#park">5. Park, and why</a></li>
+    <div class="part">The evidence</div>
+    <li><a href="#sites">6. What the sites actually said</a></li>
+    <li><a href="#volvo">7. What Volvo said</a></li>
+    <li><a href="#outside">8. What already exists outside Hive</a></li>
+    <li><a href="#safety">9. Safety and the 2027 regulation</a></li>
+    <div class="part">Next</div>
+    <li><a href="#questions">10. Open questions</a></li>
+    <li><a href="#notin">11. What is not in here</a></li>
+    <li><a href="#log">12. Change log</a></li>
+  </ol>
+  <div class="meta">Version 0.1<br>Updated 16 Sep 2026<br>Owner Ronny Liverød<br>Internal. Do not forward.</div>
+</nav>
+
+<main>
+  <div class="topbar">
+    <img src="../wheel-loader-use-cases/assets/img/lockup-dark-navy.svg" alt="Hive Autonomy">
+    <select aria-label="Go to chapter" onchange="location.hash=this.value">
+      <option value="">Go to chapter</option>
+      <option value="#why">1. Why this document exists</option>
+      <option value="#register">2. Every request in one table</option>
+      <option value="#now">3. Ship now</option>
+      <option value="#next">4. Build next</option>
+      <option value="#park">5. Park, and why</option>
+      <option value="#sites">6. What the sites actually said</option>
+      <option value="#volvo">7. What Volvo said</option>
+      <option value="#outside">8. What already exists outside Hive</option>
+      <option value="#safety">9. Safety and the 2027 regulation</option>
+      <option value="#questions">10. Open questions</option>
+      <option value="#notin">11. What is not in here</option>
+      <option value="#log">12. Change log</option>
+    </select>
+  </div>
+
+  <section class="hero">
+    <img src="../wheel-loader-operations/assets/hadeland-1928.jpg" alt="Wheel loader at a quarry face" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72">
+    <div class="veil"></div>
+    <div class="inner">
+      <h1>Product requests. What the sites have asked for, and what each one would take.</h1>
+      <p class="sub">The companion to Wheel loader operations. That document describes the work. This one is the backlog the work generated, with the evidence attached to every line.</p>
+      <div class="ver">Version 0.1 · 16 September 2026<br>Sales to engineering · Ronny Liverød<br>Internal working document</div>
+    </div>
+    <span class="cap">Hadeland, Norway</span>
+  </section>
+
+  <!-- 1 -->
+  <section class="ch" id="why">
+    <header>
+      <span class="kicker">Chapter 1</span>
+      <h2>Why this document exists.</h2>
+      <p class="lede">Feature requests reach us as phone calls, site visits and half sentences in meetings. They get lost, or they get repeated until the loudest one wins. This is the register, with a source against every line and a verdict against every line.</p>
+    </header>
+    <div class="prose">
+      <h3>What it is</h3>
+      <p>Every request in here came from a named source: a customer, an operator, Volvo, or our own pipeline. Where the request is a quote, the quote is given. Where the source is a meeting, the meeting and the date are given. Nothing in here is invented to fill a gap.</p>
+      <p>The companion document, <a href="../wheel-loader-operations/">Wheel loader operations</a>, describes how a site runs and what the customer measures. Read that first if you are new. This document assumes it.</p>
+      <h3>The three buckets</h3>
+      <p>Every request gets exactly one bucket. A request without a bucket has not been discussed.</p>
+    </div>
+    <div class="stack">
+      <div><span class="n">Bucket A</span><b>Ship now</b>Already possible with what we have, low effort, customer value this quarter. If it needs a new sensor or a new model, it is not in here.</div>
+      <div><span class="n">Bucket B</span><b>Build next</b>Has a named customer and money behind it. Goes on the roadmap with an owner and a date.</div>
+      <div><span class="n">Bucket C</span><b>Park, and say why</b>Interesting, but no customer today, or blocked by something outside our control. Parked with a written reason so it does not come back as a surprise.</div>
+    </div>
+    <div class="prose">
+      <h3>How to read a verdict</h3>
+      <p>Each request carries a verdict in a red-edged box. The verdict is the honest position, not the optimistic one. Where the outside world has already solved something, the verdict says so and names who. Where something is an unsolved research problem, the verdict says that too, because committing engineering time to a thirty-year problem on a customer timeline is how a roadmap dies.</p>
+      <h3>What this document is not</h3>
+      <p>It is not a commitment. Dates belong in the product board, not here. It is not a customer document either. It names customers, quotes operators and states where we fall short, so it stays inside Hive.</p>
+    </div>
+    <div class="map" aria-label="Reading map">
+      <a href="#register"><span class="who">Prioritising</span><span class="go">Chapter 2, then 3 and 4.</span></a>
+      <a href="#sites"><span class="who">New to the product</span><span class="go">Chapters 6 and 7 first.</span></a>
+      <a href="#safety"><span class="who">Engineering planning</span><span class="go">Chapters 4, 8 and 9.</span></a>
+    </div>
+  </section>
+
+  <div class="partbar">Part one · The register</div>
+
+  <!-- 2 -->
+  <section class="ch" id="register">
+    <header>
+      <span class="kicker">Chapter 2</span>
+      <h2>Every request in one table.</h2>
+      <p class="lede">Thirty requests, from five customers, Volvo, and our own pipeline. Sorted by bucket, then by who is blocked.</p>
+    </header>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Ref</th><th>Request</th><th>Asked by</th><th>Bucket</th></tr></thead>
+        <tbody>
+          <tr><td class="ref">R01</td><td>Load-complete signal to the truck driver</td><td>Load-out sites, general</td><td><span class="bk now">Ship now</span></td></tr>
+          <tr><td class="ref">R02</td><td>One push-to-talk solution across all operations</td><td>Every site, ad hoc today</td><td><span class="bk now">Ship now</span></td></tr>
+          <tr><td class="ref">R03</td><td>Idle shutdown and fuel per tonne reporting</td><td>Commercial, all deals</td><td><span class="bk now">Ship now</span></td></tr>
+          <tr><td class="ref">R04</td><td>Remove the Hive-side idle stop that kills a cold machine</td><td>Feiring, operator</td><td><span class="bk now">Ship now</span></td></tr>
+          <tr><td class="ref">R05</td><td>Stop the false emergency-stop alarms</td><td>Feiring, operator</td><td><span class="bk now">Ship now</span></td></tr>
+          <tr><td class="ref">R06</td><td>Bucket weight, to invoice off the machine</td><td>Feiring Bruk</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R07</td><td>Brakes that work from the remote station</td><td>Feiring, operator</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R08</td><td>Network loss must actually stop the machine</td><td>Feiring, safety finding</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R09</td><td>Emergency stop must propagate to attached equipment</td><td>Presis Veidrift</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R10</td><td>Distance to the truck body, and a camera that sees into it</td><td>Feiring, operator</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R11</td><td>Cameras that work in dark, rain, dust and low sun</td><td>Feiring, and Volvo asked</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R12</td><td>Stability: no unexplained shutdowns during a shift</td><td>Feiring Bruk</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R13</td><td>Tilt and gyro indicator in the remote station</td><td>Presis Veidrift</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R14</td><td>Benchmark and metrics system</td><td>Engineering, for all customers</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R15</td><td>Task management to replace phone and WhatsApp</td><td>Every site</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R16</td><td>Uptime as a reportable contractual KPI</td><td>Contracts, all deals</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R17</td><td>Optimal load replaces bucket fill as the KPI</td><td>Ronny, stage model</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R18</td><td>Load distribution inside the truck body</td><td>Load-out sites</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R19</td><td>Depth perception for the remote operator</td><td>Operators, all sites</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R20</td><td>Cycle time that matches manual operation</td><td>Feiring, milestone 2</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R21</td><td>Accept commands and shape files from a customer orchestration layer</td><td>Mariana Minerals</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R22</td><td>Ore and waste differentiation, working inside polygons</td><td>Mariana Minerals</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R23</td><td>Production follow-up per flow: tonnes, litres, kilowatt hours per hour</td><td>Volvo CE</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R24</td><td>Modification and safety-software logging for the 2027 regulation</td><td>Regulatory</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R25</td><td>Labelling, manuals and declaration of conformity</td><td>Presis Veidrift</td><td><span class="bk next">Build next</span></td></tr>
+          <tr><td class="ref">R26</td><td>Pile analysis and an optimal loading plan</td><td>Ronny, product</td><td><span class="bk park">Park</span></td></tr>
+          <tr><td class="ref">R27</td><td>Starlink on every machine</td><td>Ronny, product</td><td><span class="bk park">Park</span></td></tr>
+          <tr><td class="ref">R28</td><td>Telling truck drivers where to stand</td><td>Load-out sites</td><td><span class="bk park">Park</span></td></tr>
+          <tr><td class="ref">R29</td><td>Patting the load down so it does not blow off</td><td>Ronny, product</td><td><span class="bk park">Park</span></td></tr>
+          <tr><td class="ref">R30</td><td>Ramp and haul-road building</td><td>Ronny, product</td><td><span class="bk park">Park</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">Haulers and new machine classes are not requests, they are a platform decision. They sit with the CTO, not in this register. Chapter 11 says what else was deliberately left out.</div>
+  </section>
+
+  <!-- 3 -->
+  <section class="ch" id="now">
+    <header>
+      <span class="kicker">Chapter 3 · Bucket A</span>
+      <h2>Ship now.</h2>
+      <p class="lede">Five things we can do with the machines and the stack we already have. None of them needs a new sensor. Together they close three customer complaints and give every commercial conversation a number it does not have today.</p>
+    </header>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R01 · Load-complete signal to the truck driver</div><div class="who">Load-out sites · asked repeatedly, never specified</div></div><span class="bk now">Ship now</span></div>
+      <div class="body">
+        <p>When the bucket has filled a truck, the driver has to know. A human operator honks. We have no defined behaviour, so every remote operator improvises.</p>
+        <p>There is no industry standard to match. Caterpillar and Komatsu both solved the surrounding problem with in-cab screens rather than horn codes, so there is no protocol we are failing to implement.</p>
+        <div class="verdict"><b>Verdict.</b> The horn already works. Make it a documented, deliberate behaviour in the remote operator interface with a defined pattern, and write it into the operator procedure. This is a day of work and it removes a question we get on every site visit.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R02 · One push-to-talk solution across all operations</div><div class="who">Every site · improvised per site today</div></div><span class="bk now">Ship now</span></div>
+      <div class="body">
+        <p>The remote operator has to reach the site: the weighbridge, the site manager, a truck driver at the stockpile. Today this is a phone or whatever radio the site already runs.</p>
+        <p>Zello is the pragmatic choice. Software only, works over Wi-Fi and cellular, app and API based, no proprietary radio hardware, and the largest installed base. Motorola WAVE PTX only matters where a quarry already runs Motorola radios and we have to bridge to them.</p>
+        <div class="verdict"><b>Verdict.</b> Pick one, integrate it once centrally, deploy it everywhere. No purpose-built integration exists between any push-to-talk platform and a remote heavy-equipment console, so this is a small build whichever way we go. Doing it per site is the expensive version.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R03 · Idle shutdown and fuel per tonne reporting</div><div class="who">Commercial · every deal, no number today</div></div><span class="bk now">Ship now</span></div>
+      <div class="body">
+        <p>An idling loader burns roughly a quarter to two fifths of its working fuel rate while producing nothing. Unmanaged fleets sit idle anywhere from ten to sixty per cent of operating hours depending on which source you believe. A remote operator does not leave a machine idling between assignments the way a bored cab operator might, so this is a saving we should already be delivering and cannot currently prove.</p>
+        <p>Fuel per tonne, not fuel per hour, is the metric the trade actually uses, because it ties fuel to output. Volvo CareTrack already exposes engine hours, fuel and idle ratio, reachable through the AEMP 2.0 and ISO 15143-3 telematics interface that fleet managers already plug into.</p>
+        <div class="verdict"><b>Verdict.</b> Build our own before-and-after measurement at Hadeland and quote our own number. The published percentages are vendor-derived and inconsistent, so they are directionally useful and not quotable. Separately: nobody has published anything credible on engine wear from frequent automatic start-stop on heavy off-highway diesels, so do not promise automatic shutdown until an engineer has an opinion on it.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R04 · Remove the Hive-side idle stop that kills a cold machine</div><div class="who">Feiring Bruk · operator · 17 Aug 2026</div></div><span class="bk now">Ship now</span></div>
+      <div class="body">
+        <p>The machine dies after one to five minutes of idling from a cold start. The operator's workaround is to hold the throttle. It matters most when the engine is cold and needs to warm up, which is exactly when the operator cannot do anything else.</p>
+        <p>Volvo's own auto-stop is set to 49 minutes, so this timer is ours, not theirs.</p>
+        <div class="verdict"><b>Verdict.</b> Ours to fix, and small. It is also the thing the operator mentions first, which makes it worth more than its size.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R05 · Stop the false emergency-stop alarms</div><div class="who">Feiring Bruk · operator · 17 Aug 2026</div></div><span class="bk now">Ship now</span></div>
+      <div class="body">
+        <blockquote>Vi får varsler om at vi har trykket på røde og svarte knapper, både i hosten og i maskinen, men det har vi jo da beviselig ikke gjort.</blockquote>
+        <p>The root cause was identified in the same meeting: the safety card at PLC level goes to safe state, all inputs and outputs go high, and we publish that as a button press.</p>
+        <div class="verdict"><b>Verdict.</b> Root cause is known and the fix is in our software. Every false alarm costs operator trust, and operator trust is the thing that decides whether a site defends us internally.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="ch" id="next">
+    <header>
+      <span class="kicker">Chapter 4 · Bucket B</span>
+      <h2>Build next.</h2>
+      <p class="lede">Twenty requests with a named customer behind each. The first four block revenue that is already signed.</p>
+    </header>
+
+    <h3 style="font-weight:400;font-size:24px;margin-top:8px;letter-spacing:-.012em">The four that block signed money</h3>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R06 · Bucket weight, to invoice off the machine</div><div class="who">Feiring Bruk · 17 and 27 Aug 2026</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <p>This is the hardest commercial blocker we have. Until weight is integrated we are not allowed to load paying customers at all. Feiring's own goal is bigger than a readout: they want to remove their weighbridges and invoice straight off the machine.</p>
+        <blockquote>For at vi skal få det til i pilotprosjektet, så må vi på et eller annet vis få en indikasjon på hvor mye last vi laster opp i lastbilen. For at ikke han skal måtte kjøre ned til vekta, og så komme tilbake igjen og måtte tømme av.<br><span class="src">[Eivind Madsen, 17 Aug 2026]</span></blockquote>
+        <p><b>Volvo has already said no to giving us the signals.</b> We asked for access and were refused. The alternative Volvo offered is their own tablet retrofit at roughly 50,000. <span class="src">[Eivind Madsen, 17 Aug 2026]</span></p>
+        <p>The wider picture matters here. Volvo launched Certifiable On-Board Weighing in 2026, type-approved by a notified body under OIML R51 and aligned with the EU Measuring Instruments Directive, covering L110 to L260 in Europe. Certified is the operative word, because invoicing off a machine is legal-for-trade territory and only certified equipment can do it. Rollout is market by market, gated on local metrology certification. Trimble LOADRITE and VEI have had legal-for-trade options for years.</p>
+        <div class="verdict"><b>Verdict.</b> Three routes, not one: buy Volvo's tablet, retrofit a third-party certified scale, or build our own. Pick one deliberately rather than drifting. Two cautions. Quoted accuracy of about one per cent is a lab figure and will not survive wet or frozen material and uneven bucket fill, and we found no independent non-vendor audit. And we must not claim invoicing-grade tonnage on any machine whose scale is not certified in that country.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R07 · Brakes that work from the remote station</div><div class="who">Feiring Bruk · operator Kenneth · 17 Aug 2026</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <p>Three pedals, two of them brakes. One is too hard, the other behaves unstably, and there is no feel through either.</p>
+        <p>This is one of three things the Feiring pilot hangs on. When the platform status was reviewed on 27 August, no date was given for it.</p>
+        <div class="verdict"><b>Verdict.</b> Feel is the whole problem. A remote operator cannot modulate a pedal they cannot feel, so this is an interface design task as much as a control task. It needs a date, and it has not had one since August.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R08 · Network loss must actually stop the machine</div><div class="who">Feiring Bruk · safety finding · 17 Aug 2026</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <blockquote>Vi får Network Loss, men maskinen stopper ikke. Litt ugreit. Det skal den gjøre.</blockquote>
+        <p>Open underneath it: nobody has confirmed the network is good enough. The coverage measurements that exist were taken with a mobile phone, not with a professional survey. The question of whether the loss is 5G or something else is unanswered.</p>
+        <div class="verdict"><b>Verdict.</b> Safety-critical and not negotiable. It also has a second half: get a real coverage survey done before the next site goes live, because we are currently guessing about the link our safe state depends on. Note too that the 2027 regulation puts the connectivity layer itself inside the safety case, so this is not infrastructure sitting outside the argument.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R09 · Emergency stop must propagate to attached equipment</div><div class="who">Presis Veidrift · Øveråsen snow blower · 17 Aug 2026</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <p>Today, an emergency stop on the machine does not stop the snow blower mounted on it. The attachment keeps running.</p>
+        <div class="verdict"><b>Verdict.</b> Safety-critical, and it generalises. Every attachment we ever run raises the same question, so solve it as an interface rule for attachments rather than as one fix for one blower.</div>
+      </div>
+    </div>
+
+    <h3 style="font-weight:400;font-size:24px;margin-top:44px;letter-spacing:-.012em">What the operator cannot see</h3>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R10 · Distance to the truck body, and a camera that sees into it</div><div class="who">Feiring Bruk · operator Kenneth · 17 Aug 2026</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <blockquote>Siden jeg skal kjøre nærme nord med skuffa, jeg vet ikke om det er 1 meter fra eller 3 meter fra.</blockquote>
+        <blockquote>Første gangen vi prøvde å laste, det var jo som å laste i blinde, nesten.</blockquote>
+        <p>A new camera position on the lift arm is being tested on an L110, on the reasoning that from there you look straight down into the truck body.</p>
+        <p>Worth knowing what already exists. Caterpillar's Truck Spotting places a GPS spot point under the bucket and shows the truck driver where to reverse to on an in-cab display with a camera overlay. Komatsu's FrontRunner has the loader operator spot the incoming autonomous truck from a touchscreen and release it when loaded. Both have been productised for years.</p>
+        <div class="verdict"><b>Verdict.</b> Build it as table stakes, not as a differentiator, and do not plan on integrating with either of those systems: they are closed ecosystems and will not expose spotting interfaces to a third-party system on a competitor's loader. Our wedge is supervised remote operation of Volvo loaders. Truck coordination is the price of entry.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R11 · Cameras that work in dark, rain, dust and low sun</div><div class="who">Feiring Bruk 17 Aug · Volvo asked the same question 19 Aug</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <blockquote>Vi må se på hele problematikken rundt dette med kamera og vær og lys og mørke og sollys.<br><span class="src">[Eivind Madsen]</span></blockquote>
+        <p>A specific finding, identified months before it was raised: a person may not be visible on camera in bright daylight. Volvo asked us directly how we handle dust and night shifts; our answer was that we use the same cameras with no dedicated sensors, because the vision encoder is pre-trained on ordinary images.</p>
+        <p>Order this correctly. <b>Dust is the number one perception risk in a quarry, ahead of rain and snow.</b> It is well documented that dust coats the LiDAR surface and forms a mist that puts noise into the point cloud and degrades detection materially. The accepted mitigation is sensor fusion rather than any single sensor: radar penetrates rain, fog and dust best, camera degrades hardest in low light, glare and dust, LiDAR sits between them. Red-green-blue and LiDAR fusion for dust de-filtering has been demonstrated specifically in autonomous excavation, so it is directly relevant rather than borrowed from automotive.</p>
+        <div class="verdict"><b>Verdict.</b> Two gaps are ours to close and nobody else's. Nobody has published perception failure rates at wheel-loader scale, only at open-pit haul-truck scale. And Nordic rain and snow, which is our actual home market, is under-published next to hot dusty mining. We cannot read our way out of either. Until we have our own validation, we make no claim to a customer that we have solved dust.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R19 · Depth perception for the remote operator</div><div class="who">Operators, all sites</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <p>Stereo camera plus low latency is the proven baseline. The literature is explicit that a single monocular feed is not enough, because of narrow field of view and no stereoscopic depth cue, which is precisely the complaint in R10.</p>
+        <p>Latency is repeatedly named as the dominant driver of teleoperation quality problems, causing operator discomfort and in extreme cases damage to the machine. No published universal latency threshold exists, because it is task and machine specific.</p>
+        <div class="verdict"><b>Verdict.</b> Measure and publish our own round-trip number, camera to decision, and use it as a competitive and safety talking point. Do not claim an external industry standard threshold, because there is not one. Gaussian splatting and neural radiance fields for site reconstruction are real research directions for operator situational awareness, but there is no evidence we need them to be competitive. Two to three year horizon, not a current gap.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R13 · Tilt and gyro indicator in the remote station</div><div class="who">Presis Veidrift · 17 Aug 2026</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <blockquote>Operatøren må vite om maskinen står sånn eller sånn når han begynner å løfte den der 6-toms snøfreseren fram. Eller om han står på siden og du begynner å løfte, og så tipper han.</blockquote>
+        <p>The Volvo A30 has this built in and Volvo sells it as an option, so the need is established outside us.</p>
+        <div class="verdict"><b>Verdict.</b> Small, and it is a tipping risk, which puts it above its size. It also connects to a larger question worth answering once: does our pose estimation fuse anything, or does it rely on satellite positioning alone? Satellite positioning degrades badly against a quarry face, which is exactly where we work. If we are relying on it alone, that is a quiet risk on every site.</div>
+      </div>
+    </div>
+
+    <h3 style="font-weight:400;font-size:24px;margin-top:44px;letter-spacing:-.012em">What the customer measures</h3>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R12 · Stability: no unexplained shutdowns during a shift</div><div class="who">Feiring Bruk · 17 and 27 Aug 2026</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <p>Stated to the CTO as: a lot of lag, and it shuts down several times a day. Stability is the first of the three things the Feiring pilot hangs on, ahead of weight and brakes.</p>
+        <div class="verdict"><b>Verdict.</b> The stated customer priority, in the customer's own order, is that production continues at today's level. Everything else, including the reporting the same customers ask for, is second. When the roadmap has to choose, it chooses this.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R14 · Benchmark and metrics system</div><div class="who">Engineering · requirements call 11 Sep 2026</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <p>Asked for: timings and where delays occur, how teleoperation compares with a person in the cab, and connection drops or disconnections. Open question on delivery: a live page the customer can open, or something generated on request. The first is straightforward, the second is a system in itself.</p>
+        <div class="verdict"><b>Verdict.</b> Start with the live page. It also feeds R03, R16, R17 and R23, which means one build serves four requests. That makes it the highest-leverage item in this chapter.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R16 · Uptime as a reportable contractual KPI</div><div class="who">Contracts · all deals</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <p>Uptime is written into contracts. The internal reading is blunt: below a threshold, we stop selling and focus on improvement.</p>
+        <div class="verdict"><b>Verdict.</b> If it is contractual it has to be measured by us, continuously, in a form the customer can see. Reporting a contractual KPI from a spreadsheet after the fact is how disputes start.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R17 · Optimal load replaces bucket fill as the KPI</div><div class="who">Stage model work · 3 Sep 2026</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <blockquote>Viktig er på en måte at ikke vi laster dumperen, eller laster trucken for mye og ikke for lite. Jeg tror det er viktigere enn bucket fill, men optimal loading.</blockquote>
+        <p>The proposed wording is optimal load of all trucks. It sits inside a four-stage rollout model whose KPIs are teleoperation uptime, cycle time and optimal load.</p>
+        <div class="verdict"><b>Verdict.</b> Right metric. A full bucket that overloads a truck is a worse outcome than a slightly lighter one, and bucket fill cannot see the difference. It also depends on R06, because optimal load without weight is an opinion.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R18 · Load distribution inside the truck body</div><div class="who">Load-out sites</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <p>Where the material sits in the body, not just how much of it there is. Haul bodies are engineered to be self-centring, and a standard three-drop pattern of front, back then centre is taught to human operators to avoid tyre-load imbalance and stress on the body when it lifts.</p>
+        <div class="verdict"><b>Verdict.</b> There is an existing human procedure to encode, which makes this far cheaper than it sounds. Start by teaching the remote operator the three-drop pattern and only then consider automating it.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R20 · Cycle time that matches manual operation</div><div class="who">Feiring Bruk · milestone 2, Lørenskog</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <p>Milestone 2 is the main plant at Lørenskog, where 600 trucks leave the site every day, and the requirement is to match the cycle time they achieve there.</p>
+        <p>Volvo's own measured view is worth carrying into this. On a single cycle, teleoperation has never been seen on par, perhaps 85 per cent at best. But compared at shift level there is typically 30 to 50 per cent downtime to work with, which is where the comparison can be won.</p>
+        <div class="verdict"><b>Verdict.</b> Argue at shift level and say so plainly, rather than letting a customer benchmark us cycle against cycle. That is not a trick, it is the correct unit of comparison for a machine that does not take breaks. R14 has to be able to report both.</div>
+      </div>
+    </div>
+
+    <h3 style="font-weight:400;font-size:24px;margin-top:44px;letter-spacing:-.012em">What the next customers need</h3>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R15 · Task management to replace phone and WhatsApp</div><div class="who">Every site · requirements call 11 Sep 2026</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <p>Today the site manager phones the cab, and in some cases sends tasks over WhatsApp. There is no system in between. The goal is an integrated flow that does not depend on either.</p>
+        <div class="verdict"><b>Verdict.</b> This is the third of the three roadmap lines and it is largely customer specific, which means it belongs with the application team rather than the platform. Find out how three different customers actually do it before designing anything.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R21 · Accept commands and shape files from a customer orchestration layer</div><div class="who">Mariana Minerals · 11 Sep 2026</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <p>Mariana are building an orchestration layer of their own and want to send us commands into it. The strategic reading is that this is the product we should be selling onward: a full orchestration layer that integrates either our own machines or autonomous machines the customer bought from someone else.</p>
+        <div class="verdict"><b>Verdict.</b> Accepting external commands is a well-bounded piece of work. Becoming the orchestration layer is a product strategy decision and does not belong in this register. Note the dependency the other way: Mariana is Caterpillar, not Volvo.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R22 · Ore and waste differentiation, working inside polygons</div><div class="who">Mariana Minerals · 19 Aug 2026</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <blockquote>They will send us polygons. In this area, it is waste. This is mixed. This is ore. And we'll work within those polygons to make sure we dispatch the right tip truck to the right place.</blockquote>
+        <div class="verdict"><b>Verdict.</b> Working inside a supplied polygon is bounded and buildable. Telling ore from waste on camera is a research problem wearing the same sentence. Split the two before anyone estimates it.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R23 · Production follow-up per flow: tonnes, litres, kilowatt hours per hour</div><div class="who">Volvo CE · 18 and 19 Aug 2026</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <p>Volvo asked to be able to measure and follow up tonnes per hour, litres and kilowatt hours per hour, separated into different production flows. They also pressed on proof of value: showing in a fact-based way that moving from A to B is more cost efficient and more productive, and tying that to electrification.</p>
+        <div class="verdict"><b>Verdict.</b> Same build as R14 with the output cut per production flow. This is the item that makes Volvo an advocate rather than an observer, which is worth more than its engineering cost.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R24 · Modification and safety-software logging for the 2027 regulation</div><div class="who">Regulatory · EU Machinery Regulation 2023/1230</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <p>The Regulation requires the machine to collect evidence of any modification, retained for one year, and a version history retained for five years after every safety-software upload.</p>
+        <div class="verdict"><b>Verdict.</b> This is a product requirement, not a compliance memo. Build it into the telematics and logging stack now, while it is cheap, rather than retrofitting it across a fleet under deadline in 2027. Chapter 9 has the rest.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R25 · Labelling, manuals and declaration of conformity</div><div class="who">Presis Veidrift · 17 Aug 2026</div></div><span class="bk next">Build next</span></div>
+      <div class="body">
+        <p>Marking of joysticks and buttons, user manuals, and a declaration of conformity. Raised briefly at the end of a meeting as a Presis-specific list.</p>
+        <div class="verdict"><b>Verdict.</b> It looks like paperwork and it is not. The declaration of conformity is the same question as who becomes the manufacturer after we modify a machine, which chapter 9 shows is live today and not a 2027 problem.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="ch" id="park">
+    <header>
+      <span class="kicker">Chapter 5 · Bucket C</span>
+      <h2>Park, and say why.</h2>
+      <p class="lede">Five things that keep coming back. Each is parked with a written reason, so the next person who raises it gets an answer instead of a shrug.</p>
+    </header>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R26 · Pile analysis and an optimal loading plan</div><div class="who">Product · recurring</div></div><span class="bk park">Park as autonomy, keep as assistance</span></div>
+      <div class="body">
+        <p>The idea: analyse the face or the pile in front of the machine, work out the best way to attack it, and programme the resulting pattern into the locomotion stack so the machine runs a full cycle itself.</p>
+        <p>The fact that should govern this. Autonomous bucket filling in granular material is described in the research literature, including work done with Volvo, as an open problem of roughly three decades. Nobody has solved it, including organisations with far more resource than us. Volvo's own framing of why is useful: in virgin material you do not know what is in there, and half-buried objects are identified by a human who recognises them.</p>
+        <div class="verdict"><b>Verdict.</b> This is good news for positioning and bad news for scheduling. Our supervised model keeps a human making the judgement call, so we can say honestly that pure autonomous scooping is unsolved while still delivering the outcome. What is achievable is assistance: analyse the pile, propose an attack point and a plan, let the operator accept it. Keep it advisory and outside the control loop. That is also what keeps it out of the notified-body category in chapter 9, because advisory machine learning is not machine learning ensuring a safety function.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R27 · Starlink on every machine</div><div class="who">Product · recurring</div></div><span class="bk park">Not engineering work</span></div>
+      <div class="body">
+        <p>One thing here is urgent and it is not a feature. <b>Starlink's terms of service prohibit in-motion use except on the hardware SpaceX has approved for it</b>, currently the Flat High Performance terminal on a mobility or vehicle plan. Standard and recreational kits are not approved in motion, and short repositioning inside a quarry plausibly counts as in motion.</p>
+        <p>Beyond that, Starlink quotes latency in the region of 20 to 26 milliseconds and markets itself directly at heavy plant. But nobody has published latency or reliability figures for a moving loader inside a pit, with terrain blockage, vibration and a lift arm swinging over the antenna.</p>
+        <div class="verdict"><b>Verdict.</b> There is no integration to build with SpaceX. This is a procurement decision, a plan, and a mount. Do not let it be scoped as engineering. The action this week is to confirm which terminal and mount are actually fitted to our machines, because if it is not the in-motion hardware we have a live terms-of-service risk.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R28 · Telling truck drivers where to stand</div><div class="who">Load-out sites</div></div><span class="bk park">Folds into R10</span></div>
+      <div class="body">
+        <p>Same family as truck spotting. The cheap first version is the remote operator placing a marker the driver can see, not a coordination system.</p>
+        <div class="verdict"><b>Verdict.</b> Do not scope it separately. It is the second half of R10 and it should ship with it.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R29 · Patting the load down so it does not blow off</div><div class="who">Product · recurring</div></div><span class="bk park">Ask one customer first</span></div>
+      <div class="body">
+        <p>Tapping the top of a loaded body with the bucket so fine material does not blow off on the road. We found no source describing this as a productised feature anywhere, which means it is either genuinely novel or genuinely marginal.</p>
+        <div class="verdict"><b>Verdict.</b> Settle it by asking one site manager whether they lose material on the road today, not by estimating it. That is a five-minute question on the next site visit and it decides whether this is a small nice-to-have or nothing.</div>
+      </div>
+    </div>
+
+    <div class="req">
+      <div class="hd"><div><div class="t">R30 · Ramp and haul-road building</div><div class="who">Product · recurring</div></div><span class="bk park">Assisted, never autonomous</span></div>
+      <div class="body">
+        <p>Ramp and haul-road maintenance inside an active quarry appears to remain a human-judgement task, and we found no evidence of anyone automating it. The reason is structural: there is no defined target geometry and compaction is a judgement call, unlike a civil engineering project where grade control tools such as Trimble Earthworks or Topcon have a design surface to work to.</p>
+        <div class="verdict"><b>Verdict.</b> Grade-control-assisted human operation is the realistic version, and that is fine for our positioning as long as nobody sells it as autonomous. Park the autonomous version and say why every time it returns.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="partbar">Part two · The evidence</div>
+
+  <!-- 6 -->
+  <section class="ch" id="sites">
+    <header>
+      <span class="kicker">Chapter 6</span>
+      <h2>What the sites actually said.</h2>
+      <p class="lede">The requests above are a tidy version of a messy conversation. These are the sentences they came from, so nothing gets softened on the way into the backlog.</p>
+    </header>
+    <div class="prose">
+      <h3>Feiring Bruk, Hadeland</h3>
+      <p>Three things the pilot hangs on, named in the platform review on 27 August: <b>system stability</b>, <b>weight integration</b> so we are allowed to load paying customers, and <b>braking sensitivity</b>, which was being worked on with no date attached.</p>
+      <p>From the operator, on loading a truck he could not judge the distance to: <i>"Første gangen vi prøvde å laste, det var jo som å laste i blinde, nesten."</i></p>
+      <p>On the current state of the system, put to the CTO directly: there is a lot of lag, and it shuts down several times a day.</p>
+      <p>Milestone 2 is the main plant at Lørenskog. Six hundred trucks leave that site every day, and the cycle time there is what we have to match.</p>
+      <h3>Presis Veidrift</h3>
+      <p>A different shape of customer: attachments, road work, and a machine that tips if you lift wrong. The tilt indicator, the emergency stop that has to reach the snow blower, and the labelling and conformity list all come from here. It is a useful counterweight to the quarry picture, because it shows which of our assumptions are quarry-specific.</p>
+      <h3>Mariana Minerals</h3>
+      <p>Caterpillar, not Volvo, and further ahead on orchestration than anyone else we talk to. They intend to send us polygons and commands. They are the reason the orchestration question is live at all.</p>
+      <h3>What the pipeline is asking for</h3>
+      <p>Grimsrud wants the Hadeland L180 in November or December, and haulers between February and June to catch the season. Wergeland has ordered an L350 and wanted it shipped straight to us for retrofit, but needs it in the quarry before New Year, because once it is in production he cannot take it out again. Norsk Gjenvinning's paper line at Alna needs material fed in every two minutes continuously, with finished bales stacked four high by forklift.</p>
+      <div class="gap"><b>Open.</b> Delivery dates are a sales blocker in their own right. Three months from contract signature is still a purchasing-based estimate, and it is hard to buy ahead while the hardware is still changing.</div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="ch" id="volvo">
+    <header>
+      <span class="kicker">Chapter 7</span>
+      <h2>What Volvo said.</h2>
+      <p class="lede">Two days with Volvo CE in August and an interface session in late August. They gave us a timetable, a refusal, and one technical objection that is worth more than the rest of it combined.</p>
+    </header>
+    <div class="prose">
+      <h3>What they can deliver, and when</h3>
+      <p>Three workstreams: interface, legal, and CE marking. Legal is parked until the proof-of-value agreement is in place. The CAN specification exists and can be shared now. The electrical interface specification is roughly two weeks of work if they are given a deadline. The operations-centre ECU is targeted for November with a prototype in October, and it exists primarily for legal reasons rather than technical ones. Steer-by-wire exists on an excavator today; on a wheel loader it arrives in 2028.</p>
+      <h3>What they will not do</h3>
+      <p><b>They refused access to the weight signals.</b> The alternative offered is their own tablet retrofit at roughly 50,000. This is the single most consequential sentence in the Volvo material, because it decides the shape of R06.</p>
+      <p>They want a brand-agnostic partner, not a Volvo-only one. Their reasoning is a customer with four Volvo loaders and one Caterpillar who wants all five autonomous. They are also explicit that automation is not their core business today and that they are on the learning curve themselves, and that scaling has to run through the dealer network rather than a central team, which means the dealer has to make money on it or nothing happens.</p>
+      <h3>The objection worth answering</h3>
+      <p>Their sharpest technical criticism is that training on teleoperation data is our biggest weakness. Asked how he knew, the answer was: I measured it. He then offered to deliver the same data flow captured directly on the machine with an operator in the cab, arguing the model would not be worse for it.</p>
+      <div class="gap"><b>Open, and the most valuable unclosed item in this document.</b> That offer has not been taken up or refused. It is either a significant gift or a significant problem with our data strategy, and either way we should find out which.</div>
+      <h3>Their other observations</h3>
+      <p>On cycle time: never seen on par, perhaps 85 per cent, but comparing at shift level gives 30 to 50 per cent downtime to work with. On virgin material: you do not know what is in there, and a human recognises a half-buried object for what it is. On dust and night shifts, they asked us directly what we do, and our answer was that we use the same cameras. They want production follow-up split per flow. They asked whether we can position a machine indoors, because roofing requirements are increasing in recycling and mining. And they asked what an hour of labour has to cost for this to scale, which we could not answer either.</p>
+      <div class="note"><b>What Volvo did not say.</b> Nothing about work lighting, nothing about LiDAR placement, bracket design or a sensor bill of materials. Everything in this document about light and darkness comes from our own side. If we want Volvo's position on what their machines can host, power and give bus access to, we have to ask them directly. It is not in the public record and it is not in these meetings.</div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="ch" id="outside">
+    <header>
+      <span class="kicker">Chapter 8</span>
+      <h2>What already exists outside Hive.</h2>
+      <p class="lede">Half of this register has been built by somebody already. Knowing which half stops us pitching table stakes as innovation, and stops us rebuilding what we could buy.</p>
+    </header>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Area</th><th>What exists</th><th>What it means for us</th></tr></thead>
+        <tbody>
+          <tr><td>On-board weighing</td><td>Volvo Certifiable On-Board Weighing, 2026, notified-body type-approved under OIML R51 and aligned with the EU Measuring Instruments Directive. Trimble LOADRITE and VEI have had legal-for-trade options for years.</td><td>Certified equipment is the only route to invoicing off the machine. Buy or retrofit rather than build, unless there is a reason not to.</td></tr>
+          <tr><td>Truck spotting</td><td>Caterpillar Truck Spotting and Command for Loading. Komatsu FrontRunner, where a human loader operator spots the autonomous truck from a touchscreen.</td><td>Table stakes, not a differentiator. Closed ecosystems, so assume no integration.</td></tr>
+          <tr><td>Autonomous bucket filling</td><td>An open research problem for roughly three decades, in work involving Volvo.</td><td>Supports our supervised positioning. Do not schedule it as a deliverable.</td></tr>
+          <tr><td>Dust and perception</td><td>Dust dominates the failure literature. Sensor fusion is the accepted mitigation. Red-green-blue and LiDAR fusion demonstrated for autonomous excavation.</td><td>No single-sensor claim survives contact with a quarry. Nordic conditions are under-published and are ours to measure.</td></tr>
+          <tr><td>Pose estimation</td><td>Satellite positioning with inertial fusion is standard and gives centimetre accuracy, but degrades against obstructed terrain. LiDAR augmentation and retroreflective markers are proven fallbacks.</td><td>A quarry face is obstructed terrain by definition. Worth confirming what our stack actually fuses.</td></tr>
+          <tr><td>Depth for teleoperation</td><td>Stereo plus low latency is the baseline. Monocular is explicitly called insufficient. No published universal latency threshold.</td><td>Measure our own number. Neural reconstruction is a later differentiator, not a gap.</td></tr>
+          <tr><td>Connectivity</td><td>Starlink permits in-motion use only on its approved terminal. Zello, Motorola WAVE PTX and Teams Walkie Talkie all exist for push-to-talk, none integrated with a machine console.</td><td>Procurement, not engineering. One terms-of-service check outstanding.</td></tr>
+          <tr><td>Fleet telematics</td><td>AEMP 2.0 and ISO 15143-3 is what mixed-fleet platforms already consume, and every major manufacturer exposes it.</td><td>Cheap credibility for reporting. It does not solve real-time coordination, so do not let anyone claim it does.</td></tr>
+          <tr><td>Haul-road building</td><td>No evidence of anyone automating it. Grade control exists where there is a design surface.</td><td>Assisted, not autonomous. Say so consistently.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="legend" style="margin-top:14px">Sources and links: research/2026-09-16-wheel-loader-autonomy-feature-landscape.md · flags on what could not be verified are kept there, not removed</p>
+  </section>
+
+  <!-- 9 -->
+  <section class="ch" id="safety">
+    <header>
+      <span class="kicker">Chapter 9</span>
+      <h2>Safety, and the 2027 regulation.</h2>
+      <p class="lede">One part of this is a 2027 deadline. The other part applies today, on every machine we have already modified, and that is the part nobody has documented.</p>
+    </header>
+    <div class="prose">
+      <h3>Where we stand today</h3>
+      <p>We deliver performance level c today, in a closed area. Emergency stop, the safety controller and the new board are at performance level d and the corresponding integrity level. The goal is a wider confined-area classification in the first half of next year, with a hybrid handover where traffic is mixed.</p>
+      <h3>The deadline</h3>
+      <p>The EU Machinery Regulation 2023/1230 entered into force in July 2023 and becomes directly applicable across all member states on <b>20 January 2027</b>, replacing the Machinery Directive. There is no grace period for machines placed on the market after that date, and because it is a Regulation rather than a Directive it binds directly with no national variation. Its scope explicitly covers autonomous mobile machinery, remote-controlled machinery, cybersecurity of safety functions, and self-evolving behaviour.</p>
+      <h3>The question that decides the cost</h3>
+      <p>Machinery whose safety components have fully or partially self-evolving machine-learning behaviour ensuring safety functions falls into a high-risk annex, and requires <b>mandatory notified-body assessment</b>. Self-declaration is not enough.</p>
+      <p>Whether we land inside that category depends entirely on whether our machine learning touches safety-critical decisions, or only advisory ones such as suggesting a path, with deterministic emergency stop and geofencing underneath. The difference between self-declaration against a technical file and a notified-body type examination is very large in both cost and elapsed time. Public sources do not settle it.</p>
+      <div class="gap"><b>Open.</b> This needs a formal legal or notified-body opinion on our specific architecture. It is not something to decide internally, and it shapes how we are allowed to build R26.</div>
+      <h3>The part that applies now</h3>
+      <p>Substantial modification is an existing principle, not a 2027 one. Whoever modifies a machine so that its function or its risk level changes becomes a partial manufacturer for the modified part: fresh risk assessment, their own declaration of conformity, their own marking for that scope. The original manufacturer's marking remains valid for the unmodified base machine.</p>
+      <p>The practical reading is that <b>we are very likely the manufacturer of record for the kit we install</b>, on every retrofit, today. We could find no public case of a comparable retrofit autonomy company publishing how they handle this in Europe, because most of them are United States first, where the Regulation does not apply. So there is little precedent to copy.</p>
+      <h3>The favourable half</h3>
+      <p>The Regulation requires a supervisory function for autonomous mobile machinery: a human able to monitor activity in real time and intervene to stop, reposition or restart. That is close to a description of what we already do. If the annex question resolves favourably, built for the human-supervisory model the regulation requires becomes a sales asset rather than a risk.</p>
+      <div class="note">Article and annex numbering in this chapter is paraphrased from secondary sources. Check the Official Journal text before quoting a number to a customer or a regulator.</div>
+      <h3>Open safety items from the sites</h3>
+      <p>Network loss does not stop the machine (R08). Emergency stop does not propagate to attached equipment (R09). False emergency-stop alarms from the safety controller going to safe state (R05). A person may not be detected on camera in bright daylight (R11). No professional coverage survey has been done on any site. Labelling, manuals and a declaration of conformity are outstanding for Presis (R25).</p>
+    </div>
+  </section>
+
+  <div class="partbar">Part three · Next</div>
+
+  <!-- 10 -->
+  <section class="ch" id="questions">
+    <header>
+      <span class="kicker">Chapter 10</span>
+      <h2>Open questions.</h2>
+      <p class="lede">Seven questions that change what we build. None of them needs research to answer, only a person who knows.</p>
+    </header>
+    <ol class="walk">
+      <li><b>Which of the five Bucket A items can ship inside 30 days?</b> If the answer is none, the bucket is wrong.</li>
+      <li><b>Does our pose estimation fuse anything, or is it satellite positioning alone?</b> A quarry face blocks the sky. If we are relying on satellites alone, that is a quiet risk on every site we operate.</li>
+      <li><b>Which Starlink terminal and mount are fitted to our machines right now?</b> Anything other than the in-motion approved hardware is a live terms-of-service risk.</li>
+      <li><b>What is our measured round-trip teleoperation latency, as a number?</b> We should be able to say it without hedging.</li>
+      <li><b>Which of the three weighing routes do we take?</b> Volvo's tablet, a certified third-party retrofit, or our own build. Volvo has already refused signal access, so that route is closed.</li>
+      <li><b>Who owns pile analysis, and is it explicitly advisory rather than in the control loop?</b> The answer decides whether chapter 9 gets more expensive.</li>
+      <li><b>What do we log today against the one-year and five-year retention requirements?</b> If the answer is nothing, that is a build, not a policy.</li>
+    </ol>
+    <div class="gap"><b>And one for Volvo.</b> Do we accept the offer to capture training data directly on the machine with an operator in the cab? It has been open since 19 August.</div>
+  </section>
+
+  <!-- 11 -->
+  <section class="ch" id="notin">
+    <header>
+      <span class="kicker">Chapter 11</span>
+      <h2>What is not in here.</h2>
+      <p class="lede">Deliberate omissions, so nobody assumes they were forgotten.</p>
+    </header>
+    <dl>
+      <div><dt>Haulers and dump trucks</dt><dd>A platform and business-model decision, not a feature. Whether we build for a new machine class or become the control interface for someone else's is a question for the CTO.</dd></div>
+      <div><dt>New machine classes and brands</dt><dd>The L350, Caterpillar, Komatsu. Each is an integration programme with its own cost, and each belongs on the platform roadmap rather than in a feature register.</dd></div>
+      <div><dt>Hardware release content</dt><dd>Cabinet, harness, camera positions, the move to the new camera family, and the standard roof unit. Tracked in the platform release, referenced here only where a request depends on it.</dd></div>
+      <div><dt>Dates and owners</dt><dd>They belong in the product board. A register that carries dates becomes a commitment document and stops being honest.</dd></div>
+      <div><dt>Commercial terms</dt><dd>Pricing, contract structure and deal status. Different document, different audience.</dd></div>
+    </dl>
+  </section>
+
+  <!-- 12 -->
+  <section class="ch" id="log">
+    <header>
+      <span class="kicker">Chapter 12</span>
+      <h2>Change log.</h2>
+    </header>
+    <dl>
+      <div><dt>0.1 · 16 Sep 2026</dt><dd>First version, written as the base for the product pipeline meeting. Thirty requests assembled from nine recorded meetings between 17 August and 15 September, sorted into three buckets. External evidence added per request from a twelve-theme research pass. Companion to Wheel loader operations 0.3.</dd></div>
+    </dl>
+  </section>
+
+  <footer>Hive Autonomy · internal working document · sources in brackets · open items in red</footer>
+</main>
+</div>
+
+<script>
+(function(){
+  function openHash(){
+    var h=location.hash; if(!h) return;
+    var el=document.querySelector(h); if(!el) return;
+    var d=el.closest('details')||(el.tagName==='DETAILS'?el:null);
+    if(d) d.open=true;
+  }
+  window.addEventListener('hashchange',openHash); openHash();
+  var links=document.querySelectorAll('.rail a'); var secs=document.querySelectorAll('section.ch');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)}); } })},{rootMargin:'-30% 0px -60% 0px'});
+    secs.forEach(function(s){io.observe(s)});
+  }
+})();
+</script>
+</body>
+</html>
