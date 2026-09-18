@@ -269,7 +269,7 @@
       <div><b>Weighbridge and ticket</b>The scale a truck drives over on the way in and out. The ticket records product, weight in, weight out. On most sites it is the only written record that a task happened.</div>
       <div><b>Load-out</b>Filling a customer's truck from a stockpile against a ticket. In the UK: HGV loading, heavy goods vehicle. This is where the site gets paid.</div>
       <div><b>Truck versus hauler</b>A truck is a road vehicle a customer sends in, about 2.5 m wide, 17 to 18 tonnes on a Norwegian four-axle. A hauler (dumper) is an off-road machine the site owns, carrying 30 to 90 tonnes between face and crusher.</div>
-      <div><b>Bucket: m3 or tonnes</b>Bucket sizes are quoted in volume, cubic metres, and loads in weight. Rock weighs roughly 1.6 to 1.8 tonnes per cubic metre loose, so a 6 m3 bucket carries around 10 tonnes at a working fill. The L220 at the mobile crushing site runs 6 m3. The L180H at Hadeland carries about 6 tonnes a bucket, three buckets to a four-axle truck, on a smaller bucket than that. Volume and weight are two separate figures here, not two ways of writing the same one.</div>
+      <div><b>Bucket: m3 or tonnes</b>Bucket sizes are quoted in volume, loads in weight, and the two are not the same figure. Blasted rock weighs roughly 1.8 tonnes per cubic metre loose, sorted fractions nearer 1.6. A standard L180H bucket is about 4.7 m3, so it carries around 8 tonnes of blasted rock, and two buckets fill a four-axle truck. The L220 at the mobile crushing site runs 6 m3, around 10 tonnes.</div>
       <div><b>Self-loading site</b>A yard where customers fill their own trucks from the piles, so nobody is paid to sit in a loader. Hadeland is one. There, our machine does work that nobody does today, instead of replacing an operator.</div>
       <div><b>Tele-remote, supervised autonomy</b>Tele-remote: a person drives the machine from a chair with camera feeds, every movement is theirs. Supervised autonomy: the machine runs the task itself and the person watches, ready to take over. Most of our production hours today are tele-remote.</div>
       <div><b>Zone</b>A pre-mapped area the machine can drive to on its own. In autonomy mode the operator presses a zone button and the machine navigates there and stops. A geofence is the outer boundary the machine will never cross, and inside which people are not expected.</div>
@@ -312,9 +312,9 @@
       <p>The loader has three jobs in this chain: feed the crusher, keep the piles right, load the trucks. Which one dominates depends on the site, and that decides what "good" means for the machine.</p>
 
       <h3>The shift at Hadeland</h3>
-      <p>The site runs from 06:30 to 17:00. Our machine is a Volvo L180H with a bucket of about 6 tonnes, driven from Kristiansand, roughly 370 km away, over public 5G. The lowest uplink measured on site is 42 Mbit/s, above our 40 Mbit/s floor, but the signal drops under the rock face on the upper bench. <span class="src">[connectivity baseline; research Jun 2026]</span></p>
+      <p>The site runs from 06:30 to 17:00. Our machine is a Volvo L180H, about 4.7 m3 in the bucket and around 8 tonnes of blasted rock in it, driven from Kristiansand, roughly 370 km away, over public 5G. The lowest uplink measured on site is 42 Mbit/s, above our 40 Mbit/s floor, but the signal drops under the rock face on the upper bench. <span class="src">[connectivity baseline; research Jun 2026]</span></p>
       <p>Hadeland is a self-loading site: customers fill their own trucks from the piles. So the machine is not replacing a paid operator. It does the work that otherwise waits: blending fractions to make a product, and clearing the piles under the crusher's conveyor drop so the crusher can keep running. The next task is moving blasted rock to a temporary stockpile. After that, loading customer trucks, once the bucket scale is integrated so the load can be weighed as it goes in. <span class="src">[site notes, Aug and Sep 2026]</span></p>
-      <p>A Norwegian four-axle truck takes 17 to 18 tonnes, three buckets. The site's operations lead set three acceptance criteria for truck loading: flow, the right tonnage, centred loads. Under remote operation the machine has measured 23 seconds from scoop to dump when blending, which the site judged inside their commercial window. <span class="src">[site notes, Aug 2026]</span></p>
+      <p>A Norwegian four-axle truck takes 17 to 18 tonnes, two buckets. The site's operations lead set three acceptance criteria for truck loading: flow, the right tonnage, centred loads. Under remote operation the machine has measured 23 seconds from scoop to dump when blending, which the site judged inside their commercial window. <span class="src">[site notes, Aug 2026]</span></p>
     </div>
     <div class="three">
       <figure class="media"><img src="assets/hadeland-1897.jpg" alt="Volvo L180 digging into a stockpile" loading="lazy"><figcaption>Fill</figcaption></figure>
@@ -500,7 +500,7 @@
         <div class="c empty"></div>
         <div class="c">Hears the call. Finishes the current bucket. Confirms.<span class="via">Radio or phone</span></div>
         <div class="c">Drives to the pile. Positions for the truck.</div>
-        <div class="c">Digs, lifts, dumps. Judges fill by eye, or by scale if fitted. Three buckets for an 18 tonne four-axle truck.</div>
+        <div class="c">Digs, lifts, dumps. Judges fill by eye, or by scale if fitted. Two buckets for an 18 tonne four-axle truck.</div>
         <div class="c">Signals the driver. Backs off.</div>
         <div class="c">Returns to the interrupted task, or waits for the next call.</div>
         <div class="c lane">Site manager</div>
@@ -521,7 +521,7 @@
     </div>
     <ol class="walk" aria-label="The same load-out as a sequence">
       <li><b>A truck turns in</b> and stops on the weighbridge. The driver says which product and how much.</li>
-      <li><b>The weighbridge operator opens a ticket,</b> weighs the truck in, and radios or phones the loader operator: 0/32, pile three, about three buckets.</li>
+      <li><b>The weighbridge operator opens a ticket,</b> weighs the truck in, and radios or phones the loader operator: 0/32, pile three, about two buckets.</li>
       <li><b>The loader operator hears the call</b> in the cab, finishes the bucket in hand, and says yes.</li>
       <li><b>The truck drives to the pile.</b> The loader drives over and positions square to the truck's side.</li>
       <li><b>Three cycles:</b> dig, lift, drive the few metres, dump centred on the bed, back off. The operator judges the fill by eye unless the loader has a scale.</li>
@@ -567,7 +567,7 @@
     </div>
     <div class="cycle-legend"><span><span class="k"></span>Phases where remote operation is slower today: brake feel in the fill, depth perception in the dump. Per-phase times are not logged anywhere yet. Only totals exist.</span></div>
     <div class="prose">
-      <p>The arithmetic. A 23 second cycle with a 6 tonne bucket is 156 buckets an hour, about 940 tonnes, if the machine never waits. Nobody runs like that. Waiting for trucks, for the crusher, for a call, and for breaks takes the real figure to a fraction of it. That is why availability and utilisation matter more than raw cycle time, and why the numbers below are conditions, not scores.</p>
+      <p>The arithmetic. A 23 second cycle with an 8 tonne bucket is 156 buckets an hour, about 1,250 tonnes, if the machine never waits. Nobody runs like that. Waiting for trucks, for the crusher, for a call, and for breaks takes the real figure to a fraction of it. That is why availability and utilisation matter more than raw cycle time, and why the numbers below are conditions, not scores.</p>
     </div>
     <div class="tbl"><table>
       <tr><th>Measurement</th><th>Seconds</th><th>Conditions, and what the number means</th><th>Source</th></tr>
@@ -585,7 +585,7 @@
       <details class="drill" id="cycle-hours"><summary><div><div class="t">Hours, not just seconds.</div><div class="h">How differently sites use the same machine, and why availability is where the money is.</div></div><span class="tog"></span></summary>
         <div class="body"><div class="tbl"><table>
           <tr><th>Pattern</th><th>Machine</th><th>Hours</th><th>Throughput reference</th><th>Example</th></tr>
-          <tr><td>Quarry, self-loading</td><td>L180H, ~6 t bucket</td><td>06:30 to 17:00</td><td>17 to 18 t per truck; group peak 600 to 700 loadings a day</td><td>Hadeland</td></tr>
+          <tr><td>Quarry, self-loading</td><td>L180H, 4.7 m3, ~8 t</td><td>06:30 to 17:00</td><td>17 to 18 t per truck; group peak 600 to 700 loadings a day</td><td>Hadeland</td></tr>
           <tr><td>Industrial plant</td><td>L120H, ~4 t</td><td>8 h shift</td><td>200 cycles per shift; hopper 1.6 t/min</td><td>Herøya</td></tr>
           <tr><td>Mobile crushing</td><td>L220, 6 m3</td><td>10 to 12 h, ~50 h a week, one shift</td><td>Crusher 650 t/h single product</td><td>Sweden</td></tr>
           <tr><td>Asphalt plant</td><td>L150H</td><td>Plant hours, seasonal</td><td>Plant demand ~100+ t/h</td><td>Thurrock</td></tr>
@@ -703,7 +703,7 @@
     <div class="cost">
       <div class="big"><span class="l">Diesel</span><span class="sh">20 to 25 % of total cost in mobile crushing; "fuel cost is like five times higher than the labour cost"</span>The largest variable line in every aggregates conversation. The split between loader and crusher was told two ways after the same site walk; both agree the loader burns a large share. One quarry saw the diesel price rise 6 NOK a litre in a quarter and lose its whole quarterly result. <span class="src">[NCC site walk Aug 2026; Ronny Sep 2026; Feiring spring 2026]</span></div>
       <div class="big"><span class="l">Machines: capital, repairs, wear parts</span><span class="sh">"the rest", after labour and diesel</span>Investment tied up in equipment that "must keep rolling", plus repairs and wear. A UK fleet lead said what they historically chased was premature parts replacement and low resale value on machines that idled 25 to 30 percent, not fuel. A construction contractor prices machine cost at 700 to 1,300 NOK an hour against 550 to 600 for the operator. <span class="src">[NCC; CEMEX UK Sep 2026; Grimsrud Aug 2026]</span></div>
-      <div><span class="l">Tyres</span><span class="sh">150,000 NOK a tyre in a quarry; 200,000 to 300,000 a set in a recycling hall</span>Wear is driven by spin, hard braking and surface. Concrete and waste eat tyres faster than gravel. <span class="src">[research Mar 2026; NG business case]</span></div>
+      <div><span class="l">Tyres</span><span class="sh">60,000 to 100,000 NOK a tyre on an L180-class machine; 200,000 to 300,000 a set in a recycling hall</span>Wear is driven by spin, hard braking and surface. Concrete and waste eat tyres faster than gravel. A 26.5R25 quarry-pattern tyre lists around 60,000 NOK, premium compounds and the largest machines above that. <span class="src">[market prices Sep 2026; NG business case]</span></div>
       <div><span class="l">Electricity and demand charges</span><span class="sh">"the big piece" at a stationary plant crushing 85 to 90 % on electricity</span>Stationary crushers run on power with demand charges. Starting and stopping a plant costs both money and quality: empty crusher chambers make flaky product. <span class="src">[Skanska Sverige Sep 2026; Franzefoss Jun 2026]</span></div>
       <div><span class="l">Operator wage, fully loaded</span><span class="sh">2 to 3 % of total in mobile crushing; 2 to 5 % "not unreasonable" at another; 15 to 20 % of a machine's own running cost; 30 to 45 % per machine hour on a construction site</span>The line we price against. Its share depends entirely on what you divide by, and on how many shifts. Where a site runs 24/7 it takes four to seven people to keep one machine going, and the wage becomes large. <span class="src">[NCC; Skanska; CEMEX contact; Grimsrud]</span></div>
       <div><span class="l">Idling and unproductive driving</span><span class="sh">25 to 30 % idling on UK aggregates loaders; 33.5 % referenced by an asphalt customer; up to 60 % in some studies</span>Engine running, nothing moving. Plus the loader driven to the canteen for lunch; one large contractor's client priced that habit per person per year. Idle hours also run the hour meter that service contracts bill on. <span class="src">[CEMEX UK; Eurovia framework; Mariana visit Aug 2026]</span></div>
@@ -930,7 +930,7 @@
       <div><dt>Cold feed bins</dt><dd>The hoppers at an asphalt plant that hold each aggregate fraction for the mix. RAP: recycled asphalt.</dd></div>
       <div><dt>Hold-up</dt><dd>A customer's term: production time lost because our machine could not keep up.</dd></div>
       <div><dt>Cycle time</dt><dd>Seconds for one bucket: spot, fill, lift, travel, dump, return.</dd></div>
-      <div><dt>Bucket fill factor</dt><dd>Payload divided by rated bucket capacity. A 6 m3 bucket carries about 10 tonnes of loose rock at a working fill, at 1.6 to 1.8 tonnes per cubic metre.</dd></div>
+      <div><dt>Bucket fill factor</dt><dd>Payload divided by rated bucket capacity. A 4.7 m3 bucket carries about 8 tonnes of blasted rock at a working fill, a 6 m3 bucket about 10.</dd></div>
       <div><dt>Pass</dt><dd>One bucket into a truck. Passes per truck is what a mine customer calls "pass match".</dd></div>
       <div><dt>Glass-to-glass</dt><dd>Camera to operator screen latency.</dd></div>
       <div><dt>Motion-to-motion</dt><dd>Joystick to machine response latency.</dd></div>
